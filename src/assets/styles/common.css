@@ -1,0 +1,117 @@
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-transform: skew(-35deg);
+  -ms-transform: skew(-35deg);
+  transform: skew(-35deg);
+  z-index: 1;
+  transition: all 0.3s ease-in;
+}
+
+.navbar-item {
+  transition: all 0.3s ease;
+}
+
+.home-img {
+  width: 100%;
+  height: 820px;
+  position: relative;
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo-img {
+  transition: all 0.3s ease-in;
+}
+
+.nav-sub-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f47a20;
+  -webkit-transform-origin: 100% 0;
+  -ms-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+  -webkit-transform: skew(-35deg);
+  -ms-transform: skew(-35deg);
+  transform: skew(-35deg);
+  z-index: 1;
+  display: block;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.sub-nav {
+  display: none;
+}
+.nav-item:hover .sub-nav {
+  display: block;
+}
+
+.button {
+  position: relative;
+  z-index: 10;
+}
+.button-link {
+  display: inline-block;
+  text-align: right;
+  color: #fff !important;
+  background-color: #f47a20;
+  font-weight: bold;
+  font-family: "Assistant", sans-serif;
+  padding: 6px 25px 7px 15px;
+  width: auto;
+  text-decoration: none;
+  font-size: 18px;
+  text-transform: uppercase;
+  line-height: 22px;
+  z-index: 9;
+  position: relative;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.button-link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f47a20;
+  -webkit-transform-origin: 100% 0;
+  -ms-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+  -webkit-transform: skew(-35deg);
+  -ms-transform: skew(-35deg);
+  transform: skew(-35deg);
+  z-index: 1;
+}
+
+.footer-link {
+  display: flex;
+}
+
+.footer-link svg {
+  flex: none;
+  position: relative;
+  top: 5px;
+  margin-right: 10px;
+}
+
+.media-icon svg {
+  width: 30px;
+  height: 30px;
+}

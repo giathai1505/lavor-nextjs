@@ -1,0 +1,20 @@
+.dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.progress-title {
+  position: absolute;
+  color: #f47a20;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 9px;
+  transform: translateX(-10px);
+  display: none;
+}
+
+.progress-title.show {
+  display: block;
+}

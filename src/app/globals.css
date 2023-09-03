@@ -2,26 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+h2 {
+  width: 100%;
+  height: auto;
+  text-transform: uppercase;
+  font-weight: lighter !important;
+  font-size: 32px;
+  color: #f47a20 !important;
+  font-family: "Assistant", sans-serif;
+  line-height: 55px;
+  padding: 0px 40px;
+  text-align: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+h2 span {
+  font-weight: bold;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+h3 {
+  width: 100%;
+  height: auto;
+  text-transform: uppercase;
+  text-align: left;
+  font-weight: lighter;
+  font-size: 18px;
+  color: #f47a20 !important;
+  font-family: "Assistant", sans-serif;
+  line-height: 26px;
+}
+
+.common-text {
+  color: white;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.common-text span,
+.common-text a {
+  color: #f47a20;
+}
+
+h4 {
+  width: 100%;
+  height: auto;
+  text-transform: uppercase;
+  font-weight: 200;
+  font-size: 14px;
+  color: #f47a20 !important;
+  font-family: "Assistant", sans-serif;
+  line-height: 22px;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
 }

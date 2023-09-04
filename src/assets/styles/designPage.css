@@ -18,3 +18,22 @@
 .progress-title.show {
   display: block;
 }
+
+.design-title {
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.design-conclusion-title {
+  font-weight: bold;
+  color: #f47a20;
+  font-size: 18px;
+  line-height: 26px;
+  text-transform: uppercase;
+  padding: 20px 0;
+}
+
+.design-opt p {
+  color: #f47a20;
+  margin: 5px 0;
+}

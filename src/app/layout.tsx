@@ -6,6 +6,7 @@ import Footer from "@/components/Common/Footer";
 import "@/assets/styles/common.css";
 import "@/assets/styles/components.css";
 import "@/assets/styles/designPage.css";
+import "@/assets/styles/homepage.css";
 
 const assistant = Assistant({
   subsets: ["latin"],

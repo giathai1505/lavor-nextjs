@@ -8,7 +8,7 @@ export const navBar = [
   {
     id: 2,
     name: "Về chúng tôi",
-    slug: "/about us",
+    slug: "/about-us",
     children: [],
   },
   {

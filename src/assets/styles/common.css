@@ -198,3 +198,7 @@
   display: block;
   opacity: 1;
 }
+
+.rating-star {
+  color: #f47a20;
+}

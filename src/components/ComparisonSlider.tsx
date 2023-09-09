@@ -43,18 +43,21 @@ const ComparisonSlider = () => {
           </span>
         </h2>
         <div className="h-[800px] bg-black relative">
-          <Image
-            src={oldCar}
-            alt="old car"
-            className="w-full h-full absolute"
-          />
-          <Image
-            src={newCar}
-            alt="new car"
-            className="w-full h-full absolute"
-            id="old-car-img"
-            ref={imgRef}
-          />
+          <div className="w-full h-full flex">
+            <Image
+              src={oldCar}
+              alt="old car"
+              className="w-full h-full absolute"
+            />
+            <Image
+              src={newCar}
+              alt="new car"
+              className="w-full h-full absolute"
+              id="old-car-img"
+              ref={imgRef}
+            />
+          </div>
+
           <p
             className={`${
               isDragging
@@ -63,17 +66,19 @@ const ComparisonSlider = () => {
             } cd-line cursor-move`}
             ref={lineRef}
           ></p>
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={sliderValue}
-            onChange={onSliderChange}
-            className="comparison-slider"
-            onClick={handleClickSlider}
-            onMouseDown={() => setIsDragging(true)}
-            onMouseUp={() => setIsDragging(false)}
-          />
+          <div className="absolute top-0 w-full">
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={sliderValue}
+              onChange={onSliderChange}
+              className="comparison-slider"
+              onClick={handleClickSlider}
+              onMouseDown={() => setIsDragging(true)}
+              onMouseUp={() => setIsDragging(false)}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,16 @@
+.rating-form {
+  border: 2px solid #f47a20;
+  padding: 10px 20px;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rating-stars svg::after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: full;
+  background: red;
+}

@@ -4,7 +4,7 @@ import Agency from "@/pages/Agency";
 
 const index = () => {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="bg-black">
       <Agency />
     </div>
   );

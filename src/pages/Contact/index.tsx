@@ -7,15 +7,13 @@ const titleBackgroundImage =
 
 const Contact = () => {
   return (
-    <div>
-      <div className="bg-black ">
-        <PartHeader title="LIÊN HỆ" backgroundImage={titleBackgroundImage} />
-        <div className="wrapper">
-          <div className="pb-40 pt-10">
-            <div className="grid grid-cols-2 gap-10">
-              <ContactForm />
-              <ContactInfo />
-            </div>
+    <div className="bg-black ">
+      <PartHeader title="LIÊN HỆ" backgroundImage={titleBackgroundImage} />
+      <div className="wrapper">
+        <div className="pb-40 pt-10">
+          <div className="grid grid-cols-2 gap-10">
+            <ContactForm />
+            <ContactInfo />
           </div>
         </div>
       </div>

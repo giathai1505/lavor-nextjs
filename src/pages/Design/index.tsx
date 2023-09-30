@@ -9,7 +9,9 @@ import car from "@/assets/images/home-slider/home-slider2.jpeg";
 import Image from "next/image";
 import startButton from "@/assets/images/start-now-button.png";
 import Button from "@/components/Common/Button";
-
+import PartHeader from "@/components/Common/PartHeader";
+const titleBackgroundImage =
+  "https://images.pexels.com/photos/193998/pexels-photo-193998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 const Design = () => {
   const [phase, setPhase] = useState<number>(1);
 
@@ -42,12 +44,11 @@ const Design = () => {
   }, [phase]);
   return (
     <div className="design-wrapper">
-      <div className="bg-black">
-        <div className="mb-20">
-          <h2 className="pt-[200px] text-[27px]">
-            <span>CHỌN DÒNG XE BẠN ĐANG SỞ HỮU</span>
-          </h2>
-        </div>
+      <PartHeader
+        title="CHỌN DÒNG XE BẠN ĐANG SỞ HỮU"
+        backgroundImage={titleBackgroundImage}
+      />
+      <div className="bg-black pt-20">
         <div className="wrapper">
           <div className="flex justify-center mb-20">
             <ProgressBar active={phase} />

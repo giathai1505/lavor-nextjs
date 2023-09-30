@@ -1,7 +1,8 @@
+import Product from "@/pages/Product";
 import React from "react";
-import Contact from "@/pages/Contact";
+
 const index = () => {
-  return <Contact />;
+  return <Product />;
 };
 
 export default index;

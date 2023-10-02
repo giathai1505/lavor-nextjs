@@ -1,0 +1,35 @@
+.two-line {
+  flex: 1;
+  position: relative;
+}
+
+.two-line::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  top: calc(50% - 2px);
+  height: 1px;
+  background-color: white;
+}
+.two-line::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  top: calc(50% + 2px);
+  height: 1px;
+  background-color: white;
+}
+.media-icon {
+  width: 44px;
+  height: 40px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 5px;
+}
+.media-icon svg {
+  width: 20px;
+}

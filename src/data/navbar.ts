@@ -53,7 +53,23 @@ export const navBar = [
     id: 5,
     name: "Tin tức",
     slug: "/news",
-    children: [],
+    children: [
+      {
+        id: 51,
+        name: "Kiến thức & mẹo",
+        slug: "/how-works",
+      },
+      {
+        id: 52,
+        name: "Về Lavor",
+        slug: "/reviews",
+      },
+      {
+        id: 53,
+        name: "Tuyển dụng",
+        slug: "/katzkin-vs-seat-covers",
+      },
+    ],
   },
   {
     id: 5,

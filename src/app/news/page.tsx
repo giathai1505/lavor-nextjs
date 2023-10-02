@@ -1,7 +1,8 @@
+import News from "@/pages/News";
 import React from "react";
 
-const News = () => {
-  return <div>News</div>;
+const index = () => {
+  return <News />;
 };
 
-export default News;
+export default index;

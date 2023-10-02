@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const NeckPillow = () => {
   return (
-    <div className="py-40">
+    <div className="py-10">
       <h2>Goi co</h2>
       <p className="m-0 mb-20 text-xl text-primary text-center">
         Thoải mái trên mọi hành trình.<br></br> Tạm biệt nỗi lo đau mỏi cổ, vai,

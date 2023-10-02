@@ -13,7 +13,11 @@ export default function HomePage() {
   return (
     <div>
       <div className="home-img overflow-hidden">
-        <Image src={homeSlider} alt="home image" />
+        <Image
+          src={homeSlider}
+          alt="home image"
+          className="w-full h-full object-cover"
+        />
         <div className="absolute home-text-wrapper left-0 z-10 top-[50%]">
           <div className="home-text">
             <h3 className="relative pb-5 leading-10 text-2xl">

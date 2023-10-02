@@ -8,6 +8,9 @@ const Product = () => {
       <div className="mt-28"></div>
       <div className="wrapper">
         <LeatherSeatCover />
+      </div>
+      <div className="w-full h-[500px] product-banner mt-10"></div>
+      <div className="wrapper">
         <NeckPillow />
       </div>
     </div>

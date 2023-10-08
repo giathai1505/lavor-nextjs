@@ -1,0 +1,69 @@
+.dialog-wrapper {
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.dialog-layer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000069;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.dialog-layer.disabled {
+  display: none;
+}
+
+h2.dialog-title {
+  margin: 0;
+  font-weight: bold !important;
+  color: #101828e0 !important;
+  font-size: 14px;
+  text-align: left;
+  padding: 0;
+  margin-bottom: 10px;
+  line-height: 18px;
+}
+
+.dialog-content {
+  color: rgb(107, 114, 128);
+  font-size: 13px;
+}
+
+.dialog-warning-line {
+  width: 100%;
+  height: 5px;
+  background-color: #ef4444;
+}
+
+.dialog-button-wrapper {
+  display: flex;
+  justify-content: end;
+  gap: 15px;
+  border-top: 1px solid rgb(236, 236, 236);
+  padding: 10px 30px;
+}
+
+.dialog-button {
+  padding: 8px 14px;
+  border-radius: 2px;
+  outline: none;
+}
+
+.dialog-button.delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.dialog-button.cancel {
+  border: 1px solid gray;
+}

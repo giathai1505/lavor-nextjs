@@ -1,8 +1,8 @@
-import AdminPage from "@/admin";
+import Login from "@/admin/Authentication/Login";
 import React from "react";
 
 const page = () => {
-  return <AdminPage />;
+  return <Login />;
 };
 
 export default page;

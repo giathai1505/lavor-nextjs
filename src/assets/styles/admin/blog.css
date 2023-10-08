@@ -1,0 +1,17 @@
+.admin-page-wrapper {
+  background-color: white;
+  padding: 40px;
+}
+
+.blog-status {
+  width: fit-content;
+  color: white;
+  background-color: #808080b0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+}
+
+.blog-status.active {
+  background-color: #0abb87;
+}

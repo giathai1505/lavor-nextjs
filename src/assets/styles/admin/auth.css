@@ -1,0 +1,51 @@
+.auth-form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form-button {
+  width: 100%;
+  color: white;
+  background-color: #4f46e5;
+  padding: 10px;
+  border-radius: 40px;
+  margin-top: 20px;
+}
+
+.auth-form-icon {
+  cursor: pointer;
+  color: gray;
+}
+
+.form-element-wrapper {
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.form-title {
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.form-link {
+  color: #4f46e5;
+}
+
+.form-logo {
+  width: 200px;
+}
+
+.eye-wrapper {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.eye-wrapper:hover {
+  background-color: #e2e8f0;
+  border-radius: 100%;
+}

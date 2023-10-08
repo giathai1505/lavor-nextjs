@@ -54,7 +54,7 @@ const Header = () => {
                 <Link
                   href={item.slug}
                   className={`font-bold uppercase cursor-pointer hover:text-primary navbar-item ${
-                    path.toString() === item.slug
+                    path?.toString() === item.slug
                       ? "text-primary"
                       : "text-white"
                   }`}

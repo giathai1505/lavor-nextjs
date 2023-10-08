@@ -1,0 +1,225 @@
+table {
+  background-color: white;
+  padding: 20px;
+  width: 100%;
+}
+
+table tr {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+table tr td,
+table tr th {
+  padding: 10px 30px;
+  text-align: left;
+  color: rgb(89, 93, 110);
+  font-size: 13px;
+}
+
+th {
+  background-color: #fafbfc;
+  border-top: 1px solid #e6e6e6;
+}
+
+tr:hover,
+tr.selected {
+  background-color: #595d6e1a;
+}
+
+.admin-block-wrapper {
+  background-color: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 40px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  user-select: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 2px;
+}
+
+.action-button.edit {
+  background-color: #3b82f6;
+}
+
+.action-button.delete {
+  background-color: #ef4444;
+}
+
+.action-button span {
+  font-size: 13px;
+}
+
+.admin-row-action-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  margin-top: 8px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.admin-row-action-wrapper.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.admin-row-action {
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.admin-row-action.edit {
+  color: #5578eb;
+}
+
+.admin-row-action.delete {
+  color: #fd397a;
+}
+
+.admin-row-action.active {
+  color: #0abb87;
+  background-color: transparent;
+}
+
+.pagination-arrow {
+  padding: 10px;
+  border-radius: 2px;
+  border: 1px solid #e2e8ef;
+}
+
+.pagination-arrow:hover {
+  background: #172e63;
+  color: white;
+}
+
+.pagination-arrow.disabled {
+  pointer-events: none;
+  color: gray;
+}
+
+.pagination-select {
+  padding: 5px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  font-size: 13px;
+  border: 1px solid #e2e8ef;
+}
+
+.button-delete-row-selection {
+  display: flex;
+  gap: 10px;
+  padding: 8px 14px;
+  color: #fd397a;
+  align-items: center;
+  width: fit-content;
+  background-color: rgba(253, 57, 122, 0.1);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.button-delete-row-selection:hover {
+  color: white;
+  background-color: rgb(253, 57, 122);
+}
+
+.selection-row-selection {
+  display: flex;
+  gap: 10px;
+  padding: 8px 14px;
+  color: rgb(88, 103, 221);
+  align-items: center;
+  width: fit-content;
+  background-color: rgba(88, 103, 221, 0.1);
+  border-radius: 2px;
+  outline: none;
+}
+
+.selection-row {
+  padding: 20px 0;
+  gap: 10px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  transition: linear 0.3s;
+  display: none;
+}
+
+.selection-row.show {
+  display: flex;
+}
+
+.add-new-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: 2px;
+  background-color: rgb(93, 120, 255);
+  font-size: 13px;
+  color: white;
+  flex: none;
+}
+
+.add-new-button:hover {
+  background-color: #3758ff;
+}
+
+.custom-select-wrapper {
+  padding: 8px 8px;
+  border: 1px solid #e2e8ef;
+  width: 300px;
+  font-size: 13px;
+  position: relative;
+  color: rgb(33, 37, 41);
+  font-weight: 300;
+}
+
+.custom-select-wrapper-show {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-select-wrapper-option {
+  position: absolute;
+  background-color: white;
+  top: calc(100% + 10px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0 0 50px 0 rgba(82, 63, 105, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  display: none;
+}
+
+.custom-select-wrapper-option.show {
+  display: flex;
+}
+
+.custom-select-wrapper-option p {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.custom-select-wrapper-option p:hover,
+.custom-select-wrapper-option p.selected {
+  background-color: #f7f8fa;
+}
+
+.custom-select-wrapper-show .selected {
+  flex: 1;
+}

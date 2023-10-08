@@ -1,8 +1,7 @@
-import AdminPage from "@/admin";
 import React from "react";
 
 const page = () => {
-  return <AdminPage />;
+  return <div>Dashboard</div>;
 };
 
 export default page;

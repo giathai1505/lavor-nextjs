@@ -1,14 +1,17 @@
-import Header from "@/components/Common/Header";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Assistant, Inter } from "next/font/google";
-import Footer from "@/components/Common/Footer";
+import { Assistant } from "next/font/google";
 import "@/assets/styles/common.css";
 import "@/assets/styles/components.css";
 import "@/assets/styles/designPage.css";
 import "@/assets/styles/homepage.css";
 import "@/assets/styles/aboutUsPage.css";
 import "@/assets/styles/newsPage.css";
+import "@/assets/styles/admin/auth.css";
+import "@/assets/styles/admin/dashboard.css";
+import "@/assets/styles/admin/table.css";
+import "@/assets/styles/admin/dialog.css";
+import "@/assets/styles/admin/blog.css";
 
 const assistant = Assistant({
   subsets: ["latin"],
@@ -27,11 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={assistant.className}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <body className={assistant.className}>{children}</body>
     </html>
   );
 }

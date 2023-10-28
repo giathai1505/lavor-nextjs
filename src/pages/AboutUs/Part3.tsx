@@ -1,8 +1,10 @@
+import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import React from "react";
+import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/2.png";
 
 const Part3 = () => {
   return (
-    <div className="bg-black py-20">
+    <div className="bg-black py-14">
       <div className="wrapper">
         <h2 className="mb-10">
           QUY TRÌNH SẢN XUẤT VÀ LẮP ĐẶT ĐỘC QUYỀN CỦA <span>LAVOR</span>
@@ -24,12 +26,14 @@ const Part3 = () => {
             </p>
           </div>
           <div>
-            <iframe
-              src="https://www.youtube.com/embed/YeRwL8ET11g"
-              title="Phân xưởng sản xuất nội thất ô tô hàng đầu Việt Nam có gì? | Lavor Luxury"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              className="w-[800px] h-[400px]"
-            ></iframe>
+            <div className="w-[800px] h-[450px]">
+              <YoutubeThumbnail
+                imgAlt="Giới thiệu phân xưởng Lavor"
+                imgSrc={introduceImg}
+                link="https://www.youtube.com/watch?v=nV7IIKJYZik&t=28s"
+                title="Phân xưởng sản xuất nội thất ô tô hàng đầu Việt Nam có gì? | Lavor Luxury"
+              />
+            </div>
           </div>
         </div>
       </div>

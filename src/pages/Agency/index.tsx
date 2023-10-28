@@ -2,9 +2,10 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import map from "@/assets/images/map.png";
-import { provinces, regions } from "./data";
+
 import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
+import { provinces, regions } from "@/data/agency";
 
 const titleBackgroundImage =
   "https://images.pexels.com/photos/132657/pexels-photo-132657.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -26,6 +27,7 @@ const Agency = () => {
   return (
     <div>
       <PartHeader
+        breadcrumb="Đại lý"
         title="DANH SÁCH ĐẠI LÝ TOÀN QUỐC LAVOR"
         backgroundImage={titleBackgroundImage}
       />
@@ -39,6 +41,7 @@ const Agency = () => {
                     item.id === activeRegion ? "bg-primary" : "bg-gray-400 "
                   }`}
                   onClick={() => setActiveRegion(item.id)}
+                  key={item.id}
                 >
                   {item.name}
                 </p>

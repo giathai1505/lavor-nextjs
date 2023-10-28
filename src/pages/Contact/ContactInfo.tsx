@@ -21,8 +21,8 @@ const ContactInfo = () => {
         <div className="flex items-center gap-2">
           <PiHouseLight className="text-primary" />
           <span>
-            VPGD: A22 - Lo TTA, Xuân Phương Garden, P.Phương Canh, Q.Nam Từ
-            Liêm, Hà Nội
+            VPGD: Chi nhánh miền Nam: 33 Đường 29, Khu đô thị Vạn Phúc, Thủ Đức,
+            TP. Hồ Chí Minh
           </span>
         </div>
         <div className="flex items-center gap-2">

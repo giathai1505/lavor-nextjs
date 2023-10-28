@@ -8,7 +8,11 @@ const titleBackgroundImage =
 const Contact = () => {
   return (
     <div className="bg-black ">
-      <PartHeader title="LIÊN HỆ" backgroundImage={titleBackgroundImage} />
+      <PartHeader
+        breadcrumb="Liên hệ"
+        title="LIÊN HỆ"
+        backgroundImage={titleBackgroundImage}
+      />
       <div className="wrapper">
         <div className="pb-40 pt-10">
           <div className="grid grid-cols-2 gap-10">

@@ -87,8 +87,6 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
     setSelectedMaterial(newState);
   };
 
-  console.log("=============", selectedMaterial);
-
   return (
     <div className="max-w-[1200px] mx-auto">
       <div>
@@ -104,6 +102,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     : "border-primary"
                 }`}
                 onClick={() => handleChangeDesign({ materialID: item.id })}
+                key={item.id}
               >
                 <div className="flex items-center gap-2">
                   <label htmlFor="" className="">
@@ -145,6 +144,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     : "border-primary"
                 }`}
                 onClick={() => handleChangeDesign({ colorID: item.id })}
+                key={item.id}
               >
                 <label htmlFor="" className="absolute top-5 left-5">
                   <input
@@ -184,6 +184,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     : "border-primary"
                 }`}
                 onClick={() => handleChangeDesign({ holeID: item.id })}
+                key={item.id}
               >
                 <label htmlFor="" className="absolute top-5 left-5">
                   <input

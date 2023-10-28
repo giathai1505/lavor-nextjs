@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import startButton from "@/assets/images/start-now-button.png";
+import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
+import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/introduce.webp";
 
 const Part2 = () => {
   return (
-    <div className="bg-[#2D2D2D] py-20">
+    <div className="bg-secondaryBackground py-14">
       <div className="wrapper">
         <h2>
           Chọn chiếc xe của bạn - còn lại để <span>Lavor</span> lo
@@ -21,7 +23,7 @@ const Part2 = () => {
             <p>
               2. Hãy để lại thông tin liên hệ. Những chuyên viên của Lavor sẽ
               liên hệ với bạn để tư vấn cụ thể hơn về thiết kế cũng như giá và
-              lên lịch nâng cấp nội thất xe giúp bạn.{" "}
+              lên lịch nâng cấp nội thất xe giúp bạn.
             </p>
             <br />
             <p>
@@ -29,17 +31,17 @@ const Part2 = () => {
               bạn
             </p>
           </div>
-          <div>
-            <iframe
-              src="https://www.youtube.com/embed/ZlZ7Cq8AQBU"
-              title="Hướng dẫn lắp đặt bộ MASSAGE LAVOR 3 CHỨC NĂNG"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              className="w-full h-[300px]"
-            ></iframe>
+          <div className="h-[250px] w-[500px]">
+            <YoutubeThumbnail
+              imgAlt="Hướng dẫn lắp đặt bộ massage 3 chức năng"
+              imgSrc={introduceImg}
+              title="Hướng dẫn lắp đặt bộ Massage 3 chức năng - Lavor"
+              link="https://www.youtube.com/watch?v=WxabGfI3CVk"
+            />
           </div>
         </div>
         <div className="mt-20 flex justify-center">
-          <Link href="#">
+          <Link href="/choose-your-design">
             <Image
               src={startButton}
               alt="Chọn thiêt kế riêng cuả bạn"

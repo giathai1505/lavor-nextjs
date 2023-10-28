@@ -4,7 +4,7 @@ import React from "react";
 import logo from "@/assets/images/logo/logo-white.png";
 import Image from "next/image";
 import { BiLogOutCircle } from "react-icons/bi";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 interface IPageProps {
   show: boolean;
@@ -18,16 +18,12 @@ const AdminSidebar: React.FC<IPageProps> = ({ show }) => {
   };
   return (
     <div className={`sidebar-wrapper ${show ? "show" : ""}`}>
-      <div>
-        <Image src={logo} alt="logo-white" className="sidebar-logo" />
-      </div>
+      <div></div>
       <div className="sidebar-avatar">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKmhlrf66Hw4fjnB1SV-c0Ndqn2iitK_DMWw&usqp=CAU"
-          alt=""
-          className="w-24 h-24 rounded-full object-cover"
-        />
-        <p>Ngo Gia Thai</p>
+        <Link href="/admin/dashboard">
+          <Image src={logo} alt="logo-white" className="sidebar-logo" />
+        </Link>
+        <p>Xin chào Lavor</p>
       </div>
       <p className="dashboard-text ">DASHBOARD</p>
       <ul className="px-3">
@@ -35,11 +31,14 @@ const AdminSidebar: React.FC<IPageProps> = ({ show }) => {
           return (
             <li
               className={`sidebar-item ${
-                path?.toString() === item.link ? "active" : ""
+                path?.toString().includes(item.link) ? "active" : ""
               }`}
               key={index}
             >
-              <Link href={item.link} className="flex gap-5 items-center ">
+              <Link
+                href={item.link}
+                className="flex gap-5 items-center text-[14px] text-white"
+              >
                 {item.icon}
                 <span>{item.name}</span>
               </Link>

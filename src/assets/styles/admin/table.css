@@ -90,6 +90,10 @@ tr.selected {
   background-color: transparent;
 }
 
+.admin-row-action.active .stop-active {
+  color: #808080b0;
+}
+
 .pagination-arrow {
   padding: 10px;
   border-radius: 2px;

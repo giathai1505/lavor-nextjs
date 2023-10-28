@@ -6,7 +6,7 @@ import { BsFillStarFill } from "react-icons/bs";
 const Rating = () => {
   const [hoverIndex, setHoverIndex] = useState<number>(-1);
   return (
-    <div className=" bg-[#2D2D2D] py-20 text-white">
+    <div className=" bg-[#2D2D2D] py-14 text-white">
       <div className="wrapper">
         <h2 className="mb-10">
           Khách hàng nói gì về <span>Lavor</span>?

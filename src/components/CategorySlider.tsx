@@ -1,7 +1,9 @@
 "use client";
 
 import { categories } from "@/data/products";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 let num = 4;
 let gap = 20;
 
@@ -36,18 +38,15 @@ const CategorySlider = () => {
 
   return (
     <div ref={containerRef} className="relative">
-      <div
+      <AiFillLeftCircle
         className="slider-navigator -left-[25px]"
         onClick={() => handleMoveSlider(-1)}
-      >
-        &lt;
-      </div>
-      <div
+      />
+
+      <AiFillRightCircle
         className="slider-navigator -right-[25px]"
         onClick={() => handleMoveSlider(1)}
-      >
-        &gt;
-      </div>
+      />
       <div className="overflow-hidden relative">
         <div
           className="inline-flex gap-5 relative slide-wrapper"
@@ -55,9 +54,11 @@ const CategorySlider = () => {
         >
           {categories.map((item) => {
             return (
-              <div
+              <Link
+                href="/"
                 style={{ width: `${productItemWidth}px` }}
                 className="pb-2 relative"
+                key={item.id}
               >
                 <img
                   src={item.image}
@@ -67,7 +68,7 @@ const CategorySlider = () => {
                 <p className="text-white uppercase font-medium absolute left-0 bottom-0 right-0 bg-primary text-center py-4">
                   {item.name}
                 </p>
-              </div>
+              </Link>
             );
           })}
         </div>

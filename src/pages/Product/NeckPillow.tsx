@@ -1,20 +1,22 @@
 import Button from "@/components/Common/Button";
 import React from "react";
-import { goiCo } from "./data";
 import Image from "next/image";
+import { goiCo } from "@/data/products";
 
 const NeckPillow = () => {
   return (
     <div className="py-10">
-      <h2>Goi co</h2>
-      <p className="m-0 mb-20 text-xl text-primary text-center">
+      <h2 className="mb-3">
+        <span>Gối cổ</span>
+      </h2>
+      <p className="m-0 mb-20 text-base mx-auto text-white text-center max-w-3xl ">
         Thoải mái trên mọi hành trình.<br></br> Tạm biệt nỗi lo đau mỏi cổ, vai,
         gáy.
       </p>
       <div className="grid grid-cols-4 gap-12">
         {goiCo.map((item) => {
           return (
-            <div className="border border-solid border-primary">
+            <div className="border border-solid border-primary" key={item.id}>
               <img
                 className="w-full h-[200px] bg-cover"
                 alt=""
@@ -26,6 +28,7 @@ const NeckPillow = () => {
                   {item.color.map((color) => {
                     return (
                       <div
+                        key={color}
                         className={`bg-[${color}] bg-[#F58220] w-4 h-4 rounded-full cursor-pointer`}
                       ></div>
                     );
@@ -42,7 +45,7 @@ const NeckPillow = () => {
         })}
       </div>
       <div className="mt-10 flex justify-center">
-        <Button link="" text="Xem them"></Button>
+        <Button link="/" text="Xem thêm"></Button>
       </div>
     </div>
   );

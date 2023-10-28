@@ -34,12 +34,12 @@ export const navBar = [
       {
         id: 34,
         name: "Thảm lót sàn",
-        slug: "",
+        slug: "/tham-lot-san",
       },
       {
         id: 35,
         name: "Sản phẩm khác",
-        slug: "",
+        slug: "/san-pham-khac",
       },
     ],
   },

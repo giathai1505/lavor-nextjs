@@ -6,7 +6,6 @@ import { PiTiktokLogo } from "react-icons/pi";
 import { renderCategory } from "./Newest";
 import { AiOutlineCalendar } from "react-icons/ai";
 import RelatedNews from "./RelatedNews";
-import RecruitmentNews from "./RecruitmentNews";
 import FavoriteNews from "./FavoriteNews";
 interface IPageProps {
   content: string;
@@ -17,7 +16,11 @@ const titleBackgroundImage =
 const DetailNews: React.FC<IPageProps> = ({ content }) => {
   return (
     <div>
-      <PartHeader title="Tin tức" backgroundImage={titleBackgroundImage} />
+      <PartHeader
+        breadcrumb="Tin tức"
+        title="Tin tức"
+        backgroundImage={titleBackgroundImage}
+      />
       <div className="bg-black py-20">
         <div className="grid grid-cols-4 gap-10 wrapper">
           <div className="col-span-3 flex flex-col gap-5">
@@ -37,23 +40,23 @@ const DetailNews: React.FC<IPageProps> = ({ content }) => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Link href="" className="media-icon bg-[#1559c2] ">
+              <Link href="/" className="media-icon bg-[#1559c2] ">
                 <FiFacebook className="" />
               </Link>
-              <Link href="" className="media-icon bg-[#f65e97] ">
+              <Link href="/" className="media-icon bg-[#f65e97] ">
                 <PiTiktokLogo />
               </Link>
-              <Link href="" className="media-icon bg-[#43ce13] ">
+              <Link href="/" className="media-icon bg-[#43ce13] ">
                 <FiMail />
               </Link>
-              <Link href="" className="media-icon bg-[#ff6b10] ">
+              <Link href="/" className="media-icon bg-[#ff6b10] ">
                 <FiYoutube />
               </Link>
             </div>
             <div className="h-[500px]">
               <img
                 src="https://images.pexels.com/photos/787476/pexels-photo-787476.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
+                alt="Quảng cáo xe hơi"
                 className="w-full h-full object-cover rounded-lg"
               />
             </div>

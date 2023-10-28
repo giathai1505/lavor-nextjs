@@ -39,7 +39,7 @@ const Footer = () => {
                     <ul>
                       {item.child.map((item) => {
                         return (
-                          <li className="mb-1 hover:text-primary">
+                          <li className="mb-1 hover:x-primary">
                             <Link href={item.slug} className="footer-link">
                               {item.icon}
                               <p>{item.name}</p>
@@ -50,7 +50,7 @@ const Footer = () => {
                     </ul>
                   </div>
                   {item.hasMedia ? (
-                    <div className="flex justify-between mt-4 media-icon">
+                    <div className="flex justify-between mt-4 media-icon gap-5">
                       <Link href="https://www.facebook.com/LavorLuxury2">
                         <FaSquareFacebook />
                       </Link>

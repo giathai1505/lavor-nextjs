@@ -19,7 +19,7 @@ const Header = () => {
   }, []);
 
   const handleScroll = () => {
-    const currentScroll = window.screenY || document.documentElement.scrollTop;
+    const currentScroll = document.documentElement.scrollTop;
     if (currentScroll > 100) {
       setShowFullHeader(false);
     } else {
@@ -47,13 +47,13 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="flex gap-[35px] z-10 mt-10">
+        <div className="flex z-10 mt-10">
           {navBar.map((item) => {
             return (
-              <div className="nav-item h-fit relative">
+              <div className="relative nav-item" key={item.id}>
                 <Link
                   href={item.slug}
-                  className={`font-bold uppercase cursor-pointer hover:text-primary navbar-item ${
+                  className={`font-bold uppercase cursor-pointer hover:text-primary navbar-item px-5 py-2 ${
                     path?.toString() === item.slug
                       ? "text-primary"
                       : "text-white"
@@ -61,15 +61,18 @@ const Header = () => {
                 >
                   {item.name}
                 </Link>
-                <div className="sub-nav -left-1/2 absolute">
+                <div className="sub-nav -left-1/2 absolute translate-x-1/3">
                   <ul className="mt-5">
                     {item.children && item.children.length > 0
-                      ? item.children.map((child) => {
+                      ? item.children.map((child, index) => {
                           return (
-                            <li className="relative mb-2 bg-primary text-center p-2 nav-sub-item leading-3 w-32">
+                            <li
+                              className="relative mb-2 bg-primary text-center nav-sub-item leading-3 w-32"
+                              key={index.toString()}
+                            >
                               <Link
                                 href={child?.slug}
-                                className="relative z-10"
+                                className="relative z-10 py-2 block"
                               >
                                 <span className="z-10 text-white uppercase font-bold text-[130x] hover:text-[#2d2d2d]">
                                   {child.name}

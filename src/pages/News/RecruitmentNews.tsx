@@ -31,7 +31,8 @@ const RecruitmentNews = () => {
         {followList.map((item) => {
           return (
             <Link
-              href=""
+              key={item.id}
+              href="/"
               className="border border-solid border-[#222121] px-3 py-[10px] flex text-[#d7d7d7] hover:text-white hover:bg-[#323232] mb-4"
             >
               <div className="flex items-center gap-5">

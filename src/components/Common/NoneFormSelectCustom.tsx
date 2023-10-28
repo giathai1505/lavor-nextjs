@@ -61,6 +61,7 @@ const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
               className={`${
                 selectedOption.key === item.key ? "selected" : ""
               } `}
+              key={item.key}
             >
               {item.value}
             </p>

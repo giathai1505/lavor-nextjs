@@ -1,8 +1,8 @@
 import React from "react";
 import NewsTitle from "./NewsTitle";
-import { newestNews } from "./data";
 import { neww, renderCategory } from "./Newest";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { newestNews } from "@/data/news";
 
 interface ISpotlightItem {
   newContent: neww;
@@ -54,7 +54,7 @@ const SpotlightNews = () => {
         </div>
         <div className="grid grid-cols-2 gap-5 mt-10">
           {newestNews.map((item, index) => {
-            return <NewsItem newContent={item} />;
+            return <NewsItem newContent={item} key={index} />;
           })}
         </div>
       </div>

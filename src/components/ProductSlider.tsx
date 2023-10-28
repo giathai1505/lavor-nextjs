@@ -4,6 +4,7 @@ import { products } from "@/data/products";
 import React, { useEffect, useRef, useState } from "react";
 import LazyImage from "./Common/LazyImage";
 import logo from "@/assets/images/logo/logo-white.png";
+import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 let num = 5;
 let gap = 20;
 
@@ -38,18 +39,15 @@ const ProductSlider = () => {
 
   return (
     <div ref={containerRef} className="relative">
-      <div
+      <AiFillLeftCircle
         className="slider-navigator -left-[25px]"
         onClick={() => handleMoveSlider(-1)}
-      >
-        &lt;
-      </div>
-      <div
+      />
+
+      <AiFillRightCircle
         className="slider-navigator -right-[25px]"
         onClick={() => handleMoveSlider(1)}
-      >
-        &gt;
-      </div>
+      />
       <div className="overflow-hidden relative">
         <div
           className="inline-flex gap-5 relative slide-wrapper"
@@ -57,7 +55,11 @@ const ProductSlider = () => {
         >
           {products.map((item) => {
             return (
-              <div style={{ width: `${productItemWidth}px` }} className="pb-2">
+              <div
+                style={{ width: `${productItemWidth}px` }}
+                className="pb-2"
+                key={item.id}
+              >
                 <LazyImage
                   src={item.image}
                   alt="Product image"

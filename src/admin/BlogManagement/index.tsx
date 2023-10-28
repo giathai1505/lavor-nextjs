@@ -61,6 +61,7 @@ const BlogManagement = () => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState(false);
+  const [showInfoDialog, setShowInfoDialog] = useState(false);
   const [itemHovered, setItemHovered] = useState<string | undefined>(undefined);
 
   const renderStatus = (status: number) => {
@@ -98,45 +99,37 @@ const BlogManagement = () => {
         ),
       },
       {
-        accessorFn: (row) => row.blog_id,
-        id: "blog_id",
+        accessorFn: (row) => row.blog_title,
+        id: "blog_title",
         cell: ({ row }) => (
           <div>
-            <span>{row.original.blog_id.toString()}</span>
+            <span>{row.original.blog_title.toString()}</span>
             <div
               className={`admin-row-action-wrapper gap-2 ${
                 itemHovered === row.id ? "show" : ""
               }`}
             >
-              <Link href="" className="admin-row-action edit">
-                Sửa
-              </Link>{" "}
-              |
-              <Link href="" className="admin-row-action edit">
-                Nhân bản
-              </Link>{" "}
-              |
-              <Link
-                href=""
+              <button className="admin-row-action edit">Sửa</button> |
+              <button
                 className="admin-row-action delete"
                 onClick={() => setIsOpenDeleteConfirmDialog(true)}
               >
                 Xóa
-              </Link>{" "}
+              </button>{" "}
               |
-              <Link href="" className="admin-row-action active">
-                Ngưng hoạt động
-              </Link>
+              <button
+                className="admin-row-action active"
+                onClick={() => setShowInfoDialog(true)}
+              >
+                {row.original.status === 0 ? (
+                  <span> Hoạt động</span>
+                ) : (
+                  <span className="stop-active"> Ngưng hoạt động</span>
+                )}
+              </button>
             </div>
           </div>
         ),
-        header: () => <span>ID</span>,
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorFn: (row) => row.blog_title,
-        id: "blog_title",
-        cell: (info) => info.getValue(),
         header: () => <span>Tiêu đề bài viết</span>,
       },
       {
@@ -199,6 +192,10 @@ const BlogManagement = () => {
     setIsOpenDeleteConfirmDialog(false);
   };
 
+  const handleChangeStatus = () => {
+    setShowInfoDialog(false);
+  };
+
   const handleAddNew = () => {};
 
   const handleFilterBlog = (name: string, item: any) => {
@@ -208,15 +205,25 @@ const BlogManagement = () => {
   return (
     <div className="admin-page-wrapper ">
       <ConfirmDialog
+        onOk={handleChangeStatus}
+        title="Đổi trạng thái của bài viết"
+        open={showInfoDialog}
+        content="Bạn có chắc muốn đổi trạng thái của bài viết này không?"
+        onClose={() => setShowInfoDialog(false)}
+        type="information"
+      />
+
+      <ConfirmDialog
         onOk={handleDelete}
         title="Xóa bài viết"
         open={isOpenDeleteConfirmDialog}
         content="Bạn có chắc muốn xóa bài viết này không?"
         onClose={() => setIsOpenDeleteConfirmDialog(false)}
+        type="delete"
       />
       <div className="p-2">
-        <div className="flex items-center justify-between">
-          <h2 className="admin-title ">Danh sách bài viết</h2>
+        <div className="flex items-center justify-between mb-10">
+          <p className="admin-title">Danh sách bài viết</p>
           <Link
             href="/admin/dashboard/blog-management/add"
             className="add-new-button"

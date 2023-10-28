@@ -5,28 +5,32 @@ import startNowButton from "@/assets/images/start-now-button.png";
 import "@/assets/styles/homepage.css";
 import startButton from "@/assets/images/start-now-button.png";
 import homeSlider from "@/assets/images/home-slider/home-slider3.jpeg";
-import car from "@/assets/images/home-slider/home-slider2.jpeg";
 import Button from "@/components/Common/Button";
 import ProductPart from "./ProductPart";
+import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
+import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
+import { amazingCar } from "@/data/homePage";
+import { BsArrowDownCircleFill } from "react-icons/bs";
 
 export default function HomePage() {
   return (
     <div>
       <div className="home-img overflow-hidden">
+        <div className="home-arrow-down">
+          <BsArrowDownCircleFill />
+        </div>
         <Image
           src={homeSlider}
           alt="home image"
           className="w-full h-full object-cover"
         />
-        <div className="absolute home-text-wrapper left-0 z-10 top-[50%]">
+        <div className="absolute home-text-wrapper left-0 z-10 top-[40%]">
           <div className="home-text">
             <h3 className="relative pb-5 leading-10 text-2xl">
               <span className="font-bold">ĐẲNG CẤP HƠN VỚI LAVOR!</span>
             </h3>
             <p className="common-text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              Bạn muốn nâng tầm, làm mới nội thất xe của mình?
             </p>
           </div>
 
@@ -40,15 +44,20 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="home-leather ">
+      <div className="home-leather">
         <div className="container mx-auto max-w-[1200px]">
           <h2 className="mb-10">
             Với <span>Lavor</span> , nội thất xe của bạn sẽ trở nên{" "}
             <span> đẳng cấp</span>
           </h2>
           <div className="grid grid-cols-2 gap-20">
-            <div>
-              <Image alt="oto" src={car} className="w-full rounded-md" />
+            <div className="h-[300px]">
+              <YoutubeThumbnail
+                imgAlt="Giới thiệu Lavor"
+                imgSrc={introduceImg}
+                link="https://www.youtube.com/watch?v=Q9CR65EpYZU"
+                title="LAVOR LUXURY | Giới thiệu công ty TNHH Thương Mại Dịch Vụ Và Sản Xuất Minh Tâm"
+              />
             </div>
             <div className="leather-text">
               <p>
@@ -72,14 +81,14 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-10">
-            <Button link="" text="Tìm hiểu thêm" />
+            <Button link="/about-us" text="Tìm hiểu thêm" />
           </div>
         </div>
       </div>
 
       <ComparisonSlider />
 
-      <div className="bg-[#2D2D2D]">
+      <div className="bg-secondaryBackground">
         <div className="max-w-[1200px] mx-auto text-center py-10">
           <h2 className="mb-10">
             CHỌN CHIẾC XE CỦA BẠN - CÒN LẠI <span>LAVOR </span> LO
@@ -118,7 +127,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-20 flex justify-center">
-            <Link href="#">
+            <Link href="/choose-your-design">
               <Image
                 src={startButton}
                 alt="Chọn thiêt kế riêng cuả bạn"
@@ -131,41 +140,27 @@ export default function HomePage() {
 
       <ProductPart />
 
-      <div className="bg-[#2D2D2D] pb-20">
+      <div className="bg-secondaryBackground pb-20">
         <div className="max-w-[1200px] mx-auto">
           <h2 className="py-10">
             NHỮNG <span>TUYỆT PHẨM</span> ĐƯỢC NÂNG CẤP TẠI <span>LAVOR</span>
           </h2>
           <div className="grid grid-cols-3 gap-10">
-            <div>
-              <iframe
-                src="https://www.youtube.com/embed/jhebym6VHZ8"
-                title='HOT!!! XE ĐỘ ÂM THANH 5000$ SẼ "LỘT XÁC" NHỮNG GÌ? | Lavor Luxury'
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                className="w-full h-[200px]"
-              ></iframe>
-            </div>
-            <div>
-              <iframe
-                src="https://www.youtube.com/embed/k0mTEmHOtqw"
-                title='CAMRY 7 năm tuổi "lột xác" như xe hạng SANG như thế nào? | Lavor Luxury'
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                className="w-full h-[200px]"
-              ></iframe>
-            </div>
-            <div>
-              <iframe
-                width="1206"
-                height="678"
-                src="https://www.youtube.com/embed/KqFnFYv-DLk"
-                title='HOT!!! FORD EVEREST NEXT GEN bọc lại nội thất "chủ tịch" siêu VIP | Lavor Luxury'
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                className="w-full h-[200px]"
-              ></iframe>
-            </div>
+            {amazingCar.map((item) => {
+              return (
+                <div className="h-[200px]" key={item.id}>
+                  <YoutubeThumbnail
+                    imgAlt={item.alt}
+                    imgSrc={item.src}
+                    link={item.link}
+                    title={item.title}
+                  />
+                </div>
+              );
+            })}
           </div>
           <div className="mt-20 flex justify-center">
-            <Link href="#">
+            <Link href="/choose-your-design">
               <Image
                 src={startButton}
                 alt="Chọn thiêt kế riêng cuả bạn"

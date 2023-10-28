@@ -18,6 +18,7 @@ const config: Config = {
       },
       colors: {
         primary: "#f47a20",
+        secondaryBackground: "#000000e8",
         adminPrimary: "#0F172A",
         borderColor: "#E2E8EF",
       },

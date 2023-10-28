@@ -1,8 +1,7 @@
 import React from "react";
 import NewsTitle from "./NewsTitle";
-import { renderCategory } from "./Newest";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { newestNews } from "./data";
+import { newestNews } from "@/data/news";
 export interface neww {
   id: number;
   category: number;
@@ -41,7 +40,7 @@ const RelatedNews = () => {
       <NewsTitle text="Tin lien quan" />
       <div className="my-10">
         {newestNews.map((item, index) => {
-          if (index > 0) return <NewsItem newContent={item} />;
+          if (index > 0) return <NewsItem newContent={item} key={item.id} />;
         })}
       </div>
     </div>

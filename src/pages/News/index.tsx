@@ -1,6 +1,5 @@
 import PartHeader from "@/components/Common/PartHeader";
 import React from "react";
-import NewsTitle from "./NewsTitle";
 import Newest from "./Newest";
 import SpotlightNews from "./SpotlightNews";
 import FavoriteNews from "./FavoriteNews";
@@ -11,7 +10,11 @@ const titleBackgroundImage =
 const News = () => {
   return (
     <div>
-      <PartHeader title="Tin tức" backgroundImage={titleBackgroundImage} />
+      <PartHeader
+        breadcrumb="Tin tức"
+        title="Tin tức"
+        backgroundImage={titleBackgroundImage}
+      />
       <div className="bg-black">
         <div className="wrapper pt-20">
           <div className="grid grid-cols-4 gap-10">

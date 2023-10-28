@@ -14,7 +14,7 @@ const Login = () => {
       <p className="form-title">Sign in</p>
       <div className="flex gap-2 mt-3">
         <p>Bạn chưa có tài khoản?</p>
-        <Link href="" className="form-link ">
+        <Link href="/" className="form-link ">
           Đăng kí
         </Link>
       </div>
@@ -56,7 +56,7 @@ const Login = () => {
             <p>Remember me</p>
           </div>
 
-          <Link href="" className="form-link ">
+          <Link href="/" className="form-link ">
             Forgot password?
           </Link>
         </div>

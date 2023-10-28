@@ -1,7 +1,7 @@
 import React from "react";
 import NewsTitle from "./NewsTitle";
-import { newestNews } from "./data";
 import { AiOutlineArrowRight, AiOutlineCalendar } from "react-icons/ai";
+import { newestNews } from "@/data/news";
 
 const FavoriteNews = () => {
   return (
@@ -10,7 +10,10 @@ const FavoriteNews = () => {
       <div>
         {newestNews.map((item) => {
           return (
-            <div className="text-white flex items-center gap-2 justify-between border-b border-solid border-[#222121] mt-5">
+            <div
+              className="text-white flex items-center gap-2 justify-between border-b border-solid border-[#222121] mt-5"
+              key={item.id}
+            >
               <div>
                 <div className="flex items-center gap-2 text-[#a5a6aa]">
                   <AiOutlineCalendar />

@@ -1,7 +1,7 @@
 import React from "react";
 import NewsTitle from "./NewsTitle";
-import { newestNews } from "./data";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { newestNews } from "@/data/news";
 
 export interface neww {
   id: number;
@@ -81,7 +81,7 @@ const Newest = () => {
         </div>
         <div className="flex flex-col gap-5">
           {newestNews.map((item, index) => {
-            if (index > 0) return <NewsItem newContent={item} />;
+            if (index > 0) return <NewsItem newContent={item} key={index} />;
           })}
         </div>
       </div>

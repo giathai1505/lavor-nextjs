@@ -2,7 +2,7 @@ import React from "react";
 
 const Part1 = () => {
   return (
-    <div className="bg-black pt-10 pb-20">
+    <div className="bg-black py-14">
       <div className="wrapper">
         <p className="text-white common-text">
           Lavor là một thương hiệu sản xuất nội thất ô tô, trực thuộc Công ty

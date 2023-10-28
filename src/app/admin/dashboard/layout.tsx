@@ -1,7 +1,13 @@
 "use client";
 import AdminSidebar from "@/admin/Components/AdminSidebar";
+import { Poppins } from "next/font/google";
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa6";
+
+export const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export default function AdminAuthLayout({
   children,
@@ -10,7 +16,7 @@ export default function AdminAuthLayout({
 }) {
   const [isShowSidebar, setIsShowSidebar] = useState(false);
   return (
-    <div className="">
+    <div className={poppins.className}>
       <AdminSidebar show={isShowSidebar} />
       <div className={`admin-dashboard-header ${isShowSidebar ? "show" : ""}`}>
         <div

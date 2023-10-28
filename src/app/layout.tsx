@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Assistant } from "next/font/google";
+import { Assistant, Poppins } from "next/font/google";
 import "@/assets/styles/common.css";
 import "@/assets/styles/components.css";
 import "@/assets/styles/designPage.css";
@@ -12,6 +12,7 @@ import "@/assets/styles/admin/dashboard.css";
 import "@/assets/styles/admin/table.css";
 import "@/assets/styles/admin/dialog.css";
 import "@/assets/styles/admin/blog.css";
+import "draft-js/dist/Draft.css";
 
 const assistant = Assistant({
   subsets: ["latin"],

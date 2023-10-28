@@ -22,6 +22,7 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
               <div
                 className="flex items-center gap-2 bg-gray-400 mb-2 cursor-pointer text-white py-2 pl-5"
                 onClick={() => setActiveProvince(item.id)}
+                key={item.id}
               >
                 <GoTriangleRight
                   className={` ${

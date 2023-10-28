@@ -12,6 +12,9 @@ import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
 const titleBackgroundImage =
   "https://images.pexels.com/photos/193998/pexels-photo-193998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
+import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
+import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 const Design = () => {
   const [phase, setPhase] = useState<number>(1);
 
@@ -45,6 +48,7 @@ const Design = () => {
   return (
     <div className="design-wrapper">
       <PartHeader
+        breadcrumb="Chọn thiết kế"
         title="CHỌN DÒNG XE BẠN ĐANG SỞ HỮU"
         backgroundImage={titleBackgroundImage}
       />
@@ -63,8 +67,13 @@ const Design = () => {
             <span> đẳng cấp</span>
           </h2>
           <div className="grid grid-cols-2 gap-20">
-            <div>
-              <Image alt="oto" src={car} className="w-full rounded-md" />
+            <div className="h-[300px]">
+              <YoutubeThumbnail
+                imgAlt="Giới thiệu Lavor"
+                imgSrc={introduceImg}
+                link="https://www.youtube.com/watch?v=Q9CR65EpYZU"
+                title="LAVOR LUXURY | Giới thiệu công ty TNHH Thương Mại Dịch Vụ Và Sản Xuất Minh Tâm"
+              />
             </div>
             <div className="leather-text">
               <p>
@@ -88,12 +97,12 @@ const Design = () => {
             </div>
           </div>
           <div className="mt-10">
-            <Button link="" text="Tìm hiểu thêm" />
+            <Button link="/" text="Tìm hiểu thêm" />
           </div>
         </div>
       </div>
 
-      <div className="bg-[#2D2D2D] pb-40">
+      <div className="bg-secondaryBackground pb-20">
         <div className="max-w-[1200px] mx-auto text-center py-10">
           <h2 className="mb-10">
             CHỌN CHIẾC XE CỦA BẠN - CÒN LẠI <span>LAVOR </span> LO
@@ -132,7 +141,7 @@ const Design = () => {
             </div>
           </div>
           <div className="mt-20 flex justify-center">
-            <Link href="#">
+            <Link href="/">
               <Image
                 src={startButton}
                 alt="Chọn thiêt kế riêng cuả bạn"

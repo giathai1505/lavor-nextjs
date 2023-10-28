@@ -1,5 +1,6 @@
 import Footer from "@/components/Common/Footer";
 import Header from "@/components/Common/Header";
+import { Metadata } from "next";
 import React from "react";
 
 export default function AboutUsLayout({

@@ -101,17 +101,63 @@
   bottom: 0;
   left: 0;
   cursor: pointer;
+  user-select: none;
 }
 
 .sidebar-logout:hover {
   color: #7f8af4;
 }
 
-h2.admin-title {
-  font-size: 22px !important;
-  line-height: 2rem;
-  font-weight: bold !important;
+.admin-title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
   text-align: left;
   padding: 0;
-  color: rgb(67, 67, 73) !important;
+  text-transform: none;
+  margin-bottom: 0;
+  color: rgb(100, 108, 154);
+}
+
+.dashboard-part {
+  padding: 20px;
+  border-radius: 4px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-part.one {
+  background-color: #0a4479;
+}
+
+.dashboard-part.two {
+  background-color: #cf810c;
+}
+
+.dashboard-part.three {
+  background-color: #df4b39;
+}
+
+.dashboard-part.four {
+  background-color: #3f9870;
+}
+
+.dashboard-part .number {
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.dashboard-part .icon {
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
+.dashboard-part .desc {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }

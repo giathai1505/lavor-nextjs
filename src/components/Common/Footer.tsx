@@ -50,17 +50,26 @@ const Footer = () => {
                     </ul>
                   </div>
                   {item.hasMedia ? (
-                    <div className="flex justify-between mt-4 media-icon gap-5">
-                      <Link href="https://www.facebook.com/LavorLuxury2">
-                        <FaSquareFacebook />
+                    <div className="flex justify-between mt-4 footer-media-icon gap-5">
+                      <Link
+                        href="https://www.facebook.com/LavorLuxury2"
+                        target="_blank"
+                      >
+                        <FaSquareFacebook className="w-5 h-5" />
                       </Link>
-                      <Link href="https://www.tiktok.com/@lavorluxury.official">
+                      <Link
+                        href="https://www.tiktok.com/@lavorluxury.official"
+                        target="_blank"
+                      >
                         <FaTiktok />
                       </Link>
-                      <Link href="https://minhtamvietnam.vn/">
+                      <Link href="https://minhtamvietnam.vn/" target="_blank">
                         <AiFillGooglePlusCircle />
                       </Link>
-                      <Link href="https://www.youtube.com/channel/UCR4hf6Azj1amYpaDriauRHw">
+                      <Link
+                        href="https://www.youtube.com/channel/UCR4hf6Azj1amYpaDriauRHw"
+                        target="_blank"
+                      >
                         <AiFillYoutube />
                       </Link>
                     </div>

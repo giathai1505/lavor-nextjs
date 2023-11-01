@@ -1,51 +1,33 @@
-import Button from "@/components/Common/Button";
 import React from "react";
-import Image from "next/image";
 import { goiCo } from "@/data/products";
+import Link from "next/link";
+import { BsArrowRightShort } from "react-icons/bs";
+import ProductItemVertical from "./components/ProductItemVertical";
 
 const NeckPillow = () => {
   return (
     <div className="py-10">
-      <h2 className="mb-3">
-        <span>Gối cổ</span>
-      </h2>
-      <p className="m-0 mb-20 text-base mx-auto text-white text-center max-w-3xl ">
-        Thoải mái trên mọi hành trình.<br></br> Tạm biệt nỗi lo đau mỏi cổ, vai,
-        gáy.
-      </p>
+      <div className="mb-10">
+        <div className="flex justify-between items-center gap-20">
+          <p className="text-primary font-bold text-3xl">GỐI CỔ</p>
+
+          <div className="flex-1 flex justify-end">
+            <div className="w-2/3  h-[1px] bg-[#80808059]"></div>
+          </div>
+          <Link
+            href="/san-pham/goi-co"
+            className="flex items-center gap-2 bg-white text-primary hover:bg-primary hover:text-white rounded-sm px-3 py-2 w-fit"
+          >
+            <span>Xem tất cả</span>
+            <BsArrowRightShort />
+          </Link>
+        </div>
+      </div>
+
       <div className="grid grid-cols-4 gap-12">
         {goiCo.map((item) => {
-          return (
-            <div className="border border-solid border-primary" key={item.id}>
-              <img
-                className="w-full h-[200px] bg-cover"
-                alt=""
-                src={item.image}
-              />
-              <div className="text-primary p-4 flex flex-col gap-2">
-                <p>Choose color:</p>
-                <div className="flex gap-2">
-                  {item.color.map((color) => {
-                    return (
-                      <div
-                        key={color}
-                        className={`bg-[${color}] bg-[#F58220] w-4 h-4 rounded-full cursor-pointer`}
-                      ></div>
-                    );
-                  })}
-                </div>
-                <p className="font-bold text-base">{item.name}</p>
-                <div className="flex gap-2 items-center">
-                  <span className="text-2xl font-bold">{item.price}</span>
-                  <span className="text-xs">VND</span>
-                </div>
-              </div>
-            </div>
-          );
+          return <ProductItemVertical product={item} key={item.id} />;
         })}
-      </div>
-      <div className="mt-10 flex justify-center">
-        <Button link="/" text="Xem thêm"></Button>
       </div>
     </div>
   );

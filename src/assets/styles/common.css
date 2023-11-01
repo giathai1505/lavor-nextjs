@@ -139,9 +139,15 @@
   margin-right: 10px;
 }
 
-.media-icon svg {
+.footer-media-icon svg {
   width: 30px;
   height: 30px;
+}
+
+.footer-media-icon svg:hover {
+  color: #f47a20;
+  transform: scale(1.1);
+  transition: all 0.3s ease-in;
 }
 
 .dropdown {

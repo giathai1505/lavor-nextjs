@@ -2,57 +2,57 @@ export const navBar = [
   {
     id: 1,
     name: "Thiết kế",
-    slug: "/choose-your-design",
+    slug: "/thiet-ke",
     children: [],
   },
   {
     id: 2,
     name: "Về chúng tôi",
-    slug: "/about-us",
+    slug: "/ve-chung-toi",
     children: [],
   },
   {
     id: 3,
     name: "Sản phẩm",
-    slug: "/product",
+    slug: "/san-pham",
     children: [
       {
         id: 31,
         name: "Bọc ghế",
-        slug: "/how-works",
+        slug: "/san-pham/boc-ghe-da",
       },
       {
         id: 32,
         name: "Bọc tay lái",
-        slug: "/reviews",
+        slug: "/san-pham/boc-tay-lai",
       },
       {
         id: 33,
         name: "Gối cổ",
-        slug: "/katzkin-vs-seat-covers",
+        slug: "/san-pham/goi-co",
       },
       {
         id: 34,
         name: "Thảm lót sàn",
-        slug: "/tham-lot-san",
+        slug: "/san-pham/tham-lot-san",
       },
       {
         id: 35,
         name: "Sản phẩm khác",
-        slug: "/san-pham-khac",
+        slug: "/san-pham/san-pham-khac",
       },
     ],
   },
   {
     id: 4,
     name: "Đại lý",
-    slug: "/agency",
+    slug: "/dai-ly",
     children: [],
   },
   {
     id: 5,
     name: "Tin tức",
-    slug: "/news",
+    slug: "/tin-tuc",
     children: [
       {
         id: 51,
@@ -74,7 +74,7 @@ export const navBar = [
   {
     id: 5,
     name: "Liên hệ",
-    slug: "/contact",
+    slug: "/lien-he",
     children: [],
   },
 ];

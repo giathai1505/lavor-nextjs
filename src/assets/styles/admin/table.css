@@ -226,4 +226,5 @@ tr.selected {
 
 .custom-select-wrapper-show .selected {
   flex: 1;
+  color: white;
 }

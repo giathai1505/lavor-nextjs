@@ -36,8 +36,8 @@ const LeatherSeatCover = () => {
           );
         })}
       </div>
-      <div className="mt-20 flex justify-center">
-        <Link href="/">
+      <div className="mt-14 flex justify-center">
+        <Link href="/thiet-ke">
           <Image
             src={startButton}
             alt="Chọn thiêt kế riêng cuả bạn"

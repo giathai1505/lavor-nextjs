@@ -7,11 +7,10 @@ import { renderCategory } from "./Newest";
 import { AiOutlineCalendar } from "react-icons/ai";
 import RelatedNews from "./RelatedNews";
 import FavoriteNews from "./FavoriteNews";
+import titleBackgroundImage from "@/assets/images/headerPart/6.jpeg";
 interface IPageProps {
   content: string;
 }
-const titleBackgroundImage =
-  "https://images.pexels.com/photos/132657/pexels-photo-132657.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
 const DetailNews: React.FC<IPageProps> = ({ content }) => {
   return (

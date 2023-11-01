@@ -6,6 +6,7 @@ import "@/assets/styles/components.css";
 import "@/assets/styles/designPage.css";
 import "@/assets/styles/homepage.css";
 import "@/assets/styles/aboutUsPage.css";
+import "@/assets/styles/productPage.css";
 import "@/assets/styles/newsPage.css";
 import "@/assets/styles/admin/auth.css";
 import "@/assets/styles/admin/dashboard.css";

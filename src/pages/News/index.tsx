@@ -4,8 +4,7 @@ import Newest from "./Newest";
 import SpotlightNews from "./SpotlightNews";
 import FavoriteNews from "./FavoriteNews";
 import RecruitmentNews from "./RecruitmentNews";
-const titleBackgroundImage =
-  "https://images.pexels.com/photos/132657/pexels-photo-132657.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+import titleBackgroundImage from "@/assets/images/headerPart/6.jpeg";
 
 const News = () => {
   return (

@@ -5,6 +5,32 @@ import productThumbnail4 from "@/assets/images/youtubeThumbnail/products/4.webp"
 import productThumbnail5 from "@/assets/images/youtubeThumbnail/products/5.webp";
 import productThumbnail6 from "@/assets/images/youtubeThumbnail/products/6.webp";
 
+//category
+import bocGheImg from "@/assets/images/cateogries/boc-ghe.png";
+import goiCoImg from "@/assets/images/cateogries/goi-co.png";
+import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san.png";
+import voLangImg from "@/assets/images/cateogries/vo-lang.png";
+import sanPhamKhacImg from "@/assets/images/cateogries/san-pham-khac.png";
+
+//tham-lot-san
+import thamLotSan1 from "@/assets/images/products/tham-lot-san/TLS-1.png";
+import thamLotSan2 from "@/assets/images/products/tham-lot-san/TLS-2.png";
+import thamLotSan3 from "@/assets/images/products/tham-lot-san/TLS-3.png";
+
+//goi-co
+import goiCo1 from "@/assets/images/products/goi-co/GC-1.png";
+import goiCo2 from "@/assets/images/products/goi-co/GC-2.png";
+import goiCo3 from "@/assets/images/products/goi-co/GC-3.png";
+import goiCo4 from "@/assets/images/products/goi-co/GC-4.png";
+
+//boc-tay-lai
+import bocTayLai1 from "@/assets/images/products/boc-tay-lai/BTL-1.png";
+import bocTayLai2 from "@/assets/images/products/boc-tay-lai/BTL-2.png";
+import bocTayLai3 from "@/assets/images/products/boc-tay-lai/BTL-3.png";
+
+//san-pham-khac
+import sanPhamKhac1 from "@/assets/images/products/san-pham-khac/SPK-1.jpeg";
+
 export const products = [
   {
     id: 1,
@@ -68,39 +94,99 @@ export const products = [
   },
 ];
 
-export const categories = [
+export const bocTayLai = [
   {
     id: 1,
-    name: "Thảm lót sàn",
-    image: "https://lavorluxury.com/wp-content/uploads/2021/11/SANDA.png",
+    name: "Premium-1-03",
+    price: "699.000",
+    image: bocTayLai1,
+    category: "Bọc tay lái",
   },
   {
     id: 2,
+    name: "Anta – 01",
+    price: "699.000",
+    image: bocTayLai2,
+    category: "Bọc tay lái",
+  },
+  {
+    id: 3,
+    name: "Premium-1-01",
+    price: "699.000",
+    image: bocTayLai3,
+    category: "Bọc tay lái",
+  },
+];
+
+export const thamLotSan = [
+  {
+    id: 1,
+    name: "HYUNDAI TUCSON 2019",
+    price: "999.000",
+    image: thamLotSan1,
+    category: "Thảm lót sàn",
+  },
+  {
+    id: 2,
+    name: "TOYOTA LAND CRUISER",
+    price: "999.000",
+    image: thamLotSan2,
+    category: "Thảm lót sàn",
+  },
+  {
+    id: 3,
+    name: "HYUNDAI SANTAFE 2021",
+    price: "999.000",
+    image: thamLotSan3,
+    category: "Thảm lót sàn",
+  },
+];
+
+export const sanPhamKhac = [
+  {
+    id: 1,
+    name: "Ví da Lavor",
+    price: "499.000",
+    image: sanPhamKhac1,
+    category: "Sản phẩm khác",
+  },
+];
+
+export const categories = [
+  {
+    id: 2,
     name: "Bọc ghế",
-    image:
-      "https://lavorluxury.com/wp-content/uploads/2020/12/c179ef79d871292f70605-500x600-1.jpg",
+    image: bocGheImg,
+    href: "/san-pham/boc-ghe-da",
+    quantity: 9,
   },
   {
     id: 3,
     name: "Bọc tay lái",
-    image:
-      "https://lavorluxury.com/wp-content/uploads/2020/12/TC235-500x600-1.jpg",
+    image: voLangImg,
+    href: "/san-pham/boc-tay-lai",
+    quantity: 9,
   },
   {
     id: 4,
     name: "Gối cổ",
-    image: "https://lavorluxury.com/wp-content/uploads/2021/11/1234-1.png",
+    image: goiCoImg,
+    href: "/san-pham/goi-co",
+    quantity: 27,
+  },
+  {
+    id: 1,
+    name: "Thảm lót sàn",
+    image: thamLotSanImg,
+    href: "/san-pham/tham-lot-san",
+    quantity: 6,
   },
   {
     id: 5,
-    name: "DROPSTOPS",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/22-1.png",
-  },
-  {
-    id: 6,
     name: "Sản phẩm khác",
-    image:
-      "https://lavorluxury.com/wp-content/uploads/2020/12/94615637_107829277580031_2429706202423230464_n-500x600-1.jpg",
+    image: sanPhamKhacImg,
+    href: "/san-pham/san-pham-khac",
+    quantity: 1,
   },
 ];
 
@@ -177,30 +263,30 @@ export const bocGheDa = [
 export const goiCo = [
   {
     id: 1,
-    name: "Goi co Lavor Premiem",
-    color: ["#E6C197", "#F58220", "##000000"],
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/9.png",
+    name: "Gối cổLavor Premiem",
+    image: goiCo1,
     price: "1.500.000",
+    category: "Gối cổ",
   },
   {
     id: 2,
-    name: "Goi co Lavor Low Price",
-    color: ["#E6C197", "#F58220", "##000000"],
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/16.png",
+    name: "Gối cổ Lavor Low Price",
+    image: goiCo2,
     price: "1.500.000",
+    category: "Gối cổ",
   },
   {
     id: 3,
-    name: "Goi co Lavor Luxury",
-    color: ["#E6C197", "#F58220", "##000000"],
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/13.png",
+    name: "Gối cổ Lavor Luxury",
+    image: goiCo3,
     price: "1.500.000",
+    category: "Gối cổ",
   },
   {
     id: 3,
-    name: "Goi co Lavor Luxury",
-    color: ["#E6C197", "#F58220", "##000000"],
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/13.png",
+    name: "Gối cổ Lavor Luxury",
+    image: goiCo4,
     price: "1.500.000",
+    category: "Gối cổ",
   },
 ];

@@ -5,8 +5,7 @@ import Part2 from "./Part2";
 import Part3 from "./Part3";
 import PartHeader from "@/components/Common/PartHeader";
 import Rating2 from "./Rating2";
-const titleBackgroundImage =
-  "https://images.pexels.com/photos/326259/pexels-photo-326259.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+import titleBackgroundImage from "@/assets/images/headerPart/2.jpeg";
 
 const AboutUs = () => {
   return (

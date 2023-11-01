@@ -5,13 +5,11 @@ import ChooseCar from "./ChooseCar";
 import ChooseDesign from "./ChooseDesign";
 import Conclusion from "./Conclusion";
 import Link from "next/link";
-import car from "@/assets/images/home-slider/home-slider2.jpeg";
 import Image from "next/image";
 import startButton from "@/assets/images/start-now-button.png";
 import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
-const titleBackgroundImage =
-  "https://images.pexels.com/photos/193998/pexels-photo-193998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
 
 import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";

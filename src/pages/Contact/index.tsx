@@ -2,8 +2,7 @@ import React from "react";
 import ContactForm from "./ContactForm";
 import ContactInfo from "./ContactInfo";
 import PartHeader from "@/components/Common/PartHeader";
-const titleBackgroundImage =
-  "https://images.pexels.com/photos/100655/pexels-photo-100655.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+import titleBackgroundImage from "@/assets/images/headerPart/1.webp";
 
 const Contact = () => {
   return (

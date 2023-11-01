@@ -1,0 +1,147 @@
+.dp-slide-img-item {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.dp-slide-img-item:hover {
+  border: 2px solid #f47a20;
+}
+
+.dp-slide-img-item.active {
+  border: 2px solid #f47a20;
+}
+
+.dp-main-img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.add-to-card-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  background-color: #f47a20;
+  color: white;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.add-to-card-button:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.dp-price {
+  font-size: 40px;
+  font-weight: bold;
+  color: #f47a20;
+}
+
+.dp-price span {
+  font-size: 12px;
+}
+
+.db-name {
+  font-size: 32px;
+  font-weight: bold;
+  color: #f47a20;
+}
+
+.db-color-item {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.db-color-item.active {
+  border: 5px solid white;
+}
+
+.db-desc-wrapper {
+  border-top: 1px solid #80808059;
+  padding-top: 40px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lp-product-wrapper {
+  border: 1px solid #f47a20;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.lp-product-wrapper img {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.lp-product-wrapper:hover img {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.lp-product-content-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.list-category-wrapper {
+  background-image: radial-gradient(
+    95.56% 95.56% at 50% 50%,
+    #fff8f800 0%,
+    #ffffff1a 100%
+  );
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-category-wrapper img {
+  width: 80px;
+  height: 80px;
+}
+
+.category-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.category-wrapper:hover img {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.category-wrapper:hover p {
+  color: #f47a20;
+}
+
+.product-wrapper {
+  user-select: none;
+  border-radius: 2px;
+}
+
+.product-wrapper:hover img {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}

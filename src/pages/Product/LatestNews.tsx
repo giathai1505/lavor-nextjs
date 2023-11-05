@@ -4,6 +4,7 @@ import React from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { renderCategory } from "../News/Newest";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { Category } from "@/types";
 
 const LatestNews = () => {
   return (
@@ -35,7 +36,7 @@ const LatestNews = () => {
                 />
               </div>
               <div className="ml-10 my-5">
-                {renderCategory(newestNews[0].category)}
+                {renderCategory(Category.ABOUT)}
                 <p className="text-[22px] text-white my-5">
                   {newestNews[0].title}
                 </p>

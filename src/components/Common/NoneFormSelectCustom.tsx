@@ -10,13 +10,17 @@ interface IOption {
 interface INoneFormSelectCustomProps {
   options: IOption[];
   onChange: (item: IOption) => void;
+  className?: string;
+  placeholder?: string;
 }
 
 const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
   options,
   onChange,
+  className,
+  placeholder = "filter",
 }) => {
-  const [selectedOption, setSelectedOption] = useState<IOption>(options[0]);
+  const [selectedOption, setSelectedOption] = useState<IOption | undefined>();
   const [isShowOption, setIsShowOption] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -43,12 +47,17 @@ const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
     setIsShowOption(false);
   };
   return (
-    <div className="custom-select-wrapper" ref={wrapperRef}>
+    <div className={`custom-select-wrapper ${className}`} ref={wrapperRef}>
       <div
         className="custom-select-wrapper-show "
         onClick={() => setIsShowOption((prev) => !prev)}
       >
-        <span className="selected">{selectedOption.value}</span>
+        {selectedOption ? (
+          <span className="selected">{selectedOption.value}</span>
+        ) : (
+          <span className="placeholder">{placeholder}</span>
+        )}
+
         <AiOutlineCaretDown />
       </div>
       <div
@@ -59,7 +68,7 @@ const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
             <p
               onClick={() => handleOnchange(item)}
               className={`${
-                selectedOption.key === item.key ? "selected" : ""
+                selectedOption?.key === item.key ? "selected" : ""
               } `}
               key={item.key}
             >

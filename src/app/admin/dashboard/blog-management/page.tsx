@@ -1,8 +1,23 @@
 import BlogManagement from "@/admin/BlogManagement";
-import React, { useState } from "react";
+import { API_ENPOINT } from "@/constants/api";
+import React from "react";
 
-const page = () => {
-  return <BlogManagement />;
+async function getAllBlog() {
+  const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+export const page = async () => {
+  let response = await getAllBlog();
+
+  return <BlogManagement blogs={response?.blogs} loading={false} />;
 };
 
 export default page;

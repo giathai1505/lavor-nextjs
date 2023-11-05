@@ -8,6 +8,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import RelatedNews from "./RelatedNews";
 import FavoriteNews from "./FavoriteNews";
 import titleBackgroundImage from "@/assets/images/headerPart/6.jpeg";
+import { Category } from "@/types";
 interface IPageProps {
   content: string;
 }
@@ -23,7 +24,7 @@ const DetailNews: React.FC<IPageProps> = ({ content }) => {
       <div className="bg-black py-20">
         <div className="grid grid-cols-4 gap-10 wrapper">
           <div className="col-span-3 flex flex-col gap-5">
-            {renderCategory(1)}
+            {renderCategory(Category.ABOUT)}
             <p className="text-2xl text-white">
               Novak appeals in court against dear less Care cancellation of
               Australian

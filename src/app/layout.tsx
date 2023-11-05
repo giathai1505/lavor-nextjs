@@ -14,6 +14,8 @@ import "@/assets/styles/admin/table.css";
 import "@/assets/styles/admin/dialog.css";
 import "@/assets/styles/admin/blog.css";
 import "draft-js/dist/Draft.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const assistant = Assistant({
   subsets: ["latin"],

@@ -3,6 +3,7 @@ import NewsTitle from "./NewsTitle";
 import { neww, renderCategory } from "./Newest";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { newestNews } from "@/data/news";
+import { Category } from "@/types";
 
 interface ISpotlightItem {
   newContent: neww;
@@ -14,7 +15,7 @@ const NewsItem: React.FC<ISpotlightItem> = ({ newContent }) => {
         <img src={newContent.image} className="object-cover" />
       </div>
       <div className="flex-2 flex flex-col gap-3 mx-5 my-auto">
-        {renderCategory(newContent.category)}
+        {renderCategory(Category.ABOUT)}
         <p className="text-base text-white">{newContent.title}</p>
         <div className="flex items-center gap-2 text-[#a5a6aa]">
           <AiOutlineCalendar />
@@ -39,7 +40,7 @@ const SpotlightNews = () => {
             />
           </div>
           <div className="my-auto ml-10 mt-5">
-            {renderCategory(newestNews[0].category)}
+            {renderCategory(Category.ABOUT)}
             <p className="text-[22px] text-white my-5">{newestNews[0].title}</p>
             <p className="common-text mb-5">
               Contrary to popular belief, Lorem Ipsum is not simply random text.

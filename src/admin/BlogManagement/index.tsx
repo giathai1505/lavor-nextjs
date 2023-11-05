@@ -1,6 +1,5 @@
 "use client";
 import React, { HTMLProps, useState } from "react";
-import { makeData, Person } from "./makeData";
 import {
   ColumnDef,
   flexRender,
@@ -21,23 +20,34 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
+import { Category, CategoryConvertText, IBlog, Status } from "@/types";
+import { changeBlogStatus, deleteAPI, deleteMultipleBlogs } from "@/api/blog";
+import { ToastContainer } from "react-toastify";
+import { redirect } from "next/navigation";
+import { renderCategory } from "@/pages/News/Newest";
+import { tr } from "@faker-js/faker";
+import moment from "moment";
 
 const statusOptions = [
   {
-    key: 0,
-    value: "Trạng thái",
+    key: -1,
+    value: "Tất cả",
   },
   {
-    key: 1,
+    key: 0,
     value: "Hoạt động",
   },
   {
-    key: 2,
+    key: 1,
     value: "Ngưng hoạt động",
   },
 ];
 
 const categoryOptions = [
+  {
+    key: -1,
+    value: "Tất cả",
+  },
   {
     key: 0,
     value: "Danh mục bài viết",
@@ -56,23 +66,36 @@ const categoryOptions = [
   },
 ];
 
-const BlogManagement = () => {
+interface IBlogManagement {
+  blogs: IBlog[];
+  loading: boolean;
+}
+
+const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState("");
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
+  const [data, setData] = useState(blogs);
   const [itemHovered, setItemHovered] = useState<string | undefined>(undefined);
+  const [activeField, setActiveField] = useState<number | undefined>(undefined);
+  const [activeChangeStatus, setActiveChangeStatus] = useState<{
+    id: number | undefined;
+    status: Status | undefined;
+  }>({ id: undefined, status: undefined });
 
-  const renderStatus = (status: number) => {
+  const renderStatus = (status: Status) => {
     return (
-      <div className={`blog-status ${status === 1 ? "active" : ""}`}>
-        {status === 1 ? "Hoạt động" : "Ngưng hoạt động"}
+      <div
+        className={`blog-status ${status === Status.ACTIVE ? "active" : ""}`}
+      >
+        {status === Status.ACTIVE ? "Hoạt động" : "Ngưng hoạt động"}
       </div>
     );
   };
 
-  const columns = React.useMemo<ColumnDef<Person>[]>(
+  const columns = React.useMemo<ColumnDef<IBlog>[]>(
     () => [
       {
         id: "select",
@@ -109,97 +132,163 @@ const BlogManagement = () => {
                 itemHovered === row.id ? "show" : ""
               }`}
             >
-              <button className="admin-row-action edit">Sửa</button> |
+              <Link
+                className="admin-row-action edit"
+                href={`/admin/dashboard/blog-management/${row.original.blog_id.toString()}`}
+                onClick={() => handleEdit(row.original.blog_id)}
+              >
+                Sửa
+              </Link>
+              |
               <button
                 className="admin-row-action delete"
-                onClick={() => setIsOpenDeleteConfirmDialog(true)}
+                onClick={() => {
+                  setIsOpenDeleteConfirmDialog(true);
+                  setActiveField(row.original.blog_id);
+                }}
               >
                 Xóa
-              </button>{" "}
+              </button>
               |
               <button
                 className="admin-row-action active"
-                onClick={() => setShowInfoDialog(true)}
+                onClick={() => {
+                  setShowInfoDialog(true);
+                  setActiveChangeStatus({
+                    id: row.original.blog_id,
+                    status: row.original.blog_status,
+                  });
+                }}
               >
-                {row.original.status === 0 ? (
+                {row.original.blog_status === Status.SUSPENDED ||
+                row.original.blog_status === Status.DELETED ? (
                   <span> Hoạt động</span>
                 ) : (
-                  <span className="stop-active"> Ngưng hoạt động</span>
+                  <span className="stop-active  whitespace-nowrap">
+                    Ngưng hoạt động
+                  </span>
                 )}
               </button>
             </div>
           </div>
         ),
-        header: () => <span>Tiêu đề bài viết</span>,
+        header: () => <span>Tiêu đề</span>,
       },
       {
         accessorFn: (row) => row.blog_description,
         id: "blog_description",
-        cell: (info) => info.getValue(),
-        header: () => <span>Mô tả bài viết</span>,
+        cell: ({ row }) => (
+          <div className="ellipsis-text-3-lines ">
+            {row.original.blog_description}
+          </div>
+        ),
+        header: () => <span>Mô tả</span>,
       },
       {
-        accessorFn: (row) => row.blog_cover_image_url,
+        accessorFn: (row) => row.blog_image_url,
         id: "blog_cover_image_url",
-        cell: (info) => info.getValue(),
-        header: () => <span>Ảnh bài viết</span>,
+        cell: ({ row }) => (
+          <div>
+            <img
+              src={row.original.blog_image_url}
+              alt=""
+              className="w-20 h-20 rounded-full object-cover"
+            />
+          </div>
+        ),
+        header: () => <span>Ảnh</span>,
+      },
+
+      {
+        accessorFn: (row) => row.blog_upload_date,
+        id: "blog_upload_date",
+        cell: ({ row }) => (
+          <p className="time">
+            {moment(row.original.blog_upload_date).fromNow()}
+          </p>
+        ),
+        header: () => <span className="time">Ngày đăng</span>,
       },
       {
-        accessorFn: (row) => row.category,
+        accessorFn: (row) => row.blog_category,
         id: "category",
-        cell: (info) => info.getValue(),
+        cell: ({ row }) => (
+          <div style={{ whiteSpace: "nowrap" }}>
+            {renderCategory(row.original.blog_category)}
+          </div>
+        ),
         header: () => <span>Danh mục</span>,
       },
 
       {
-        accessorFn: (row) => row.blog_content,
-        id: "blog_content",
-        cell: (info) => info.getValue(),
-        header: () => <span>Nội dung bài viết</span>,
-      },
-      {
-        accessorFn: (row) => row.status,
+        accessorFn: (row) => row.blog_status,
         id: "status",
-        cell: ({ row }) => renderStatus(row.original.status),
+        cell: ({ row }) => renderStatus(row.original.blog_status),
         header: () => <span>Trạng thái</span>,
       },
     ],
     [itemHovered]
   );
 
-  const [data, setData] = useState(() => makeData(100));
-  const refreshData = () => setData(() => makeData(100));
+  const getRowId = (row: any, relativeIndex: any, parent: any) => {
+    return parent ? [parent.id, row.blog_id].join(".") : row.blog_id;
+  };
 
   const table = useReactTable({
     data,
+    getRowId,
     columns,
     state: {
       rowSelection,
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
+
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     debugTable: true,
   });
 
-  const handleEdit = () => {
-    console.log("edit");
+  const handleEdit = (id: number) => {
+    redirect(`/admin/dashboard/blog-management/${id.toString()}`);
   };
 
   const handleDelete = () => {
     setIsOpenDeleteConfirmDialog(false);
+
+    if (typeof activeField === "number") {
+      deleteAPI(activeField);
+      setActiveField(undefined);
+    }
+
+    window.location.reload();
   };
 
   const handleChangeStatus = () => {
     setShowInfoDialog(false);
+    if (
+      typeof activeChangeStatus.id === "number" &&
+      activeChangeStatus.status !== undefined
+    ) {
+      const targetStatus =
+        activeChangeStatus.status === Status.ACTIVE
+          ? Status.SUSPENDED
+          : Status.ACTIVE;
+      changeBlogStatus(activeChangeStatus.id, targetStatus);
+      setActiveChangeStatus({ id: undefined, status: undefined });
+      window.location.reload();
+    }
   };
-
-  const handleAddNew = () => {};
 
   const handleFilterBlog = (name: string, item: any) => {
     console.log(item);
+  };
+
+  const handleDeleteMultipleBlog = () => {
+    const blogIds = Object.keys(rowSelection).map((item) => Number(item));
+    deleteMultipleBlogs(blogIds);
+    window.location.reload();
   };
 
   return (
@@ -241,16 +330,20 @@ const BlogManagement = () => {
           <NoneFormSelectCustom
             options={statusOptions}
             onChange={(item) => handleFilterBlog("status", item)}
+            className="admin"
+            placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
             onChange={(item) => handleFilterBlog("category", item)}
+            className="admin"
+            placeholder="Lọc theo danh mục"
           />
           <div>
             <div>
               <button
                 className="border rounded p-2 text-[22px]"
-                onClick={() => refreshData()}
+                onClick={() => {}}
               >
                 <BiRefresh />
               </button>
@@ -272,7 +365,10 @@ const BlogManagement = () => {
             <option value="">Hoạt động</option>
             <option value="">Ngừng hoạt động</option>
           </select>
-          <div className="button-delete-row-selection ">
+          <div
+            className="button-delete-row-selection "
+            onClick={handleDeleteMultipleBlog}
+          >
             <BsTrash />
             <span>Xóa tất cả</span>
           </div>
@@ -300,7 +396,8 @@ const BlogManagement = () => {
               </tr>
             ))}
           </thead>
-          <tbody>
+
+          <tbody className="w-full">
             {table.getRowModel().rows.map((row) => {
               return (
                 <tr
@@ -325,6 +422,7 @@ const BlogManagement = () => {
               );
             })}
           </tbody>
+
           <tfoot>
             <tr>
               <td className="p-1">
@@ -413,6 +511,7 @@ const BlogManagement = () => {
 
         <br />
       </div>
+      <ToastContainer />
     </div>
   );
 };

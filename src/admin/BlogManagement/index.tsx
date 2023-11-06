@@ -1,5 +1,5 @@
 "use client";
-import React, { HTMLProps, useState } from "react";
+import React, { HTMLProps, useEffect, useState } from "react";
 import {
   ColumnDef,
   flexRender,
@@ -8,6 +8,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
 import ConfirmDialog from "@/components/Common/Dialog";
 import Link from "next/link";
 import {
@@ -20,48 +21,52 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { Category, CategoryConvertText, IBlog, Status } from "@/types";
-import { changeBlogStatus, deleteAPI, deleteMultipleBlogs } from "@/api/blog";
+import { Category, IBlog, Status } from "@/types";
+import {
+  changeBlogStatus,
+  changeMultipleBlogStatus,
+  deleteAPI,
+  deleteMultipleBlogs,
+  getAllBlogs,
+} from "@/api/blog";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
 import { renderCategory } from "@/pages/News/Newest";
-import { tr } from "@faker-js/faker";
 import moment from "moment";
 
 const statusOptions = [
   {
-    key: -1,
-    value: "Tất cả",
-  },
-  {
-    key: 0,
+    key: Status.ACTIVE,
     value: "Hoạt động",
   },
   {
-    key: 1,
+    key: Status.SUSPENDED,
+    value: "Ngưng hoạt động",
+  },
+];
+
+const statusAPIOoptions = [
+  {
+    key: Status.ACTIVE,
+    value: "Hoạt động",
+  },
+  {
+    key: Status.SUSPENDED,
     value: "Ngưng hoạt động",
   },
 ];
 
 const categoryOptions = [
   {
-    key: -1,
-    value: "Tất cả",
-  },
-  {
-    key: 0,
-    value: "Danh mục bài viết",
-  },
-  {
-    key: 1,
+    key: Category.ABOUT,
     value: "Về Lavor",
   },
   {
-    key: 2,
+    key: Category.TIPS,
     value: "Kiến thức & Mẹo",
   },
   {
-    key: 3,
+    key: Category.RECRUITMENT,
     value: "Tuyển dụng",
   },
 ];
@@ -71,9 +76,27 @@ interface IBlogManagement {
   loading: boolean;
 }
 
+interface IFilterBlog {
+  search: string;
+  category: Category | undefined;
+  status: Status | undefined;
+}
+
+const renderStatus = (status: Status) => {
+  return (
+    <div className={`blog-status ${status === Status.ACTIVE ? "active" : ""}`}>
+      {status === Status.ACTIVE ? "Hoạt động" : "Ngưng hoạt động"}
+    </div>
+  );
+};
+
 const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
   const [rowSelection, setRowSelection] = useState({});
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
+    search: "",
+    category: undefined,
+    status: undefined,
+  });
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
@@ -85,15 +108,33 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
     status: Status | undefined;
   }>({ id: undefined, status: undefined });
 
-  const renderStatus = (status: Status) => {
-    return (
-      <div
-        className={`blog-status ${status === Status.ACTIVE ? "active" : ""}`}
-      >
-        {status === Status.ACTIVE ? "Hoạt động" : "Ngưng hoạt động"}
-      </div>
-    );
+  const invokeGetAllBlogs = async () => {
+    let url = "?page=1&limit=10";
+    if (globalFilter.search !== "") {
+      url += "&search=" + globalFilter.search;
+    }
+    if (globalFilter.status !== undefined) {
+      url += "&status=" + globalFilter.status;
+    }
+    if (globalFilter.category !== undefined) {
+      url += "&category=" + globalFilter.category;
+    }
+
+    getAllBlogs(url)
+      .then((result) => {
+        console.log(result.blogs);
+        setData(result.blogs);
+      })
+      .catch((error) => {
+        setData([]);
+      });
   };
+
+  useEffect(() => {
+    invokeGetAllBlogs();
+  }, [globalFilter.category, globalFilter.search, globalFilter.status]);
+
+  console.log(globalFilter);
 
   const columns = React.useMemo<ColumnDef<IBlog>[]>(
     () => [
@@ -243,7 +284,6 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
-
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -282,13 +322,20 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
   };
 
   const handleFilterBlog = (name: string, item: any) => {
-    console.log(item);
+    const newFilterObject = { ...globalFilter, [name]: item };
+    setGlobalFilter(newFilterObject);
   };
 
   const handleDeleteMultipleBlog = () => {
     const blogIds = Object.keys(rowSelection).map((item) => Number(item));
     deleteMultipleBlogs(blogIds);
-    window.location.reload();
+    invokeGetAllBlogs();
+  };
+
+  const handleChangeMultipleStatus = (status: any) => {
+    const blogIds = Object.keys(rowSelection).map((item) => Number(item));
+    changeMultipleBlogStatus(blogIds, status.key);
+    invokeGetAllBlogs();
   };
 
   return (
@@ -322,30 +369,38 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
         </div>
         <div className="flex items-center gap-5">
           <input
-            value={globalFilter ?? ""}
+            value={globalFilter.search}
             onChange={(e) => handleFilterBlog("search", e.target.value)}
             className="p-2 font-lg shadow border border-block w-[500px] text-[13px]"
             placeholder="Tìm kiếm bài viết..."
           />
           <NoneFormSelectCustom
             options={statusOptions}
-            onChange={(item) => handleFilterBlog("status", item)}
+            onChange={(item) => handleFilterBlog("status", item.key)}
             className="admin"
+            value={globalFilter.status}
             placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
-            onChange={(item) => handleFilterBlog("category", item)}
+            value={globalFilter.category}
+            onChange={(item) => handleFilterBlog("category", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"
           />
           <div>
             <div>
               <button
-                className="border rounded p-2 text-[22px]"
-                onClick={() => {}}
+                onClick={() => {
+                  setGlobalFilter({
+                    search: "",
+                    status: undefined,
+                    category: undefined,
+                  });
+                }}
+                className="add-new-button"
               >
-                <BiRefresh />
+                <BiRefresh /> <span>Load tất cả bài viết</span>
               </button>
             </div>
           </div>
@@ -361,10 +416,12 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
               Đã chọn: {Object.keys(rowSelection).length}
             </span>
           </div>
-          <select name="" id="" className="selection-row-selection ">
-            <option value="">Hoạt động</option>
-            <option value="">Ngừng hoạt động</option>
-          </select>
+          <NoneFormSelectCustom
+            options={statusAPIOoptions}
+            onChange={(item) => handleChangeMultipleStatus(item)}
+            className="admin purple-version"
+            placeholder="Thay đổi trạng thái"
+          />
           <div
             className="button-delete-row-selection "
             onClick={handleDeleteMultipleBlog}
@@ -375,6 +432,7 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
         </div>
 
         <div className="h-2" />
+
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

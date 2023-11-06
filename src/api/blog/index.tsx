@@ -4,7 +4,29 @@ import { Status } from "@/types";
 import { toast } from "react-toastify";
 
 const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE2OTkxMTgyMjcsImV4cCI6MTY5OTEyNTQyN30.Nm1qIQ40xuD_A5qxPaCh7DJb9gZIUmVQ-BAPdGthwcA";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE2OTkyNzc1ODAsImV4cCI6MTY5OTI4NDc4MH0.fjIy0eqbdrU7Vs6-zh05gBCClqJ2vsBKNjMfHrTeNRk";
+
+export async function getAllBlogs(url: string) {
+  try {
+    const response = await fetch(API_ENPOINT + "blogs" + url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
 
 export async function addBlogAPI(data: IFormValue) {
   try {
@@ -164,24 +186,24 @@ export async function changeBlogStatus(id: number, status: Status) {
   }
 }
 
-export async function editBlogAPI(data: IFormValue) {
+export async function editBlogAPI(data: IFormValue, blogID: string) {
   try {
-    const loadingToastId = toast.info("Đang tạo bài viết...", {
+    const loadingToastId = toast.info("Đang chỉnh sửa bài viết...", {
       position: "top-center",
       autoClose: false,
     });
-    const response = await fetch(API_ENPOINT + "blogs", {
-      method: "POST",
+    const response = await fetch(API_ENPOINT + "blogs/" + blogID, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${bearerToken}`,
       },
-      body: JSON.stringify({ ...data, blog_url: "" }),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
       toast.dismiss(loadingToastId);
-      toast.error("Tạo bài viết thất bại!!!", {
+      toast.error("Chỉnh sửa bài viết thất bại!!!", {
         position: "top-center",
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -191,7 +213,53 @@ export async function editBlogAPI(data: IFormValue) {
 
     toast.dismiss(loadingToastId);
 
-    toast.success("Tạo bài viết thành công!!!", {
+    toast.success("Chỉnh sửa bài viết thành công!!!", {
+      position: "top-center",
+    });
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function changeMultipleBlogStatus(
+  blogIDs: number[],
+  status: Status
+) {
+  try {
+    const loadingToastId = toast.info("Đang chỉnh sửa bài viết...", {
+      position: "top-center",
+      autoClose: false,
+    });
+
+    const data = { blog_ids: blogIDs, blog_status: status };
+
+    const response = await fetch(API_ENPOINT + "blogs/status", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${bearerToken}`,
+      },
+
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      toast.dismiss(loadingToastId);
+      toast.error("Chỉnh sửa bài viết thất bại!!!", {
+        position: "top-center",
+      });
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    console.log(response);
+
+    toast.dismiss(loadingToastId);
+
+    toast.success("Chỉnh sửa bài viết thành công!!!", {
       position: "top-center",
     });
 

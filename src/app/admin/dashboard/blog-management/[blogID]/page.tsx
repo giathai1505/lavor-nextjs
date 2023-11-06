@@ -34,7 +34,11 @@ const index: React.FC<IPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <AddNewBlog isEdit={true} defaultValue={defaultValue} />
+      <AddNewBlog
+        isEdit={true}
+        defaultValue={defaultValue}
+        blogID={params.blogID}
+      />
     </div>
   );
 };

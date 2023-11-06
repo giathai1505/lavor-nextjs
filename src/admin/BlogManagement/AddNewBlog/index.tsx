@@ -1,22 +1,18 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { ContentState, EditorState, convertFromHTML } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import React, { useEffect, useRef, useState } from "react";
 import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
-import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Category, Status } from "@/types";
-import { addBlogAPI } from "@/api/blog";
+import { addBlogAPI, editBlogAPI } from "@/api/blog";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
-import draftToHtml from "draftjs-to-html";
 import FormError from "@/components/Common/FormError";
 import { areObjectsEqual } from "@/utilities";
 import ConfirmDialog from "@/components/Common/Dialog";
 import { useRouter } from "next/navigation";
+import { Editor } from "@tinymce/tinymce-react";
 
 export interface IFormValue {
   blog_title: string;
@@ -30,23 +26,24 @@ export interface IFormValue {
 interface IAddNewBlog {
   isEdit: boolean;
   defaultValue: IFormValue;
+  blogID?: string;
 }
 
-const AddNewBlog: React.FC<IAddNewBlog> = ({ defaultValue, isEdit }) => {
-  const [editorState, setEditorState] = React.useState(() => {
-    if (defaultValue.blog_content) {
-      const blocksFromHTML = convertFromHTML(defaultValue.blog_content);
-      const contentState = ContentState.createFromBlockArray(
-        blocksFromHTML.contentBlocks
-      );
-      return EditorState.createWithContent(contentState);
+const AddNewBlog: React.FC<IAddNewBlog> = ({
+  defaultValue,
+  isEdit,
+  blogID,
+}) => {
+  const [editorContent, setEditorContent] = useState<string>(() => {
+    if (defaultValue.blog_content !== "") {
+      return defaultValue.blog_content;
     } else {
-      return EditorState.createEmpty();
+      return "";
     }
   });
+  const editorRef = useRef<any>();
 
   const router = useRouter();
-  const [contentState, setContentState] = React.useState<any>(null);
   const [image, setImage] = useState<any>("");
   const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
 
@@ -69,25 +66,22 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({ defaultValue, isEdit }) => {
 
   const onSubmit = (data: IFormValue) => {
     if (isEdit) {
-      let isDataChange = !areObjectsEqual(defaultValue, data);
-      //check data and save
-      console.log("========= isDataChange: ", isDataChange);
-      console.log("========= type: ", typeof data.blog_image_url);
+      const newData = {
+        ...data,
+        blog_content: editorContent,
+        blog_image_url: image,
+      };
+      const isDataChange = !areObjectsEqual(defaultValue, newData);
+      if (isDataChange && blogID) {
+        editBlogAPI(newData, blogID);
+      }
     } else {
       addBlogAPI({
         ...data,
-        blog_content: contentState,
+        blog_content: editorContent,
         blog_image_url: image,
       });
     }
-  };
-
-  const handleContentStateChange = (contentState: any) => {
-    setContentState(draftToHtml(contentState));
-  };
-
-  const handleEditorStateChange = (editorState: any) => {
-    setEditorState(editorState);
   };
 
   const loadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +97,10 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({ defaultValue, isEdit }) => {
 
   const handleBackToListBlog = () => {
     router.push("/admin/dashboard/blog-management");
+  };
+
+  const onEditorChange = (a: any, editor: any) => {
+    setEditorContent(a);
   };
 
   return (
@@ -317,16 +315,28 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({ defaultValue, isEdit }) => {
         </div>
         <div className="form-part-wrapper">
           <p className="form-part-title">Mô tả bài viết</p>
+
           <div className="form-content">
             <Editor
-              editorState={editorState}
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorClassName="editorClassName"
-              onEditorStateChange={handleEditorStateChange}
-              onContentStateChange={handleContentStateChange}
-              editorStyle={{ lineHeight: "100%" }}
-              // toolbarCustomButtons={[<CustomToolbarEditor />]}
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              value={editorContent}
+              onEditorChange={onEditorChange}
+              init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                  "advlist autolink lists link image charmap print preview anchor",
+                  "searchreplace visualblocks code fullscreen",
+                  "insertdatetime media table paste code help wordcount",
+                ],
+                toolbar:
+                  "undo redo | formatselect | " +
+                  "bold italic backcolor | alignleft aligncenter " +
+                  "alignright alignjustify | bullist numlist outdent indent | " +
+                  "removeformat | emoticons| help",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
             />
           </div>
         </div>

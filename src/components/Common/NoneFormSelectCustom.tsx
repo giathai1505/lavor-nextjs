@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown } from "react-icons/ai";
 
 interface IOption {
-  key: number;
+  key: any;
   value: string;
 }
 
@@ -12,6 +12,7 @@ interface INoneFormSelectCustomProps {
   onChange: (item: IOption) => void;
   className?: string;
   placeholder?: string;
+  value?: any;
 }
 
 const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
@@ -19,10 +20,13 @@ const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
   onChange,
   className,
   placeholder = "filter",
+  value,
 }) => {
   const [selectedOption, setSelectedOption] = useState<IOption | undefined>();
   const [isShowOption, setIsShowOption] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  console.log(selectedOption);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -40,6 +44,11 @@ const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
       document.removeEventListener("click", handleClickOutside);
     };
   }, [wrapperRef]);
+
+  useEffect(() => {
+    const a = options.find((item) => item.key === value);
+    setSelectedOption(a);
+  }, [value]);
 
   const handleOnchange = (item: IOption) => {
     setSelectedOption(item);

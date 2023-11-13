@@ -1,12 +1,12 @@
 import React from "react";
-import NewsTitle from "./NewsTitle";
+import NewsTitle from "../NewsTitle";
 import { AiOutlineArrowRight, AiOutlineCalendar } from "react-icons/ai";
 import { newestNews } from "@/data/news";
 
 const FavoriteNews = () => {
   return (
     <div className="bg-[#171818] p-5">
-      <NewsTitle text="Tuyển dụng" />
+      <p className="font-bold text-lg mb-4 text-white">Tuyển dụng</p>
       <div>
         {newestNews.map((item) => {
           return (
@@ -15,7 +15,7 @@ const FavoriteNews = () => {
               key={item.id}
             >
               <div>
-                <div className="flex items-center gap-2 text-[#a5a6aa]">
+                <div className="flex items-center gap-2 text-[#a5a6aa] text-[13px]">
                   <AiOutlineCalendar />
                   <p>{item.dated}</p>
                 </div>

@@ -7,7 +7,6 @@ interface IPageProps {
   params: { slug: string };
 }
 const index: React.FC<IPageProps> = ({ params }) => {
-  console.log(params);
   return (
     <div>
       <PartHeader

@@ -13,14 +13,12 @@ interface IPageProps {
 const AdminSidebar: React.FC<IPageProps> = ({ show }) => {
   const path = usePathname();
 
-  const handleLogout = () => {
-    console.log("Log out");
-  };
+  const handleLogout = () => {};
   return (
     <div className={`sidebar-wrapper ${show ? "show" : ""}`}>
       <div></div>
       <div className="sidebar-avatar">
-        <Link href="/admin/dashboard">
+        <Link href="/admin">
           <Image src={logo} alt="logo-white" className="sidebar-logo" />
         </Link>
         <p>Xin chào Lavor</p>

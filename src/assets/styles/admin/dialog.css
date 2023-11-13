@@ -72,3 +72,56 @@ h2.dialog-title {
 .dialog-button.cancel {
   border: 1px solid gray;
 }
+
+.headless-ui-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  opacity: 30%;
+  cursor: pointer;
+}
+
+.headless-ui-dialog-content-wrapper {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background: white;
+  width: 500px;
+  font-size: 13px;
+  font-family: revert;
+  color: rgb(100, 108, 154);
+}
+
+.headless-ui-dialog-action-button-wrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(215, 215, 215, 0.4);
+  padding: 10px 20px;
+}
+
+.headless-ui-dialog-header-wrapper {
+  border-bottom: 1px solid rgba(215, 215, 215, 0.4);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headless-ui-dialog-header-wrapper .dialog-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.headless-ui-dialog-header-wrapper .close-icon {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.headless-ui-dialog-body-wrapper {
+  padding: 20px;
+}

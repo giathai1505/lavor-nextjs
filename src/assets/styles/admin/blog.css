@@ -47,6 +47,11 @@
   margin-bottom: 20px;
 }
 
+.form-control.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .form-control input,
 .form-control textarea,
 .form-control select {
@@ -59,8 +64,8 @@
   color: rgb(100, 108, 154);
 }
 
-.form-control input:focus {
-  outline: 1px solid #0f172a;
+.form-control .form-control-body select {
+  flex: 1;
 }
 
 .form-control-title {
@@ -77,6 +82,12 @@
 .form-control-body {
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.form-control-body.disable {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .form-control-body svg {

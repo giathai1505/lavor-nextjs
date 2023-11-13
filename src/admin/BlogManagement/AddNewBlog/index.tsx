@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
@@ -12,7 +12,12 @@ import FormError from "@/components/Common/FormError";
 import { areObjectsEqual } from "@/utilities";
 import ConfirmDialog from "@/components/Common/Dialog";
 import { useRouter } from "next/navigation";
-import { Editor } from "@tinymce/tinymce-react";
+import { upLoadImage } from "@/api/image";
+import dynamic from "next/dynamic.js";
+
+const NoSSREditor = dynamic(() => import("../Editor/index.jsx"), {
+  ssr: false,
+});
 
 export interface IFormValue {
   blog_title: string;
@@ -41,10 +46,9 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
       return "";
     }
   });
-  const editorRef = useRef<any>();
 
   const router = useRouter();
-  const [image, setImage] = useState<any>("");
+  const [image, setImage] = useState<string>("");
   const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
 
   const form = useForm<IFormValue>({
@@ -84,11 +88,13 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
     }
   };
 
-  const loadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setImage(URL.createObjectURL(event.target.files[0]));
-      console.log(URL.createObjectURL(event.target.files[0]));
-    }
+  const loadFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (event.target.files) {
+        const response = await upLoadImage(event.target.files[0]);
+        setImage(response.url);
+      }
+    } catch (error) {}
   };
 
   const handleSaveChange = () => {
@@ -96,11 +102,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
   };
 
   const handleBackToListBlog = () => {
-    router.push("/admin/dashboard/blog-management");
-  };
-
-  const onEditorChange = (a: any, editor: any) => {
-    setEditorContent(a);
+    router.push("/admin/blog-management");
   };
 
   return (
@@ -149,10 +151,6 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                 defaultValue=""
                 rules={{
                   required: "This field is required",
-                  minLength: {
-                    value: 3,
-                    message: "Minimum length is 3 characters",
-                  },
                 }}
                 render={({ field }) => (
                   <input
@@ -231,10 +229,6 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                 defaultValue=""
                 rules={{
                   required: "This field is required",
-                  minLength: {
-                    value: 3,
-                    message: "Minimum length is 3 characters",
-                  },
                 }}
                 render={({ field }) => (
                   <textarea
@@ -257,7 +251,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
           <div className="form-content">
             <div className="form-control">
               <div className="form-control-title">
-                <span>Ảnh chỉnh</span>
+                <span>Ảnh chính</span>
                 <div>*</div>
               </div>
 
@@ -280,11 +274,11 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                       }}
                       style={{ display: "none" }}
                     />
-                    <div className="form-img-container">
+                    <div className="form-img-container rect250">
                       <div className="w-full h-full flex justify-center items-center">
                         {image ? (
                           <img
-                            src={image}
+                            src={"http://" + image}
                             className="w-full h-full object-cover rounded-md"
                             id="output"
                             width="200"
@@ -317,26 +311,9 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
           <p className="form-part-title">Mô tả bài viết</p>
 
           <div className="form-content">
-            <Editor
-              onInit={(evt, editor) => (editorRef.current = editor)}
+            <NoSSREditor
+              setValue={(value: string) => setEditorContent(value)}
               value={editorContent}
-              onEditorChange={onEditorChange}
-              init={{
-                height: 500,
-                menubar: false,
-                plugins: [
-                  "advlist autolink lists link image charmap print preview anchor",
-                  "searchreplace visualblocks code fullscreen",
-                  "insertdatetime media table paste code help wordcount",
-                ],
-                toolbar:
-                  "undo redo | formatselect | " +
-                  "bold italic backcolor | alignleft aligncenter " +
-                  "alignright alignjustify | bullist numlist outdent indent | " +
-                  "removeformat | emoticons| help",
-                content_style:
-                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-              }}
             />
           </div>
         </div>

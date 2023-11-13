@@ -26,8 +26,6 @@ const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
   const [isShowOption, setIsShowOption] = useState<boolean>(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  console.log(selectedOption);
-
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (

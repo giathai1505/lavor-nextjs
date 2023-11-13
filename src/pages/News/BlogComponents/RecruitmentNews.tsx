@@ -1,5 +1,5 @@
 import React from "react";
-import NewsTitle from "./NewsTitle";
+import NewsTitle from "../NewsTitle";
 import { FaFacebookF, FaTiktok, FaYoutube } from "react-icons/fa";
 import Link from "next/link";
 const followList = [
@@ -26,8 +26,8 @@ const followList = [
 const RecruitmentNews = () => {
   return (
     <div className="my-10">
-      <NewsTitle text="Theo dõi" />
-      <div className="mt-10">
+      <p className="font-bold text-lg mb-4 text-white">Theo dõi</p>
+      <div>
         {followList.map((item) => {
           return (
             <Link

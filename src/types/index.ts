@@ -32,4 +32,30 @@ export interface IBlog {
   blog_upload_date: Date;
 
   blog_status: Status;
+  blog_url?: string;
+}
+
+// export interface IBlog {
+//   year: number;
+// }
+
+export interface IYear {
+  year: number;
+}
+
+export interface IBrand {
+  brand_id: number;
+  brand_name: string;
+  models: IModel;
+}
+
+export interface IModel {
+  model_id: number;
+  model_name: string;
+  versions: IVersion[];
+}
+
+export interface IVersion {
+  version_id: number;
+  version_name: string;
 }

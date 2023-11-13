@@ -1,47 +1,37 @@
+import Link from "next/link";
 import React from "react";
-import NewsTitle from "./NewsTitle";
-import { AiOutlineCalendar } from "react-icons/ai";
-import { newestNews } from "@/data/news";
-export interface neww {
-  id: number;
-  category: number;
-  title: string;
-  dated: string;
-  image: string;
+import { BsArrowRightShort } from "react-icons/bs";
+import NewGridViewItem from "./NewItems/NewGridViewItem";
+import { IBlog } from "@/types";
+
+interface IRelatedNews {
+  blogs: IBlog[];
 }
 
-interface IPageProps {
-  newContent: neww;
-}
-
-const NewsItem: React.FC<IPageProps> = ({ newContent }) => {
+const RelatedNews: React.FC<IRelatedNews> = ({ blogs }) => {
   return (
-    <div className="flex border border-solid border-[#222121]">
-      <div className="h-[60px] w-[60px] my-auto flex-none overflow-hidden ml-3">
-        <img
-          src={newContent.image}
-          className="object-cover h-full w-full rounded-full"
-        />
-      </div>
-      <div className="flex flex-col gap-3 mx-5 my-2">
-        <p className="text-base text-white">{newContent.title}</p>
-        <div className="flex items-center gap-2 text-xs text-[#a5a6aa]">
-          <AiOutlineCalendar />
-          <p>{newContent.dated}</p>
+    <div className="text-white pb-40">
+      <div className="flex justify-between items-center gap-20 mb-10">
+        <p className="text-primary font-bold text-2xl">BÀI VIẾT LIÊN QUAN</p>
+
+        <div className="flex-1 flex justify-end">
+          <div className="w-2/3  h-[1px] bg-[#80808059]"></div>
         </div>
+        <Link
+          href="/san-pham/goi-co"
+          className="flex items-center gap-2 bg-white text-primary hover:bg-primary hover:text-white rounded-sm px-3 py-2 w-fit"
+        >
+          <span>Xem tất cả bài viết</span>
+          <BsArrowRightShort />
+        </Link>
       </div>
-    </div>
-  );
-};
 
-const RelatedNews = () => {
-  return (
-    <div className="my-10">
-      <NewsTitle text="Tin lien quan" />
-      <div className="my-10">
-        {newestNews.map((item, index) => {
-          if (index > 0) return <NewsItem newContent={item} key={item.id} />;
-        })}
+      <div className="grid grid-cols-3 gap-10">
+        {Array.isArray(blogs) &&
+          blogs.length > 0 &&
+          blogs.map((item) => {
+            return <NewGridViewItem blog={item} />;
+          })}
       </div>
     </div>
   );

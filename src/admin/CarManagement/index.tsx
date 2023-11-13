@@ -90,7 +90,7 @@ const renderStatus = (status: Status) => {
   );
 };
 
-const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
+const CarManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
     search: "",
@@ -226,9 +226,9 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
         accessorFn: (row) => row.blog_image_url,
         id: "blog_cover_image_url",
         cell: ({ row }) => (
-          <div className="w-20 h-20">
+          <div>
             <img
-              src={"http://" + row.original.blog_image_url}
+              src={row.original.blog_image_url}
               alt=""
               className="w-20 h-20 rounded-full object-cover"
             />
@@ -356,9 +356,9 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
       />
       <div className="p-2">
         <div className="flex items-center justify-between mb-10">
-          <p className="admin-title">Danh sách bài viết</p>
-          <Link href="/admin/blog-management/add" className="add-new-button">
-            <AiOutlinePlus /> <span>Thêm mới</span>
+          <p className="admin-title">Danh sách xe</p>
+          <Link href="/admin/car-management/add" className="add-new-button">
+            <AiOutlinePlus /> <span>Thêm mới xe</span>
           </Link>
         </div>
         <div className="flex items-center gap-5">
@@ -591,4 +591,4 @@ function IndeterminateCheckbox({
   );
 }
 
-export default BlogManagement;
+export default CarManagement;

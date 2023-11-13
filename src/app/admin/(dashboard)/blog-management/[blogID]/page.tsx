@@ -22,7 +22,6 @@ async function getBlogByID(id: string) {
 const index: React.FC<IPageProps> = async ({ params }) => {
   const blog = await getBlogByID(params.blogID);
 
-  console.log("Blog: ", blog);
   const defaultValue = {
     blog_title: blog?.blog_title ?? "",
     blog_description: blog?.blog_description ?? "",

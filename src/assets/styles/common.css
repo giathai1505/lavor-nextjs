@@ -395,15 +395,18 @@
 }
 
 .form-img-container {
-  width: 200px;
-  height: 150px;
   position: relative;
   display: flex;
+  height: same-as-width;
   justify-content: center;
   align-items: center;
   box-shadow: rgba(100, 100, 111, 0.1) -1px 1px 6px 0px;
   border-radius: 4px;
-  margin-top: 30px;
+}
+
+.form-img-container.rect250 {
+  width: 250px;
+  height: 250px;
 }
 
 .form-img-container .icon-wrapper {
@@ -440,4 +443,8 @@
   color: #80808033;
   width: 30px;
   height: 30px;
+}
+
+.minW-200 {
+  min-width: 200px;
 }

@@ -13,8 +13,8 @@ interface INewBlogItem {
 
 const NewListViewItem: React.FC<INewBlogItem> = ({ blog }) => {
   return (
-    <div className="blog-item-wrapper grid grid-cols-3 border gap-5 border-solid border-[#8080805e]">
-      <div className="h-full min-h-[300px] min-w-[300px] overflow-hidden col-span-1">
+    <div className="blog-item-wrapper grid grid-cols-3 border gap-2 border-solid h-[150px] md:h-[250px] xl:h-[300px] border-[#8080805e] overflow-hidden">
+      <div className="h-full w-full overflow-hidden col-span-1">
         <img
           src={"http://" + blog.blog_image_url}
           className="object-cover w-full h-full"
@@ -31,13 +31,15 @@ const NewListViewItem: React.FC<INewBlogItem> = ({ blog }) => {
 
         <Link
           href={"/tin-tuc/" + blog.blog_url ?? ""}
-          className="text-[22px] text-white cursor-pointer hover:text-primary"
+          className="text-md md:text-lg xl:text-[22px] text-white cursor-pointer hover:text-primary ellipsis-text-2-lines"
         >
           {blog.blog_title}
         </Link>
-        <p className="text-[#a5a6aa]  ellipsis-text-3-lines">
-          {blog.blog_description}
-        </p>
+        <div className="hidden md:block">
+          <p className="text-[#a5a6aa]  ellipsis-text-3-lines hidden">
+            {blog.blog_description}
+          </p>
+        </div>
 
         <Link
           href={"/tin-tuc/" + blog.blog_url ?? ""}

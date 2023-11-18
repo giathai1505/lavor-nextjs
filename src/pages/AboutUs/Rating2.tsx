@@ -12,12 +12,15 @@ import "../Contact/style.css";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
 import { MdOutlineWorkOutline } from "react-icons/md";
-let num = 3;
-let gap = 20;
+const gap = 20;
 
-const Rating2 = () => {
+interface IRating {
+  visibleItem: number;
+}
+
+const Rating2: React.FC<IRating> = ({ visibleItem }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [productItemWidth, setProductItemWidth] = useState<number>(0);
+  const [productItemWidth, setProductItemWidth] = useState<number>(315);
   const [canMoveRight, setCanMoveRight] = useState<boolean>(true);
   const [canMoveLeft, setCanMoveLeft] = useState<boolean>(false);
   const [containerTransformLeft, setContainerTransformLeft] =
@@ -28,7 +31,7 @@ const Rating2 = () => {
   useEffect(() => {
     if (containerRef.current) {
       let rect = containerRef.current.getBoundingClientRect();
-      let childWidth = (rect.width - (num - 1) * gap) / num;
+      let childWidth = (rect.width - (visibleItem - 1) * gap) / visibleItem;
       setProductItemWidth(childWidth);
     }
   }, []);
@@ -42,7 +45,7 @@ const Rating2 = () => {
       setContainerTransformLeft((pre) => pre + productItemWidth + gap);
     } else {
       setCanMoveLeft(true);
-      const invisibleItem = ratings.length - num;
+      const invisibleItem = ratings.length - visibleItem;
 
       const maxWidth =
         invisibleItem * productItemWidth + (invisibleItem - 1) * gap;
@@ -56,10 +59,10 @@ const Rating2 = () => {
   };
 
   return (
-    <div className=" bg-[#000000e8] py-14 text-white">
+    <div className=" text-white">
       <div className="wrapper">
         <div>
-          <h2 className="mb-10">
+          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
             Khách hàng nói gì về <span>Lavor</span>?
           </h2>
           <div ref={containerRef} className="relative">
@@ -72,7 +75,7 @@ const Rating2 = () => {
 
             {canMoveRight && (
               <AiFillRightCircle
-                className="slider-navigator -right-[25px]"
+                className="slider-navigator -right-[15px]"
                 onClick={() => handleMoveSlider(-1)}
               />
             )}
@@ -129,12 +132,14 @@ const Rating2 = () => {
           </div>
         </div>
 
-        <div>
-          <h2 className="my-10 text-2xl"> Để lại đánh giá của bạn</h2>
+        <div className="mt-5 md:mt-10 xl:mt-16">
+          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
+            Để lại đánh giá của bạn
+          </h2>
 
-          <div className="grid grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
             <div>
-              <div className="w-[400px] h-[200px] mb-5 mx-auto">
+              <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
                 <YoutubeThumbnail
                   imgAlt="Phòng trưng bày Lavor"
                   imgSrc={PhongTrungBayImg}
@@ -142,7 +147,7 @@ const Rating2 = () => {
                   link="https://www.youtube.com/watch?v=TusPsCPkLxo"
                 />
               </div>
-              <div className="text-white px-10">
+              <div className="text-white text-justify">
                 <p>
                   Cùng khám phá phòng trưng bày Lavor để xem những thành tích mà
                   Lavor đã tự hào đạt được.

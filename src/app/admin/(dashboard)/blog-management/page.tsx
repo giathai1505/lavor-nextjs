@@ -14,10 +14,10 @@ async function getAllBlog() {
   return res.json();
 }
 
-export const page = async () => {
-  let response = await getAllBlog();
+const BlogAdmin = async () => {
+  const response = await getAllBlog();
 
   return <BlogManagement blogs={response?.blogs} loading={false} />;
 };
 
-export default page;
+export default BlogAdmin;

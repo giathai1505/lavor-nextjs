@@ -106,8 +106,8 @@ const Design = () => {
             CHỌN CHIẾC XE CỦA BẠN - CÒN LẠI <span>LAVOR </span> LO
           </h2>
           <div className="grid grid-cols-3 gap-20 mb-10">
-            <div className="flex gap-10 text-left">
-              <p className="p3-big-text">1.</p>
+            <div className="flex gap-5 text-left">
+              <p className="p3-big-text phone">1.</p>
               <div>
                 <h3>CHỌN THIẾT KẾ CỦA RIÊNG BẠN</h3>
                 <p className="text-white mt-4 font-light">
@@ -117,8 +117,8 @@ const Design = () => {
                 </p>
               </div>
             </div>
-            <div className="flex gap-10 text-left font-light">
-              <p className="p3-big-text">2.</p>
+            <div className="flex gap-5 text-left font-light">
+              <p className="p3-big-text phone">2.</p>
               <div>
                 <h3>LAVOR LÊN LỊCH NÂNG CẤP NỘI THẤT XE GIÚP BẠN</h3>
                 <p className="text-white mt-4">
@@ -126,9 +126,9 @@ const Design = () => {
                   tư vấn cụ thể hơn và lên lịch nâng cấp nội thất xe giúp bạn.
                 </p>
               </div>
-            </div>{" "}
-            <div className="flex gap-10 text-left font-light">
-              <p className="p3-big-text">3.</p>
+            </div>
+            <div className="flex gap-5 text-left font-light">
+              <p className="p3-big-text phone">3.</p>
               <div>
                 <h3>LAVOR NÂNG CẤP NỘI THẤT XE GIÚP BẠN</h3>
                 <p className="text-white mt-4">

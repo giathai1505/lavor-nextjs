@@ -120,7 +120,7 @@ const AddVersionDialog: React.FC<IDialog> = ({
                   <Controller
                     name="model_id"
                     control={control}
-                    rules={{ required: "This field is required" }}
+                    rules={{ required: "Bạn cần phải nhập trường này!" }}
                     render={({ field }) => (
                       <select {...field}>
                         {Array.isArray(models) &&
@@ -148,7 +148,7 @@ const AddVersionDialog: React.FC<IDialog> = ({
                 name="version_name"
                 control={control}
                 rules={{
-                  required: "This field is required",
+                  required: "Bạn cần phải nhập trường này!",
                   minLength: {
                     value: 3,
                     message: "Minimum length is 3 characters",

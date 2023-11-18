@@ -1,14 +1,50 @@
-import { IFormValue } from "@/admin/BlogManagement/AddNewBlog";
+import { IProductFormValue } from "@/admin/ProductManagement/AddNewProduct";
 import { API_ENPOINT } from "@/constants/api";
-import { Status } from "@/types";
+import { PStatus } from "@/types";
 import { toast } from "react-toastify";
+import { bearerToken } from "../blog";
 
-export const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MDAxMzQ4OTMsImV4cCI6MTcwMDE0MjA5M30.2vIRDTgSu9j2YjE-e7falo1s_tg-IeJsXafvPcP87oA";
-
-export async function getAllBlogs(url: string) {
+export async function addProductAPI(data: IProductFormValue) {
+  console.log("data: ", data);
   try {
-    const response = await fetch(API_ENPOINT + "blogs" + url, {
+    const loadingToastId = toast.info("Đang thêm sản phẩm mới...", {
+      position: "top-center",
+      autoClose: false,
+    });
+    const response = await fetch(API_ENPOINT + "products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${bearerToken}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      toast.dismiss(loadingToastId);
+      toast.error("Thêm sản phẩm thất bại!!!", {
+        position: "top-center",
+      });
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    toast.dismiss(loadingToastId);
+
+    toast.success("Tạo sản phẩm thành công!!!", {
+      position: "top-center",
+    });
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function getAllProducts(url: string) {
+  try {
+    const response = await fetch(API_ENPOINT + "products" + url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -28,24 +64,26 @@ export async function getAllBlogs(url: string) {
   }
 }
 
-export async function addBlogAPI(data: IFormValue) {
+export async function deleteProduct(productID: number) {
   try {
-    const loadingToastId = toast.info("Đang tạo bài viết...", {
+    const loadingToastId = toast.info("Đang xóa sản phẩm...", {
       position: "top-center",
       autoClose: false,
     });
-    const response = await fetch(API_ENPOINT + "blogs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
-      },
-      body: JSON.stringify({ ...data, blog_url: "" }),
-    });
+    const response = await fetch(
+      API_ENPOINT + "products/" + productID.toString(),
+      {
+        method: "Delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       toast.dismiss(loadingToastId);
-      toast.error("Tạo bài viết thất bại!!!", {
+      toast.error("Xóa sản phẩm thất bại!!!", {
         position: "top-center",
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -55,7 +93,7 @@ export async function addBlogAPI(data: IFormValue) {
 
     toast.dismiss(loadingToastId);
 
-    toast.success("Tạo bài viết thành công!!!", {
+    toast.success("Xóa bài sản phẩm công!!!", {
       position: "top-center",
     });
 
@@ -67,62 +105,24 @@ export async function addBlogAPI(data: IFormValue) {
   }
 }
 
-export async function deleteAPI(blogID: number) {
+export async function deleteMultipleProducts(productIDs: number[]) {
   try {
-    const loadingToastId = toast.info("Đang xóa bài viết...", {
+    const loadingToastId = toast.info("Đang xóa sản phẩm...", {
       position: "top-center",
       autoClose: false,
     });
-    const response = await fetch(API_ENPOINT + "blogs/" + blogID.toString(), {
-      method: "Delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
-      },
-    });
-
-    if (!response.ok) {
-      toast.dismiss(loadingToastId);
-      toast.error("Xóa bài viết thất bại!!!", {
-        position: "top-center",
-      });
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    console.log(response);
-
-    toast.dismiss(loadingToastId);
-
-    toast.success("Xóa bài viết thành công!!!", {
-      position: "top-center",
-    });
-
-    const responseData = await response.json();
-    return responseData;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
-export async function deleteMultipleBlogs(blogIDs: number[]) {
-  try {
-    const loadingToastId = toast.info("Đang xóa bài viết...", {
-      position: "top-center",
-      autoClose: false,
-    });
-    const response = await fetch(API_ENPOINT + "blogs/", {
+    const response = await fetch(API_ENPOINT + "products/", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${bearerToken}`,
       },
-      body: JSON.stringify({ blog_ids: blogIDs }),
+      body: JSON.stringify({ products_ids: productIDs }),
     });
 
     if (!response.ok) {
       toast.dismiss(loadingToastId);
-      toast.error("Xóa bài viết thất bại!!!", {
+      toast.error("Xóa sản phẩm thất bại!!!", {
         position: "top-center",
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -132,7 +132,7 @@ export async function deleteMultipleBlogs(blogIDs: number[]) {
 
     toast.dismiss(loadingToastId);
 
-    toast.success("Xóa bài viết thành công!!!", {
+    toast.success("Xóa sản phẩm thành công!!!", {
       position: "top-center",
     });
 
@@ -144,7 +144,7 @@ export async function deleteMultipleBlogs(blogIDs: number[]) {
   }
 }
 
-export async function changeBlogStatus(id: number, status: Status) {
+export async function changeProductStatus(id: number, status: PStatus) {
   try {
     const loadingToastId = toast.info("Đang đổi trạng thái bài viết...", {
       position: "top-center",
@@ -186,64 +186,21 @@ export async function changeBlogStatus(id: number, status: Status) {
   }
 }
 
-export async function editBlogAPI(data: IFormValue, blogID: string) {
-  try {
-    const loadingToastId = toast.info("Đang chỉnh sửa bài viết...", {
-      position: "top-center",
-      autoClose: false,
-    });
-    const response = await fetch(API_ENPOINT + "blogs/" + blogID, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      toast.dismiss(loadingToastId);
-      toast.error("Chỉnh sửa bài viết thất bại!!!", {
-        position: "top-center",
-      });
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    console.log(response);
-
-    toast.dismiss(loadingToastId);
-
-    toast.success("Chỉnh sửa bài viết thành công!!!", {
-      position: "top-center",
-    });
-
-    const responseData = await response.json();
-    return responseData;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
-export async function changeMultipleBlogStatus(
-  blogIDs: number[],
-  status: Status
+export async function editProductAPI(
+  data: IProductFormValue,
+  productID: string
 ) {
   try {
     const loadingToastId = toast.info("Đang chỉnh sửa bài viết...", {
       position: "top-center",
       autoClose: false,
     });
-
-    const data = { blog_ids: blogIDs, blog_status: status };
-
-    const response = await fetch(API_ENPOINT + "blogs/status", {
+    const response = await fetch(API_ENPOINT + "products/" + productID, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${bearerToken}`,
       },
-
       body: JSON.stringify(data),
     });
 

@@ -150,7 +150,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: "This field is required",
+                  required: "Bạn cần phải nhập trường này!",
                 }}
                 render={({ field }) => (
                   <input
@@ -182,7 +182,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                 <Controller
                   name="blog_category"
                   control={control}
-                  rules={{ required: "This field is required" }}
+                  rules={{ required: "Bạn cần phải nhập trường này!" }}
                   render={({ field }) => (
                     <select {...field}>
                       <option value="">Select an option</option>
@@ -205,7 +205,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                 <Controller
                   name="blog_status"
                   control={control}
-                  rules={{ required: "This field is required" }}
+                  rules={{ required: "Bạn cần phải nhập trường này!" }}
                   render={({ field }) => (
                     <select {...field}>
                       <option value={Status.ACTIVE}>Hoạt động</option>
@@ -228,7 +228,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: "This field is required",
+                  required: "Bạn cần phải nhập trường này!",
                 }}
                 render={({ field }) => (
                   <textarea

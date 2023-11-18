@@ -4,14 +4,14 @@ import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/2.png";
 
 const Part3 = () => {
   return (
-    <div className="bg-black py-14">
+    <div className="bg-black p-5 md:p-10">
       <div className="wrapper">
-        <h2 className="mb-10">
+        <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
           QUY TRÌNH SẢN XUẤT VÀ LẮP ĐẶT ĐỘC QUYỀN CỦA <span>LAVOR</span>
         </h2>
         <div className="flex flex-col justify-center gap-10 items-center">
           <div className="text-white">
-            <p>
+            <p className="text-justify xl:text-left">
               Nội thất da Lavor chỉ được lắp đặt tại 2 cơ sở chính thức của
               chúng tôi tại Hà Nội và Thành phố Hồ Chí Minh. Tại đó, đội ngũ
               chuyên viên, kỹ thuật viên của chúng tôi được đào tạo đặc biệt, có
@@ -26,7 +26,7 @@ const Part3 = () => {
             </p>
           </div>
           <div>
-            <div className="w-[800px] h-[450px]">
+            <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
               <YoutubeThumbnail
                 imgAlt="Giới thiệu phân xưởng Lavor"
                 imgSrc={introduceImg}

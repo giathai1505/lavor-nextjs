@@ -1,5 +1,6 @@
 import Footer from "@/components/Common/Footer";
 import Header from "@/components/Common/Header";
+import PhoneHeader from "@/components/Common/PhoneHeader";
 import { Jost } from "next/font/google";
 import React from "react";
 
@@ -15,7 +16,14 @@ export default function NewsLayout({
 }) {
   return (
     <div className={jost.className}>
-      <Header />
+      <div className="hidden xl:block">
+        <Header />
+      </div>
+
+      <div className="block xl:hidden">
+        <PhoneHeader />
+      </div>
+
       {children}
       <Footer />
     </div>

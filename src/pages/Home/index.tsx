@@ -24,7 +24,7 @@ export default function HomePage() {
           alt="home image"
           className="w-full h-full object-cover"
         />
-        <div className="absolute home-text-wrapper left-0 z-10 top-[40%]">
+        <div className="absolute home-text-wrapper left-0 z-10 top-[40%] hidden xl:block">
           <div className="home-text">
             <h3 className="relative pb-5 leading-10 text-2xl">
               <span className="font-bold">ĐẲNG CẤP HƠN VỚI LAVOR!</span>
@@ -44,14 +44,14 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="home-leather">
-        <div className="container mx-auto max-w-[1200px]">
-          <h2 className="mb-10">
-            Với <span>Lavor</span> , nội thất xe của bạn sẽ trở nên{" "}
+      <div className="home-leather py-5">
+        <div className="container mx-auto max-w-[1200px] p-5 md:p-10">
+          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
+            Với <span>Lavor</span> , nội thất xe của bạn sẽ trở nên <br />
             <span> đẳng cấp</span>
           </h2>
-          <div className="grid grid-cols-2 gap-20">
-            <div className="h-[300px]">
+          <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
+            <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
               <YoutubeThumbnail
                 imgAlt="Giới thiệu Lavor"
                 imgSrc={introduceImg}
@@ -60,7 +60,7 @@ export default function HomePage() {
               />
             </div>
             <div className="leather-text">
-              <p>
+              <p className="mb-5 text-justify md:mb-10 xl:text-left">
                 Hãy tưởng tượng nội thất xe của bạn được bọc da sang trọng, nâng
                 cấp hiện đại và mang phong cách của riêng bạn. Có thể bạn muốn
                 điều đó nhưng lại lo lắng về chất lượng ở các Garage. Hoặc bạn
@@ -70,7 +70,7 @@ export default function HomePage() {
                 sang trọng, tiện nghi và phong cách cho chiếc xe của bạn.
               </p>
 
-              <p>
+              <p className="text-justify xl:text-left">
                 Lavor là một thương hiệu sản xuất nội thất ô tô, trực thuộc Công
                 ty TNHH TMDV & SX Minh Tâm – chuyên gia trong lĩnh vực sản xuất
                 nội thất, độ xe và dịch vụ lắp đặt nội thất ô tô tại Việt Nam.
@@ -88,14 +88,14 @@ export default function HomePage() {
 
       <ComparisonSlider />
 
-      <div className="bg-secondaryBackground">
-        <div className="max-w-[1200px] mx-auto text-center py-10">
-          <h2 className="mb-10">
+      <div className="bg-secondaryBackground p-10 xl:p-20">
+        <div className="max-w-[1200px] mx-auto text-center">
+          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
             CHỌN CHIẾC XE CỦA BẠN - CÒN LẠI <span>LAVOR </span> LO
           </h2>
-          <div className="grid grid-cols-3 gap-20 mb-10">
-            <div className="flex gap-10 text-left">
-              <p className="p3-big-text">1.</p>
+          <div className="grid grid-cols-1 gap-5 mb-5 xl:grid-cols-3 xl:gap-10 xl:my-20">
+            <div className="flex gap-5 text-left">
+              <p className="p3-big-text phone">1.</p>
               <div>
                 <h3>CHỌN THIẾT KẾ CỦA RIÊNG BẠN</h3>
                 <p className="text-white mt-4 font-light">
@@ -105,8 +105,8 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-            <div className="flex gap-10 text-left font-light">
-              <p className="p3-big-text">2.</p>
+            <div className="flex gap-5 text-left font-light">
+              <p className="p3-big-text phone">2.</p>
               <div>
                 <h3>LAVOR LÊN LỊCH NÂNG CẤP NỘI THẤT XE GIÚP BẠN</h3>
                 <p className="text-white mt-4">
@@ -115,8 +115,8 @@ export default function HomePage() {
                 </p>
               </div>
             </div>{" "}
-            <div className="flex gap-10 text-left font-light">
-              <p className="p3-big-text">3.</p>
+            <div className="flex gap-5 text-left font-light">
+              <p className="p3-big-text phone">3.</p>
               <div>
                 <h3>LAVOR NÂNG CẤP NỘI THẤT XE GIÚP BẠN</h3>
                 <p className="text-white mt-4">
@@ -126,7 +126,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="mt-20 flex justify-center">
+          <div className="mt-10 flex justify-center">
             <Link href="/choose-your-design">
               <Image
                 src={startButton}
@@ -140,15 +140,18 @@ export default function HomePage() {
 
       <ProductPart />
 
-      <div className="bg-secondaryBackground pb-20">
+      <div className="bg-secondaryBackground py-10">
         <div className="max-w-[1200px] mx-auto">
-          <h2 className="py-10">
+          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
             NHỮNG <span>TUYỆT PHẨM</span> ĐƯỢC NÂNG CẤP TẠI <span>LAVOR</span>
           </h2>
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 gap-10 xl:grid-cols-3 xl:my-20">
             {amazingCar.map((item) => {
               return (
-                <div className="h-[200px]" key={item.id}>
+                <div
+                  className="h-[200px] w-[350px] mx-auto md:h-[350px] md:w-[600px] xl:w-[350px] xl:h-[200px]"
+                  key={item.id}
+                >
                   <YoutubeThumbnail
                     imgAlt={item.alt}
                     imgSrc={item.src}
@@ -159,7 +162,7 @@ export default function HomePage() {
               );
             })}
           </div>
-          <div className="mt-20 flex justify-center">
+          <div className="mt-10 flex justify-center">
             <Link href="/choose-your-design">
               <Image
                 src={startButton}

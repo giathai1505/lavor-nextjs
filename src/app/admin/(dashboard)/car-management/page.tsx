@@ -14,7 +14,7 @@ async function getAllBlog() {
   return res.json();
 }
 
-export const page = async () => {
+const page = async () => {
   let response = await getAllBlog();
 
   return <CarManagement blogs={response?.blogs} loading={false} />;

@@ -13,8 +13,8 @@ interface INewBlogItem {
 
 const NewGridViewItem: React.FC<INewBlogItem> = ({ blog }) => {
   return (
-    <div className="blog-item-wrapper border border-solid border-[#8080805e] text-white mb-5">
-      <div className="h-[300px] overflow-hidden">
+    <div className="blog-item-wrapper border h-fit border-solid border-[#8080805e] text-white mb-5">
+      <div className="h-1/2 overflow-hidden">
         <img
           src={"http://" + blog.blog_image_url}
           alt=""
@@ -32,13 +32,15 @@ const NewGridViewItem: React.FC<INewBlogItem> = ({ blog }) => {
 
         <Link
           href={"/tin-tuc/" + blog.blog_url ?? ""}
-          className="text-[22px] text-white cursor-pointer hover:text-primary"
+          className="text-md md:text-lg xl:text-[22px] text-white cursor-pointer hover:text-primary ellipsis-text-2-lines"
         >
           {blog.blog_title}
         </Link>
-        <p className="text-[#a5a6aa] ellipsis-text-3-lines">
-          {blog.blog_description}
-        </p>
+        <div className="hidden xl:block">
+          <p className="text-[#a5a6aa]  ellipsis-text-3-lines">
+            {blog.blog_description}
+          </p>
+        </div>
 
         <Link
           href={"/tin-tuc/" + blog.blog_url ?? ""}

@@ -9,14 +9,27 @@ const ProductPart = () => {
         <h2 className="mb-10">
           <span>Sản phẩm</span>
         </h2>
-        <div className="">
-          <ProductSlider />
+        <div className="px-10 hidden xl:block">
+          <ProductSlider visibleItem={4} />
+        </div>
+        <div className="px-10 hidden md:block xl:hidden ">
+          <ProductSlider visibleItem={2} />
+        </div>
+        <div className="px-10 md:hidden">
+          <ProductSlider visibleItem={1} />
         </div>
         <h2 className="my-10">
           <span>Danh mục</span>
         </h2>
-        <div>
-          <CategorySlider />
+
+        <div className="px-10 hidden xl:block">
+          <CategorySlider visibleItem={4} />
+        </div>
+        <div className="px-10 hidden md:block xl:hidden ">
+          <CategorySlider visibleItem={2} />
+        </div>
+        <div className="px-10 md:hidden">
+          <CategorySlider visibleItem={1} />
         </div>
       </div>
     </div>

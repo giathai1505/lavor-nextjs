@@ -4,10 +4,6 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import oldCar from "@/assets/images/comparison-slider/old.webp";
 import newCar from "@/assets/images/comparison-slider/new.webp";
-import Link from "next/link";
-import gallery1 from "@/assets/images/gallery/gallery1.webp";
-import gallery2 from "@/assets/images/gallery/gallery2.webp";
-import gallery3 from "@/assets/images/gallery/gallery3.webp";
 
 const ComparisonSlider = () => {
   const [sliderValue, setSliderValue] = useState<number>(50);
@@ -34,15 +30,15 @@ const ComparisonSlider = () => {
     e.stopPropagation();
   };
   return (
-    <div className=" bg-[#171717] py-10">
-      <div className="w-[1200px] mx-auto py-5">
-        <h2 className="mb-10">
+    <div className=" bg-[#171717]">
+      <div className="w-full mx-auto p-5 md:p-10">
+        <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
           <span className="font-light">HƠN CẢ MỘT CHIẾC GHẾ DA</span> <br />
           <span className="font-bold">
             HÃY CHIÊM NGƯỠNG SỰ ĐẲNG CẤP CỦA LAVOR
           </span>
         </h2>
-        <div className="h-[800px] bg-black relative">
+        <div className=" mx-auto bg-black relative h-[360px] w-[390px] md:h-[570px] md:w-[700px] xl:w-[900px] xl:h-[750px]">
           <div className="w-full h-full flex">
             <Image
               src={oldCar}

@@ -16,6 +16,11 @@ export enum Status {
   DELETED = "DELETED",
 }
 
+export enum PStatus {
+  ACTIVE = "ACTIVE",
+  SUSPENDED = "SUSPENDED",
+}
+
 export interface IBlog {
   blog_id: number;
 
@@ -33,6 +38,31 @@ export interface IBlog {
 
   blog_status: Status;
   blog_url?: string;
+}
+
+export interface IProduct {
+  product_id: number;
+  product_type: ProductType;
+
+  product_name: string;
+
+  product_price: number;
+
+  product_detail: string;
+
+  product_feature: string;
+
+  product_description: string;
+
+  product_meta: string;
+
+  product_upload_date: Date;
+
+  product_status: Status;
+
+  product_images: string[];
+
+  variants: any;
 }
 
 // export interface IBlog {
@@ -58,4 +88,22 @@ export interface IModel {
 export interface IVersion {
   version_id: number;
   version_name: string;
+}
+
+export interface IProductDetail {
+  name: string;
+  value: string;
+}
+
+export interface IProductColor {
+  variant_color: string;
+  image_url: any;
+}
+
+export enum ProductType {
+  OTHER = "OTHER",
+  CHAIR = "CHAIR",
+  STEERING_WHEEL = "STEERING_WHEEL",
+  PILLOW = "PILLOW",
+  FLOOR = "FLOOR",
 }

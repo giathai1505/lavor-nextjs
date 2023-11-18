@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <div className="bg-black">
       <div className="max-w-[1200px] mx-auto py-10">
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 p-5">
           <div className="col-span-1">
             <Image alt="logo" src={logo} className="w-52 mb-10" />
             <div className="mb-5">
@@ -29,55 +29,54 @@ const Footer = () => {
               className="w-40"
             />
           </div>
-          <div className="col-span-2 grid grid-cols-3 gap-20 text-white">
-            {footerData.map((item) => {
-              return (
-                <div key={item.id}>
-                  <h3>{item.name}</h3>
-                  <div className="w-[100px] h-[2px] bg-primary my-4"></div>
-                  <div>
-                    <ul>
-                      {item.child.map((item) => {
-                        return (
-                          <li className="mb-1 hover:x-primary">
-                            <Link href={item.slug} className="footer-link">
-                              {item.icon}
-                              <p>{item.name}</p>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                  {item.hasMedia ? (
-                    <div className="flex justify-between mt-4 footer-media-icon gap-5">
-                      <Link
-                        href="https://www.facebook.com/LavorLuxury2"
-                        target="_blank"
-                      >
-                        <FaSquareFacebook className="w-5 h-5" />
-                      </Link>
-                      <Link
-                        href="https://www.tiktok.com/@lavorluxury.official"
-                        target="_blank"
-                      >
-                        <FaTiktok />
-                      </Link>
-                      <Link href="https://minhtamvietnam.vn/" target="_blank">
-                        <AiFillGooglePlusCircle />
-                      </Link>
-                      <Link
-                        href="https://www.youtube.com/channel/UCR4hf6Azj1amYpaDriauRHw"
-                        target="_blank"
-                      >
-                        <AiFillYoutube />
-                      </Link>
-                    </div>
-                  ) : null}
+
+          {footerData.map((item) => {
+            return (
+              <div key={item.id} className="col-span-1 text-white">
+                <h3>{item.name}</h3>
+                <div className="w-[100px] h-[2px] bg-primary my-4"></div>
+                <div>
+                  <ul>
+                    {item.child.map((item) => {
+                      return (
+                        <li className="mb-1 hover:x-primary">
+                          <Link href={item.slug} className="footer-link">
+                            {item.icon}
+                            <p>{item.name}</p>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-              );
-            })}
-          </div>
+                {item.hasMedia ? (
+                  <div className="flex justify-between mt-4 footer-media-icon gap-5 max-w-[200px]">
+                    <Link
+                      href="https://www.facebook.com/LavorLuxury2"
+                      target="_blank"
+                    >
+                      <FaSquareFacebook className="w-5 h-5" />
+                    </Link>
+                    <Link
+                      href="https://www.tiktok.com/@lavorluxury.official"
+                      target="_blank"
+                    >
+                      <FaTiktok />
+                    </Link>
+                    <Link href="https://minhtamvietnam.vn/" target="_blank">
+                      <AiFillGooglePlusCircle />
+                    </Link>
+                    <Link
+                      href="https://www.youtube.com/channel/UCR4hf6Azj1amYpaDriauRHw"
+                      target="_blank"
+                    >
+                      <AiFillYoutube />
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

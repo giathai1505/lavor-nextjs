@@ -42,7 +42,7 @@ const ContactInfo = () => {
           <span>Email: info@lavorluxury.com</span>
         </div>
       </div>
-      <div>
+      <div className="hidden xl:block">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.5842773317713!2d106.70463137685846!3d10.843092157956834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529ba0c7fe295%3A0xbaf26a50da656cf4!2sLavor%20Luxury%20-%20Chi%20Nh%C3%A1nh%20Mi%E1%BB%81n%20Nam!5e0!3m2!1svi!2s!4v1696072370001!5m2!1svi!2s"
           width="600"

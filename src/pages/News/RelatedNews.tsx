@@ -10,7 +10,7 @@ interface IRelatedNews {
 
 const RelatedNews: React.FC<IRelatedNews> = ({ blogs }) => {
   return (
-    <div className="text-white pb-40">
+    <div className="text-white p-5">
       <div className="flex justify-between items-center gap-20 mb-10">
         <p className="text-primary font-bold text-2xl">BÀI VIẾT LIÊN QUAN</p>
 
@@ -26,7 +26,7 @@ const RelatedNews: React.FC<IRelatedNews> = ({ blogs }) => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-10">
         {Array.isArray(blogs) &&
           blogs.length > 0 &&
           blogs.map((item) => {

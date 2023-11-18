@@ -5,10 +5,13 @@ import React, { useEffect, useRef, useState } from "react";
 import LazyImage from "./Common/LazyImage";
 import logo from "@/assets/images/logo/logo-white.png";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
-let num = 5;
 let gap = 20;
 
-const ProductSlider = () => {
+interface IProductSliderInterface {
+  visibleItem: number;
+}
+
+const ProductSlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(0);
   const [containerTransformLeft, setContainerTransformLeft] =
@@ -17,7 +20,7 @@ const ProductSlider = () => {
   useEffect(() => {
     if (containerRef.current) {
       let rect = containerRef.current.getBoundingClientRect();
-      let childWidth = (rect.width - (num - 1) * gap) / num;
+      let childWidth = (rect.width - (visibleItem - 1) * gap) / visibleItem;
       setProductItemWidth(childWidth);
     }
   }, []);
@@ -27,7 +30,7 @@ const ProductSlider = () => {
       if (containerTransformLeft >= 0) return;
       setContainerTransformLeft((pre) => pre + productItemWidth + gap);
     } else {
-      const invisibleItem = products.length - num;
+      const invisibleItem = products.length - visibleItem;
 
       const maxWidth =
         invisibleItem * productItemWidth + (invisibleItem - 1) * gap;

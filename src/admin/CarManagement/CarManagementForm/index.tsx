@@ -286,7 +286,7 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
                       <Controller
                         name="year"
                         control={control}
-                        rules={{ required: "This field is required" }}
+                        rules={{ required: "Bạn cần phải nhập trường này!" }}
                         render={({ field }) => (
                           <select {...field}>
                             {listYears.map((item) => {
@@ -327,7 +327,7 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
                       <Controller
                         name="brand_id"
                         control={control}
-                        rules={{ required: "This field is required" }}
+                        rules={{ required: "Bạn cần phải nhập thông tin này!" }}
                         render={({ field }) => (
                           <select {...field}>
                             {listBrands.map((item) => {
@@ -380,7 +380,7 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
                       <Controller
                         name="model_id"
                         control={control}
-                        rules={{ required: "This field is required" }}
+                        rules={{ required: "Bạn cần phải nhập trường này!" }}
                         render={({ field }) => (
                           <select {...field} placeholder="Chưa có model nào">
                             {Array.isArray(listModels) &&
@@ -435,7 +435,7 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
                       <Controller
                         name="version_id"
                         control={control}
-                        rules={{ required: "This field is required" }}
+                        rules={{ required: "Bạn cần phải nhập trường này!" }}
                         render={({ field }) => (
                           <select {...field}>
                             {Array.isArray(listVersion) &&

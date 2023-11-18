@@ -92,7 +92,7 @@ const AddBrandDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
                 name="brand_name"
                 control={control}
                 rules={{
-                  required: "This field is required",
+                  required: "Bạn cần phải nhập trường này!",
                   minLength: {
                     value: 3,
                     message: "Minimum length is 3 characters",

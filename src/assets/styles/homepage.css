@@ -30,7 +30,6 @@
 .home-leather {
   width: 100%;
   height: auto;
-  padding: 50px 0px 50px;
   background-image: url("../images/background/leather-pattern.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -55,13 +54,7 @@
 .leather-text {
   text-align: left;
   color: white;
-  font-size: 16px;
   font-weight: 400px;
-  line-height: 28px;
-}
-
-.leather-text p {
-  margin-bottom: 40px;
 }
 
 .leather-text span {
@@ -69,13 +62,14 @@
 }
 
 .p3-big-text {
-  width: 75px;
   height: auto;
   color: #f47a21;
-  font-size: 96px;
-  line-height: 100px;
   font-weight: bold;
-  margin-top: -10px;
+}
+
+.p3-big-text.phone {
+  font-size: 40px;
+  margin-top: -10;
 }
 
 .slider-navigator {

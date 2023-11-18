@@ -97,3 +97,24 @@
   text-align: unset;
   margin-bottom: unset;
 }
+
+.table-of-content {
+  color: white;
+  padding: 10px;
+  border: 1px solid #8080805e;
+  margin-bottom: 10px;
+}
+
+.table-of-content p {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.table-of-content ul li {
+  margin-bottom: 8px;
+}
+
+.table-of-content ul li a:hover {
+  color: #f47a20;
+}

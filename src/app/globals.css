@@ -6,14 +6,23 @@ h2 {
   width: 100%;
   height: auto;
   text-transform: uppercase;
-  font-weight: lighter !important;
+  font-weight: lighter;
   font-size: 32px;
-  color: #f47a20 !important;
+  color: #f47a20;
   font-family: "Assistant", sans-serif;
   line-height: 55px;
   padding: 0px 40px;
   text-align: center;
-  margin-bottom: 40px;
+}
+
+h2.phone {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+h2.phone.tablet {
+  font-size: 24px;
+  line-height: 40px;
 }
 
 h2 span {

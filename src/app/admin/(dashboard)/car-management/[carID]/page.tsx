@@ -23,12 +23,11 @@ const index: React.FC<IPageProps> = async ({ params }) => {
   const blog = await getBlogByID(params.carID);
 
   const defaultValue = {
-    blog_title: blog?.blog_title ?? "",
-    blog_description: blog?.blog_description ?? "",
-    blog_image_url: blog?.blog_image_url ?? "",
-    blog_category: blog?.blog_category ?? Category.ABOUT,
-    blog_status: blog?.blog_status ?? Status.ACTIVE,
-    blog_content: blog?.blog_content ?? "",
+    year: 0,
+    brand_id: NaN,
+    model_id: NaN,
+    version_id: NaN,
+    image_url: "",
   };
 
   return (

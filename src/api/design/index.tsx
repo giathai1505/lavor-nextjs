@@ -1,7 +1,5 @@
 import { API_ENPOINT } from "@/constants/api";
-
-const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE2OTk2ODYxODQsImV4cCI6MTY5OTY5MzM4NH0.8eUbNnN5cyyvRHZXyTLW5Vx7XiuxxD9lL0ZqYC82LkI";
+import { bearerToken } from "../blog";
 
 export async function addYear(year: number) {
   try {

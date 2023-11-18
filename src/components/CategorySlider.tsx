@@ -1,13 +1,16 @@
 "use client";
-
-import { categories } from "@/data/products";
-import Link from "next/link";
+import { products } from "@/data/products";
 import React, { useEffect, useRef, useState } from "react";
+import LazyImage from "./Common/LazyImage";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
-let num = 4;
-let gap = 20;
+const num = 2;
+const gap = 20;
 
-const CategorySlider = () => {
+interface IProductSliderInterface {
+  visibleItem: number;
+}
+
+const CategorySlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(0);
   const [containerTransformLeft, setContainerTransformLeft] =
@@ -16,7 +19,7 @@ const CategorySlider = () => {
   useEffect(() => {
     if (containerRef.current) {
       let rect = containerRef.current.getBoundingClientRect();
-      let childWidth = (rect.width - (num - 1) * gap) / num;
+      let childWidth = (rect.width - (visibleItem - 1) * gap) / visibleItem;
       setProductItemWidth(childWidth);
     }
   }, []);
@@ -26,7 +29,7 @@ const CategorySlider = () => {
       if (containerTransformLeft >= 0) return;
       setContainerTransformLeft((pre) => pre + productItemWidth + gap);
     } else {
-      const invisibleItem = categories.length - num;
+      const invisibleItem = products.length - visibleItem;
 
       const maxWidth =
         invisibleItem * productItemWidth + (invisibleItem - 1) * gap;
@@ -52,23 +55,26 @@ const CategorySlider = () => {
           className="inline-flex gap-5 relative slide-wrapper"
           style={{ left: `${containerTransformLeft}px` }}
         >
-          {categories.map((item) => {
+          {products.map((item) => {
             return (
-              <Link
-                href="/"
+              <div
                 style={{ width: `${productItemWidth}px` }}
-                className="pb-2 relative"
+                className="pb-2"
                 key={item.id}
               >
-                <img
+                <LazyImage
                   src={item.image}
                   alt="Product image"
                   className="w-full rounded"
+                  placeHolderImage="https://static.thenounproject.com/png/741653-200.png"
                 />
-                <p className="text-white uppercase font-medium absolute left-0 bottom-0 right-0 bg-primary text-center py-4">
-                  {item.name}
-                </p>
-              </Link>
+                <div className="mt-2 font-bold">
+                  <p className="text-white uppercase font-medium">
+                    {item.name}
+                  </p>
+                  <p className="text-primary">{item.price}</p>
+                </div>
+              </div>
             );
           })}
         </div>

@@ -1,6 +1,7 @@
+"use client";
 import PartHeader from "@/components/Common/PartHeader";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiFacebook, FiMail, FiYoutube } from "react-icons/fi";
 import { PiTiktokLogo } from "react-icons/pi";
 import { renderCategory } from "./Newest";
@@ -16,7 +17,88 @@ interface IPageProps {
   relatedBlogs: IBlog[];
 }
 
+const getNestedHeadings = (headingElements: any) => {
+  const nestedHeadings: any = [];
+
+  headingElements.forEach((heading: any, index: any) => {
+    const { innerText: title, id } = heading;
+
+    if (heading.nodeName === "H2") {
+      nestedHeadings.push({ id, title, items: [] });
+    } else if (heading.nodeName === "H3" && nestedHeadings.length > 0) {
+      nestedHeadings[nestedHeadings.length - 1].items.push({
+        id,
+        title,
+      });
+    }
+  });
+
+  return nestedHeadings;
+};
+
 const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
+  const [nestedHeadings, setNestedHeadings] = useState<any>([]);
+  const blogContentRef = useRef<null | HTMLDivElement>(null);
+  const [activeHeading, setActiveHeading] = useState("");
+
+  useEffect(() => {
+    if (blogContentRef && blogContentRef.current) {
+      const headingElements = Array.from(
+        blogContentRef.current.querySelectorAll("h2, h3")
+      );
+
+      const newNestedHeadings = getNestedHeadings(headingElements);
+      setNestedHeadings(newNestedHeadings);
+      headingElements.forEach((heading, index) => {
+        const id = `heading-${index + 1}`;
+        heading.setAttribute("id", id);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (blogContentRef && blogContentRef.current) {
+        const headingElements = Array.from(
+          blogContentRef.current.querySelectorAll("h2, h3")
+        );
+
+        let currentActiveHeading = "";
+        for (const heading of headingElements) {
+          const rect = heading.getBoundingClientRect();
+          if (rect.top <= 0 && rect.bottom > 0) {
+            console.log("==== dô trong này");
+            currentActiveHeading = heading.id;
+            break;
+          }
+        }
+
+        setActiveHeading(currentActiveHeading);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [blogContentRef]);
+
+  const handleClickTableOfView = (e: any, index: number) => {
+    e.preventDefault();
+    if (blogContentRef.current) {
+      const headingElement = blogContentRef.current.querySelector(
+        `#heading-${index}`
+      );
+
+      if (headingElement) {
+        headingElement.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
   return (
     <div>
       <PartHeader
@@ -24,9 +106,9 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
         title="Tin tức"
         backgroundImage={titleBackgroundImage}
       />
-      <div className="bg-black py-20">
-        <div className="grid grid-cols-4 gap-10 wrapper">
-          <div className="col-span-3 flex flex-col gap-5">
+      <div className="bg-black p-5 md:p-10">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-10 wrapper">
+          <div className="col-span-1 xl:col-span-2 flex flex-col gap-5">
             {renderCategory(blog.blog_category)}
             <p className="text-2xl text-white">{blog.blog_title}</p>
             <div className="flex items-center gap-5">
@@ -54,16 +136,35 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
               </Link>
             </div>
             <p className="text-white">{blog.blog_description}</p>
-            <div className="h-[500px]">
+            <div className="h-[150px] md:h-[400px] xl:h-[500px]">
               <img
                 src={"http://" + blog.blog_image_url}
                 alt="Quảng cáo xe hơi"
                 className="w-full h-full object-cover rounded-lg"
               />
             </div>
-            <p className="blog-content">{parse(blog.blog_content)}</p>
+            <div className="blog-content" ref={blogContentRef}>
+              {parse(blog.blog_content)}
+            </div>
           </div>
           <div>
+            <p className="font-bold text-lg  text-white mb-4">
+              Nội dung bài viết
+            </p>
+            <div className="table-of-content">
+              <ul>
+                {nestedHeadings.map((heading: any, index: number) => (
+                  <li key={heading?.id}>
+                    <a
+                      href={`#${heading?.id}`}
+                      onClick={(e) => handleClickTableOfView(e, index + 1)}
+                    >
+                      {heading?.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <BlogSidebar />
           </div>
         </div>

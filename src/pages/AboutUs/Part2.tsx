@@ -7,13 +7,13 @@ import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/introduce.web
 
 const Part2 = () => {
   return (
-    <div className="bg-secondaryBackground py-14">
+    <div className="bg-secondaryBackground p-5 md:p-10 xl:p-16">
       <div className="wrapper">
-        <h2>
+        <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
           Chọn chiếc xe của bạn - còn lại để <span>Lavor</span> lo
         </h2>
-        <div className="grid grid-cols-2 gap-10">
-          <div className="text-white">
+        <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
+          <div className="text-white mb-5 md:mb-10">
             <p>
               1. Bạn chỉ cần tìm chiếc xe của mình bằng cách chọn năm sản xuất,
               hãng xe, dòng xe sau đó nhấn tiếp tục để chọn thiết kế riêng của
@@ -31,7 +31,7 @@ const Part2 = () => {
               bạn
             </p>
           </div>
-          <div className="h-[250px] w-[500px]">
+          <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
             <YoutubeThumbnail
               imgAlt="Hướng dẫn lắp đặt bộ massage 3 chức năng"
               imgSrc={introduceImg}
@@ -40,7 +40,7 @@ const Part2 = () => {
             />
           </div>
         </div>
-        <div className="mt-20 flex justify-center">
+        <div className="mt-5 md:mt-10 flex justify-center">
           <Link href="/choose-your-design">
             <Image
               src={startButton}

@@ -1,12 +1,16 @@
 import React from "react";
 import FavoriteNews from "./BlogComponents/FavoriteNews";
-import RecruitmentNews from "./BlogComponents/RecruitmentNews";
+import Followers from "./BlogComponents/Followers";
 import BlogCategory from "./BlogComponents/BlogCategory";
 import AboutLavor from "./BlogComponents/AboutLavor";
 import { BsSearch } from "react-icons/bs";
-import { useSearchParams } from "next/navigation";
+import { IBlog } from "@/types";
 
-const BlogSidebar = () => {
+interface IBlogSidebarProps {
+  blogs: IBlog[];
+}
+
+const BlogSidebar: React.FC<IBlogSidebarProps> = ({ blogs }) => {
   return (
     <div className="text-white">
       <div className="flex items-center  border border-solid border-[#8080805e] mb-5 p-3 gap-2">
@@ -18,9 +22,9 @@ const BlogSidebar = () => {
         <BsSearch />
       </div>
       <AboutLavor />
-      <FavoriteNews />
-      <RecruitmentNews />
-      <BlogCategory />
+      <FavoriteNews blogs={blogs} />
+      <Followers />
+      <BlogCategory blogs={blogs} />
     </div>
   );
 };

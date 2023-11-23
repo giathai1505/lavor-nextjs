@@ -1,7 +1,7 @@
+import { spawn } from "child_process";
 import { unescape } from "querystring";
 import React, { useEffect, useRef, useState } from "react";
-
-interface IDropdownOption {
+export interface IDropdownOption {
   id: number;
   value: string;
 }
@@ -63,7 +63,7 @@ const Dropdown: React.FC<IDropdown> = ({
         <div className={`caret ${isShowDropdown && "caret-rotate"}`}></div>
       </div>
       <ul className={`menu ${isShowDropdown && "menu-open"}`}>
-        {options.length > 0 &&
+        {options.length > 0 ? (
           options.map((item) => {
             return (
               <li
@@ -73,7 +73,10 @@ const Dropdown: React.FC<IDropdown> = ({
                 {item.value}
               </li>
             );
-          })}
+          })
+        ) : (
+          <p className="p-2 text-center">Không có dữ liệu</p>
+        )}
       </ul>
     </div>
   );

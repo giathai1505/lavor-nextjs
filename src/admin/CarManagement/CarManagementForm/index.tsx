@@ -13,10 +13,10 @@ import AddYearDialog from "../Dialogs/AddYearDialog";
 import AddBrandDialog from "../Dialogs/AddBrandDialog";
 import AddModelDialog from "../Dialogs/AddModelDialog";
 import AddVersionDialog from "../Dialogs/AddVersionDialog";
-import { getAllBrands } from "@/api/design";
+import { addCar, getAllBrands } from "@/api/design";
 import { type } from "os";
 import { imageConfigDefault } from "next/dist/shared/lib/image-config";
-import { upLoadImage } from "@/api/image";
+import { upLoadImage, upLoadImages } from "@/api/image";
 
 export interface ICarFormValue {
   year: number;
@@ -44,14 +44,13 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
   versions,
 }) => {
   const router = useRouter();
-  const [image, setImage] = useState<any>("");
+  const [image, setImage] = useState<any>();
   const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
   const [listYears, setListYears] = useState<IYear[]>([]);
   const [listBrands, setListBrands] = useState<IBrand[]>([]);
   const [listModels, setListModels] = useState<IModel[]>([]);
   const [listVersion, setListVersion] = useState<IVersion[]>([]);
   const imgContainerRef = useRef<HTMLDivElement | null>(null);
-
   const [showDialog, setShowDialog] = useState({
     year: false,
     branch: false,
@@ -167,19 +166,25 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
   const onSubmit = (data: ICarFormValue) => {
     if (isEdit) {
     } else {
+      Promise.resolve(upLoadImage(image))
+        .then((results) => {
+          const newData = {
+            ...data,
+            image_url: results.url,
+          };
+          return addCar(newData);
+        })
+        .then((result) => {})
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 
   const loadFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      const resonse = await upLoadImage(event.target.files[0]);
-
-      setImage(URL.createObjectURL(event.target.files[0]));
+      setImage(event.target.files[0]);
     }
-  };
-
-  const handleSaveChange = () => {
-    //lưu chỉnh sửa ở đây
   };
 
   const closeAllDialog = () => {
@@ -243,14 +248,6 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
         onSuccess={handleAddVersionSuccess}
       />
       <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <ConfirmDialog
-          onOk={handleSaveChange}
-          title="Đổi trạng thái của bài viết"
-          open={showConfirmDialog}
-          content="Bạn có chắc muốn đổi trạng thái của bài viết này không?"
-          onClose={() => setShowConfirmDialog(false)}
-          type="information"
-        />
         <div>
           <div className="flex justify-between items-center bg-white mb-5 p-5">
             <p className="admin-title">
@@ -508,7 +505,11 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
                               <div className="w-full h-full flex justify-center items-center">
                                 {image ? (
                                   <img
-                                    src={image}
+                                    src={
+                                      typeof image === "string"
+                                        ? "http://" + image
+                                        : URL.createObjectURL(image)
+                                    }
                                     className="w-full h-full object-cover rounded-md"
                                     id="output"
                                     width="200"

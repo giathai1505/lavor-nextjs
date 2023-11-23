@@ -89,8 +89,6 @@ export async function deleteProduct(productID: number) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    console.log(response);
-
     toast.dismiss(loadingToastId);
 
     toast.success("Xóa bài sản phẩm công!!!", {
@@ -127,8 +125,6 @@ export async function deleteMultipleProducts(productIDs: number[]) {
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
 
     toast.dismiss(loadingToastId);
 
@@ -170,8 +166,6 @@ export async function changeProductStatus(id: number, status: PStatus) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    console.log(response);
-
     toast.dismiss(loadingToastId);
 
     toast.success("Đổi trạng thái bài viết thành công!!!", {
@@ -211,8 +205,6 @@ export async function editProductAPI(
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
 
     toast.dismiss(loadingToastId);
 

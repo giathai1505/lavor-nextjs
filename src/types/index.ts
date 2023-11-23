@@ -40,6 +40,17 @@ export interface IBlog {
   blog_url?: string;
 }
 
+export interface IProductVariant {
+  variant_color: string;
+
+  image_url: string;
+}
+
+export interface IProductDetail {
+  name: string;
+  value: string;
+}
+
 export interface IProduct {
   product_id: number;
   product_type: ProductType;
@@ -48,7 +59,7 @@ export interface IProduct {
 
   product_price: number;
 
-  product_detail: string;
+  product_detail: IProductDetail[];
 
   product_feature: string;
 
@@ -62,7 +73,7 @@ export interface IProduct {
 
   product_images: string[];
 
-  variants: any;
+  variants: IProductVariant[];
 }
 
 // export interface IBlog {
@@ -76,7 +87,7 @@ export interface IYear {
 export interface IBrand {
   brand_id: number;
   brand_name: string;
-  models: IModel;
+  models: IModel[];
 }
 
 export interface IModel {
@@ -106,4 +117,34 @@ export enum ProductType {
   STEERING_WHEEL = "STEERING_WHEEL",
   PILLOW = "PILLOW",
   FLOOR = "FLOOR",
+}
+
+export enum ProductTypeToText {
+  OTHER = "Sản phẩm khác",
+  CHAIR = "Bọc ghế da",
+  STEERING_WHEEL = "Bọc tay lái",
+  PILLOW = "Gối cổ",
+  FLOOR = "Thảm lót sàn",
+}
+
+export enum SlugToType {
+  "goi-co" = "PILLOW",
+  "tham-lot-san" = "FLOOR",
+  "boc-tay-lai" = "STEERING_WHEEL",
+  "boc-ghe" = "CHAIR",
+  "san-pham-khac" = "OTHER",
+}
+
+export enum SlugToTitle {
+  "goi-co" = "Gối cổ",
+  "tham-lot-san" = "Thảm lót sàn",
+  "boc-tay-lai" = "Bọc tay lái",
+  "boc-ghe" = "Bọc ghế da",
+  "san-pham-khac" = "Sản phẩm khác",
+}
+
+export interface IPagination {
+  total: number;
+  page: string;
+  limit: string;
 }

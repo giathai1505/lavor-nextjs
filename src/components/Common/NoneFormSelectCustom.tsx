@@ -12,14 +12,14 @@ interface INoneFormSelectCustomProps {
   onChange: (item: IOption) => void;
   className?: string;
   placeholder?: string;
-  value?: any;
+  value?: IOption;
 }
 
 const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({
   options,
   onChange,
   className,
-  placeholder = "filter",
+  placeholder = "Lọc",
   value,
 }) => {
   const [selectedOption, setSelectedOption] = useState<IOption | undefined>();

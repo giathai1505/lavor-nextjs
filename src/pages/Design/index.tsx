@@ -13,44 +13,103 @@ import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
 
 import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-const Design = () => {
+import { IBrand, IYear } from "@/types";
+
+interface IDesign {
+  brands: IBrand[];
+  years: IYear[];
+}
+
+const Design: React.FC<IDesign> = ({ brands, years }) => {
   const [phase, setPhase] = useState<number>(1);
 
-  const renderPhase = useMemo(() => {
-    let phaseComponent = <ChooseCar onNext={() => setPhase(2)} />;
+  const [designData, setDesignData] = useState<any>();
+
+  const handleDesignDataChange = (phase: number, data: any) => {
+    let newData;
     switch (phase) {
       case 1:
-        phaseComponent = <ChooseCar onNext={() => setPhase(2)} />;
+        newData = {
+          ...designData,
+          car: structuredClone(data),
+        };
+        setPhase(2);
+
+        break;
+      case 2:
+        newData = {
+          ...designData,
+          design: structuredClone(data),
+        };
+        setPhase(3);
+
+        break;
+      case 3:
+        newData = {
+          ...designData,
+          phoneNumber: structuredClone(data),
+        };
+        //handle submit tai day
+
+        break;
+      default:
+        break;
+    }
+
+    setDesignData(newData);
+  };
+
+  const renderPhase = useMemo(() => {
+    let phaseComponent;
+    switch (phase) {
+      case 1:
+        phaseComponent = (
+          <ChooseCar
+            onNext={(data: any) => handleDesignDataChange(1, data)}
+            brands={brands}
+            years={years}
+          />
+        );
 
         break;
       case 2:
         phaseComponent = (
           <ChooseDesign
-            onNext={() => setPhase(3)}
+            onNext={(data: any) => handleDesignDataChange(2, data)}
             onPrevious={() => setPhase(1)}
           />
         );
 
         break;
       case 3:
-        phaseComponent = <Conclusion />;
+        phaseComponent = (
+          <Conclusion
+            onComplete={(data: any) => handleDesignDataChange(3, data)}
+          />
+        );
 
         break;
 
       default:
-        phaseComponent = <ChooseCar onNext={() => setPhase(2)} />;
+        phaseComponent = (
+          <ChooseCar
+            brands={brands}
+            years={years}
+            onNext={(data: any) => handleDesignDataChange(1, data)}
+          />
+        );
         break;
     }
     return phaseComponent;
-  }, [phase]);
+  }, [phase, brands, years]);
   return (
     <div className="design-wrapper">
       <PartHeader
         breadcrumb="Chọn thiết kế"
-        title="CHỌN DÒNG XE BẠN ĐANG SỞ HỮU"
+        title="THIẾT KẾ"
         backgroundImage={titleBackgroundImage}
       />
-      <div className="bg-black pt-20">
+      <div className="bg-[#d3cfcf] pt-20">
         <div className="wrapper">
           <div className="flex justify-center mb-20">
             <ProgressBar active={phase} />

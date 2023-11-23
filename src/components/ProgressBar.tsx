@@ -11,7 +11,7 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
   let dotArray = [1, 2, 3, 4];
   return (
     <div className="w-[500px] py-4 relative">
-      <div className="h-2 rounded-full bg-white"></div>
+      <div className="h-2 rounded-full bg-black"></div>
       <div
         className={`absolute  h-2 rounded-full bg-primary top-1/2 -translate-y-1/2 `}
         style={{ width: `${activeWith}%` }}
@@ -20,7 +20,7 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
         {dotArray.map((item, index) => {
           return (
             <div
-              className={`dot ${index <= active ? "bg-primary" : "bg-white"}`}
+              className={`dot ${index <= active ? "bg-primary" : "bg-black"}`}
             ></div>
           );
         })}
@@ -30,17 +30,17 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
       </div>
 
       <span
-        className={`progress-title left-[33%] ${1 <= active ? "show" : ""}`}
+        className={`progress-title left-[30%] ${1 <= active ? "show" : ""}`}
       >
         Chọn xe
       </span>
       <span
-        className={`progress-title left-[60%] ${2 <= active ? "show" : ""}`}
+        className={`progress-title left-[58%] ${2 <= active ? "show" : ""}`}
       >
         Chọn thiết kế
       </span>
       <span
-        className={`progress-title right-0 translate-x-[-20px] ${
+        className={`progress-title right-[-24px] translate-x-[-20px] ${
           3 <= active ? "show" : ""
         }`}
       >

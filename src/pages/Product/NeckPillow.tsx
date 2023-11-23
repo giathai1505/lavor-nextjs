@@ -3,8 +3,13 @@ import { goiCo } from "@/data/products";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 import ProductItemVertical from "./components/ProductItemVertical";
+import { IProduct } from "@/types";
 
-const NeckPillow = () => {
+interface INeckPillowProps {
+  listPillow: IProduct[];
+}
+
+const NeckPillow: React.FC<INeckPillowProps> = ({ listPillow }) => {
   return (
     <div className="py-10">
       <div className="mb-10">
@@ -25,8 +30,9 @@ const NeckPillow = () => {
       </div>
 
       <div className="grid grid-cols-4 gap-12">
-        {goiCo.map((item) => {
-          return <ProductItemVertical product={item} key={item.id} />;
+        {listPillow.map((item, index) => {
+          if (index > 3) return <></>;
+          return <ProductItemVertical product={item} key={item.product_id} />;
         })}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { Status } from "@/types";
 import { toast } from "react-toastify";
 
 export const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MDAxMzQ4OTMsImV4cCI6MTcwMDE0MjA5M30.2vIRDTgSu9j2YjE-e7falo1s_tg-IeJsXafvPcP87oA";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MDA1ODEyNTYsImV4cCI6MTcwMDU4ODQ1Nn0.gCCkgI8oIUiTSy1oxozPExMGWEm-xCh30hLCXaL6GEY";
 
 export async function getAllBlogs(url: string) {
   try {
@@ -51,8 +51,6 @@ export async function addBlogAPI(data: IFormValue) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    console.log(response);
-
     toast.dismiss(loadingToastId);
 
     toast.success("Tạo bài viết thành công!!!", {
@@ -88,8 +86,6 @@ export async function deleteAPI(blogID: number) {
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
 
     toast.dismiss(loadingToastId);
 
@@ -127,8 +123,6 @@ export async function deleteMultipleBlogs(blogIDs: number[]) {
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
 
     toast.dismiss(loadingToastId);
 
@@ -170,8 +164,6 @@ export async function changeBlogStatus(id: number, status: Status) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    console.log(response);
-
     toast.dismiss(loadingToastId);
 
     toast.success("Đổi trạng thái bài viết thành công!!!", {
@@ -208,8 +200,6 @@ export async function editBlogAPI(data: IFormValue, blogID: string) {
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
 
     toast.dismiss(loadingToastId);
 
@@ -254,8 +244,6 @@ export async function changeMultipleBlogStatus(
       });
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
 
     toast.dismiss(loadingToastId);
 

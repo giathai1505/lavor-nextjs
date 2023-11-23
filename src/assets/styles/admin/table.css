@@ -177,6 +177,9 @@ tr.selected {
   color: rgb(33, 37, 41);
   font-weight: 300;
 }
+.custom-select-wrapper.user {
+  border: 1px solid #f47a20;
+}
 
 .custom-select-wrapper-show {
   display: flex;
@@ -185,7 +188,6 @@ tr.selected {
   align-items: center;
   justify-content: space-between;
 }
-
 .custom-select-wrapper-option {
   position: absolute;
   background-color: white;

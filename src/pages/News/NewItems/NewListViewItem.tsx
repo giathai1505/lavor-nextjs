@@ -1,11 +1,12 @@
 import { IBlog } from "@/types";
 import React from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { renderCategory } from "../Newest";
+
 import { newestNews } from "@/data/news";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 import moment from "moment";
+import { renderCategory } from "..";
 
 interface INewBlogItem {
   blog: IBlog;

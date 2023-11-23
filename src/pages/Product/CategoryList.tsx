@@ -3,7 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const CategoryList = () => {
+interface ICategoryListProps {
+  listValue: Map<string, number>;
+}
+
+const CategoryList: React.FC<ICategoryListProps> = ({ listValue }) => {
   return (
     <div className="grid grid-cols-5 gap-5 my-14">
       {categories.map((item) => {
@@ -14,7 +18,9 @@ const CategoryList = () => {
             </div>
             <div className="flex items-center text-white flex-col gap-1">
               <p className=" font-bold">{item.name}</p>
-              <span className="text-[12px]">{item.quantity} sản phẩm</span>
+              <span className="text-[12px]">
+                {listValue.has(item.id) ? listValue.get(item.id) : 0} sản phẩm
+              </span>
             </div>
           </Link>
         );

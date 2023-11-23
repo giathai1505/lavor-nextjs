@@ -1,4 +1,3 @@
-import Dropdown from "@/components/Common/Dropdown";
 import React, { useState } from "react";
 
 const listMaterials = [
@@ -70,7 +69,7 @@ interface IDesign {
 }
 
 interface IChooseDesign {
-  onNext: () => void;
+  onNext: (data: any) => void;
   onPrevious: () => void;
 }
 
@@ -83,7 +82,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
   });
 
   const handleChangeDesign = (value: any) => {
-    let newState = { ...selectedMaterial, ...value };
+    const newState = { ...selectedMaterial, ...value };
     setSelectedMaterial(newState);
   };
 
@@ -96,7 +95,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
           {listMaterials.map((item) => {
             return (
               <div
-                className={`border-[1px] border-solid text-white p-6 relative flex flex-col gap-4 cursor-pointer ${
+                className={`border-[1px] border-solid text-[#595d6e] p-6 relative flex flex-col gap-4 cursor-pointer ${
                   selectedMaterial.materialID !== item.id
                     ? "border-gray-400"
                     : "border-primary"
@@ -138,7 +137,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
           {listColors.map((item) => {
             return (
               <div
-                className={`border-[1px] border-solid  text-white relative flex flex-col  gap-4 cursor-pointer ${
+                className={`border-[1px] border-solid  text-[#595d6e] relative flex flex-col  gap-4 cursor-pointer ${
                   selectedMaterial.colorID !== item.id
                     ? "border-0"
                     : "border-primary"
@@ -160,7 +159,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     className={`w-full h-[200px] bg-[${item.color}] `}
                     style={{ background: `${item.color}` }}
                   ></div>
-                  <p className="text-white text-center py-2">
+                  <p className="text-black text-center py-2">
                     <span>Mã màu: </span>
                     {item.id}
                   </p>
@@ -178,7 +177,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
           {listHolds.map((item) => {
             return (
               <div
-                className={`border-[1px] border-solid  text-white relative flex flex-col  gap-4 cursor-pointer ${
+                className={`border-[1px] border-solid  text-[#595d6e] relative flex flex-col  gap-4 cursor-pointer ${
                   selectedMaterial.holeID !== item.id
                     ? "border-0"
                     : "border-primary"
@@ -200,7 +199,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     className={`w-full h-[200px] bg-[${item.color}] `}
                     style={{ background: `${item.color}` }}
                   ></div>
-                  <p className="text-white text-center py-2">
+                  <p className="text-[#595d6e] text-center py-2">
                     <span>Mã màu: </span>
                     {item.id}
                   </p>
@@ -228,7 +227,10 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
         <button className="primary-button" onClick={() => onPrevious()}>
           Trở lại
         </button>
-        <button className="primary-button" onClick={() => onNext()}>
+        <button
+          className="primary-button"
+          onClick={() => onNext(selectedMaterial)}
+        >
           Tiếp theo
         </button>
       </div>

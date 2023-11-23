@@ -1,15 +1,34 @@
-import { goiCo, products } from "@/data/products";
 import React from "react";
 import ProductItemVertical from "../Product/components/ProductItemVertical";
+import { IProduct } from "@/types";
+import Link from "next/link";
+import { BsArrowRightShort } from "react-icons/bs";
 
-const RelatedProduct = () => {
+interface IRelatedProducts {
+  products: IProduct[];
+}
+
+const RelatedProduct: React.FC<IRelatedProducts> = ({ products }) => {
   return (
-    <div className="db-desc-wrapper text-white pb-20">
-      <p className="text-3xl font-bold text-primary">Mô tả sản phẩm</p>
+    <div className="text-white mt-10">
+      <div className="flex justify-between items-center gap-20 mb-10">
+        <p className="text-primary font-bold text-2xl">SẢN PHẨM LIÊN QUAN</p>
 
-      <div className="grid grid-cols-4 gap-12">
-        {goiCo.map((item) => {
-          return <ProductItemVertical product={item} key={item.id} />;
+        <div className="flex-1 flex justify-end">
+          <div className="w-2/3  h-[1px] bg-[#80808059]"></div>
+        </div>
+        <Link
+          href="/san-pham/goi-co"
+          className="flex items-center gap-2 bg-white text-primary hover:bg-primary hover:text-white rounded-sm px-3 py-2 w-fit"
+        >
+          <span>Xem tất cả</span>
+          <BsArrowRightShort />
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4  gap-10">
+        {products.map((item) => {
+          return <ProductItemVertical product={item} key={item.product_id} />;
         })}
       </div>
     </div>

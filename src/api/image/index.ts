@@ -1,7 +1,5 @@
 import { API_ENPOINT } from "@/constants/api";
-
-const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MDAxMzQ4OTMsImV4cCI6MTcwMDE0MjA5M30.2vIRDTgSu9j2YjE-e7falo1s_tg-IeJsXafvPcP87oA";
+import { bearerToken } from "../blog";
 
 export async function upLoadImage(imageFile: File) {
   try {

@@ -1,5 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
 import { bearerToken } from "../blog";
+import { ICarFormValue } from "@/admin/CarManagement/CarManagementForm";
 
 export async function addYear(year: number) {
   try {
@@ -128,6 +129,37 @@ export async function addVersion(model_id: string, version_name: string) {
           Authorization: `Bearer ${bearerToken}`,
         },
         body: JSON.stringify({ version_name }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function addCar(data: ICarFormValue) {
+  try {
+    const response = await fetch(
+      API_ENPOINT +
+        `design/years/${data.year}/versions/${data.version_id}/cars`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        body: JSON.stringify({
+          year: data.year,
+          version_id: data.version_id,
+          image_url: data.image_url,
+        }),
       }
     );
 

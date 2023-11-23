@@ -1,11 +1,11 @@
+"use client";
 import React from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { renderCategory } from "../Newest";
 import { BsArrowRightShort } from "react-icons/bs";
 import Link from "next/link";
-import { newestNews } from "@/data/news";
-import { Category, IBlog } from "@/types";
+import { IBlog } from "@/types";
 import moment from "moment";
+import { renderCategory } from "..";
 
 interface INewBlogItem {
   blog: IBlog;
@@ -13,7 +13,7 @@ interface INewBlogItem {
 
 const NewGridViewItem: React.FC<INewBlogItem> = ({ blog }) => {
   return (
-    <div className="blog-item-wrapper border h-fit border-solid border-[#8080805e] text-white mb-5">
+    <div className="blog-item-wrapper border border-solid border-[#8080805e] text-white mb-5">
       <div className="h-1/2 overflow-hidden">
         <img
           src={"http://" + blog.blog_image_url}

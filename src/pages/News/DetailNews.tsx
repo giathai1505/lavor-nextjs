@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { FiFacebook, FiMail, FiYoutube } from "react-icons/fi";
 import { PiTiktokLogo } from "react-icons/pi";
-import { renderCategory } from "./Newest";
 import { AiOutlineCalendar } from "react-icons/ai";
 import titleBackgroundImage from "@/assets/images/headerPart/6.jpeg";
 import { IBlog } from "@/types";
@@ -12,6 +11,8 @@ import BlogSidebar from "./BlogSidebar";
 import moment from "moment";
 import parse from "html-react-parser";
 import RelatedNews from "./RelatedNews";
+import { renderCategory } from ".";
+
 interface IPageProps {
   blog: IBlog;
   relatedBlogs: IBlog[];
@@ -67,7 +68,6 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
         for (const heading of headingElements) {
           const rect = heading.getBoundingClientRect();
           if (rect.top <= 0 && rect.bottom > 0) {
-            console.log("==== dô trong này");
             currentActiveHeading = heading.id;
             break;
           }
@@ -78,7 +78,7 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Cleanup the event listener on component unmount
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -165,7 +165,7 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
                 ))}
               </ul>
             </div>
-            <BlogSidebar />
+            <BlogSidebar blogs={[blog]} />
           </div>
         </div>
       </div>

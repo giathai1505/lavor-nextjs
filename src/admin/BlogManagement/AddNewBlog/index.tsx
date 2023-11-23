@@ -49,7 +49,6 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
 
   const router = useRouter();
   const [image, setImage] = useState<string>("");
-  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
 
   const form = useForm<IFormValue>({
     defaultValues: defaultValue,
@@ -97,24 +96,12 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
     } catch (error) {}
   };
 
-  const handleSaveChange = () => {
-    //lưu chỉnh sửa ở đây
-  };
-
   const handleBackToListBlog = () => {
     router.push("/admin/blog-management");
   };
 
   return (
-    <form action="" onSubmit={handleSubmit(onSubmit)}>
-      <ConfirmDialog
-        onOk={handleSaveChange}
-        title="Đổi trạng thái của bài viết"
-        open={showConfirmDialog}
-        content="Bạn có chắc muốn đổi trạng thái của bài viết này không?"
-        onClose={() => setShowConfirmDialog(false)}
-        type="information"
-      />
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="flex justify-between items-center bg-white mb-5 p-5">
           <p className="admin-title">

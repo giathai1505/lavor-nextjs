@@ -224,6 +224,8 @@
   opacity: 0;
   display: none;
   margin-top: 16px;
+  max-height: 300px;
+  overflow: scroll;
 }
 
 .menu li {
@@ -470,4 +472,27 @@
 
 .minW-200 {
   min-width: 200px;
+}
+
+/* pagination  */
+
+.pagination-item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gray;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination-item.active {
+  background-color: #f47a20;
+  border: 0;
+}
+
+.pagination-item:hover {
+  background-color: #f47a20;
+  border: 0;
 }

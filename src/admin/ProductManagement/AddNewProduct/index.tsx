@@ -60,8 +60,6 @@ const ProductForm: React.FC<IProductForm> = ({
     }
   });
 
-  console.log("====== default Thái: ", defaultValue.product_detail);
-
   const router = useRouter();
   const [albumImage, setAlbumImage] = useState<any[]>([]);
 
@@ -102,7 +100,6 @@ const ProductForm: React.FC<IProductForm> = ({
   }, []);
 
   const onSubmit = (data: IProductFormValue) => {
-    console.log("data: ", data);
     if (isEdit) {
       editProductAPI(data, productID ?? "");
     } else {
@@ -127,11 +124,8 @@ const ProductForm: React.FC<IProductForm> = ({
 
           return addProductAPI(newData);
         })
-        .then((result) => {
-          console.log(result);
-        })
+        .then((result) => {})
         .catch((error) => {
-          //show toast upload image fail
           console.error("Error:", error);
         });
     }

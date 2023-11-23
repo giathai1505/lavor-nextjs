@@ -1,9 +1,13 @@
-import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
-const Conclusion = () => {
+interface IConclusion {
+  onComplete: (data: any) => void;
+}
+
+const Conclusion: React.FC<IConclusion> = ({ onComplete }) => {
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   return (
-    <div className="border border-solid border-primary text-white py-10 px-20">
+    <div className="border border-solid border-[#595d6e] text-[#595d6e] py-10 px-20">
       <h3 className="text-center font-bold">
         Cùng nhìn lại lựa chọn thiết kế của bạn ngay bây giờ nhé !
       </h3>
@@ -31,11 +35,11 @@ const Conclusion = () => {
 
         <div>
           <img src="" alt="" className="bg-yellow h-20" />
-          <p className="text-primary">Màu da: Mã xxx</p>
+          <p className="text-[#595d6e]">Màu da: Mã xxx</p>
         </div>
         <div>
           <img src="" alt="" className="bg-green h-20" />
-          <p className="text-primary">Thiết kế đục lỗ: Mã xxx</p>
+          <p className="text-[#595d6e]">Thiết kế đục lỗ: Mã xxx</p>
         </div>
       </div>
 
@@ -51,11 +55,16 @@ const Conclusion = () => {
         </h3>
         <input
           type="text"
-          name=""
-          id=""
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
           className="w-60 p-1 text-black text-center"
         />
-        <button className="primary-button">Hoàn thành</button>
+        <button
+          className={`primary-button ${phoneNumber !== "" ? "" : "disabled"}`}
+          onClick={() => onComplete(phoneNumber)}
+        >
+          Hoàn thành
+        </button>
       </div>
     </div>
   );

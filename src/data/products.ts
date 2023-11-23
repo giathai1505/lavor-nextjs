@@ -30,6 +30,7 @@ import bocTayLai3 from "@/assets/images/products/boc-tay-lai/BTL-3.png";
 
 //san-pham-khac
 import sanPhamKhac1 from "@/assets/images/products/san-pham-khac/SPK-1.jpeg";
+import { ProductType } from "@/types";
 
 export const products = [
   {
@@ -154,35 +155,35 @@ export const sanPhamKhac = [
 
 export const categories = [
   {
-    id: 2,
+    id: ProductType.CHAIR,
     name: "Bọc ghế",
     image: bocGheImg,
     href: "/san-pham/boc-ghe-da",
     quantity: 9,
   },
   {
-    id: 3,
+    id: ProductType.STEERING_WHEEL,
     name: "Bọc tay lái",
     image: voLangImg,
     href: "/san-pham/boc-tay-lai",
     quantity: 9,
   },
   {
-    id: 4,
+    id: ProductType.PILLOW,
     name: "Gối cổ",
     image: goiCoImg,
     href: "/san-pham/goi-co",
     quantity: 27,
   },
   {
-    id: 1,
+    id: ProductType.FLOOR,
     name: "Thảm lót sàn",
     image: thamLotSanImg,
     href: "/san-pham/tham-lot-san",
     quantity: 6,
   },
   {
-    id: 5,
+    id: ProductType.OTHER,
     name: "Sản phẩm khác",
     image: sanPhamKhacImg,
     href: "/san-pham/san-pham-khac",
@@ -261,6 +262,62 @@ export const bocGheDa = [
 ];
 
 export const goiCo = [
+  {
+    id: 1,
+    name: "Gối cổLavor Premiem",
+    image: goiCo1,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
+  {
+    id: 2,
+    name: "Gối cổ Lavor Low Price",
+    image: goiCo2,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
+  {
+    id: 3,
+    name: "Gối cổ Lavor Luxury",
+    image: goiCo3,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
+  {
+    id: 3,
+    name: "Gối cổ Lavor Luxury",
+    image: goiCo4,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
+  {
+    id: 1,
+    name: "Gối cổLavor Premiem",
+    image: goiCo1,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
+  {
+    id: 2,
+    name: "Gối cổ Lavor Low Price",
+    image: goiCo2,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
+  {
+    id: 3,
+    name: "Gối cổ Lavor Luxury",
+    image: goiCo3,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
+  {
+    id: 3,
+    name: "Gối cổ Lavor Luxury",
+    image: goiCo4,
+    price: "1.500.000",
+    category: "Gối cổ",
+  },
   {
     id: 1,
     name: "Gối cổLavor Premiem",

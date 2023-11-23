@@ -1,7 +1,6 @@
-import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
 import ProductForm from "@/admin/ProductManagement/AddNewProduct";
 import { API_ENPOINT } from "@/constants/api";
-import { Category, PStatus, ProductType, Status } from "@/types";
+import { PStatus, ProductType } from "@/types";
 import React from "react";
 
 interface IPageProps {

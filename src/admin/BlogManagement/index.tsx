@@ -31,8 +31,9 @@ import {
 } from "@/api/blog";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
-import { renderCategory } from "@/pages/News/Newest";
+
 import moment from "moment";
+import { renderCategory } from "@/pages/News";
 
 const statusOptions = [
   {
@@ -372,12 +373,12 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
             options={statusOptions}
             onChange={(item) => handleFilterBlog("status", item.key)}
             className="admin"
-            value={globalFilter.status}
+            // value={globalFilter.status}
             placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
-            value={globalFilter.category}
+            // value={globalFilter.category}
             onChange={(item) => handleFilterBlog("category", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"

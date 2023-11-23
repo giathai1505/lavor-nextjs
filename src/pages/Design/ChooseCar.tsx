@@ -1,96 +1,119 @@
-import Button from "@/components/Common/Button";
-import Dropdown from "@/components/Common/Dropdown";
-import React, { useState } from "react";
-
-const listCarCompany = [
-  {
-    id: 1,
-    value: "CHEVROLET",
-  },
-  {
-    id: 2,
-    value: "FORD",
-  },
-  {
-    id: 3,
-    value: "VINFAST",
-  },
-  {
-    id: 4,
-    value: "TOYOTA",
-  },
-];
-const listYear = [
-  {
-    id: 1,
-    value: "2020",
-  },
-  {
-    id: 2,
-    value: "2021",
-  },
-  {
-    id: 3,
-    value: "2022",
-  },
-  {
-    id: 4,
-    value: "2023",
-  },
-];
-
-const listModel = [
-  {
-    id: 1,
-    value: "ENCLAVE",
-  },
-  {
-    id: 2,
-    value: "ENCORE",
-  },
-  {
-    id: 3,
-    value: "EQUINOX",
-  },
-  {
-    id: 4,
-    value: "TRAILBLAZER",
-  },
-];
+import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
+import { IBrand, IModel, IYear } from "@/types";
+import React, { useEffect, useState } from "react";
 
 interface ICar {
   year: number | undefined;
-  company: number | undefined;
+  brand: number | undefined;
   model: number | undefined;
+  version: number | undefined;
 }
 
 interface IChooseCar {
-  onNext: () => void;
+  onNext: (data: any) => void;
+  years: IYear[];
+  brands: IBrand[];
 }
 
-const ChooseCar: React.FC<IChooseCar> = ({ onNext }) => {
+const initListBrands = (brands: IBrand[]) => {
+  if (brands.length <= 0) return [];
+  return brands.map((item) => {
+    return { id: item.brand_id, value: item.brand_name };
+  });
+};
+
+const initListYear = (years: IYear[]) => {
+  if (years.length <= 0) return [];
+
+  return years.map((item) => {
+    return { id: item.year, value: item.year.toString() };
+  });
+};
+
+const updateListModelWhenChangeBrand = (brandID: number, brands: IBrand[]) => {
+  if (!brandID) return [];
+
+  const activeBrand = brands.find((item) => item.brand_id === brandID);
+
+  if (!activeBrand || activeBrand.models.length === 0) return [];
+
+  return activeBrand.models.map((item) => {
+    return {
+      id: item.model_id,
+      value: item.model_name,
+    };
+  });
+};
+
+const updateListVersionWhenModelChange = (
+  brandID: number | undefined,
+  modelID: number,
+
+  brands: IBrand[]
+) => {
+  if (!modelID || !brandID) return [];
+
+  const activeBrand = brands.find((item) => item.brand_id === brandID);
+
+  if (!activeBrand || activeBrand.models.length === 0) return [];
+
+  const activeModel = activeBrand.models.find(
+    (item) => item.model_id === modelID
+  );
+  if (!activeModel || activeModel.versions.length === 0) return [];
+  return activeModel.versions.map((item) => {
+    return {
+      id: item.version_id,
+      value: item.version_name,
+    };
+  });
+};
+
+const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands }) => {
   const [carDetail, setCarDetail] = useState<ICar>({
     year: undefined,
-    company: undefined,
+    brand: undefined,
     model: undefined,
+    version: undefined,
   });
+
+  const [listYears, setListYears] = useState<IDropdownOption[]>([]);
+  const [listBrands, setListBrands] = useState<IDropdownOption[]>([]);
+  const [listModels, setListModels] = useState<IDropdownOption[]>([]);
+  const [listVersions, setListVersions] = useState<IDropdownOption[]>([]);
+  useEffect(() => {
+    setListBrands(initListBrands(brands));
+    setListYears(initListYear(years));
+  }, []);
 
   const handleChangeCarDetail = (
     value: any,
-    type: "year" | "company" | "model"
+    type: "year" | "brand" | "model" | "version"
   ) => {
     let newState;
     switch (type) {
       case "year":
-        newState = { ...value, company: undefined, model: undefined };
+        newState = {
+          ...value,
+          brand: undefined,
+          model: undefined,
+          version: undefined,
+        };
         break;
-      case "company":
+      case "brand":
         newState = { ...carDetail, ...value, model: undefined };
+        setListModels(updateListModelWhenChangeBrand(value.brand, brands));
+
         break;
       case "model":
+        newState = { ...carDetail, ...value, version: undefined };
+        setListVersions(
+          updateListVersionWhenModelChange(carDetail.brand, value.model, brands)
+        );
+        break;
+      case "version":
         newState = { ...carDetail, ...value };
         break;
-
       default:
         break;
     }
@@ -100,34 +123,43 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext }) => {
 
   return (
     <div>
-      <div className="max-w-[1200px] grid grid-cols-3 gap-10">
+      <div className="max-w-[1200px] grid grid-cols-4 gap-10">
         <Dropdown
           name="year"
-          options={listYear}
+          options={listYears}
           placeHolder="Năm đời xe"
           onChange={(year) => handleChangeCarDetail(year, "year")}
         />
         {carDetail.year !== undefined ? (
           <Dropdown
-            name="company"
-            options={listCarCompany}
+            name="brand"
+            options={listBrands}
             placeHolder="Hãng xe"
-            onChange={(company) => handleChangeCarDetail(company, "company")}
+            onChange={(brand) => handleChangeCarDetail(brand, "brand")}
           />
         ) : null}
 
-        {carDetail.company !== undefined ? (
+        {carDetail.brand !== undefined ? (
           <Dropdown
-            options={listModel}
+            options={listModels}
             name="model"
             placeHolder="Model xe"
             onChange={(model) => handleChangeCarDetail(model, "model")}
           />
         ) : null}
+
+        {carDetail.model !== undefined ? (
+          <Dropdown
+            options={listVersions}
+            name="version"
+            placeHolder="Version xe"
+            onChange={(version) => handleChangeCarDetail(version, "version")}
+          />
+        ) : null}
       </div>
       <div className="ml-8">
-        {carDetail.model !== undefined ? (
-          <button className="primary-button" onClick={() => onNext()}>
+        {carDetail.version !== undefined ? (
+          <button className="primary-button" onClick={() => onNext(carDetail)}>
             Tiếp theo
           </button>
         ) : null}

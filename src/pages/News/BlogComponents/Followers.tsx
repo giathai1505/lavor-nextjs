@@ -1,29 +1,34 @@
 import React from "react";
-import NewsTitle from "../NewsTitle";
 import { FaFacebookF, FaTiktok, FaYoutube } from "react-icons/fa";
 import Link from "next/link";
+import { formatCurrencyWithDots } from "@/utilities";
+import { SocialMediaLink } from "@/constants/resource";
+
 const followList = [
   {
     id: 1,
     name: "Facebook",
-    followers: 100,
+    followers: 5380,
     icon: <FaFacebookF />,
+    link: SocialMediaLink.facebook,
   },
   {
     id: 1,
     name: "Tiktok",
-    followers: 100,
+    followers: 27000,
     icon: <FaTiktok />,
+    link: SocialMediaLink.tiktok,
   },
   {
     id: 1,
     name: "Youtube",
-    followers: 100,
+    followers: 126000,
     icon: <FaYoutube />,
+    link: SocialMediaLink.youtube,
   },
 ];
 
-const RecruitmentNews = () => {
+const Followers = () => {
   return (
     <div className="my-10">
       <p className="font-bold text-lg mb-4 text-white">Theo dõi</p>
@@ -32,7 +37,8 @@ const RecruitmentNews = () => {
           return (
             <Link
               key={item.id}
-              href="/"
+              target="_blank"
+              href={item.link}
               className="border border-solid border-[#222121] px-3 py-[10px] flex text-[#d7d7d7] hover:text-white hover:bg-[#323232] mb-4"
             >
               <div className="flex items-center gap-5">
@@ -43,7 +49,7 @@ const RecruitmentNews = () => {
               <p className="flex-1 ml-5">{item.name}</p>
               <div className="flex items-center gap-5">
                 <span>|</span>
-                <p>{item.followers}</p>
+                <p>{formatCurrencyWithDots(item.followers)}</p>
               </div>
             </Link>
           );
@@ -53,4 +59,4 @@ const RecruitmentNews = () => {
   );
 };
 
-export default RecruitmentNews;
+export default Followers;

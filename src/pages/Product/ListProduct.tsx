@@ -1,11 +1,9 @@
 "use client";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
-import React from "react";
-import ProductListView from "./components/ProductListView";
-
-interface IListProduct {
-  categoryID: string;
-}
+import React, { useEffect, useState } from "react";
+import ProductItemVertical from "./components/ProductItemVertical";
+import { IProduct, SlugToTitle } from "@/types";
+import { useRouter } from "next/navigation";
 
 const productFilterOptions = [
   {
@@ -32,26 +30,87 @@ const productFilterOptions = [
   },
 ];
 
-const ListProduct: React.FC<IListProduct> = ({ categoryID }) => {
+const listDanhMuc = [
+  {
+    key: 0,
+    value: "Tất cả sản phẩm",
+  },
+  {
+    key: "boc-ghe",
+    value: "Bọc ghé",
+  },
+  {
+    key: "boc-tay-lai",
+    value: "Bọc tay lái",
+  },
+
+  {
+    key: "goi-co",
+    value: "Gối cổ",
+  },
+
+  {
+    key: "tham-lot-san",
+    value: "Thảm lót sàn",
+  },
+  {
+    key: "san-pham-khac",
+    value: "Sản phẩm khác",
+  },
+];
+
+interface IListProduct {
+  categoryID: string;
+  products: IProduct[];
+  slug: string;
+}
+const ListProduct: React.FC<IListProduct> = ({
+  categoryID,
+  products,
+  slug,
+}) => {
+  const [selectedCategory, setSelectedCategory] = useState<any>();
+  const router = useRouter();
+
+  useEffect(() => {
+    setSelectedCategory(slug);
+  }, [slug]);
+
+  const handleChangeCategory = (a: any) => {
+    setSelectedCategory(a.key);
+    router.push("/san-pham/" + a.key);
+  };
   return (
     <div className="bg-black py-14 text-white">
       <div className="wrapper">
         <div className="flex justify-between">
           <div className="flex items-center gap-3">
-            <p className="font-bold text-3xl text-primary">Gối cổ</p>
-            <p className="text-xs">Tổng cộng 12 sản phẩm</p>
+            <p className="font-bold text-xl text-primary uppercase">
+              {SlugToTitle[slug as keyof typeof SlugToTitle]}
+            </p>
+            --------
+            <p className="text-[15px]">Tổng cộng {products.length} sản phẩm</p>
           </div>
-          <div>
+          <div className="flex items-center gap-10">
+            <NoneFormSelectCustom
+              onChange={(a) => handleChangeCategory(a)}
+              options={listDanhMuc}
+              className="user"
+              placeholder="Danh mục"
+              value={selectedCategory}
+            />
             <NoneFormSelectCustom
               onChange={(a) => console.log(a)}
               options={productFilterOptions}
+              className="user"
+              placeholder="Lọc"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-10 my-10">
-          {Array.from(Array(10).keys()).map((item) => {
-            return <ProductListView />;
+        <div className="grid grid-cols-4 gap-12 pt-10 pb-40">
+          {products.map((item) => {
+            return <ProductItemVertical product={item} key={item.product_id} />;
           })}
         </div>
       </div>

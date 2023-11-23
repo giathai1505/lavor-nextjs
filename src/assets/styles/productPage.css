@@ -45,13 +45,13 @@
 }
 
 .dp-price span {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .db-name {
   font-size: 32px;
   font-weight: bold;
-  color: #f47a20;
+  color: white;
 }
 
 .db-color-item {
@@ -69,29 +69,25 @@
 
 .db-desc-wrapper {
   border-top: 1px solid #80808059;
-  padding-top: 40px;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 .lp-product-wrapper {
-  border: 1px solid #f47a20;
+  border: 1px solid #3a3636;
   border-radius: 4px;
   overflow: hidden;
+  height: fit-content;
 }
 
 .lp-product-wrapper img {
-  height: 300px;
+  height: 230px;
   width: 100%;
   object-fit: cover;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .lp-product-wrapper:hover img {
   transform: scale(1.1);
-  transition: all 0.3s ease-in-out;
 }
 
 .lp-product-content-wrapper {
@@ -127,9 +123,12 @@
   align-items: center;
 }
 
+.category-wrapper img {
+  transition: all 0.3s ease;
+}
+
 .category-wrapper:hover img {
   transform: scale(1.1);
-  transition: all 0.3s ease;
 }
 
 .category-wrapper:hover p {
@@ -141,7 +140,10 @@
   border-radius: 2px;
 }
 
+.product-wrapper img {
+  transition: all 0.3s ease-in-out;
+}
+
 .product-wrapper:hover img {
   transform: scale(1.1);
-  transition: all 0.3s ease-in-out;
 }

@@ -1,22 +1,26 @@
 "use client";
 
+import { products } from "@/data/products";
+import { IProduct } from "@/types";
 import React, { useState } from "react";
 
 interface IDetailImage {
-  productImgs: string[];
+  product: IProduct;
 }
 
-const DetailImage: React.FC<IDetailImage> = ({ productImgs }) => {
-  const [activeImage, setActiveImage] = useState<string>(productImgs[0]);
+const DetailImage: React.FC<IDetailImage> = ({ product }) => {
+  const [activeImage, setActiveImage] = useState<string>(
+    product.product_images[0]
+  );
   return (
     <div className="grid grid-cols-5 gap-3 text-white">
       <div className="col-span-1">
         <div className="flex flex-col gap-3">
-          {productImgs.map((item) => {
+          {product.product_images.map((item) => {
             return (
               <img
                 alt="Ảnh gối cổ"
-                src={item}
+                src={"http://" + item}
                 className={`dp-slide-img-item ${
                   item === activeImage ? "active" : ""
                 }`}
@@ -27,7 +31,7 @@ const DetailImage: React.FC<IDetailImage> = ({ productImgs }) => {
         </div>
       </div>
       <div className="col-span-4">
-        <img src={activeImage} alt="" className="dp-main-img" />
+        <img src={"http://" + activeImage} alt="" className="dp-main-img" />
       </div>
     </div>
   );

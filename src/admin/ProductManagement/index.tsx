@@ -22,16 +22,10 @@ import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
 import { Category, IBlog, IProduct, Status } from "@/types";
-import {
-  changeBlogStatus,
-  changeMultipleBlogStatus,
-  deleteAPI,
-  deleteMultipleBlogs,
-  getAllBlogs,
-} from "@/api/blog";
+import { changeBlogStatus } from "@/api/blog";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
-import { renderCategory } from "@/pages/News/Newest";
+import { renderCategory } from "@/pages/News";
 import moment from "moment";
 import {
   deleteMultipleProducts,
@@ -231,11 +225,11 @@ const ProductManagement: React.FC<IProductManagement> = ({
       },
       {
         accessorFn: (row) => row.product_images,
-        id: "blog_cover_image_url",
+        id: "product_images",
         cell: ({ row }) => (
           <div className="w-20 h-20">
             <img
-              src={"http://" + ""}
+              src={"http://" + row.original.product_images[0]}
               alt=""
               className="w-20 h-20 rounded-full object-cover"
             />
@@ -379,12 +373,12 @@ const ProductManagement: React.FC<IProductManagement> = ({
             options={statusOptions}
             onChange={(item) => handleFilterBlog("status", item.key)}
             className="admin"
-            value={globalFilter.status}
+            // value={globalFilter.status}
             placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
-            value={globalFilter.category}
+            // value={globalFilter.category}
             onChange={(item) => handleFilterBlog("category", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"

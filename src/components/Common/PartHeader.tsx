@@ -26,7 +26,7 @@ const PartHeader: React.FC<IPartHeader> = ({
       <div className="header-bg"></div>
 
       <div className="absolute z-20 mt-[80px] md:mt-[140px] left-1/2 -translate-x-2/4">
-        <h2 className="mb-2 text-xl whitespace-nowrap leading-8 md:text-2xl md:leading-10 xl:text-3xl xl:leading-[48px]">
+        <h2 className="mb-2 text-xl whitespace-nowrap leading-8 md:text-2xl xl:leading-[48px]">
           <span> {title}</span>
         </h2>
         <Breadcrumb text={breadcrumb} />

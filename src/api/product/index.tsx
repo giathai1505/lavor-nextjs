@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { bearerToken } from "../blog";
 
 export async function addProductAPI(data: IProductFormValue) {
-  console.log("data: ", data);
   try {
     const loadingToastId = toast.info("Đang thêm sản phẩm mới...", {
       position: "top-center",

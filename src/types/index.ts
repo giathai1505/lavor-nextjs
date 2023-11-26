@@ -76,10 +76,6 @@ export interface IProduct {
   variants: IProductVariant[];
 }
 
-// export interface IBlog {
-//   year: number;
-// }
-
 export interface IYear {
   year: number;
 }
@@ -147,4 +143,30 @@ export interface IPagination {
   total: number;
   page: string;
   limit: string;
+}
+
+export interface IRegion {
+  region_id: number;
+  region_name: string;
+  cities: ICity[];
+}
+
+export interface ICity {
+  city_id: number;
+  city_name: string;
+  agencies: IAgency[];
+}
+
+export interface IAgency {
+  agency_id: number;
+  agency_name: string;
+  agency_address: string;
+}
+
+export interface IAgencyTable {
+  agency_id: number;
+  agency_name: string;
+  agency_address: string;
+  city_name: string;
+  region_name: string;
 }

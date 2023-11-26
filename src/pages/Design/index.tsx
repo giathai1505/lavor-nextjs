@@ -109,7 +109,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
         title="THIẾT KẾ"
         backgroundImage={titleBackgroundImage}
       />
-      <div className="bg-[#d3cfcf] pt-20">
+      <div className="bg-black pt-20">
         <div className="wrapper">
           <div className="flex justify-center mb-20">
             <ProgressBar active={phase} />
@@ -117,14 +117,14 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
           <div className="pb-40">{renderPhase}</div>
         </div>
       </div>
-      <div className="home-leather ">
-        <div className="container mx-auto max-w-[1200px]">
-          <h2 className="mb-10">
-            Với <span>Lavor</span> , nội thất xe của bạn sẽ trở nên{" "}
+      <div className="home-leather py-5">
+        <div className="container mx-auto max-w-[1200px] p-5 md:p-10">
+          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
+            Với <span>Lavor</span> , nội thất xe của bạn sẽ trở nên <br />
             <span> đẳng cấp</span>
           </h2>
-          <div className="grid grid-cols-2 gap-20">
-            <div className="h-[300px]">
+          <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
+            <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
               <YoutubeThumbnail
                 imgAlt="Giới thiệu Lavor"
                 imgSrc={introduceImg}
@@ -133,7 +133,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
               />
             </div>
             <div className="leather-text">
-              <p>
+              <p className="mb-5 text-justify md:mb-10 xl:text-left">
                 Hãy tưởng tượng nội thất xe của bạn được bọc da sang trọng, nâng
                 cấp hiện đại và mang phong cách của riêng bạn. Có thể bạn muốn
                 điều đó nhưng lại lo lắng về chất lượng ở các Garage. Hoặc bạn
@@ -143,7 +143,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
                 sang trọng, tiện nghi và phong cách cho chiếc xe của bạn.
               </p>
 
-              <p>
+              <p className="text-justify xl:text-left">
                 Lavor là một thương hiệu sản xuất nội thất ô tô, trực thuộc Công
                 ty TNHH TMDV & SX Minh Tâm – chuyên gia trong lĩnh vực sản xuất
                 nội thất, độ xe và dịch vụ lắp đặt nội thất ô tô tại Việt Nam.
@@ -154,17 +154,17 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
             </div>
           </div>
           <div className="mt-10">
-            <Button link="/" text="Tìm hiểu thêm" />
+            <Button link="/about-us" text="Tìm hiểu thêm" />
           </div>
         </div>
       </div>
 
-      <div className="bg-secondaryBackground pb-20">
-        <div className="max-w-[1200px] mx-auto text-center py-10">
-          <h2 className="mb-10">
+      <div className="bg-secondaryBackground p-10 xl:p-20">
+        <div className="max-w-[1200px] mx-auto text-center">
+          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
             CHỌN CHIẾC XE CỦA BẠN - CÒN LẠI <span>LAVOR </span> LO
           </h2>
-          <div className="grid grid-cols-3 gap-20 mb-10">
+          <div className="grid grid-cols-1 gap-5 mb-5 xl:grid-cols-3 xl:gap-10 xl:my-20">
             <div className="flex gap-5 text-left">
               <p className="p3-big-text phone">1.</p>
               <div>
@@ -185,7 +185,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
                   tư vấn cụ thể hơn và lên lịch nâng cấp nội thất xe giúp bạn.
                 </p>
               </div>
-            </div>
+            </div>{" "}
             <div className="flex gap-5 text-left font-light">
               <p className="p3-big-text phone">3.</p>
               <div>
@@ -197,8 +197,8 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
               </div>
             </div>
           </div>
-          <div className="mt-20 flex justify-center">
-            <Link href="/">
+          <div className="mt-10 flex justify-center">
+            <Link href="/choose-your-design">
               <Image
                 src={startButton}
                 alt="Chọn thiêt kế riêng cuả bạn"

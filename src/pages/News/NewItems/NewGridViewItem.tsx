@@ -14,7 +14,7 @@ interface INewBlogItem {
 const NewGridViewItem: React.FC<INewBlogItem> = ({ blog }) => {
   return (
     <div className="blog-item-wrapper border border-solid border-[#8080805e] text-white mb-5">
-      <div className="h-1/2 overflow-hidden">
+      <div className="h-[250px] overflow-hidden">
         <img
           src={"http://" + blog.blog_image_url}
           alt=""

@@ -48,9 +48,9 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
   const searchParams = useSearchParams();
 
   const [data, setData] = useState<IBlog[]>([]);
-  const [paginationData, setPaginationData] = useState<IPagination>(pagination);
 
   const typeView = searchParams?.get("view");
+  const currentPage = searchParams?.get("page");
 
   const handleChangeViewOption = (view: string) => {
     const current = new URLSearchParams(
@@ -76,46 +76,33 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
       current.set("view", "grid");
     }
 
-    current.set("page", paginationData.page);
-    current.set("pageSize", paginationData.limit);
+    current.set("page", pagination.page);
+    current.set("pageSize", pagination.limit);
     const url = current.toString();
     const query = url ? `?${url}` : "";
-    router.push(`${pathname}${query}`);
+    router.replace(`${pathname}${query}`);
 
     setData(blogs);
   }, []);
 
+  useEffect(() => {
+    setData(blogs);
+  }, [blogs]);
+
   const handlePageChange = (page: number) => {
-    const url = `?page=${page}&limit=2`;
-    getAllBlogs(url)
-      .then((result) => {
-        setData(result.blogs);
-        setPaginationData({
-          total: result.total ?? 10,
-          page: result.page ?? 1,
-          limit: result.limit ?? 10,
-        });
-
-        const current = new URLSearchParams(
-          Array.from(searchParams?.entries() ?? [])
-        );
-
-        current.set("page", result.page);
-        current.set("pageSize", result.limit);
-        const url = current.toString();
-        const query = url ? `?${url}` : "";
-        router.push(`${pathname}${query}`);
-      })
-      .catch((error) => {
-        setData([]);
-      });
+    const current = new URLSearchParams(
+      Array.from(searchParams?.entries() ?? [])
+    );
+    current.set("page", page.toString());
+    const url = current.toString();
+    const query = url ? `?${url}` : "";
+    router.push(`${pathname}${query}`);
   };
 
-  const startIndex =
-    (Number(paginationData.page) - 1) * Number(paginationData.limit);
+  const startIndex = (Number(pagination.page) - 1) * Number(pagination.limit);
   const endIndex = Math.min(
-    startIndex + Number(paginationData.limit) - 1,
-    Number(paginationData.total) - 1
+    startIndex + Number(pagination.limit) - 1,
+    Number(pagination.total) - 1
   );
 
   return (
@@ -132,7 +119,7 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
               <div className="border border-solid mb-5 border-[#222121] py-2 px-5 flex items-center justify-between text-white">
                 <p className="text-gray text-[15px]">
                   Hiển thị từ {startIndex + 1} - {endIndex + 1} /{" "}
-                  {paginationData.total} bài viết
+                  {pagination.total} bài viết
                 </p>
                 <div className="flex items-center gap-2">
                   <BiGridAlt
@@ -167,9 +154,9 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
 
               <div className="mt-5">
                 <Pagination
-                  currentPage={Number(paginationData.page)}
+                  currentPage={Number(currentPage)}
                   totalPages={Math.ceil(
-                    paginationData.total / Number(paginationData.limit)
+                    pagination.total / Number(pagination.limit)
                   )}
                   onPageChange={handlePageChange}
                 />

@@ -1,3 +1,6 @@
+import { upLoadImages } from "@/api/image";
+import { IAgencyTable, IRegion } from "@/types";
+
 export function areObjectsEqual<T extends {}>(obj1: T, obj2: T): boolean {
   const keys1 = Object.keys(obj1) as Array<keyof T>;
   const keys2 = Object.keys(obj2) as Array<keyof T>;
@@ -16,18 +19,67 @@ export function areObjectsEqual<T extends {}>(obj1: T, obj2: T): boolean {
 }
 
 export function formatCurrencyWithDots(number: number): string {
-  // Convert the number to a string
   const numberString = number.toString();
-
-  // Split the string into parts based on the decimal point
   const parts = numberString.split(".");
-
-  // Format the integer part with dots
   const formattedInteger = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-  // If there is a decimal part, include it in the result
   const formattedNumber =
     parts.length > 1 ? `${formattedInteger}.${parts[1]}` : formattedInteger;
 
   return formattedNumber;
 }
+
+export const checkAndUploadMultipleImage = async (
+  files: Array<string | File>
+): Promise<string[]> => {
+  let needToUploadArr: File[] = [];
+  let newListImages: string[] = [];
+
+  files.forEach((item) => {
+    if (typeof item !== "string") {
+      needToUploadArr.push(item as File);
+    }
+  });
+
+  if (needToUploadArr.length > 0) {
+    const uploadImage = await upLoadImages(needToUploadArr);
+
+    if (uploadImage.urls.length > 0) {
+      let startIndex = 0;
+
+      files.forEach((item) => {
+        if (typeof item === "string") {
+          newListImages.push(item);
+        } else {
+          newListImages.push(uploadImage.urls[startIndex]);
+          startIndex++;
+        }
+      });
+    }
+  } else {
+    return files as string[];
+  }
+
+  return newListImages;
+};
+
+export const convertToAgencyArray = (data: IRegion[]): IAgencyTable[] => {
+  const result: IAgencyTable[] = [];
+
+  data.forEach((region) => {
+    region.cities.forEach((city) => {
+      city.agencies.forEach((agency) => {
+        const agencyData: IAgencyTable = {
+          agency_id: agency.agency_id,
+          agency_name: agency.agency_name,
+          agency_address: agency.agency_address,
+          city_name: city.city_name,
+          region_name: region.region_name,
+        };
+
+        result.push(agencyData);
+      });
+    });
+  });
+
+  return result;
+};

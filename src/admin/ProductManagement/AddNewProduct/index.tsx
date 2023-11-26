@@ -12,14 +12,14 @@ import { IProductColor, IProductDetail, PStatus, ProductType } from "@/types";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
 import FormError from "@/components/Common/FormError";
-import ConfirmDialog from "@/components/Common/Dialog";
 import { useRouter } from "next/navigation";
-import { AiOutlineUpload } from "react-icons/ai";
 import { GrFormClose } from "react-icons/gr";
 import dynamic from "next/dynamic.js";
 import { upLoadImages } from "@/api/image";
 import { DevTool } from "@hookform/devtools";
 import { addProductAPI, editProductAPI } from "@/api/product";
+import { checkAndUploadMultipleImage } from "@/utilities";
+import { FaArrowLeft } from "react-icons/fa";
 
 export interface IProductFormValue {
   product_name: string;
@@ -63,8 +63,6 @@ const ProductForm: React.FC<IProductForm> = ({
   const router = useRouter();
   const [albumImage, setAlbumImage] = useState<any[]>([]);
 
-  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
-
   const form = useForm<IProductFormValue>({
     defaultValues: defaultValue,
     mode: "all",
@@ -99,9 +97,44 @@ const ProductForm: React.FC<IProductForm> = ({
     }
   }, []);
 
-  const onSubmit = (data: IProductFormValue) => {
+  const onSubmit = async (data: IProductFormValue) => {
     if (isEdit) {
-      editProductAPI(data, productID ?? "");
+      const newData = {
+        ...data,
+      };
+
+      const newAlbumImages = await checkAndUploadMultipleImage(albumImage);
+      newData.product_images = newAlbumImages;
+
+      //image + thông số kĩ thuật
+      const variantImagesNeedToUpload: Array<string | File> = [];
+
+      data.variants.forEach((element) => {
+        if (typeof element.image_url === "string") {
+          variantImagesNeedToUpload.push(element.image_url);
+        } else {
+          variantImagesNeedToUpload.push(element.image_url[0]);
+        }
+      });
+
+      const newVariantImages = await checkAndUploadMultipleImage(
+        variantImagesNeedToUpload
+      );
+
+      const newVariant = data.variants.map((item, index) => {
+        if (typeof item.image_url === "string") {
+          return item;
+        } else {
+          return {
+            ...item,
+            image_url: newVariantImages[index],
+          };
+        }
+      });
+
+      newData.variants = newVariant;
+
+      editProductAPI(newData, productID ?? "");
     } else {
       let colorImages: File[] = [];
       if (Array.isArray(data.variants) && data.variants.length > 0) {
@@ -112,14 +145,14 @@ const ProductForm: React.FC<IProductForm> = ({
 
       Promise.all([upLoadImages(albumImage), upLoadImages(colorImages)])
         .then((results) => {
-          const newColorVarient = data.variants.map((item, index) => {
+          const newColorVariant = data.variants.map((item, index) => {
             return { ...item, image_url: results[1].urls[index] };
           });
           const newData = {
             ...data,
             product_images: results[0].urls,
             product_description: editorContent,
-            variants: newColorVarient,
+            variants: newColorVariant,
           };
 
           return addProductAPI(newData);
@@ -148,30 +181,12 @@ const ProductForm: React.FC<IProductForm> = ({
     }
   };
 
-  const handleSaveChange = () => {
-    //lưu chỉnh sửa ở đây
-  };
-
   const handleBackToListBlog = () => {
     router.push("/admin/product-management");
   };
 
-  const handleUploadMultipleImages = async () => {
-    try {
-      const res = await upLoadImages(albumImage);
-    } catch (error) {}
-  };
-
   return (
     <form action="" onSubmit={handleSubmit(onSubmit)}>
-      <ConfirmDialog
-        onOk={handleSaveChange}
-        title="Đổi trạng thái của bài viết"
-        open={showConfirmDialog}
-        content="Bạn có chắc muốn đổi trạng thái của bài viết này không?"
-        onClose={() => setShowConfirmDialog(false)}
-        type="information"
-      />
       <div>
         <div className="flex justify-between items-center bg-white mb-5 p-5">
           <p className="admin-title">
@@ -183,6 +198,7 @@ const ProductForm: React.FC<IProductForm> = ({
               className="admin-button basic"
               onClick={handleBackToListBlog}
             >
+              <FaArrowLeft />
               Quay lại danh sách
             </button>
 
@@ -572,15 +588,6 @@ const ProductForm: React.FC<IProductForm> = ({
                             <span>Thêm ảnh</span>
                           </div>
                         </label>
-
-                        <button
-                          className="admin-button primary"
-                          type="button"
-                          onClick={handleUploadMultipleImages}
-                        >
-                          <AiOutlineUpload />
-                          <span>Upload ảnh</span>
-                        </button>
                       </div>
                     </div>
                   </>

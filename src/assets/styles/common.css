@@ -226,6 +226,7 @@
   margin-top: 16px;
   max-height: 300px;
   overflow: scroll;
+  z-index: 100;
 }
 
 .menu li {
@@ -495,4 +496,11 @@
 .pagination-item:hover {
   background-color: #f47a20;
   border: 0;
+}
+
+.center-position {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

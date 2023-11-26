@@ -21,17 +21,16 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { Category, IBlog, IProduct, Status } from "@/types";
+import { Category, IProduct, ProductTypeToText, Status } from "@/types";
 import { changeBlogStatus } from "@/api/blog";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
-import { renderCategory } from "@/pages/News";
-import moment from "moment";
 import {
   deleteMultipleProducts,
   deleteProduct,
   getAllProducts,
 } from "@/api/product";
+import { formatCurrencyWithDots } from "@/utilities";
 
 const statusOptions = [
   {
@@ -110,7 +109,7 @@ const ProductManagement: React.FC<IProductManagement> = ({
     status: Status | undefined;
   }>({ id: undefined, status: undefined });
 
-  const invokeGetAllBlogs = async () => {
+  const invokeGetAllProducts = async () => {
     // let url = "?page=1&limit=10";
     // if (globalFilter.search !== "") {
     //   url += "&search=" + globalFilter.search;
@@ -132,7 +131,7 @@ const ProductManagement: React.FC<IProductManagement> = ({
   };
 
   useEffect(() => {
-    invokeGetAllBlogs();
+    invokeGetAllProducts();
   }, [globalFilter.category, globalFilter.search, globalFilter.status]);
 
   const columns = React.useMemo<ColumnDef<IProduct>[]>(
@@ -213,16 +212,7 @@ const ProductManagement: React.FC<IProductManagement> = ({
         ),
         header: () => <span>Tiêu đề</span>,
       },
-      {
-        accessorFn: (row) => row.product_meta,
-        id: "blog_description",
-        cell: ({ row }) => (
-          <div className="ellipsis-text-3-lines ">
-            {row.original.product_meta}
-          </div>
-        ),
-        header: () => <span>Mô tả</span>,
-      },
+
       {
         accessorFn: (row) => row.product_images,
         id: "product_images",
@@ -239,21 +229,62 @@ const ProductManagement: React.FC<IProductManagement> = ({
       },
 
       {
-        accessorFn: (row) => row.product_upload_date,
-        id: "blog_upload_date",
+        accessorFn: (row) => row.product_detail,
+        id: "product_detail",
+        cell: ({ row }) => (
+          <div className="ellipsis-text-3-lines ">
+            {Array.isArray(row.original.product_detail)
+              ? row.original.product_detail.map((item) => {
+                  return (
+                    <div className="mb-1">
+                      <span> {item.name}:</span>
+                      &emsp;
+                      <span> {item.value}</span>
+                    </div>
+                  );
+                })
+              : "Không có"}
+          </div>
+        ),
+        header: () => <span>Thông số</span>,
+      },
+
+      {
+        accessorFn: (row) => row.product_price,
+        id: "product_price",
         cell: ({ row }) => (
           <p className="time">
-            {moment(row.original.product_upload_date).fromNow()}
+            {row.original.product_price !== 0
+              ? formatCurrencyWithDots(row.original.product_price) + " đ"
+              : "Không có giá"}
           </p>
         ),
-        header: () => <span className="time">Ngày đăng</span>,
+        header: () => <span className="time">Giá</span>,
+      },
+
+      {
+        accessorFn: (row) => row.variants,
+        id: "variants",
+        cell: ({ row }) => (
+          <div className="flex items-center gap-2">
+            {row.original.variants.map((item) => {
+              return (
+                <div
+                  style={{ backgroundColor: item.variant_color }}
+                  className="w-6 h-6 rounded-full"
+                ></div>
+              );
+            })}
+          </div>
+        ),
+        header: () => <span className="time">Màu sắc</span>,
       },
       {
         accessorFn: (row) => row.product_type,
         id: "category",
         cell: ({ row }) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            {row.original.product_type}
+            {ProductTypeToText[row.original.product_type]}
           </div>
         ),
         header: () => <span>Danh mục</span>,
@@ -292,18 +323,18 @@ const ProductManagement: React.FC<IProductManagement> = ({
     redirect(`/admin/product-management/${id.toString()}`);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     setIsOpenDeleteConfirmDialog(false);
 
     if (typeof activeField === "number") {
-      deleteProduct(activeField);
+      await deleteProduct(activeField);
       setActiveField(undefined);
     }
 
-    invokeGetAllBlogs();
+    await invokeGetAllProducts();
   };
 
-  const handleChangeStatus = () => {
+  const handleChangeStatus = async () => {
     setShowInfoDialog(false);
     if (
       typeof activeChangeStatus.id === "number" &&
@@ -313,9 +344,9 @@ const ProductManagement: React.FC<IProductManagement> = ({
         activeChangeStatus.status === Status.ACTIVE
           ? Status.SUSPENDED
           : Status.ACTIVE;
-      changeBlogStatus(activeChangeStatus.id, targetStatus);
+      await changeBlogStatus(activeChangeStatus.id, targetStatus);
       setActiveChangeStatus({ id: undefined, status: undefined });
-      invokeGetAllBlogs();
+      await invokeGetAllProducts();
     }
   };
 
@@ -327,13 +358,13 @@ const ProductManagement: React.FC<IProductManagement> = ({
   const handleDeleteMultipleBlog = async () => {
     const productIds = Object.keys(rowSelection).map((item) => Number(item));
     await deleteMultipleProducts(productIds);
-    await invokeGetAllBlogs();
+    await invokeGetAllProducts();
   };
 
   const handleChangeMultipleStatus = (status: any) => {
     // const blogIds = Object.keys(rowSelection).map((item) => Number(item));
     // changeMultipleBlogStatus(blogIds, status.key);
-    // invokeGetAllBlogs();
+    // invokeGetAllProducts();
   };
 
   return (

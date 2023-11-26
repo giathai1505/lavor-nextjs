@@ -16,9 +16,6 @@ export async function addYear(year: number) {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    const responseData = await response.json();
-    return responseData;
   } catch (error) {
     console.error("Error:", error);
     throw error;
@@ -166,11 +163,20 @@ export async function addCar(data: ICarFormValue) {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    const responseData = await response.json();
-    return responseData;
   } catch (error) {
     console.error("Error:", error);
     throw error;
   }
+}
+
+export async function getAllYears() {
+  const res = await fetch(API_ENPOINT + "design/years", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    return [];
+  }
+
+  return res.json();
 }

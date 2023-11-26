@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaCheck } from "react-icons/fa";
 
 const listMaterials = [
   {
@@ -81,6 +82,8 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
     note: "",
   });
 
+  console.log(selectedMaterial);
+
   const handleChangeDesign = (value: any) => {
     const newState = { ...selectedMaterial, ...value };
     setSelectedMaterial(newState);
@@ -88,14 +91,13 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
 
   return (
     <div className="max-w-[1200px] mx-auto">
-      <div>
-        <h3 className="design-title">Chọn chất liệu da</h3>
-        <br />
+      <div className="border border-solid border-[#ffffff2b] rounded-md p-2 relative mb-10">
+        <p className="design-title">Chọn chất liệu da</p>
         <div className="grid grid-cols-4 gap-10">
           {listMaterials.map((item) => {
             return (
               <div
-                className={`border-[1px] border-solid text-[#595d6e] p-6 relative flex flex-col gap-4 cursor-pointer ${
+                className={` text-[#595d6e] p-6 relative flex flex-col gap-4 cursor-pointer ${
                   selectedMaterial.materialID !== item.id
                     ? "border-gray-400"
                     : "border-primary"
@@ -120,93 +122,62 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                   <span className="font-bold">Độ phổ biến:</span>{" "}
                   {item.popularPercent}%
                 </p>
-                <p className="text-justify">
-                  {" "}
-                  <span className="font-bold"> Đặc điểm:</span> <br />
-                  {item.description}
-                </p>
               </div>
             );
           })}
         </div>
       </div>
-      <div>
-        <h3 className="design-title">Chọn màu da</h3>
-        <br />
-        <div className="grid grid-cols-3 gap-10">
-          {listColors.map((item) => {
-            return (
-              <div
-                className={`border-[1px] border-solid  text-[#595d6e] relative flex flex-col  gap-4 cursor-pointer ${
-                  selectedMaterial.colorID !== item.id
-                    ? "border-0"
-                    : "border-primary"
-                }`}
-                onClick={() => handleChangeDesign({ colorID: item.id })}
-                key={item.id}
-              >
-                <label htmlFor="" className="absolute top-5 left-5">
-                  <input
-                    type="checkbox"
-                    name=""
-                    checked={selectedMaterial.colorID === item.id}
-                    id=""
-                    className="w-6 h-6"
-                  />
-                </label>
-                <div>
+      <div className="border border-solid border-[#ffffff2b] rounded-md p-10 relative">
+        <p className="design-title">Chọn màu sắc</p>
+        <div className="mb-5">
+          <p className="text-primary font-bold text-base mb-5">Chọn màu sắc</p>
+          <div className="flex items-center gap-10">
+            {listColors.map((item) => {
+              return (
+                <div
+                  className={`color-pick-item ${
+                    selectedMaterial.colorID === item.id ? "active" : ""
+                  }`}
+                  onClick={() => handleChangeDesign({ colorID: item.id })}
+                  key={item.id}
+                >
                   <div
-                    className={`w-full h-[200px] bg-[${item.color}] `}
+                    className={`w-10 rounded-full h-10 bg-[${item.color}] `}
                     style={{ background: `${item.color}` }}
                   ></div>
-                  <p className="text-black text-center py-2">
-                    <span>Mã màu: </span>
-                    {item.id}
-                  </p>
+                  {selectedMaterial.colorID === item.id && (
+                    <FaCheck className="absolute center-position w-6 h-6 text-white" />
+                  )}
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
-
-      <div>
-        <h3 className="design-title">CHỌN THIẾT KẾ ĐỤC LỖ</h3>
-        <br />
-        <div className="grid grid-cols-3 gap-10">
-          {listHolds.map((item) => {
-            return (
-              <div
-                className={`border-[1px] border-solid  text-[#595d6e] relative flex flex-col  gap-4 cursor-pointer ${
-                  selectedMaterial.holeID !== item.id
-                    ? "border-0"
-                    : "border-primary"
-                }`}
-                onClick={() => handleChangeDesign({ holeID: item.id })}
-                key={item.id}
-              >
-                <label htmlFor="" className="absolute top-5 left-5">
-                  <input
-                    type="checkbox"
-                    name=""
-                    checked={selectedMaterial.holeID === item.id}
-                    id=""
-                    className="w-6 h-6"
-                  />
-                </label>
-                <div>
+        <div>
+          <p className="text-primary font-bold text-base mb-5">
+            Chọn thiết kế đục lỗ
+          </p>
+          <div className="flex items-center gap-10">
+            {listColors.map((item) => {
+              return (
+                <div
+                  className={`color-pick-item  ${
+                    selectedMaterial.holeID === item.id ? "active" : ""
+                  }`}
+                  onClick={() => handleChangeDesign({ holeID: item.id })}
+                  key={item.id}
+                >
                   <div
-                    className={`w-full h-[200px] bg-[${item.color}] `}
+                    className={`w-10 rounded-full h-10 bg-[${item.color}] `}
                     style={{ background: `${item.color}` }}
                   ></div>
-                  <p className="text-[#595d6e] text-center py-2">
-                    <span>Mã màu: </span>
-                    {item.id}
-                  </p>
+                  {selectedMaterial.holeID === item.id && (
+                    <FaCheck className="absolute center-position w-6 h-6 text-white" />
+                  )}
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -216,6 +187,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
         <textarea
           name=""
           id=""
+          className="border border-solid border-[#ffffff2b]"
           cols={30}
           rows={10}
           placeholder="Lưu ý của bạn ......"

@@ -12,8 +12,9 @@ import FormError from "@/components/Common/FormError";
 import { areObjectsEqual } from "@/utilities";
 import ConfirmDialog from "@/components/Common/Dialog";
 import { useRouter } from "next/navigation";
-import { upLoadImage } from "@/api/image";
+import { upLoadImage, upLoadImages } from "@/api/image";
 import dynamic from "next/dynamic.js";
+import { FaArrowLeft } from "react-icons/fa";
 
 const NoSSREditor = dynamic(() => import("../Editor/index.jsx"), {
   ssr: false,
@@ -48,7 +49,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
   });
 
   const router = useRouter();
-  const [image, setImage] = useState<string>("");
+  const [image, setImage] = useState<any>("");
 
   const form = useForm<IFormValue>({
     defaultValues: defaultValue,
@@ -67,33 +68,50 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
     formState: { errors },
   } = form;
 
-  const onSubmit = (data: IFormValue) => {
+  const onSubmit = async (data: IFormValue) => {
     if (isEdit) {
-      const newData = {
-        ...data,
-        blog_content: editorContent,
-        blog_image_url: image,
-      };
-      const isDataChange = !areObjectsEqual(defaultValue, newData);
-      if (isDataChange && blogID) {
-        editBlogAPI(newData, blogID);
+      if (!blogID) return;
+      if (typeof image !== "string") {
+        const uploadImage = await upLoadImage(image);
+        if (uploadImage.url) {
+          const newData = {
+            ...data,
+            blog_content: editorContent,
+            blog_image_url: uploadImage.url,
+          };
+
+          editBlogAPI(newData, blogID);
+        }
+      } else {
+        const newData = {
+          ...data,
+          blog_content: editorContent,
+        };
+        const isDataChange = !areObjectsEqual(defaultValue, newData);
+        if (isDataChange && blogID) {
+          editBlogAPI(newData, blogID);
+        }
       }
     } else {
-      addBlogAPI({
-        ...data,
-        blog_content: editorContent,
-        blog_image_url: image,
-      });
+      Promise.resolve(upLoadImage(image))
+        .then((results) => {
+          return addBlogAPI({
+            ...data,
+            blog_content: editorContent,
+            blog_image_url: results.url,
+          });
+        })
+        .then((result) => {})
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 
   const loadFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      if (event.target.files) {
-        const response = await upLoadImage(event.target.files[0]);
-        setImage(response.url);
-      }
-    } catch (error) {}
+    if (event.target.files) {
+      setImage(event.target.files[0]);
+    }
   };
 
   const handleBackToListBlog = () => {
@@ -113,6 +131,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
               className="admin-button basic"
               onClick={handleBackToListBlog}
             >
+              <FaArrowLeft />
               Quay lại danh sách
             </button>
 
@@ -265,7 +284,11 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                       <div className="w-full h-full flex justify-center items-center">
                         {image ? (
                           <img
-                            src={"http://" + image}
+                            src={
+                              typeof image === "string"
+                                ? "http://" + image
+                                : URL.createObjectURL(image)
+                            }
                             className="w-full h-full object-cover rounded-md"
                             id="output"
                             width="200"

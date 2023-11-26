@@ -5,11 +5,12 @@ import FormError from "@/components/Common/FormError";
 import { addYear } from "@/api/design";
 import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
+import { constants } from "buffer";
 
 interface IDialog {
   open: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onSuccess: (year: number) => void;
 }
 
 interface IAddYearDialog {
@@ -17,10 +18,17 @@ interface IAddYearDialog {
 }
 
 const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const form = useForm<IAddYearDialog>({
     mode: "all",
   });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = form;
 
   const invokeAddYear = async (year: number) => {
     const loadingToastId = toast.info("Đang thêm năm...", {
@@ -34,6 +42,10 @@ const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
         toast.success("Tạo bài viết thành công!!!", {
           position: "top-center",
         });
+
+        onSuccess(year);
+        setValue("year", NaN);
+        setIsOpen(false);
       })
       .catch((error) => {
         console.log(error);
@@ -43,12 +55,6 @@ const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
         });
       });
   };
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = form;
 
   useEffect(() => {
     setIsOpen(open);
@@ -61,8 +67,6 @@ const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
 
   const handleOnSuccess = (data: IAddYearDialog) => {
     invokeAddYear(data.year);
-    // setIsOpen(false);
-    // onSuccess();
   };
   return (
     <Dialog

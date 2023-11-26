@@ -2,56 +2,63 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import map from "@/assets/images/map.png";
-
 import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
-import { provinces, regions } from "@/data/agency";
 import titleBackgroundImage from "@/assets/images/headerPart/5.jpeg";
+import { ICity, IRegion } from "@/types";
 
-const Agency = () => {
-  const [activeRegion, setActiveRegion] = useState<number | undefined>(
-    undefined
-  );
-  const [listProvinces, setListProvinces] = useState<any>([]);
+interface IAgencyProps {
+  agencies: IRegion[];
+}
+
+const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
+  const [activeRegion, setActiveRegion] = useState<IRegion>(agencies[0]);
+  const [listProvinces, setListProvinces] = useState<ICity[]>([]);
 
   useEffect(() => {
-    const newList = provinces.filter((item) => {
-      return item.regionID === activeRegion;
-    });
-
-    setListProvinces(newList);
+    if (activeRegion) {
+      setListProvinces(activeRegion.cities);
+    } else {
+      setListProvinces([]);
+    }
   }, [activeRegion]);
 
   return (
     <div>
       <PartHeader
         breadcrumb="Đại lý"
-        title="DANH SÁCH ĐẠI LÝ TOÀN QUỐC LAVOR"
+        title="DANH SÁCH ĐẠI LÝ"
         backgroundImage={titleBackgroundImage}
       />
-      <div className="wrapper grid grid-cols-3 gap-40 pt-10 pb-40">
-        <div className="col-span-2 grid grid-cols-4 gap-4">
-          <div className="col-span-1">
-            {regions.map((item) => {
+      <div className="wrapper grid grid-cols-1 gap-5 pt-10 p-5 md:p-10 xl:p-16 xl:grid-cols-4 xl:gap-20">
+        <div className="col-span-1 grid grid-cols-1 gap-8 md:grid-cols-3 xl:col-span-3">
+          <div className="col-span-1 border-r-0 border-solid border-[#80808038] pr-5 h-fit  md:border-r md:col-span-1">
+            {agencies.map((item) => {
               return (
                 <p
-                  className={`text-white px-5 py-2 uppercase mb-2 cursor-pointer rounded ${
-                    item.id === activeRegion ? "bg-primary" : "bg-gray-400 "
+                  className={`text-white px-5 py-2  mb-2 cursor-pointer rounded ${
+                    item.region_id === activeRegion?.region_id
+                      ? "bg-primary"
+                      : ""
                   }`}
-                  onClick={() => setActiveRegion(item.id)}
-                  key={item.id}
+                  onClick={() => setActiveRegion(item)}
+                  key={item.region_id}
                 >
-                  {item.name}
+                  {item.region_name}
                 </p>
               );
             })}
           </div>
-          <div className="col-span-3">
+          <div className="col-span-1 md:col-span-2">
             {activeRegion && <ProvinceList provinces={listProvinces} />}
           </div>
         </div>
-        <div>
-          <Image alt="Đại lý toàn quốc" src={map} />
+        <div className="flex justify-center col-span-1">
+          <Image
+            alt="Đại lý toàn quốc"
+            src={map}
+            className="w-[200px] md:w-[300px]"
+          />
         </div>
       </div>
     </div>

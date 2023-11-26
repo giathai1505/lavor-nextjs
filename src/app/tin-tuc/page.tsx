@@ -4,8 +4,8 @@ import { IPagination } from "@/types";
 import { Metadata } from "next";
 import React from "react";
 
-async function getAllBlog() {
-  const res = await fetch(API_ENPOINT + "blogs?page=1&limit=2", {
+async function getAllBlog(url: string) {
+  const res = await fetch(API_ENPOINT + "blogs" + url, {
     cache: "no-store",
   });
 
@@ -21,8 +21,10 @@ export const metadata: Metadata = {
   description: "Với Lavor, nội thất xe của bạn sẽ trở nên đẳng cấp hơn",
 };
 
-const index = async () => {
-  const blogs = await getAllBlog();
+const index = async (props: any) => {
+  const url = `?page=${props.searchParams.page ?? "1"}&limit=2`;
+
+  const blogs = await getAllBlog(url);
 
   const pagination: IPagination = {
     total: blogs.total ?? 10,

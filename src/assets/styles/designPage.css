@@ -21,7 +21,15 @@
 
 .design-title {
   font-weight: bold;
-  margin-top: 40px;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  left: 20px;
+  color: white;
+  background-color: black;
+  width: fit-content;
+  padding: 0 10px;
+  font-size: 18px;
 }
 
 .design-conclusion-title {
@@ -36,4 +44,27 @@
 .design-opt p {
   margin: 5px 0;
   color: #595d6e;
+}
+
+.color-pick-item {
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 50%;
+  box-sizing: content-box;
+  color: #595d6e;
+  position: relative;
+  display: flex;
+  gap: 10px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.color-pick-item:hover {
+  transform: scale(1.1);
+}
+
+.color-pick-item.active {
+  border: 5px solid white;
 }

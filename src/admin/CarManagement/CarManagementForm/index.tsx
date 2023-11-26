@@ -3,20 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
-import { Category, IBrand, IModel, IVersion, IYear, Status } from "@/types";
-import { ToastContainer } from "react-toastify";
+import { IBrand, IModel, IVersion, IYear } from "@/types";
+import { ToastContainer, toast } from "react-toastify";
 import FormError from "@/components/Common/FormError";
-import ConfirmDialog from "@/components/Common/Dialog";
 import { useRouter } from "next/navigation";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddYearDialog from "../Dialogs/AddYearDialog";
 import AddBrandDialog from "../Dialogs/AddBrandDialog";
 import AddModelDialog from "../Dialogs/AddModelDialog";
 import AddVersionDialog from "../Dialogs/AddVersionDialog";
-import { addCar, getAllBrands } from "@/api/design";
-import { type } from "os";
-import { imageConfigDefault } from "next/dist/shared/lib/image-config";
+import { addCar, getAllBrands, getAllYears } from "@/api/design";
 import { upLoadImage, upLoadImages } from "@/api/image";
+import { FaArrowLeft } from "react-icons/fa";
 
 export interface ICarFormValue {
   year: number;
@@ -45,7 +43,6 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
 }) => {
   const router = useRouter();
   const [image, setImage] = useState<any>();
-  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
   const [listYears, setListYears] = useState<IYear[]>([]);
   const [listBrands, setListBrands] = useState<IBrand[]>([]);
   const [listModels, setListModels] = useState<IModel[]>([]);
@@ -166,6 +163,10 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
   const onSubmit = (data: ICarFormValue) => {
     if (isEdit) {
     } else {
+      const loadingToastId = toast.info("Đang thêm  xe...", {
+        position: "top-center",
+        autoClose: false,
+      });
       Promise.resolve(upLoadImage(image))
         .then((results) => {
           const newData = {
@@ -174,8 +175,17 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
           };
           return addCar(newData);
         })
-        .then((result) => {})
+        .then((result) => {
+          toast.dismiss(loadingToastId);
+          toast.success("Thêm xe thành công!!!", {
+            position: "top-center",
+          });
+        })
         .catch((error) => {
+          toast.dismiss(loadingToastId);
+          toast.error("Thêm xe thất bại!!!", {
+            position: "top-center",
+          });
           console.error("Error:", error);
         });
     }
@@ -200,7 +210,12 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
     router.push("/admin/car-management");
   };
 
-  const handleAddYearSuccess = () => {};
+  const handleAddYearSuccess = async (year: number) => {
+    const years = await getAllYears();
+    setListYears(years);
+    setValue("year", year);
+    closeAllDialog();
+  };
 
   const handleAddBrandSuccess = (brand_id: number) => {
     invokeGetAllBrand("brand", brand_id);
@@ -259,6 +274,7 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
                 className="admin-button basic"
                 onClick={handleBackToListBlog}
               >
+                <FaArrowLeft />
                 Quay lại danh sách xe
               </button>
 

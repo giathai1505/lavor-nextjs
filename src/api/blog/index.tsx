@@ -4,7 +4,7 @@ import { Status } from "@/types";
 import { toast } from "react-toastify";
 
 export const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MDA1ODEyNTYsImV4cCI6MTcwMDU4ODQ1Nn0.gCCkgI8oIUiTSy1oxozPExMGWEm-xCh30hLCXaL6GEY";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MDEwMDQ5OTksImV4cCI6MTcwMTAxMjE5OX0.PvusRY1eh1fdeaEe6FyKaSq6oYwEcbiEnALAGFyW-Dk";
 
 export async function getAllBlogs(url: string) {
   try {

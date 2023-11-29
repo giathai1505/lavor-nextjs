@@ -1,6 +1,5 @@
 import { IProduct } from "@/types";
 import { formatCurrencyWithDots } from "@/utilities";
-import { promises } from "dns";
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -11,35 +10,38 @@ interface IDetailContent {
 }
 
 const DetailContent: React.FC<IDetailContent> = ({ product }) => {
+  if (!product) return null;
   return (
     <div className="flex flex-col gap-5 text-white">
       <div>
-        <p className="db-name ">{product.product_name}</p>
+        <p className="db-name ">{product?.product_name}</p>
       </div>
-      {product.product_detail.length > 0 && (
+      {product?.product_detail.length > 0 && (
         <div>
           <p className="font-bold text-primary mb-3">Thông số kĩ thuật</p>
           <ul className="flex flex-col gap-3 text-sm">
-            {product.product_detail.map((item) => {
-              return (
-                <li>
-                  {item.name} : {item.value}
-                </li>
-              );
-            })}
+            {product &&
+              Array.isArray(product.product_detail) &&
+              product.product_detail.map((item) => {
+                return (
+                  <li>
+                    {item.name} : {item.value}
+                  </li>
+                );
+              })}
           </ul>
         </div>
       )}
 
-      {product.product_price !== 0 && (
+      {product?.product_price !== 0 && (
         <div>
           <p className="dp-price">
-            {formatCurrencyWithDots(product.product_price)} <span>đ</span>
+            {formatCurrencyWithDots(product?.product_price)} <span>đ</span>
           </p>
         </div>
       )}
 
-      {product.variants.length > 1 && (
+      {product?.variants.length > 1 && (
         <div>
           <p className="font-bold text-primary mb-3">Lựa chọn màu sắc</p>
           <div className="flex gap-2">

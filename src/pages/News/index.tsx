@@ -10,7 +10,6 @@ import BlogSidebar from "./BlogSidebar";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Category, IBlog, IPagination } from "@/types";
 import Pagination from "@/components/Common/Pagination";
-import { getAllBlogs } from "@/api/blog";
 
 interface INews {
   blogs: IBlog[];
@@ -43,6 +42,7 @@ export const renderCategory = (id: Category) => {
 };
 
 const News: React.FC<INews> = ({ blogs, pagination }) => {
+  if (!Array.isArray(blogs)) return null;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -75,12 +75,13 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
     if (!typeView) {
       current.set("view", "grid");
     }
-
-    current.set("page", pagination.page);
-    current.set("pageSize", pagination.limit);
-    const url = current.toString();
-    const query = url ? `?${url}` : "";
-    router.replace(`${pathname}${query}`);
+    if (pagination) {
+      current.set("page", pagination?.page);
+      current.set("pageSize", pagination?.limit);
+      const url = current.toString();
+      const query = url ? `?${url}` : "";
+      router.replace(`${pathname}${query}`);
+    }
 
     setData(blogs);
   }, []);
@@ -99,10 +100,10 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
     router.push(`${pathname}${query}`);
   };
 
-  const startIndex = (Number(pagination.page) - 1) * Number(pagination.limit);
+  const startIndex = (Number(pagination?.page) - 1) * Number(pagination?.limit);
   const endIndex = Math.min(
-    startIndex + Number(pagination.limit) - 1,
-    Number(pagination.total) - 1
+    startIndex + Number(pagination?.limit) - 1,
+    Number(pagination?.total) - 1
   );
 
   return (
@@ -119,7 +120,7 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
               <div className="border border-solid mb-5 border-[#222121] py-2 px-5 flex items-center justify-between text-white">
                 <p className="text-gray text-[15px]">
                   Hiển thị từ {startIndex + 1} - {endIndex + 1} /{" "}
-                  {pagination.total} bài viết
+                  {pagination?.total} bài viết
                 </p>
                 <div className="flex items-center gap-2">
                   <BiGridAlt
@@ -156,7 +157,7 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
                 <Pagination
                   currentPage={Number(currentPage)}
                   totalPages={Math.ceil(
-                    pagination.total / Number(pagination.limit)
+                    pagination?.total / Number(pagination?.limit)
                   )}
                   onPageChange={handlePageChange}
                 />

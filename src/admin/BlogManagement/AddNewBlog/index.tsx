@@ -56,17 +56,25 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
     mode: "all",
   });
 
-  useEffect(() => {
-    if (defaultValue.blog_image_url !== "") {
-      setImage(defaultValue.blog_image_url);
-    }
-  }, []);
-
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = form;
+
+  useEffect(() => {
+    if (defaultValue) {
+      reset(defaultValue);
+      if (defaultValue.blog_image_url !== "") {
+        setImage(defaultValue.blog_image_url);
+      }
+
+      if (defaultValue.blog_content) {
+        setEditorContent(defaultValue.blog_content);
+      }
+    }
+  }, [defaultValue]);
 
   const onSubmit = async (data: IFormValue) => {
     if (isEdit) {

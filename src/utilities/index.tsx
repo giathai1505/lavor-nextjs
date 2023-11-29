@@ -83,3 +83,11 @@ export const convertToAgencyArray = (data: IRegion[]): IAgencyTable[] => {
 
   return result;
 };
+
+export const getTokenFromLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    // Check if running in the browser
+    return localStorage.getItem("token");
+  }
+  return null;
+};

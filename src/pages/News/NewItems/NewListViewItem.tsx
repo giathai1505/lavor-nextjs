@@ -13,6 +13,7 @@ interface INewBlogItem {
 }
 
 const NewListViewItem: React.FC<INewBlogItem> = ({ blog }) => {
+  if (!blog) return null;
   return (
     <div className="blog-item-wrapper grid grid-cols-3 border gap-2 border-solid h-[150px] md:h-[250px] xl:h-[300px] border-[#8080805e] overflow-hidden">
       <div className="h-full w-full overflow-hidden col-span-1">

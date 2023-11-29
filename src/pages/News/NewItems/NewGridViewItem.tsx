@@ -12,6 +12,7 @@ interface INewBlogItem {
 }
 
 const NewGridViewItem: React.FC<INewBlogItem> = ({ blog }) => {
+  if (!blog) return null;
   return (
     <div className="blog-item-wrapper border border-solid border-[#8080805e] text-white mb-5">
       <div className="h-[250px] overflow-hidden">

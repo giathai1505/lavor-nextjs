@@ -28,12 +28,13 @@ const renderProductByCategory = (
         {ProductTypeToText[type]}
       </p>
 
-      {products
-        .filter((item) => item.product_type === type)
-        .map((p, index) => {
-          if (index >= 3) return <></>;
-          return <ProductItemHorizontal product={p} />;
-        })}
+      {Array.isArray(products) &&
+        products
+          .filter((item) => item.product_type === type)
+          .map((p, index) => {
+            if (index >= 3) return <></>;
+            return <ProductItemHorizontal product={p} />;
+          })}
 
       <div className="flex justify-end">
         <Link
@@ -49,6 +50,7 @@ const renderProductByCategory = (
 };
 
 const calculateNumProductOfCategory = (products: IProduct[]) => {
+  if (!products) return new Map<string, number>();
   return products.reduce((result, item) => {
     if (result.has(item.product_type)) {
       const oldValue = result.get(item.product_type) || 0;
@@ -70,20 +72,24 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
         backgroundImage={titleBackgroundImage}
       />
 
-      <div className="wrapper pt-5">
+      <div className="wrapper pt-5 hidden  md:block">
         <CategoryList listValue={calculateNumProductOfCategory(products)} />
       </div>
       <div className="wrapper pt-5">
         <LeatherSeatCover />
       </div>
 
-      <div className="w-full h-[300px] product-banner mt-10"></div>
+      <div className="w-full h-[150px] product-banner mt-10"></div>
 
       <div className="wrapper">
         <NeckPillow
-          listPillow={products.filter(
-            (item) => item.product_type === ProductType.PILLOW
-          )}
+          listPillow={
+            Array.isArray(products)
+              ? products.filter(
+                  (item) => item.product_type === ProductType.PILLOW
+                )
+              : []
+          }
         />
       </div>
 
@@ -91,11 +97,11 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
         <Image
           alt=""
           src={carBanner}
-          className="w-full h-[300px] object-cover"
+          className="w-full h-[150px] object-cover"
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-5 text-white wrapper py-20">
+      <div className="p-5 md:p-10 xl:px-0 xl:py-10 md:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-5 text-white wrapper py-20">
         {renderProductByCategory(
           products,
           ProductType.FLOOR,
@@ -106,33 +112,38 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
           ProductType.STEERING_WHEEL,
           "/san-pham/boc-ghe-da"
         )}
-        {renderProductByCategory(
-          products,
-          ProductType.OTHER,
-          "/san-pham/san-pham-khac"
-        )}
+        <div className="hidden xl:block">
+          {renderProductByCategory(
+            products,
+            ProductType.OTHER,
+            "/san-pham/san-pham-khac"
+          )}
+        </div>
       </div>
 
-      <div className="wrapper mb-20">
+      <div className="wrapper mb-20 p-5 md:p-10 xl:px-0 xl:py-10">
         <div className="flex justify-between items-center gap-20 mb-10">
-          <p className="text-primary font-bold text-3xl">BÀI VIẾT MỚI NHẤT</p>
+          <p className="text-primary font-bold text-xl xl:text-3xl">
+            BÀI VIẾT MỚI NHẤT
+          </p>
 
-          <div className="flex-1 flex justify-end">
+          <div className="flex-1 md:flex justify-end hidden">
             <div className="w-2/3  h-[1px] bg-[#80808059]"></div>
           </div>
           <Link
             href="/san-pham/goi-co"
             className="flex items-center gap-2 bg-white text-primary hover:bg-primary hover:text-white rounded-sm px-3 py-2 w-fit"
           >
-            <span>Xem tất cả bài viết</span>
+            <span>Xem tất cả</span>
             <BsArrowRightShort />
           </Link>
         </div>
-        <div className="grid grid-cols-3 gap-10">
-          {blogs.map((item, index) => {
-            if (index > 2) return <></>;
-            return <NewGridViewItem blog={item} />;
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+          {Array.isArray(blogs) &&
+            blogs.map((item, index) => {
+              if (index > 2) return <></>;
+              return <NewGridViewItem blog={item} />;
+            })}
         </div>
       </div>
     </div>

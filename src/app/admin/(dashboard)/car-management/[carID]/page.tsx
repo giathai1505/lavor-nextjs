@@ -1,6 +1,7 @@
+"use client";
+import withAuth from "@/HOC/withAuth";
 import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
 import { API_ENPOINT } from "@/constants/api";
-import { Category, Status } from "@/types";
 import React from "react";
 
 interface IPageProps {
@@ -32,13 +33,14 @@ const index: React.FC<IPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <CarManagementForm
+      edit car page
+      {/* <CarManagementForm
         isEdit={true}
         defaultValue={defaultValue}
         blogID={params.carID}
-      />
+      /> */}
     </div>
   );
 };
 
-export default index;
+export default withAuth(index);

@@ -1,3 +1,5 @@
+"use client";
+import withAuth from "@/HOC/withAuth";
 import CarManagement from "@/admin/CarManagement";
 import { API_ENPOINT } from "@/constants/api";
 import React from "react";
@@ -20,4 +22,4 @@ const page = async () => {
   return <CarManagement blogs={response?.blogs} loading={false} />;
 };
 
-export default page;
+export default withAuth(page);

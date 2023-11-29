@@ -7,6 +7,7 @@ import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IAgency, ICity, IRegion } from "@/types";
 import { addAgencyAPI, addCityAPI } from "@/api/agencyAPI";
+import Agency from "@/pages/Agency";
 
 interface IDialog {
   open: boolean;
@@ -30,7 +31,7 @@ const AddCityDialog: React.FC<IDialog> = ({
   const form = useForm<IAddCityForm>({
     defaultValues: {
       city_name: "",
-      region_id: agencies[0].region_id ?? NaN,
+      region_id: NaN,
     },
     mode: "all",
   });
@@ -40,7 +41,14 @@ const AddCityDialog: React.FC<IDialog> = ({
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = form;
+
+  useEffect(() => {
+    if (agencies.length > 0) {
+      setValue("region_id", agencies[0].region_id);
+    }
+  }, [agencies]);
 
   const invokeAddCity = async (data: IAddCityForm) => {
     const loadingToastId = toast.info("Đang tỉnh/thành phố ...", {

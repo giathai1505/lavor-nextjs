@@ -3,10 +3,10 @@ import { IBrand, IModel, IYear } from "@/types";
 import React, { useEffect, useState } from "react";
 
 interface ICar {
-  year: number | undefined;
-  brand: number | undefined;
-  model: number | undefined;
-  version: number | undefined;
+  year: any;
+  brand: any;
+  model: any;
+  version: any;
 }
 
 interface IChooseCar {
@@ -102,13 +102,17 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands }) => {
         break;
       case "brand":
         newState = { ...carDetail, ...value, model: undefined };
-        setListModels(updateListModelWhenChangeBrand(value.brand, brands));
+        setListModels(updateListModelWhenChangeBrand(value.brand.id, brands));
 
         break;
       case "model":
         newState = { ...carDetail, ...value, version: undefined };
         setListVersions(
-          updateListVersionWhenModelChange(carDetail.brand, value.model, brands)
+          updateListVersionWhenModelChange(
+            Number(carDetail.brand?.id),
+            value.model.id,
+            brands
+          )
         );
         break;
       case "version":
@@ -120,6 +124,8 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands }) => {
 
     setCarDetail(newState);
   };
+
+  console.log(carDetail);
 
   return (
     <div>

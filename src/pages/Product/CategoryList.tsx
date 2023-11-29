@@ -8,6 +8,7 @@ interface ICategoryListProps {
 }
 
 const CategoryList: React.FC<ICategoryListProps> = ({ listValue }) => {
+  if (!listValue) return null;
   return (
     <div className="grid grid-cols-5 gap-5 my-14">
       {categories.map((item) => {

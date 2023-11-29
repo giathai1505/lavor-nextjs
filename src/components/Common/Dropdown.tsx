@@ -44,7 +44,7 @@ const Dropdown: React.FC<IDropdown> = ({
     };
   }, []);
   const handleChangeOption = (option: IDropdownOption, name: string) => {
-    onChange({ [name]: option.id });
+    onChange({ [name]: option });
     setSelectedOption(option);
     setIsShowDropdown(false);
   };

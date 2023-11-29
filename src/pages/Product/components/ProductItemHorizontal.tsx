@@ -10,6 +10,7 @@ interface IProductItemHorizontal {
 const ProductItemHorizontal: React.FC<IProductItemHorizontal> = ({
   product,
 }) => {
+  if (!product) return null;
   return (
     <Link
       href=""

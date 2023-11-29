@@ -1,5 +1,5 @@
 import { API_ENPOINT } from "@/constants/api";
-import { bearerToken } from "../blog";
+import { getTokenFromLocalStorage } from "@/utilities";
 
 export async function upLoadImage(imageFile: File) {
   try {
@@ -9,7 +9,7 @@ export async function upLoadImage(imageFile: File) {
     const response = await fetch(API_ENPOINT + "images/upload", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: formData,
     });
@@ -37,7 +37,7 @@ export async function upLoadImages(imageFiles: File[]) {
     const response = await fetch(API_ENPOINT + "images/upload-many", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: formData,
     });

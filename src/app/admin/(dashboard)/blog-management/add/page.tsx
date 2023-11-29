@@ -1,10 +1,11 @@
 "use client";
+import withAuth from "@/HOC/withAuth";
 import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
 import { Category, Status } from "@/types";
 import React from "react";
 
 const page = () => {
-  const defaultValue = {
+  const defaultBlogsValue = {
     blog_title: "",
     blog_description: "",
     blog_image_url: "",
@@ -12,7 +13,7 @@ const page = () => {
     blog_category: Category.ABOUT,
     blog_status: Status.ACTIVE,
   };
-  return <AddNewBlog isEdit={false} defaultValue={defaultValue} />;
+  return <AddNewBlog isEdit={false} defaultValue={defaultBlogsValue} />;
 };
 
-export default page;
+export default withAuth(page);

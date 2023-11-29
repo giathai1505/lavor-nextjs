@@ -85,6 +85,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
         phaseComponent = (
           <Conclusion
             onComplete={(data: any) => handleDesignDataChange(3, data)}
+            designData={designData}
           />
         );
 
@@ -106,7 +107,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
     <div className="design-wrapper">
       <PartHeader
         breadcrumb="Chọn thiết kế"
-        title="THIẾT KẾ"
+        title="NỘI THẤT THIẾT KẾ RIÊNG CỦA BẠN"
         backgroundImage={titleBackgroundImage}
       />
       <div className="bg-black pt-20">

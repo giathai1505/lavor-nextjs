@@ -26,20 +26,14 @@ export interface ICarFormValue {
 
 interface IAddNewBlog {
   isEdit: boolean;
-  defaultValue: ICarFormValue;
   years: IYear[];
   brands: IBrand[];
-  models: IModel[];
-  versions: IVersion[];
 }
 
 const CarManagementForm: React.FC<IAddNewBlog> = ({
-  defaultValue,
   isEdit,
   brands,
   years,
-  models,
-  versions,
 }) => {
   const router = useRouter();
   const [image, setImage] = useState<any>();
@@ -70,7 +64,6 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
   }, []);
 
   const form = useForm<ICarFormValue>({
-    defaultValues: defaultValue,
     mode: "all",
   });
 
@@ -151,14 +144,20 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
   }, [listBrands]);
 
   useEffect(() => {
-    if (defaultValue.image_url !== "") {
-      setImage(defaultValue.image_url);
-    }
+    // if (defaultValue.image_url !== "") {
+    //   setImage(defaultValue.image_url);
+    // }
     setListYears(years);
+
     setListBrands(brands);
-    setListModels(models);
-    setListVersion(versions);
-  }, []);
+
+    if (brands.length > 0 && Array.isArray(brands[0].models)) {
+      setListModels(brands[0].models);
+      if (brands[0].models && brands[0].models.length > 0) {
+        setListVersion(brands[0].models[0].versions);
+      }
+    }
+  }, [brands, years]);
 
   const onSubmit = (data: ICarFormValue) => {
     if (isEdit) {

@@ -23,9 +23,14 @@ async function getAllAgency() {
 
 const index = async () => {
   const response = await getAllAgency();
+
+  let agencies = [];
+  if (response?.regions && Array.isArray(response?.regions)) {
+    agencies = response?.regions;
+  }
   return (
     <div className="bg-[#000000e8]">
-      <Agency agencies={response?.regions as IRegion[]} />
+      <Agency agencies={agencies} />
     </div>
   );
 };

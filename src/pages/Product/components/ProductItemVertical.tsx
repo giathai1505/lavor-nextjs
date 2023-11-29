@@ -11,10 +11,11 @@ interface IProductVertical {
 }
 
 const ProductItemVertical: React.FC<IProductVertical> = ({ product }) => {
+  if (!product) return null;
   return (
     <Link
       href={"/" + product.product_id}
-      className="product-wrapper border border-solid border-[#443e3e] hover:border-primary"
+      className="product-wrapper w-[300px] border border-solid border-[#443e3e] hover:border-primary"
       key={product.product_id}
     >
       <div className="w-full h-[200px] overflow-hidden">

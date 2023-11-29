@@ -1,10 +1,8 @@
 import { IFormValue } from "@/admin/BlogManagement/AddNewBlog";
 import { API_ENPOINT } from "@/constants/api";
 import { Status } from "@/types";
+import { getTokenFromLocalStorage } from "@/utilities";
 import { toast } from "react-toastify";
-
-export const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjoxLCJpYXQiOjE3MDEwMDQ5OTksImV4cCI6MTcwMTAxMjE5OX0.PvusRY1eh1fdeaEe6FyKaSq6oYwEcbiEnALAGFyW-Dk";
 
 export async function getAllBlogs(url: string) {
   try {
@@ -12,7 +10,6 @@ export async function getAllBlogs(url: string) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
       },
     });
 
@@ -38,7 +35,7 @@ export async function addBlogAPI(data: IFormValue) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify({ ...data, blog_url: "" }),
     });
@@ -75,7 +72,7 @@ export async function deleteAPI(blogID: number) {
       method: "Delete",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
     });
 
@@ -111,7 +108,7 @@ export async function deleteMultipleBlogs(blogIDs: number[]) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify({ blog_ids: blogIDs }),
     });
@@ -150,7 +147,7 @@ export async function changeBlogStatus(id: number, status: Status) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
         body: JSON.stringify({ blog_status: status }),
       }
@@ -188,7 +185,7 @@ export async function editBlogAPI(data: IFormValue, blogID: string) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify(data),
     });
@@ -231,7 +228,7 @@ export async function changeMultipleBlogStatus(
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
 
       body: JSON.stringify(data),

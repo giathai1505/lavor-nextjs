@@ -1,7 +1,9 @@
-import BlogManagement from "@/admin/BlogManagement";
+"use client";
+import withAuth from "@/HOC/withAuth";
 import ProductManagement from "@/admin/ProductManagement";
 import { API_ENPOINT } from "@/constants/api";
-import React from "react";
+import { IProduct } from "@/types";
+import React, { useEffect, useState } from "react";
 
 async function getAllProducts() {
   const res = await fetch(API_ENPOINT + "products", {
@@ -15,12 +17,29 @@ async function getAllProducts() {
   return res.json();
 }
 
-const page = async () => {
-  let response = await getAllProducts();
+const page = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
 
-  console.log(response);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllProducts();
 
-  return <ProductManagement products={response?.products} loading={false} />;
+        if (response?.products) {
+          setProducts(response.products);
+        } else {
+          setProducts([]);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+        setProducts([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return <ProductManagement products={products} loading={false} />;
 };
 
-export default page;
+export default withAuth(page);

@@ -1,6 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
-import { bearerToken } from "./blog";
 import { IAgency } from "@/types";
+import { getTokenFromLocalStorage } from "@/utilities";
 
 export async function addAgencyAPI(data: IAgency, cityID: number) {
   try {
@@ -10,7 +10,7 @@ export async function addAgencyAPI(data: IAgency, cityID: number) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
         body: JSON.stringify({ agencies: [data] }),
       }
@@ -36,7 +36,7 @@ export async function addCityAPI(cityName: string, regionID: number) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
         body: JSON.stringify({ city_name: cityName }),
       }
@@ -60,7 +60,7 @@ export async function getAllAgencies(url: string) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
     });
 

@@ -16,7 +16,7 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
       (item) => item.city_id === activeProvince
     );
 
-    if (newAgencies) {
+    if (newAgencies && Array.isArray(newAgencies.agencies)) {
       setListAgency(newAgencies.agencies);
     }
   }, [activeProvince]);
@@ -31,7 +31,8 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
 
   return (
     <div className="select-none">
-      {provinces.length > 0 &&
+      {Array.isArray(ProvinceList) &&
+        provinces.length > 0 &&
         provinces.map((item) => {
           return (
             <>

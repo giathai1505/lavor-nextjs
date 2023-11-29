@@ -118,12 +118,15 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
       });
   };
 
+  useEffect(() => {}, [agencies]);
+
   useEffect(() => {
     // invokeGetAllBlogs();
   }, [globalFilter.category, globalFilter.search, globalFilter.status]);
 
   useEffect(() => {
     setData(() => convertToAgencyArray(agencies));
+    setListRegion(agencies);
   }, [agencies]);
 
   const columns = React.useMemo<ColumnDef<IAgencyTable>[]>(

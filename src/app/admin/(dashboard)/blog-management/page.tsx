@@ -1,6 +1,9 @@
+"use client";
+import withAuth from "@/HOC/withAuth";
 import BlogManagement from "@/admin/BlogManagement";
 import { API_ENPOINT } from "@/constants/api";
-import React from "react";
+import { IBlog } from "@/types";
+import React, { useEffect, useState } from "react";
 
 async function getAllBlog() {
   const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
@@ -14,10 +17,29 @@ async function getAllBlog() {
   return res.json();
 }
 
-const BlogAdmin = async () => {
-  const response = await getAllBlog();
+const BlogAdmin = () => {
+  const [blogs, setBlogs] = useState<IBlog[]>([]);
 
-  return <BlogManagement blogs={response?.blogs} loading={false} />;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllBlog();
+
+        if (response?.blogs) {
+          setBlogs(response);
+        } else {
+          setBlogs([]);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+        setBlogs([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return <BlogManagement blogs={blogs} loading={false} />;
 };
 
-export default BlogAdmin;
+export default withAuth(BlogAdmin);

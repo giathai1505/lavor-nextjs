@@ -2,7 +2,7 @@ import { IProductFormValue } from "@/admin/ProductManagement/AddNewProduct";
 import { API_ENPOINT } from "@/constants/api";
 import { PStatus } from "@/types";
 import { toast } from "react-toastify";
-import { bearerToken } from "../blog";
+import { getTokenFromLocalStorage } from "@/utilities";
 
 export async function addProductAPI(data: IProductFormValue) {
   try {
@@ -14,7 +14,7 @@ export async function addProductAPI(data: IProductFormValue) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify(data),
     });
@@ -47,7 +47,7 @@ export async function getAllProducts(url: string) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
     });
 
@@ -75,7 +75,7 @@ export async function deleteProduct(productID: number) {
         method: "Delete",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
       }
     );
@@ -112,7 +112,7 @@ export async function deleteMultipleProducts(productIDs: number[]) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify({ products_ids: productIDs }),
     });
@@ -151,7 +151,7 @@ export async function changeProductStatus(id: number, status: PStatus) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
         body: JSON.stringify({ blog_status: status }),
       }
@@ -192,7 +192,7 @@ export async function editProductAPI(
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify(data),
     });

@@ -24,15 +24,20 @@ export const metadata: Metadata = {
 const index = async (props: any) => {
   const url = `?page=${props.searchParams.page ?? "1"}&limit=2`;
 
-  const blogs = await getAllBlog(url);
+  const response = await getAllBlog(url);
 
+  let blogs = [];
+
+  if (response?.blogs && Array.isArray(response.blogs)) {
+    blogs = response?.blogs;
+  }
   const pagination: IPagination = {
-    total: blogs.total ?? 10,
-    page: blogs.page ?? 1,
-    limit: blogs.limit ?? 10,
+    total: response?.total ?? 10,
+    page: response?.page ?? 1,
+    limit: response?.limit ?? 10,
   };
 
-  return <News blogs={blogs?.blogs ?? []} pagination={pagination} />;
+  return <News blogs={blogs} pagination={pagination} />;
 };
 
 export default index;

@@ -14,10 +14,11 @@ const DetailProduct: React.FC<IDetailProduct> = ({
   product,
   relatedProducts,
 }) => {
+  if (!product) return null;
   return (
-    <div className="bg-black py-14">
+    <div className="bg-black p-5 md:p-10 xl:px-0 xl:py-16">
       <div className="wrapper">
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <DetailImage product={product} />
           <DetailContent product={product} />
         </div>

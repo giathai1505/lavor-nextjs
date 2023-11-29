@@ -14,7 +14,7 @@ const Contact = () => {
       />
       <div className="wrapper">
         <div className="p-5 md:p-10 xl:p-16">
-          <div className="grid grid-cols-1 gap-10">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
             <ContactForm />
             <ContactInfo />
           </div>

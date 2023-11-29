@@ -60,6 +60,8 @@ const ProductForm: React.FC<IProductForm> = ({
     }
   });
 
+  console.log("defaultvalue: ", defaultValue);
+
   const router = useRouter();
   const [albumImage, setAlbumImage] = useState<any[]>([]);
 
@@ -72,6 +74,8 @@ const ProductForm: React.FC<IProductForm> = ({
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
+    reset,
   } = form;
 
   const { fields, append, remove } = useFieldArray({
@@ -96,6 +100,20 @@ const ProductForm: React.FC<IProductForm> = ({
       setAlbumImage(defaultValue.product_images);
     }
   }, []);
+
+  useEffect(() => {
+    if (defaultValue) {
+      reset(defaultValue);
+    }
+    if (
+      Array.isArray(defaultValue.product_images) &&
+      defaultValue.product_images.length > 0
+    ) {
+      setAlbumImage(defaultValue.product_images);
+    }
+
+    setEditorContent(defaultValue.product_description);
+  }, [defaultValue]);
 
   const onSubmit = async (data: IProductFormValue) => {
     if (isEdit) {
@@ -561,7 +579,10 @@ const ProductForm: React.FC<IProductForm> = ({
                           albumImage.length > 0 &&
                           albumImage.map((item) => {
                             return (
-                              <div className="album-image-preview-item">
+                              <div
+                                className="album-image-preview-item"
+                                key={item}
+                              >
                                 <img
                                   src={
                                     typeof item === "string"

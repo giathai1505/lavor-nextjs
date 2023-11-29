@@ -31,7 +31,7 @@ const AddAgencyDialog: React.FC<IDialog> = ({
   const form = useForm<IAddAgencyForm>({
     defaultValues: {
       agency_address: "",
-      city_id: cities[0]?.city_id ?? [],
+      city_id: NaN,
       agency_name: "",
     },
     mode: "all",
@@ -47,7 +47,10 @@ const AddAgencyDialog: React.FC<IDialog> = ({
   } = form;
 
   useEffect(() => {
-    setListCity(cities);
+    if (cities.length > 0) {
+      setListCity(cities);
+      setValue("city_id", cities[0]?.city_id);
+    }
   }, [cities]);
 
   const invokeAddAgency = async (data: IAddAgencyForm) => {

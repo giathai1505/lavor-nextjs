@@ -1,6 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
-import { bearerToken } from "../blog";
 import { ICarFormValue } from "@/admin/CarManagement/CarManagementForm";
+import { getTokenFromLocalStorage } from "@/utilities";
 
 export async function addYear(year: number) {
   try {
@@ -8,7 +8,7 @@ export async function addYear(year: number) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify({ year: year }),
     });
@@ -28,7 +28,7 @@ export async function addBrand(brand_name: string) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
       body: JSON.stringify({ brand_name: brand_name }),
     });
@@ -51,7 +51,7 @@ export async function getAllBrands() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
     });
 
@@ -73,7 +73,7 @@ export async function getAllModels() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
       },
     });
 
@@ -97,7 +97,7 @@ export async function addModel(brand_id: string, model_name: string) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
         body: JSON.stringify({ model_name }),
       }
@@ -123,7 +123,7 @@ export async function addVersion(model_id: string, version_name: string) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
         body: JSON.stringify({ version_name }),
       }
@@ -150,7 +150,7 @@ export async function addCar(data: ICarFormValue) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${bearerToken}`,
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
         body: JSON.stringify({
           year: data.year,

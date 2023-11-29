@@ -81,7 +81,7 @@ const ListProduct: React.FC<IListProduct> = ({
     router.push("/san-pham/" + a.key);
   };
   return (
-    <div className="bg-black py-14 text-white">
+    <div className="bg-black p-10 xl:px-0 xl:py-16 text-white">
       <div className="wrapper">
         <div className="flex justify-between">
           <div className="flex items-center gap-3">
@@ -89,9 +89,11 @@ const ListProduct: React.FC<IListProduct> = ({
               {SlugToTitle[slug as keyof typeof SlugToTitle]}
             </p>
             --------
-            <p className="text-[15px]">Tổng cộng {products.length} sản phẩm</p>
+            <p className="text-[15px]">
+              Tổng cộng {Array.isArray(products) && products?.length} sản phẩm
+            </p>
           </div>
-          <div className="flex items-center gap-10">
+          <div className="items-center gap-10 hidden xl:flex">
             <NoneFormSelectCustom
               onChange={(a) => handleChangeCategory(a)}
               options={listDanhMuc}
@@ -108,10 +110,13 @@ const ListProduct: React.FC<IListProduct> = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-12 pt-10 pb-40">
-          {products.map((item) => {
-            return <ProductItemVertical product={item} key={item.product_id} />;
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">
+          {Array.isArray(products) &&
+            products.map((item) => {
+              return (
+                <ProductItemVertical product={item} key={item.product_id} />
+              );
+            })}
         </div>
       </div>
     </div>

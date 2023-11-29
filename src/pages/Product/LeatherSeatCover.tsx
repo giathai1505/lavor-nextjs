@@ -8,8 +8,8 @@ import { bocGheDa } from "@/data/products";
 
 const LeatherSeatCover = () => {
   return (
-    <div>
-      <h2 className="mb-3">
+    <div className="p-5 md:p-10 xl:px-0 xl:py-10">
+      <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
         <span>Bọc ghế da</span>
       </h2>
       <p className="m-0 mb-14 text-base text-white text-center max-w-3xl mx-auto">
@@ -17,11 +17,11 @@ const LeatherSeatCover = () => {
         đã được thực hiện tại Lavor. Các bạn có thể tham khảo để dễ dàng tạo ra
         thiết kế cho riêng mình nhé!
       </p>
-      <div className="grid grid-cols-3 gap-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {bocGheDa.map((item) => {
           return (
             <div key={item.id}>
-              <div className="h-[200px]">
+              <div className="h-[200px] w-[350px] mx-auto ">
                 <YoutubeThumbnail
                   imgAlt={item.videoThumbnail.alt}
                   imgSrc={item.videoThumbnail.image}

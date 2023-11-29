@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 
-const listMaterials = [
+export const listMaterials = [
   {
     id: 1,
     name: "Da Lemals",
@@ -34,38 +34,38 @@ const listMaterials = [
 
 const listColors = [
   {
-    id: 1,
+    id: "#F2E3C6",
     color: "#F2E3C6",
   },
   {
-    id: 2,
+    id: "#BA804C",
     color: "#BA804C",
   },
   {
-    id: 3,
+    id: "#C44B3B",
     color: "#C44B3B",
   },
 ];
 
 const listHolds = [
   {
-    id: 1,
+    id: "#F2E3C6",
     color: "#F2E3C6",
   },
   {
-    id: 2,
+    id: "#BA804C",
     color: "#BA804C",
   },
   {
-    id: 3,
+    id: "#C44B3B",
     color: "#C44B3B",
   },
 ];
 
 interface IDesign {
   materialID: number | undefined;
-  colorID: number | undefined;
-  holeID: number | undefined;
+  colorID: string | undefined;
+  holeID: string | undefined;
   note: string;
 }
 

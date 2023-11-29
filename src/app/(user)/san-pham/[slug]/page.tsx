@@ -4,12 +4,7 @@ import React from "react";
 import titleBackgroundImage from "@/assets/images/headerPart/3.webp";
 import { Jost } from "next/font/google";
 import { API_ENPOINT } from "@/constants/api";
-import { SlugToTitle, SlugToType } from "@/types";
-
-export const jost = Jost({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
+import { SlugToType } from "@/types";
 
 async function getProductCategory(url: string) {
   const res = await fetch(API_ENPOINT + "products/" + url, {
@@ -26,13 +21,14 @@ async function getProductCategory(url: string) {
 interface IPageProps {
   params: { slug: string };
 }
-const index: React.FC<IPageProps> = async ({ params }) => {
+
+const page: React.FC<IPageProps> = async ({ params }) => {
   const url = "?type=" + SlugToType[params.slug as keyof typeof SlugToType];
 
   const products = await getProductCategory(url);
 
   return (
-    <div className={jost.className}>
+    <div>
       <PartHeader
         breadcrumb="Sẩn phẩm"
         title="Sản phẩm"
@@ -47,4 +43,4 @@ const index: React.FC<IPageProps> = async ({ params }) => {
   );
 };
 
-export default index;
+export default page;

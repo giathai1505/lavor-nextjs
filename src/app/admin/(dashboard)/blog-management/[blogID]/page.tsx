@@ -1,7 +1,9 @@
+"use client";
+import withAuth from "@/HOC/withAuth";
 import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
 import { API_ENPOINT } from "@/constants/api";
-import { Category, Status } from "@/types";
-import React from "react";
+import { Category, IBlog, Status } from "@/types";
+import React, { useEffect, useState } from "react";
 
 interface IPageProps {
   params: { blogID: string };
@@ -19,17 +21,47 @@ async function getBlogByID(id: string) {
   return res.json();
 }
 
-const index: React.FC<IPageProps> = async ({ params }) => {
-  const blog = await getBlogByID(params.blogID);
+const defaultBlogsValue = {
+  blog_title: "",
+  blog_description: "",
+  blog_image_url: "",
+  blog_content: "",
+  blog_category: Category.ABOUT,
+  blog_status: Status.ACTIVE,
+};
 
-  const defaultValue = {
-    blog_title: blog?.blog_title ?? "",
-    blog_description: blog?.blog_description ?? "",
-    blog_image_url: blog?.blog_image_url ?? "",
-    blog_category: blog?.blog_category ?? Category.ABOUT,
-    blog_status: blog?.blog_status ?? Status.ACTIVE,
-    blog_content: blog?.blog_content ?? "",
-  };
+const index: React.FC<IPageProps> = ({ params }) => {
+  const [blog, setBlog] = useState<IBlog | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getBlogByID(params.blogID);
+
+        if (response) {
+          setBlog(response);
+        } else {
+          setBlog(undefined);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+        setBlog(undefined);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const defaultValue = blog
+    ? {
+        blog_title: blog?.blog_title ?? "",
+        blog_description: blog?.blog_description ?? "",
+        blog_image_url: blog?.blog_image_url ?? "",
+        blog_category: blog?.blog_category ?? Category.ABOUT,
+        blog_status: blog?.blog_status ?? Status.ACTIVE,
+        blog_content: blog?.blog_content ?? "",
+      }
+    : defaultBlogsValue;
 
   return (
     <div>
@@ -42,4 +74,4 @@ const index: React.FC<IPageProps> = async ({ params }) => {
   );
 };
 
-export default index;
+export default withAuth(index);

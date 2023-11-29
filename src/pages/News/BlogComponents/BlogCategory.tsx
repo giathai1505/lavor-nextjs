@@ -19,6 +19,7 @@ interface IBlogCategoryProps {
 }
 
 const BlogCategory: React.FC<IBlogCategoryProps> = ({ blogs }) => {
+  if (!blogs) return;
   const categories = calculateNumBlogOfCategory(blogs);
 
   return (

@@ -38,6 +38,7 @@ const getNestedHeadings = (headingElements: any) => {
 };
 
 const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
+  if (!blog) return null;
   const [nestedHeadings, setNestedHeadings] = useState<any>([]);
   const blogContentRef = useRef<null | HTMLDivElement>(null);
   const [activeHeading, setActiveHeading] = useState("");

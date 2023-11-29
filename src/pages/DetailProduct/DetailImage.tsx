@@ -1,6 +1,4 @@
 "use client";
-
-import { products } from "@/data/products";
 import { IProduct } from "@/types";
 import React, { useState } from "react";
 
@@ -9,11 +7,13 @@ interface IDetailImage {
 }
 
 const DetailImage: React.FC<IDetailImage> = ({ product }) => {
+  if (!product) return null;
   const [activeImage, setActiveImage] = useState<string>(
     product.product_images[0]
   );
+
   return (
-    <div className="grid grid-cols-5 gap-3 text-white">
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-white">
       <div className="col-span-1">
         <div className="flex flex-col gap-3">
           {product.product_images.map((item) => {

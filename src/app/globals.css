@@ -9,7 +9,7 @@ h2 {
   font-weight: lighter;
   font-size: 32px;
   color: #f47a20;
-  font-family: "Assistant", sans-serif;
+  font-family: "Jost", sans-serif;
   line-height: 55px;
   padding: 0px 40px;
   text-align: center;
@@ -37,7 +37,7 @@ h3 {
   font-weight: lighter;
   font-size: 18px;
   color: #f47a20 !important;
-  font-family: "Assistant", sans-serif;
+  font-family: "Jost", sans-serif;
   line-height: 26px;
 }
 
@@ -60,7 +60,7 @@ h4 {
   font-weight: 200;
   font-size: 14px;
   color: #f47a20 !important;
-  font-family: "Assistant", sans-serif;
+  font-family: "Jost", sans-serif;
   line-height: 22px;
 }
 

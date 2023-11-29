@@ -3,7 +3,7 @@ import authBg from "@/assets/images/admin/auth-bg.jpeg";
 import Image from "next/image";
 
 export default function AdminAuthLayout({
-  children, // will be a page or nested layout
+  children,
 }: {
   children: React.ReactNode;
 }) {

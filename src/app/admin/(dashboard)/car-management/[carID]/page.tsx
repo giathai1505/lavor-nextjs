@@ -43,4 +43,4 @@ const index: React.FC<IPageProps> = async ({ params }) => {
   );
 };
 
-export default withAuth(index);
+export default index;

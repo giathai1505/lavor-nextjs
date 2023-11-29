@@ -1,25 +1,67 @@
 "use client";
 import withAuth from "@/HOC/withAuth";
-import CarManagement from "@/admin/CarManagement";
+import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
 import { API_ENPOINT } from "@/constants/api";
-import React from "react";
+import { IBrand, IYear } from "@/types";
+import React, { useEffect, useState } from "react";
 
-async function getAllBlog() {
-  const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
+async function getAllYears() {
+  const res = await fetch(API_ENPOINT + "design/years", {
     cache: "no-store",
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    return [];
   }
 
   return res.json();
 }
 
-const page = async () => {
-  let response = await getAllBlog();
+async function getAllBrands() {
+  const res = await fetch(API_ENPOINT + "design/brands", {
+    method: "GET",
+    cache: "no-store",
+  });
 
-  return <CarManagement blogs={response?.blogs} loading={false} />;
+  if (!res.ok) {
+    return [];
+  }
+
+  return res.json();
+}
+
+const page = () => {
+  const [listYears, setListYears] = useState<IYear[]>([]);
+  const [listBrands, setListBrands] = useState<IBrand[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await Promise.all([getAllYears(), getAllBrands()])
+        .then((result) => {
+          if (Array.isArray(result[0])) {
+            setListYears(result[0]);
+          } else {
+            setListYears([]);
+          }
+
+          if (Array.isArray(result[1])) {
+            setListBrands(result[1]);
+          } else {
+            setListBrands([]);
+          }
+        })
+        .catch((error) => {
+          setListBrands([]);
+          setListYears([]);
+        });
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <CarManagementForm isEdit={false} years={listYears} brands={listBrands} />
+  );
 };
 
 export default withAuth(page);

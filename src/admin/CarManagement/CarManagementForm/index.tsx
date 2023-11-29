@@ -268,14 +268,14 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
               {isEdit ? "Chỉnh sửa xe" : "Thêm xe mới"}
             </p>
             <div className="flex items-center gap-2 flex-none">
-              <button
+              {/* <button
                 type="button"
                 className="admin-button basic"
                 onClick={handleBackToListBlog}
               >
                 <FaArrowLeft />
                 Quay lại danh sách xe
-              </button>
+              </button> */}
 
               <button className="admin-button primary" type="submit">
                 <BiSolidSave />

@@ -31,7 +31,7 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
 
   return (
     <div className="select-none">
-      {Array.isArray(ProvinceList) &&
+      {Array.isArray(provinces) &&
         provinces.length > 0 &&
         provinces.map((item) => {
           return (

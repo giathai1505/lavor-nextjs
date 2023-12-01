@@ -3,7 +3,6 @@
 import { products } from "@/data/products";
 import React, { useEffect, useRef, useState } from "react";
 import LazyImage from "./Common/LazyImage";
-import logo from "@/assets/images/logo/logo-white.png";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 let gap = 20;
 

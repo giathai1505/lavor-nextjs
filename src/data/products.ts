@@ -6,22 +6,23 @@ import productThumbnail5 from "@/assets/images/youtubeThumbnail/products/5.webp"
 import productThumbnail6 from "@/assets/images/youtubeThumbnail/products/6.webp";
 
 //category
+//icon
 import bocGheImg from "@/assets/images/cateogries/boc-ghe.png";
 import goiCoImg from "@/assets/images/cateogries/goi-co.png";
 import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san.png";
 import voLangImg from "@/assets/images/cateogries/vo-lang.png";
 import sanPhamKhacImg from "@/assets/images/cateogries/san-pham-khac.png";
 
+//category image
+import bocGheImg1 from "@/assets/images/cateogries/boc-ghe-img.jpeg";
+import goiCoImg1 from "@/assets/images/cateogries/goi-co-img.png";
+import thamLotSanImg1 from "@/assets/images/cateogries/tham-lot-san-img.png";
+import voLangImg1 from "@/assets/images/cateogries/boc-tay-lai-img.jpeg";
+
 //tham-lot-san
 import thamLotSan1 from "@/assets/images/products/tham-lot-san/TLS-1.png";
 import thamLotSan2 from "@/assets/images/products/tham-lot-san/TLS-2.png";
 import thamLotSan3 from "@/assets/images/products/tham-lot-san/TLS-3.png";
-
-//goi-co
-import goiCo1 from "@/assets/images/products/goi-co/GC-1.png";
-import goiCo2 from "@/assets/images/products/goi-co/GC-2.png";
-import goiCo3 from "@/assets/images/products/goi-co/GC-3.png";
-import goiCo4 from "@/assets/images/products/goi-co/GC-4.png";
 
 //boc-tay-lai
 import bocTayLai1 from "@/assets/images/products/boc-tay-lai/BTL-1.png";
@@ -160,13 +161,18 @@ export const categories = [
     image: bocGheImg,
     href: "/san-pham/boc-ghe-da",
     quantity: 9,
+    icon: bocGheImg1,
+    desc: "Sử dụng chất liệu da cao cấp giúp bảo vệ thân ghế, chống bám bẩn, chống bám bụi, chống ám mùi, an toàn cho sức khỏe. Đem lại hiệu quả thẩm mỹ cao, thể hiện sự Sang trọng – Đẳng cấp – Cá tính.",
   },
+
   {
     id: ProductType.STEERING_WHEEL,
     name: "Bọc tay lái",
     image: voLangImg,
     href: "/san-pham/boc-tay-lai",
     quantity: 9,
+    icon: voLangImg1,
+    desc: "Làm từ chất liệu da cao cấp. Thiết kế các lỗ thoáng khí giúp thấm mồ hôi, không còn cảm giác dớp dính khi lái xe. Cam kết chất lượng tốt nhất trên thị trường, mang đến trải nghiệm tuyệt vời cho khách hàng.",
   },
   {
     id: ProductType.PILLOW,
@@ -174,6 +180,8 @@ export const categories = [
     image: goiCoImg,
     href: "/san-pham/goi-co",
     quantity: 27,
+    icon: goiCoImg1,
+    desc: "Giúp người lái xe có thể tựa và giữ cổ vai thoải mái, giảm mỏi cổ vai và không bị nghiêng người mỗi lúc xe vào cua. Gối được làm từ chất liệu da cao cấp, chống mồ hôi, êm ái, không chất độc hại.",
   },
   {
     id: ProductType.FLOOR,
@@ -181,6 +189,8 @@ export const categories = [
     image: thamLotSanImg,
     href: "/san-pham/tham-lot-san",
     quantity: 6,
+    icon: thamLotSanImg1,
+    desc: "Thiết kế hiện đại, sang trọng, đảm bảo che phủ toàn bộ phần sàn xe.. Ngăn ngừa tuyệt đối bụi bẩn và chất lỏng lọt xuống sàn xe gây mốc sàn và bốc mùi khó chịu. Chống trầy xước, chịu nhiệt tốt, độ bền cao.",
   },
   {
     id: ProductType.OTHER,
@@ -188,6 +198,8 @@ export const categories = [
     image: sanPhamKhacImg,
     href: "/san-pham/san-pham-khac",
     quantity: 1,
+    icon: bocGheImg1,
+    desc: "",
   },
 ];
 

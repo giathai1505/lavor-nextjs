@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import React, { useRef, useState } from "react";
-import oldCar from "@/assets/images/comparison-slider/old.webp";
-import newCar from "@/assets/images/comparison-slider/new.webp";
+import oldCar from "@/assets/images/comparison-slider/old.png";
+import newCar from "@/assets/images/comparison-slider/new.jpeg";
 
 const ComparisonSlider = () => {
   const [sliderValue, setSliderValue] = useState<number>(50);
@@ -43,6 +43,7 @@ const ComparisonSlider = () => {
             <Image
               src={oldCar}
               alt="old car"
+              placeholder="blur"
               className="w-full h-full absolute"
             />
             <Image
@@ -51,6 +52,7 @@ const ComparisonSlider = () => {
               className="w-full h-full absolute"
               id="old-car-img"
               ref={imgRef}
+              placeholder="blur"
             />
           </div>
 

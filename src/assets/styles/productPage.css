@@ -147,3 +147,30 @@
 .product-wrapper:hover img {
   transform: scale(1.1);
 }
+
+.category-slider-item-wrapper {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-slider-item-desc {
+  position: absolute;
+  padding: 20px;
+  color: white;
+  background-color: #f47a20ab;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 100%;
+  transition: all 0.3s ease-in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-slider-item-wrapper:hover .category-slider-item-desc {
+  top: 0;
+}

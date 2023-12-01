@@ -3,3 +3,7 @@ export const SocialMediaLink = {
   tiktok: "https://www.tiktok.com/@lavorluxury.official",
   youtube: "https://www.youtube.com/@LavorLuxury",
 };
+
+export const localStorageKey = {
+  TOKEN: "token",
+};

@@ -1,9 +1,11 @@
 "use client";
-import { products } from "@/data/products";
+import { categories, products } from "@/data/products";
 import React, { useEffect, useRef, useState } from "react";
 import LazyImage from "./Common/LazyImage";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
-const num = 2;
+import Image from "next/image";
+import { FaPlusCircle } from "react-icons/fa";
+import Link from "next/link";
 const gap = 20;
 
 interface IProductSliderInterface {
@@ -41,39 +43,39 @@ const CategorySlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
 
   return (
     <div ref={containerRef} className="relative">
-      <AiFillLeftCircle
-        className="slider-navigator -left-[25px]"
-        onClick={() => handleMoveSlider(-1)}
-      />
-
-      <AiFillRightCircle
-        className="slider-navigator -right-[25px]"
-        onClick={() => handleMoveSlider(1)}
-      />
       <div className="overflow-hidden relative">
         <div
-          className="inline-flex gap-5 relative slide-wrapper"
+          className="flex gap-5 relative rounded overflow-hidden cursor-pointer"
           style={{ left: `${containerTransformLeft}px` }}
         >
-          {products.map((item) => {
+          {categories.map((item, index) => {
+            if (index >= 4) return null;
             return (
               <div
                 style={{ width: `${productItemWidth}px` }}
                 className="pb-2"
                 key={item.id}
               >
-                <LazyImage
-                  src={item.image}
-                  alt="Product image"
-                  className="w-full rounded"
-                  placeHolderImage="https://static.thenounproject.com/png/741653-200.png"
-                />
-                <div className="mt-2 font-bold">
-                  <p className="text-white uppercase font-medium">
+                <div className="category-slider-item-wrapper ">
+                  <Image
+                    src={item.icon}
+                    alt="Product image"
+                    className="w-full h-full object-cover"
+                  />
+
+                  <div className="category-slider-item-desc">
+                    <FaPlusCircle className="w-10 h-10 mb-3" />
+                    <p className="text-center">{item.desc}</p>
+                  </div>
+                </div>
+                <Link
+                  href={item.href}
+                  className="font-bold text-white bg-primary p-2 block"
+                >
+                  <p className="text-white uppercase font-bold text-center">
                     {item.name}
                   </p>
-                  <p className="text-primary">{item.price}</p>
-                </div>
+                </Link>
               </div>
             );
           })}

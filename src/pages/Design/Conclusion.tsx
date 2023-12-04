@@ -15,7 +15,6 @@ const getMaterialName = (id: number) => {
 const Conclusion: React.FC<IConclusion> = ({ onComplete, designData }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
 
-  console.log("design data: ", designData);
   return (
     <div className="border border-solid border-[#595d6e] text-[#595d6e] py-10 px-20">
       <h3 className="text-center font-bold">

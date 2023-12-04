@@ -2,6 +2,11 @@ import image1 from "@/assets/images/youtubeThumbnail/home/1.webp";
 import image2 from "@/assets/images/youtubeThumbnail/home/2.webp";
 import image3 from "@/assets/images/youtubeThumbnail/home/3.webp";
 
+//carousel slider images
+import gallery1 from "@/assets/images/home-slider/home-slider1.jpeg";
+import gallery2 from "@/assets/images/home-slider/home-slider2.jpeg";
+import gallery3 from "@/assets/images/home-slider/home-slider3.jpeg";
+
 export const amazingCar = [
   {
     id: 1,
@@ -27,3 +32,5 @@ export const amazingCar = [
       'HOT!!! FORD EVEREST NEXT GEN bọc lại nội thất "chủ tịch" siêu VIP | Lavor Luxury',
   },
 ];
+
+export const carouseSliderImages = [gallery1, gallery2, gallery3];

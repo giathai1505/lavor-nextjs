@@ -11,19 +11,18 @@ import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
 import { amazingCar } from "@/data/homePage";
 import { BsArrowDownCircleFill } from "react-icons/bs";
+import HomeCarousel from "@/components/HomeCarousel";
 
 export default function HomePage() {
   return (
     <div>
       <div className="home-img overflow-hidden">
-        <div className="home-arrow-down">
+        {/* <div className="home-arrow-down">
           <BsArrowDownCircleFill />
+        </div> */}
+        <div className="h-[80vh]">
+          <HomeCarousel />
         </div>
-        <Image
-          src={homeSlider}
-          alt="home image"
-          className="w-full h-full object-cover"
-        />
         <div className="absolute home-text-wrapper left-0 z-10 top-[40%] hidden xl:block">
           <div className="home-text">
             <h3 className="relative pb-5 leading-10 text-2xl">

@@ -7,3 +7,5 @@ export const SocialMediaLink = {
 export const localStorageKey = {
   TOKEN: "token",
 };
+
+export const staticRoute = {};

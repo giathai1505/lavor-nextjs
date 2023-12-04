@@ -125,8 +125,6 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands }) => {
     setCarDetail(newState);
   };
 
-  console.log(carDetail);
-
   return (
     <div>
       <div className="max-w-[1200px] grid grid-cols-4 gap-10">

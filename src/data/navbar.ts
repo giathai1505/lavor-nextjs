@@ -57,17 +57,17 @@ export const navBar = [
       {
         id: 51,
         name: "Kiến thức & mẹo",
-        slug: "/how-works",
+        slug: "/tin-tuc?view=grid&page=1&pageSize=2&category=TIPS",
       },
       {
         id: 52,
         name: "Về Lavor",
-        slug: "/reviews",
+        slug: "/tin-tuc?view=grid&page=1&pageSize=2&category=ABOUT",
       },
       {
         id: 53,
         name: "Tuyển dụng",
-        slug: "/katzkin-vs-seat-covers",
+        slug: "/tin-tuc?view=grid&page=1&pageSize=2&category=RECRUITMENT",
       },
     ],
   },

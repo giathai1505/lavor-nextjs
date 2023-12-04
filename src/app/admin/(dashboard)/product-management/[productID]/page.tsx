@@ -37,8 +37,6 @@ const index: React.FC<IPageProps> = ({ params }) => {
   const [product, setProduct] = useState<IProduct | undefined>(undefined);
   const [defaultValue, setDefaultValue] = useState<any>();
 
-  console.log("======= default value: ", defaultValue);
-
   useEffect(() => {
     const fetchData = async () => {
       try {

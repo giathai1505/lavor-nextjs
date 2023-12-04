@@ -60,8 +60,6 @@ const ProductForm: React.FC<IProductForm> = ({
     }
   });
 
-  console.log("defaultvalue: ", defaultValue);
-
   const router = useRouter();
   const [albumImage, setAlbumImage] = useState<any[]>([]);
 

@@ -82,8 +82,6 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
     note: "",
   });
 
-  console.log(selectedMaterial);
-
   const handleChangeDesign = (value: any) => {
     const newState = { ...selectedMaterial, ...value };
     setSelectedMaterial(newState);

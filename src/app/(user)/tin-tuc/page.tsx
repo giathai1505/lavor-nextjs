@@ -22,7 +22,14 @@ export const metadata: Metadata = {
 };
 
 const index = async (props: any) => {
-  const url = `?page=${props.searchParams.page ?? "1"}&limit=2`;
+  console.log(props);
+  const category = props?.searchParams?.category;
+  const categoryURL =
+    category && category !== ""
+      ? "&category=" + props?.searchParams?.category
+      : "";
+
+  const url = `?page=${props.searchParams.page ?? "1"}&limit=2` + categoryURL;
 
   const response = await getAllBlog(url);
 

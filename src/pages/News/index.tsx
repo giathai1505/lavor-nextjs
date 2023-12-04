@@ -7,10 +7,29 @@ import { BiGridAlt } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
 import NewListViewItem from "./NewItems/NewListViewItem";
 import BlogSidebar from "./BlogSidebar";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Category, IBlog, IPagination } from "@/types";
 import Pagination from "@/components/Common/Pagination";
+import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
+import useQueryParams from "@/hooks/useQueryParam";
+const listDanhMuc = [
+  {
+    key: "",
+    value: "Tất cả bài viết",
+  },
+  {
+    key: Category.TIPS,
+    value: "Kiến thức & mẹo",
+  },
+  {
+    key: Category.ABOUT,
+    value: "Về Lavor",
+  },
 
+  {
+    key: Category.RECRUITMENT,
+    value: "Tuyển dụng",
+  },
+];
 interface INews {
   blogs: IBlog[];
   pagination: IPagination;
@@ -43,61 +62,51 @@ export const renderCategory = (id: Category) => {
 
 const News: React.FC<INews> = ({ blogs, pagination }) => {
   if (!Array.isArray(blogs)) return null;
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
+  const { deleteQueryParam, getQueryParam, setQueryParam } = useQueryParams();
   const [data, setData] = useState<IBlog[]>([]);
-
-  const typeView = searchParams?.get("view");
-  const currentPage = searchParams?.get("page");
-
-  const handleChangeViewOption = (view: string) => {
-    const current = new URLSearchParams(
-      Array.from(searchParams?.entries() ?? [])
-    );
-
-    if (!view) {
-      current.delete("view");
-    } else {
-      current.set("view", view);
-    }
-    const search = current.toString();
-    const query = search ? `?${search}` : "";
-    router.push(`${pathname}${query}`);
-  };
+  const [selectedCategory, setSelectedCategory] = useState<any>();
+  const typeView = getQueryParam("view");
+  const currentPage = getQueryParam("page");
+  const category = getQueryParam("category");
 
   useEffect(() => {
-    const current = new URLSearchParams(
-      Array.from(searchParams?.entries() ?? [])
-    );
+    let params: any = {};
 
     if (!typeView) {
-      current.set("view", "grid");
+      params.view = "grid";
     }
     if (pagination) {
-      current.set("page", pagination?.page);
-      current.set("pageSize", pagination?.limit);
-      const url = current.toString();
-      const query = url ? `?${url}` : "";
-      router.replace(`${pathname}${query}`);
+      params.page = pagination?.page.toString();
+      params.pageSize = pagination?.limit.toString();
+      setQueryParam(params);
     }
 
+    setSelectedCategory(category as Category);
     setData(blogs);
   }, []);
+
+  useEffect(() => {
+    setSelectedCategory(category as Category);
+  }, [category]);
 
   useEffect(() => {
     setData(blogs);
   }, [blogs]);
 
+  const handleChangeCategory = (a: any) => {
+    setQueryParam({ category: a.key, page: "1" });
+  };
+
+  const handleChangeViewOption = (view: string) => {
+    if (!view) {
+      deleteQueryParam("view");
+    } else {
+      setQueryParam({ view: view });
+    }
+  };
+
   const handlePageChange = (page: number) => {
-    const current = new URLSearchParams(
-      Array.from(searchParams?.entries() ?? [])
-    );
-    current.set("page", page.toString());
-    const url = current.toString();
-    const query = url ? `?${url}` : "";
-    router.push(`${pathname}${query}`);
+    setQueryParam({ page: page.toString() });
   };
 
   const startIndex = (Number(pagination?.page) - 1) * Number(pagination?.limit);
@@ -117,25 +126,34 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
         <div className="wrapper p-5 md:p-10 xl:p-0">
           <div className="grid grid-cols-1 xl:grid-cols-4 gap-10">
             <div className="col-span-1 xl:col-span-3">
-              <div className="border border-solid mb-5 border-[#222121] py-2 px-5 flex items-center justify-between text-white">
-                <p className="text-gray text-[15px]">
-                  Hiển thị từ {startIndex + 1} - {endIndex + 1} /{" "}
-                  {pagination?.total} bài viết
-                </p>
-                <div className="flex items-center gap-2">
-                  <BiGridAlt
-                    className={`view-type-icon ${
-                      typeView === "grid" ? "active" : ""
-                    }`}
-                    onClick={() => handleChangeViewOption("grid")}
-                  />
-                  |
-                  <BsList
-                    className={`view-type-icon ${
-                      typeView === "list" ? "active" : ""
-                    }`}
-                    onClick={() => handleChangeViewOption("list")}
-                  />
+              <div className="mb-5 flex items-center justify-between">
+                <NoneFormSelectCustom
+                  onChange={(a) => handleChangeCategory(a)}
+                  options={listDanhMuc}
+                  className="user"
+                  placeholder="Danh mục"
+                  value={selectedCategory}
+                />
+                <div className="border border-solid border-[#222121] py-2 px-5 flex items-center gap-10 text-white">
+                  <p className="text-gray text-[15px]">
+                    Hiển thị từ {startIndex + 1} - {endIndex + 1} /{" "}
+                    {pagination?.total} bài viết
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <BiGridAlt
+                      className={`view-type-icon ${
+                        typeView === "grid" ? "active" : ""
+                      }`}
+                      onClick={() => handleChangeViewOption("grid")}
+                    />
+                    |
+                    <BsList
+                      className={`view-type-icon ${
+                        typeView === "list" ? "active" : ""
+                      }`}
+                      onClick={() => handleChangeViewOption("list")}
+                    />
+                  </div>
                 </div>
               </div>
 

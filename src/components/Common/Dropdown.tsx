@@ -12,6 +12,7 @@ interface IDropdown {
   onChange: (id: any) => void;
   defaultValue?: IDropdownOption;
   name: string;
+  value: IDropdownOption | undefined;
 }
 const Dropdown: React.FC<IDropdown> = ({
   onChange,
@@ -19,11 +20,12 @@ const Dropdown: React.FC<IDropdown> = ({
   placeHolder,
   defaultValue,
   name,
+  value,
 }) => {
   const [isShowDropdown, setIsShowDropdown] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<
     IDropdownOption | undefined
-  >(undefined);
+  >(value);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,6 +45,11 @@ const Dropdown: React.FC<IDropdown> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    setSelectedOption(value);
+  }, [value]);
+
   const handleChangeOption = (option: IDropdownOption, name: string) => {
     onChange({ [name]: option });
     setSelectedOption(option);

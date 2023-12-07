@@ -3,6 +3,7 @@ import { listMaterials } from "./ChooseDesign";
 
 interface IConclusion {
   onComplete: (data: any) => void;
+  onPrevious: () => void;
   designData: any;
 }
 
@@ -12,8 +13,13 @@ const getMaterialName = (id: number) => {
   return result?.name;
 };
 
-const Conclusion: React.FC<IConclusion> = ({ onComplete, designData }) => {
+const Conclusion: React.FC<IConclusion> = ({
+  onComplete,
+  designData,
+  onPrevious,
+}) => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     <div className="border border-solid border-[#595d6e] text-[#595d6e] py-10 px-20">
@@ -29,7 +35,7 @@ const Conclusion: React.FC<IConclusion> = ({ onComplete, designData }) => {
           <p>- Phiên bản: {designData?.car?.version?.value}</p>
         </div>
         <img
-          src="https://e7.pngegg.com/pngimages/520/469/png-clipart-2018-mazda-cx-5-2017-mazda-cx-5-mazda-motor-corporation-car-sport-utility-vehicle-car-2018-mazda-cx5-2017-mazda-cx5.png"
+          src={"http://" + designData?.car?.image}
           alt="xe của bạn"
           className="h-28"
         ></img>
@@ -74,12 +80,17 @@ const Conclusion: React.FC<IConclusion> = ({ onComplete, designData }) => {
           onChange={(e) => setPhoneNumber(e.target.value)}
           className="w-60 p-1 text-black text-center"
         />
-        <button
-          className={`primary-button ${phoneNumber !== "" ? "" : "disabled"}`}
-          onClick={() => onComplete(phoneNumber)}
-        >
-          Hoàn thành
-        </button>
+        <div className="flex justify-end gap-5">
+          <button className="primary-button" onClick={() => onPrevious()}>
+            Trở lại
+          </button>
+          <button
+            className={`primary-button ${phoneNumber !== "" ? "" : "disabled"}`}
+            onClick={() => onComplete(phoneNumber)}
+          >
+            Hoàn thành
+          </button>
+        </div>
       </div>
     </div>
   );

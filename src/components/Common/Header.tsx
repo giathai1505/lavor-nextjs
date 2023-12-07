@@ -31,7 +31,7 @@ const Header = () => {
     <div
       className={`h-[110px] text-white text-[13px] header fixed left-0 top-0 z-30 w-[100vw] ${
         showFullHeader
-          ? "before:left-[43%] before:h-[100%]"
+          ? "before:left-[40%] before:h-[100%]"
           : "before:left-[-35px] before:h-[90%]"
       }`}
     >

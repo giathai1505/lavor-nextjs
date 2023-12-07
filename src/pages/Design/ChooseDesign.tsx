@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import { TDesign } from ".";
 
 export const listMaterials = [
   {
@@ -62,25 +63,22 @@ const listHolds = [
   },
 ];
 
-interface IDesign {
-  materialID: number | undefined;
-  colorID: string | undefined;
-  holeID: string | undefined;
-  note: string;
-}
-
 interface IChooseDesign {
   onNext: (data: any) => void;
   onPrevious: () => void;
+  data: TDesign;
 }
 
-const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
-  const [selectedMaterial, setSelectedMaterial] = useState<IDesign>({
-    materialID: undefined,
-    colorID: undefined,
-    holeID: undefined,
-    note: "",
-  });
+const ChooseDesign: React.FC<IChooseDesign> = ({
+  onNext,
+  onPrevious,
+  data,
+}) => {
+  const [selectedMaterial, setSelectedMaterial] = useState<TDesign>(data);
+
+  useEffect(() => {
+    setSelectedMaterial(data);
+  }, [data]);
 
   const handleChangeDesign = (value: any) => {
     const newState = { ...selectedMaterial, ...value };
@@ -96,7 +94,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
             return (
               <div
                 className={` text-[#595d6e] p-6 relative flex flex-col gap-4 cursor-pointer ${
-                  selectedMaterial.materialID !== item.id
+                  selectedMaterial?.materialID !== item.id
                     ? "border-gray-400"
                     : "border-primary"
                 }`}
@@ -108,7 +106,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     <input
                       type="checkbox"
                       name=""
-                      checked={selectedMaterial.materialID === item.id}
+                      checked={selectedMaterial?.materialID === item.id}
                       id=""
                       className="w-6 h-6"
                     />
@@ -134,7 +132,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
               return (
                 <div
                   className={`color-pick-item ${
-                    selectedMaterial.colorID === item.id ? "active" : ""
+                    selectedMaterial?.colorID === item.id ? "active" : ""
                   }`}
                   onClick={() => handleChangeDesign({ colorID: item.id })}
                   key={item.id}
@@ -143,7 +141,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     className={`w-10 rounded-full h-10 bg-[${item.color}] `}
                     style={{ background: `${item.color}` }}
                   ></div>
-                  {selectedMaterial.colorID === item.id && (
+                  {selectedMaterial?.colorID === item.id && (
                     <FaCheck className="absolute center-position w-6 h-6 text-white" />
                   )}
                 </div>
@@ -160,7 +158,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
               return (
                 <div
                   className={`color-pick-item  ${
-                    selectedMaterial.holeID === item.id ? "active" : ""
+                    selectedMaterial?.holeID === item.id ? "active" : ""
                   }`}
                   onClick={() => handleChangeDesign({ holeID: item.id })}
                   key={item.id}
@@ -169,7 +167,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
                     className={`w-10 rounded-full h-10 bg-[${item.color}] `}
                     style={{ background: `${item.color}` }}
                   ></div>
-                  {selectedMaterial.holeID === item.id && (
+                  {selectedMaterial?.holeID === item.id && (
                     <FaCheck className="absolute center-position w-6 h-6 text-white" />
                   )}
                 </div>
@@ -198,7 +196,12 @@ const ChooseDesign: React.FC<IChooseDesign> = ({ onNext, onPrevious }) => {
           Trở lại
         </button>
         <button
-          className="primary-button"
+          className={`primary-button ${
+            (!selectedMaterial?.colorID ||
+              !selectedMaterial?.holeID ||
+              !selectedMaterial?.materialID) &&
+            "disabled"
+          }`}
           onClick={() => onNext(selectedMaterial)}
         >
           Tiếp theo

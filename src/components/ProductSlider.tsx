@@ -4,6 +4,7 @@ import { products } from "@/data/products";
 import React, { useEffect, useRef, useState } from "react";
 import LazyImage from "./Common/LazyImage";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
+import Image from "next/image";
 let gap = 20;
 
 interface IProductSliderInterface {
@@ -62,13 +63,13 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
                 className="pb-2"
                 key={item.id}
               >
-                <LazyImage
+                <Image
                   src={item.image}
                   alt="Product image"
                   className="w-full rounded"
-                  placeHolderImage="https://static.thenounproject.com/png/741653-200.png"
+                  width={100}
                 />
-                <div className="mt-2 font-bold">
+                <div className="mt-3 ml-3 font-bold">
                   <p className="text-white uppercase font-medium">
                     {item.name}
                   </p>

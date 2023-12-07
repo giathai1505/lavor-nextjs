@@ -44,7 +44,7 @@ export default function HomePage() {
       </div>
 
       <div className="home-leather py-5">
-        <div className="container mx-auto max-w-[1200px] p-5 md:p-10">
+        <div className="container mx-auto max-w-[1320px] p-5 md:p-10 xl:px-0 xl:py-16">
           <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
             Với <span>Lavor</span> , nội thất xe của bạn sẽ trở nên <br />
             <span> đẳng cấp</span>

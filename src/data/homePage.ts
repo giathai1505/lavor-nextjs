@@ -3,8 +3,8 @@ import image2 from "@/assets/images/youtubeThumbnail/home/2.webp";
 import image3 from "@/assets/images/youtubeThumbnail/home/3.webp";
 
 //carousel slider images
-import gallery1 from "@/assets/images/home-slider/home-slider1.jpeg";
-import gallery2 from "@/assets/images/home-slider/home-slider2.jpeg";
+import gallery1 from "@/assets/images/headerPart/6.jpeg";
+import gallery2 from "@/assets/images/headerPart/2.jpeg";
 import gallery3 from "@/assets/images/home-slider/home-slider3.jpeg";
 
 export const amazingCar = [
@@ -33,4 +33,4 @@ export const amazingCar = [
   },
 ];
 
-export const carouseSliderImages = [gallery1, gallery2, gallery3];
+export const carouseSliderImages = [gallery3, gallery1, gallery2];

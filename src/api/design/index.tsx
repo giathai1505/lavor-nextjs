@@ -180,3 +180,18 @@ export async function getAllYears() {
 
   return res.json();
 }
+
+export async function getCar(year: number, version: number) {
+  const res = await fetch(
+    API_ENPOINT + `design/years/${year}/versions/${version}/cars`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    return [];
+  }
+
+  return res.json();
+}

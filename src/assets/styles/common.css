@@ -420,6 +420,14 @@
   color: rgb(194, 194, 194);
 }
 
+.auth-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #80808045;
+  border-radius: 4px;
+  outline: none;
+}
+
 .form-img-container {
   position: relative;
   display: flex;

@@ -15,15 +15,56 @@ import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import { IBrand, IYear } from "@/types";
 
-interface IDesign {
+interface IPageProps {
   brands: IBrand[];
   years: IYear[];
 }
 
-const Design: React.FC<IDesign> = ({ brands, years }) => {
+type TOption = {
+  id: number;
+  value: string;
+};
+
+export type TCar = {
+  year: TOption | undefined;
+  brand: TOption | undefined;
+  model: TOption | undefined;
+  version: TOption | undefined;
+  image: string;
+};
+
+export type TDesign = {
+  materialID: number | undefined;
+  colorID: string | undefined;
+  holeID: string | undefined;
+  note: string;
+};
+
+type TDesignData = {
+  car: TCar;
+  design: TDesign;
+  phoneNumber: string;
+};
+
+const Design: React.FC<IPageProps> = ({ brands, years }) => {
   const [phase, setPhase] = useState<number>(1);
 
-  const [designData, setDesignData] = useState<any>();
+  const [designData, setDesignData] = useState<TDesignData>({
+    car: {
+      brand: undefined,
+      model: undefined,
+      version: undefined,
+      year: undefined,
+      image: "",
+    },
+    design: {
+      materialID: undefined,
+      colorID: undefined,
+      holeID: undefined,
+      note: "",
+    },
+    phoneNumber: "",
+  });
 
   const handleDesignDataChange = (phase: number, data: any) => {
     let newData;
@@ -56,8 +97,10 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
         break;
     }
 
-    setDesignData(newData);
+    setDesignData(newData as TDesignData);
   };
+
+  console.log("===== design data: ", designData);
 
   const renderPhase = useMemo(() => {
     let phaseComponent;
@@ -68,6 +111,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
             onNext={(data: any) => handleDesignDataChange(1, data)}
             brands={brands}
             years={years}
+            data={designData.car}
           />
         );
 
@@ -76,6 +120,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
         phaseComponent = (
           <ChooseDesign
             onNext={(data: any) => handleDesignDataChange(2, data)}
+            data={designData.design}
             onPrevious={() => setPhase(1)}
           />
         );
@@ -84,6 +129,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
       case 3:
         phaseComponent = (
           <Conclusion
+            onPrevious={() => setPhase(2)}
             onComplete={(data: any) => handleDesignDataChange(3, data)}
             designData={designData}
           />
@@ -97,6 +143,7 @@ const Design: React.FC<IDesign> = ({ brands, years }) => {
             brands={brands}
             years={years}
             onNext={(data: any) => handleDesignDataChange(1, data)}
+            data={designData.car}
           />
         );
         break;

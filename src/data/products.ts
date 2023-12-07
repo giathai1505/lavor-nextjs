@@ -33,66 +33,54 @@ import bocTayLai3 from "@/assets/images/products/boc-tay-lai/BTL-3.png";
 import sanPhamKhac1 from "@/assets/images/products/san-pham-khac/SPK-1.jpeg";
 import { ProductType } from "@/types";
 
+//product
+import goiCo from "@/assets/images/products/goi-co/GC-1.png";
+import goiCo2 from "@/assets/images/products/goi-co/GC-2.png";
+import goiCo3 from "@/assets/images/products/goi-co/GC-3.png";
+import goiCo4 from "@/assets/images/products/goi-co/GC-4.png";
+
 export const products = [
   {
     id: 1,
     name: "Gối cổ premium-1-1",
     price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/20.png",
+    image: goiCo,
   },
   {
     id: 2,
     name: "Gối cổ premium-1-1",
     price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/18.png",
+    image: goiCo2,
   },
   {
     id: 3,
     name: "Gối cổ premium-1-1",
     price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/16.png",
+    image: goiCo3,
   },
   {
     id: 4,
     name: "Gối cổ premium-1-1",
     price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/13.png",
+    image: goiCo4,
   },
   {
     id: 5,
     name: "Gối cổ premium-1-1",
     price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/11.png",
+    image: goiCo,
   },
   {
     id: 6,
     name: "Gối cổ premium-1-1",
     price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/9.png",
+    image: goiCo2,
   },
   {
     id: 7,
     name: "Gối cổ premium-1-1",
     price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/7.png",
-  },
-  {
-    id: 8,
-    name: "Gối cổ premium-1-1",
-    price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/5.png",
-  },
-  {
-    id: 9,
-    name: "Gối cổ premium-1-1",
-    price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/20.png",
-  },
-  {
-    id: 10,
-    name: "Gối cổ premium-1-1",
-    price: "1.599.000Đ",
-    image: "https://lavorluxury.com/wp-content/uploads/2022/10/18.png",
+    image: goiCo3,
   },
 ];
 

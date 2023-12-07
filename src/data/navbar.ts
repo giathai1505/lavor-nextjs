@@ -1,7 +1,7 @@
 export const navBar = [
   {
     id: 1,
-    name: "Thiết kế",
+    name: "Nội thất thiết kế riêng của bạn",
     slug: "/thiet-ke",
     children: [],
   },

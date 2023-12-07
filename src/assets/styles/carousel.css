@@ -63,10 +63,10 @@
 }
 
 .carousel-dot-item {
-  width: 20px;
+  width: 14px;
   height: 4px;
   border-radius: 10px;
-  background-color: white;
+  background-color: #a29d9dfc;
 }
 
 .carousel-dot-item.active {

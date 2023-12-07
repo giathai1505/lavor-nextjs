@@ -3,11 +3,12 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import logo from "@/assets/images/logo/logo-black.png";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
 import { loginAPI } from "@/api/authAPI";
 import { useRouter } from "next/navigation";
+import { CircleLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
 
 type ILoginForm = {
   username: string;
@@ -15,8 +16,8 @@ type ILoginForm = {
 };
 
 const Login = () => {
-  const [isShowPassword, setIsShowPassword] = useState(false);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<ILoginForm>({
     mode: "all",
@@ -29,9 +30,14 @@ const Login = () => {
 
   const handleLogin = async (data: ILoginForm) => {
     try {
+      setIsLoading(true);
       const response = await loginAPI(data);
 
       if (response?.access_token) {
+        setIsLoading(false);
+        toast.success("Đăng nhập thành công!!!", {
+          position: "top-center",
+        });
         const { access_token } = response;
 
         localStorage.setItem("token", access_token);
@@ -39,14 +45,18 @@ const Login = () => {
       } else {
       }
     } catch (error) {
+      toast.error("Đăng nhập thất bại!!!", {
+        position: "top-center",
+      });
+      setIsLoading(false);
       console.log(error);
     }
   };
 
   return (
     <div className="auth-form">
-      <Image src={logo} alt="" className="form-logo" />
-      <p className="form-title">Đăng nhập</p>
+      <Image src={logo} alt="Logo Lavor" className="form-logo" />
+      <p className="font-bold text-3xl">Sign in</p>
 
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="mb-5">
@@ -70,8 +80,7 @@ const Login = () => {
                     }
                   }}
                   placeholder="Nhập email"
-                  className="admin-input"
-                  id="text"
+                  className="auth-input"
                 />
               )}
             />
@@ -93,15 +102,14 @@ const Login = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  type="text"
+                  type="password"
                   onBlur={() => {
                     if (!field.value) {
                       field.onChange("");
                     }
                   }}
                   placeholder="Nhập mật khẩu"
-                  className="admin-input"
-                  id="text"
+                  className="auth-input"
                 />
               )}
             />
@@ -109,8 +117,20 @@ const Login = () => {
           </div>
         </div>
 
-        <button className="auth-form-button">Đăng nhập</button>
+        <button className={`auth-form-button ${isLoading && "disabled"}`}>
+          {isLoading && (
+            <CircleLoader
+              color={"#ffffff"}
+              loading={isLoading}
+              size={20}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          )}
+          Đăng nhập
+        </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

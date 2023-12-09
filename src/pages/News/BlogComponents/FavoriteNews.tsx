@@ -1,6 +1,5 @@
 import React from "react";
 import { AiOutlineArrowRight, AiOutlineCalendar } from "react-icons/ai";
-import { newestNews } from "@/data/news";
 import { Category, IBlog } from "@/types";
 import moment from "moment";
 import Link from "next/link";

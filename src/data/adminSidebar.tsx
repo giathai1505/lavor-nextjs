@@ -6,7 +6,7 @@ import {
 } from "react-icons/ai";
 import { BiNews } from "react-icons/bi";
 import { CiLocationOn } from "react-icons/ci";
-import { GrContact, GrLocation } from "react-icons/gr";
+import { FaRegStar } from "react-icons/fa";
 
 export const sidebarList = [
   {
@@ -43,6 +43,13 @@ export const sidebarList = [
 
   {
     id: 6,
+    name: "Đánh giá",
+    icon: <FaRegStar />,
+    link: "/admin/rating-management",
+  },
+
+  {
+    id: 7,
     name: "Liên hệ",
     icon: <AiOutlineContacts />,
     link: "/admin/contact-management",

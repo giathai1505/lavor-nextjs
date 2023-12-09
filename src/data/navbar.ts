@@ -72,7 +72,7 @@ export const navBar = [
     ],
   },
   {
-    id: 5,
+    id: 6,
     name: "Liên hệ",
     slug: "/lien-he",
     children: [],

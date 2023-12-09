@@ -512,3 +512,23 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.rating-color {
+  color: #ffce3d;
+}
+
+.max-w-500 {
+  max-width: 500px;
+}
+
+.active-tag {
+  font-size: 12px;
+  background-color: #18d413;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 15px;
+}
+
+.active-tag.deActive {
+  background-color: gray;
+}

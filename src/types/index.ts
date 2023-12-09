@@ -170,3 +170,12 @@ export interface IAgencyTable {
   city_name: string;
   region_name: string;
 }
+
+export type TRating = {
+  review_id: number;
+  review_phone: string;
+  review_name: string;
+  review_rating: string;
+  review_content: string;
+  review_delete_date: Date;
+};

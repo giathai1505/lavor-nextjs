@@ -2,31 +2,29 @@
 
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import user from "@/assets/images/common/user.png";
+
 import { BsFillStarFill } from "react-icons/bs";
 import { FaQuoteLeft } from "react-icons/fa";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import { ratings } from "@/data/rating";
-import { BiMessageSquare, BiUser } from "react-icons/bi";
 import "../Contact/style.css";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
-import { MdOutlineWorkOutline } from "react-icons/md";
+import RatingForm from "./Rating/RatingForm";
+import RatingItem from "./Rating/RatingItem";
 const gap = 20;
 
 interface IRating {
   visibleItem: number;
 }
 
-const Rating2: React.FC<IRating> = ({ visibleItem }) => {
+const RatingPart: React.FC<IRating> = ({ visibleItem }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(315);
   const [canMoveRight, setCanMoveRight] = useState<boolean>(true);
   const [canMoveLeft, setCanMoveLeft] = useState<boolean>(false);
   const [containerTransformLeft, setContainerTransformLeft] =
     useState<number>(0);
-
-  const [hoverIndex, setHoverIndex] = useState<number>(-1);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -86,46 +84,7 @@ const Rating2: React.FC<IRating> = ({ visibleItem }) => {
                 style={{ left: `${containerTransformLeft}px` }}
               >
                 {ratings.map((item) => {
-                  return (
-                    <div
-                      style={{ width: `${productItemWidth}px` }}
-                      className="rating-item"
-                      key={item.id}
-                    >
-                      <div className="bg-white inline-block rounded-full p-1 w-fit">
-                        <Image
-                          alt="Hình đại diện người dùng"
-                          placeholder="blur"
-                          src={user}
-                          className="w-20 h-20"
-                        />
-                      </div>
-
-                      <div className="flex gap-1">
-                        {[1, 2, 3, 4, 5].map((star) => {
-                          return (
-                            <BsFillStarFill
-                              className={`w-5 h-5 cursor-pointer relative ${
-                                star <= item.star ? "text-[#FED127]" : ""
-                              }`}
-                            />
-                          );
-                        })}
-                      </div>
-                      <div className="relative flex-1">
-                        <FaQuoteLeft className="absolute w-10 h-10 text-[#ffffff2b] z-10" />
-                        <p className="z-20 text-center">{item.content}</p>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <p className="font-bold">
-                          {item.name.length > 0 ? item.name : "Ẩn danh"}
-                        </p>
-                        <p className="text-[14px] text-gray italic">
-                          {item.job.length > 0 ? item.job : "Không có"}
-                        </p>
-                      </div>
-                    </div>
-                  );
+                  return <RatingItem rating={item} width={productItemWidth} />;
                 })}
               </div>
             </div>
@@ -160,42 +119,7 @@ const Rating2: React.FC<IRating> = ({ visibleItem }) => {
                 </p>
               </div>
             </div>
-            <form action="">
-              <div className="flex flex-col gap-5">
-                <div className="contact-form-control">
-                  <BiUser className="text-white" />
-                  <input type="text" placeholder="Tên khách hàng" />
-                </div>
-                <div className="contact-form-control">
-                  <MdOutlineWorkOutline className="text-white" />
-                  <input type="text" placeholder="Nghề nghiệp" />
-                </div>
-
-                <div className="contact-form-control">
-                  <BiMessageSquare className="text-white" />
-                  <textarea placeholder="Nội dung đánh giá" />
-                </div>
-              </div>
-              <div className="flex justify-center items-center flex-col gap-10 my-10">
-                <div className="flex gap-1 rating-stars">
-                  {[1, 2, 3, 4, 5].map((item) => {
-                    return (
-                      <BsFillStarFill
-                        className={`w-10 h-10 cursor-pointer relative ${
-                          item <= hoverIndex ? "text-[#FED127]" : ""
-                        }`}
-                        onMouseOver={() => setHoverIndex(item)}
-                        onMouseLeave={() => setHoverIndex(-1)}
-                      />
-                    );
-                  })}
-                </div>
-
-                <button className="primary-button flex justify-center">
-                  Hoàn thành
-                </button>
-              </div>
-            </form>
+            <RatingForm />
           </div>
         </div>
       </div>
@@ -203,4 +127,4 @@ const Rating2: React.FC<IRating> = ({ visibleItem }) => {
   );
 };
 
-export default Rating2;
+export default RatingPart;

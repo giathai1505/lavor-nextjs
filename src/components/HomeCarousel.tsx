@@ -63,6 +63,7 @@ const HomeCarousel = () => {
               className={`carousel-dot-item ${
                 activeSlide === item ? "active" : ""
               }`}
+              key={item}
             ></div>
           );
         })}
@@ -75,7 +76,10 @@ const HomeCarousel = () => {
         >
           {carouseSliderImages.map((item) => {
             return (
-              <div className="carousel-slider-item bg-yellow-200">
+              <div
+                className="carousel-slider-item bg-yellow-200"
+                key={item.src.toString()}
+              >
                 <Image
                   alt=""
                   src={item}

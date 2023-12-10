@@ -1,24 +1,20 @@
 "use client";
-
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-
-import { BsFillStarFill } from "react-icons/bs";
-import { FaQuoteLeft } from "react-icons/fa";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
-import { ratings } from "@/data/rating";
 import "../Contact/style.css";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
 import RatingForm from "./Rating/RatingForm";
 import RatingItem from "./Rating/RatingItem";
+import { TRating } from "@/types";
 const gap = 20;
 
 interface IRating {
   visibleItem: number;
+  ratings: TRating[];
 }
 
-const RatingPart: React.FC<IRating> = ({ visibleItem }) => {
+const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(315);
   const [canMoveRight, setCanMoveRight] = useState<boolean>(true);

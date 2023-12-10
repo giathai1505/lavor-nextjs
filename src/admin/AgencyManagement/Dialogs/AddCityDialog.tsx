@@ -51,7 +51,7 @@ const AddCityDialog: React.FC<IDialog> = ({
   }, [agencies]);
 
   const invokeAddCity = async (data: IAddCityForm) => {
-    const loadingToastId = toast.info("Đang tỉnh/thành phố ...", {
+    const loadingToastId = toast.info("Đang thêm tỉnh/thành phố ...", {
       position: "top-center",
       autoClose: false,
     });

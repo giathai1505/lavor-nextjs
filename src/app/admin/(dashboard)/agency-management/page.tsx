@@ -41,4 +41,4 @@ const page = () => {
   return <AgencyManagement agencies={regions} />;
 };
 
-export default withAuth(page);
+export default page;

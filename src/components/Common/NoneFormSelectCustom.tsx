@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineCaretDown } from "react-icons/ai";
 
-interface IOption {
+export interface IOption {
   key: any;
   value: string;
 }
@@ -12,7 +12,7 @@ interface INoneFormSelectCustomProps {
   onChange: (item: IOption) => void;
   className?: string;
   placeholder?: string;
-  value?: IOption;
+  value?: any;
 }
 
 const NoneFormSelectCustom: React.FC<INoneFormSelectCustomProps> = ({

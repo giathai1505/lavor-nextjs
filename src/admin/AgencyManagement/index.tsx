@@ -1,5 +1,5 @@
 "use client";
-import React, { HTMLProps, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ColumnDef,
   flexRender,
@@ -9,8 +9,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import ConfirmDialog from "@/components/Common/Dialog";
-import Link from "next/link";
 import {
   PiCaretDoubleLeftBold,
   PiCaretDoubleRightBold,
@@ -19,51 +17,25 @@ import {
 } from "react-icons/pi";
 import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
-import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
+import NoneFormSelectCustom, {
+  IOption,
+} from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
 import { Category, IAgencyTable, ICity, IRegion, Status } from "@/types";
-import { deleteAPI } from "@/api/blog";
 import { ToastContainer } from "react-toastify";
-import { redirect } from "next/navigation";
 import { convertToAgencyArray } from "@/utilities";
-import AddAgencyDialog from "./Dialogs/AddAgencyDialog";
-import { getAllAgencies } from "@/api/agencyAPI";
+import { deleteAgencyAPI, getAllAgencies } from "@/api/agencyAPI";
 import AddCityDialog from "./Dialogs/AddCityDialog";
-
-const statusOptions = [
-  {
-    key: Status.ACTIVE,
-    value: "Hoạt động",
-  },
-  {
-    key: Status.SUSPENDED,
-    value: "Ngưng hoạt động",
-  },
-];
-
-const categoryOptions = [
-  {
-    key: Category.ABOUT,
-    value: "Về Lavor",
-  },
-  {
-    key: Category.TIPS,
-    value: "Kiến thức & Mẹo",
-  },
-  {
-    key: Category.RECRUITMENT,
-    value: "Tuyển dụng",
-  },
-];
+import ConfirmDialog from "@/components/Common/Dialog";
+import AddAgencyDialog from "./Dialogs/AddAgencyDialog";
 
 interface IAgencyManagement {
   agencies: IRegion[];
 }
 
-interface IFilterBlog {
-  search: string;
-  category: Category | undefined;
-  status: Status | undefined;
+interface IFilter {
+  cityID: number;
+  regionID: number;
 }
 
 const initListCity = (regions: IRegion[]): ICity[] => {
@@ -76,12 +48,40 @@ const initListCity = (regions: IRegion[]): ICity[] => {
   return cities;
 };
 
+// const initListCityFilter = (
+//   agencies: IRegion[],
+//   regionID: number
+// ): IOption[] => {
+//   const result: IOption[] = [];
+//   let newList = agencies;
+
+//   if (regionID) {
+//     newList = agencies.filter((item) => item.region_id === regionID);
+//   }
+
+//   agencies.forEach((item) => {
+//     item.cities.forEach((c) => {
+//       result.push({ key: c.city_id, value: c.city_name });
+//     });
+//   });
+
+//   return result;
+// };
+
+const initListRegionFilter = (agencies: IRegion[]): IOption[] => {
+  const result: IOption[] = [];
+
+  agencies.forEach((item) => {
+    return result.push({ key: item.region_id, value: item.region_name });
+  });
+
+  return result;
+};
+
 const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
-  const [rowSelection, setRowSelection] = useState({});
-  const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
-    search: "",
-    category: undefined,
-    status: undefined,
+  const [globalFilter, setGlobalFilter] = useState<IFilter>({
+    cityID: NaN,
+    regionID: NaN,
   });
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState(false);
@@ -89,24 +89,18 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
     convertToAgencyArray(agencies)
   );
   const [listRegion, setListRegion] = useState<IRegion[]>(agencies);
-  const [itemHovered, setItemHovered] = useState<string | undefined>(undefined);
   const [activeField, setActiveField] = useState<number | undefined>(undefined);
   const [showDialog, setShowDialog] = useState({
     agency: false,
     city: false,
   });
+
   const invokeGetAllAgency = async () => {
-    // let url = "?page=1&limit=10";
-    // if (globalFilter.search !== "") {
-    //   url += "&search=" + globalFilter.search;
-    // }
-    // if (globalFilter.status !== undefined) {
-    //   url += "&status=" + globalFilter.status;
-    // }
-    // if (globalFilter.category !== undefined) {
-    //   url += "&category=" + globalFilter.category;
-    // }
-    getAllAgencies("")
+    setGlobalFilter({
+      cityID: NaN,
+      regionID: NaN,
+    });
+    getAllAgencies()
       .then((result) => {
         const newData = convertToAgencyArray(result?.regions ?? []);
 
@@ -118,11 +112,12 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
       });
   };
 
-  useEffect(() => {}, [agencies]);
-
   useEffect(() => {
-    // invokeGetAllBlogs();
-  }, [globalFilter.category, globalFilter.search, globalFilter.status]);
+    let newListRegions: IRegion[] = handleFilter(agencies, globalFilter);
+
+    setData(() => convertToAgencyArray(newListRegions));
+    setListRegion(newListRegions);
+  }, [globalFilter?.cityID, globalFilter?.regionID]);
 
   useEffect(() => {
     setData(() => convertToAgencyArray(agencies));
@@ -132,58 +127,11 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
   const columns = React.useMemo<ColumnDef<IAgencyTable>[]>(
     () => [
       {
-        id: "select",
-        header: ({ table }) => (
-          <IndeterminateCheckbox
-            {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler(),
-            }}
-          />
-        ),
-        cell: ({ row }) => (
-          <div className="px-1">
-            <IndeterminateCheckbox
-              {...{
-                checked: row.getIsSelected(),
-                disabled: !row.getCanSelect(),
-                indeterminate: row.getIsSomeSelected(),
-                onChange: row.getToggleSelectedHandler(),
-              }}
-            />
-          </div>
-        ),
-      },
-      {
         accessorFn: (row) => row.agency_name,
         id: "agency_name",
         cell: ({ row }) => (
           <div>
             <span>{row.original.agency_name.toString()}</span>
-            <div
-              className={`admin-row-action-wrapper gap-2 ${
-                itemHovered === row.id ? "show" : ""
-              }`}
-            >
-              <Link
-                className="admin-row-action edit"
-                href={`/admin/blog-management/${row.original.agency_id.toString()}`}
-                onClick={() => handleEdit(row.original.agency_id)}
-              >
-                Sửa
-              </Link>
-              |
-              <button
-                className="admin-row-action delete"
-                onClick={() => {
-                  setIsOpenDeleteConfirmDialog(true);
-                  setActiveField(row.original.agency_id);
-                }}
-              >
-                Xóa
-              </button>
-            </div>
           </div>
         ),
         header: () => <span>Tên đại lý</span>,
@@ -211,53 +159,64 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
         ),
         header: () => <span className="time">Địa chỉ</span>,
       },
+
+      {
+        id: "action_row",
+        cell: ({ row }) => (
+          <button
+            className="button-delete-row-selection "
+            onClick={() => {
+              setIsOpenDeleteConfirmDialog(true);
+              setActiveField(row.original.agency_id);
+            }}
+          >
+            <BsTrash />
+            <span>Xóa</span>
+          </button>
+        ),
+        header: () => <span className="time"></span>,
+      },
     ],
-    [itemHovered]
+    []
   );
 
-  const getRowId = (row: any, relativeIndex: any, parent: any) => {
-    return parent ? [parent.id, row.agency_id].join(".") : row.agency_id;
+  const handleFilter = (agencies: IRegion[], filter: IFilter): IRegion[] => {
+    let newData: IRegion[] = filter.regionID
+      ? agencies.filter((item) => item.region_id === filter.regionID)
+      : agencies;
+
+    if (filter.cityID) {
+    }
+
+    return newData;
   };
 
   const table = useReactTable({
     data,
-    getRowId,
     columns,
-    state: {
-      rowSelection,
-    },
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     debugTable: true,
   });
 
-  const handleEdit = (id: number) => {
-    redirect(`/admin/blog-management/${id.toString()}`);
-  };
-
-  const handleDelete = () => {
+  const handleDelete = async () => {
     setIsOpenDeleteConfirmDialog(false);
-
     if (typeof activeField === "number") {
-      deleteAPI(activeField);
-      setActiveField(undefined);
+      await deleteAgencyAPI(activeField);
     }
-
-    window.location.reload();
+    await invokeGetAllAgency();
+    setActiveField(undefined);
   };
 
   const handleFilterBlog = (name: string, item: any) => {
-    // const newFilterObject = { ...globalFilter, [name]: item };
-    // setGlobalFilter(newFilterObject);
-  };
+    let newFilterData = globalFilter;
 
-  const handleDeleteMultipleBlog = () => {
-    // const blogIds = Object.keys(rowSelection).map((item) => Number(item));
-    // deleteMultipleBlogs(blogIds);
-    // invokeGetAllBlogs();
+    if (name === "regionID") {
+      newFilterData = { [name]: item, cityID: NaN };
+    }
+    const newFilterObject = { ...globalFilter, [name]: item };
+    setGlobalFilter(newFilterObject);
   };
 
   const closeAllDialog = () => {
@@ -291,9 +250,9 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
       <div className="admin-page-wrapper ">
         <ConfirmDialog
           onOk={handleDelete}
-          title="Xóa bài viết"
+          title="Xóa đại lý"
           open={isOpenDeleteConfirmDialog}
-          content="Bạn có chắc muốn xóa bài viết này không?"
+          content="Bạn có chắc muốn xóa đại lý này không?"
           onClose={() => setIsOpenDeleteConfirmDialog(false)}
           type="delete"
         />
@@ -316,35 +275,14 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
               </button>
             </div>
           </div>
-          <div className="flex items-center gap-5">
-            <input
-              value={globalFilter.search}
-              onChange={(e) => handleFilterBlog("search", e.target.value)}
-              className="p-2 font-lg shadow border border-block w-[500px] text-[13px]"
-              placeholder="Tìm kiếm bài viết..."
-            />
-            <NoneFormSelectCustom
-              options={statusOptions}
-              onChange={(item) => handleFilterBlog("status", item.key)}
-              className="admin"
-              // value={globalFilter.status}
-              placeholder="Lọc theo trạng thái"
-            />
-            <NoneFormSelectCustom
-              options={categoryOptions}
-              // value={globalFilter.category}
-              onChange={(item) => handleFilterBlog("category", item.key)}
-              className="admin"
-              placeholder="Lọc theo danh mục"
-            />
+          <div className="flex items-center gap-5 mb-5">
             <div>
               <div>
                 <button
                   onClick={() => {
                     setGlobalFilter({
-                      search: "",
-                      status: undefined,
-                      category: undefined,
+                      cityID: NaN,
+                      regionID: NaN,
                     });
                   }}
                   className="add-new-button"
@@ -353,29 +291,14 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
                 </button>
               </div>
             </div>
+            <NoneFormSelectCustom
+              options={initListRegionFilter(agencies)}
+              onChange={(item) => handleFilterBlog("regionID", item.key)}
+              className="admin"
+              value={globalFilter.regionID}
+              placeholder="Lọc theo miền"
+            />
           </div>
-
-          <div
-            className={`selection-row ${
-              Object.keys(rowSelection).length > 0 ? "show" : ""
-            }`}
-          >
-            <div>
-              <span className="text-[#646c9a] text-[13px]">
-                Đã chọn: {Object.keys(rowSelection).length}
-              </span>
-            </div>
-
-            <div
-              className="button-delete-row-selection "
-              onClick={handleDeleteMultipleBlog}
-            >
-              <BsTrash />
-              <span>Xóa tất cả</span>
-            </div>
-          </div>
-
-          <div className="h-2" />
 
           <table>
             <thead>
@@ -402,16 +325,7 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
             <tbody className="w-full">
               {table.getRowModel().rows.map((row) => {
                 return (
-                  <tr
-                    key={row.id}
-                    className={`${
-                      Object.keys(rowSelection).includes(row.id)
-                        ? "selected"
-                        : ""
-                    }`}
-                    onMouseEnter={() => setItemHovered(row.id)}
-                    onMouseLeave={() => setItemHovered(undefined)}
-                  >
+                  <tr key={row.id}>
                     {row.getVisibleCells().map((cell) => {
                       return (
                         <td key={cell.id}>
@@ -429,22 +343,12 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
 
             <tfoot>
               <tr>
-                <td className="p-1">
-                  <IndeterminateCheckbox
-                    {...{
-                      checked: table.getIsAllPageRowsSelected(),
-                      indeterminate: table.getIsSomePageRowsSelected(),
-                      onChange: table.getToggleAllPageRowsSelectedHandler(),
-                    }}
-                  />
-                </td>
                 <td colSpan={20}>
                   Page Rows ({table.getRowModel().rows.length})
                 </td>
               </tr>
             </tfoot>
           </table>
-          <div className="h-2" />
           <div className="flex items-center gap-2 mt-5 justify-end">
             <button
               className={`pagination-arrow ${
@@ -520,28 +424,5 @@ const AgencyManagement: React.FC<IAgencyManagement> = ({ agencies }) => {
     </>
   );
 };
-
-function IndeterminateCheckbox({
-  indeterminate,
-  className = "",
-  ...rest
-}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
-  const ref = React.useRef<HTMLInputElement>(null!);
-
-  React.useEffect(() => {
-    if (typeof indeterminate === "boolean") {
-      ref.current.indeterminate = !rest.checked && indeterminate;
-    }
-  }, [ref, indeterminate]);
-
-  return (
-    <input
-      type="checkbox"
-      ref={ref}
-      className={className + " cursor-pointer"}
-      {...rest}
-    />
-  );
-}
 
 export default AgencyManagement;

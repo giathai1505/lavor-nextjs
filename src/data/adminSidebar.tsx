@@ -47,11 +47,4 @@ export const sidebarList = [
     icon: <FaRegStar />,
     link: "/admin/rating-management",
   },
-
-  {
-    id: 7,
-    name: "Liên hệ",
-    icon: <AiOutlineContacts />,
-    link: "/admin/contact-management",
-  },
 ];

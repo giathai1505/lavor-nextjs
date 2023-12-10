@@ -21,7 +21,7 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { Category, IProduct, ProductTypeToText, Status } from "@/types";
+import { IProduct, ProductType, ProductTypeToText, Status } from "@/types";
 import { changeBlogStatus } from "@/api/blog";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
@@ -43,29 +43,26 @@ const statusOptions = [
   },
 ];
 
-const statusAPIOoptions = [
-  {
-    key: Status.ACTIVE,
-    value: "Hoạt động",
-  },
-  {
-    key: Status.SUSPENDED,
-    value: "Ngưng hoạt động",
-  },
-];
-
 const categoryOptions = [
   {
-    key: Category.ABOUT,
-    value: "Về Lavor",
+    key: ProductType.CHAIR,
+    value: "Bọc ghế da",
   },
   {
-    key: Category.TIPS,
-    value: "Kiến thức & Mẹo",
+    key: ProductType.FLOOR,
+    value: "Thảm lót sàn",
   },
   {
-    key: Category.RECRUITMENT,
-    value: "Tuyển dụng",
+    key: ProductType.PILLOW,
+    value: "Gối cổ",
+  },
+  {
+    key: ProductType.STEERING_WHEEL,
+    value: "Bọc tay lái",
+  },
+  {
+    key: ProductType.OTHER,
+    value: "sản phẩm khác",
   },
 ];
 
@@ -76,7 +73,7 @@ interface IProductManagement {
 
 interface IFilterBlog {
   search: string;
-  category: Category | undefined;
+  type: ProductType | undefined;
   status: Status | undefined;
 }
 
@@ -88,14 +85,11 @@ const renderStatus = (status: Status) => {
   );
 };
 
-const ProductManagement: React.FC<IProductManagement> = ({
-  products,
-  loading,
-}) => {
+const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
     search: "",
-    category: undefined,
+    type: undefined,
     status: undefined,
   });
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
@@ -110,18 +104,18 @@ const ProductManagement: React.FC<IProductManagement> = ({
   }>({ id: undefined, status: undefined });
 
   const invokeGetAllProducts = async () => {
-    // let url = "?page=1&limit=10";
-    // if (globalFilter.search !== "") {
-    //   url += "&search=" + globalFilter.search;
-    // }
-    // if (globalFilter.status !== undefined) {
-    //   url += "&status=" + globalFilter.status;
-    // }
-    // if (globalFilter.category !== undefined) {
-    //   url += "&category=" + globalFilter.category;
-    // }
+    let url = "?page=1&limit=10";
+    if (globalFilter.search !== "") {
+      url += "&search=" + globalFilter.search;
+    }
+    if (globalFilter.status !== undefined) {
+      url += "&status=" + globalFilter.status;
+    }
+    if (globalFilter.type !== undefined) {
+      url += "&type=" + globalFilter.type;
+    }
 
-    getAllProducts("")
+    getAllProducts(url)
       .then((result) => {
         setData(result.products);
       })
@@ -132,7 +126,7 @@ const ProductManagement: React.FC<IProductManagement> = ({
 
   useEffect(() => {
     invokeGetAllProducts();
-  }, [globalFilter.category, globalFilter.search, globalFilter.status]);
+  }, [globalFilter.type, globalFilter.search, globalFilter.status]);
 
   const columns = React.useMemo<ColumnDef<IProduct>[]>(
     () => [
@@ -350,9 +344,9 @@ const ProductManagement: React.FC<IProductManagement> = ({
     }
   };
 
-  const handleFilterBlog = (name: string, item: any) => {
-    // const newFilterObject = { ...globalFilter, [name]: item };
-    // setGlobalFilter(newFilterObject);
+  const handleFilterProduct = (name: string, item: any) => {
+    const newFilterObject = { ...globalFilter, [name]: item };
+    setGlobalFilter(newFilterObject);
   };
 
   const handleDeleteMultipleBlog = async () => {
@@ -396,13 +390,13 @@ const ProductManagement: React.FC<IProductManagement> = ({
         <div className="flex items-center gap-5">
           <input
             value={globalFilter.search}
-            onChange={(e) => handleFilterBlog("search", e.target.value)}
+            onChange={(e) => handleFilterProduct("search", e.target.value)}
             className="p-2 font-lg shadow border border-block w-[500px] text-[13px]"
             placeholder="Tìm kiếm bài viết..."
           />
           <NoneFormSelectCustom
             options={statusOptions}
-            onChange={(item) => handleFilterBlog("status", item.key)}
+            onChange={(item) => handleFilterProduct("status", item.key)}
             className="admin"
             // value={globalFilter.status}
             placeholder="Lọc theo trạng thái"
@@ -410,7 +404,7 @@ const ProductManagement: React.FC<IProductManagement> = ({
           <NoneFormSelectCustom
             options={categoryOptions}
             // value={globalFilter.category}
-            onChange={(item) => handleFilterBlog("category", item.key)}
+            onChange={(item) => handleFilterProduct("type", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"
           />
@@ -421,7 +415,7 @@ const ProductManagement: React.FC<IProductManagement> = ({
                   setGlobalFilter({
                     search: "",
                     status: undefined,
-                    category: undefined,
+                    type: undefined,
                   });
                 }}
                 className="add-new-button"
@@ -443,7 +437,7 @@ const ProductManagement: React.FC<IProductManagement> = ({
             </span>
           </div>
           <NoneFormSelectCustom
-            options={statusAPIOoptions}
+            options={statusOptions}
             onChange={(item) => handleChangeMultipleStatus(item)}
             className="admin purple-version"
             placeholder="Thay đổi trạng thái"

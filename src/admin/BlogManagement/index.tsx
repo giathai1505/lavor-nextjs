@@ -74,7 +74,6 @@ const categoryOptions = [
 
 interface IBlogManagement {
   blogs: IBlog[];
-  loading: boolean;
 }
 
 interface IFilterBlog {
@@ -91,7 +90,7 @@ const renderStatus = (status: Status) => {
   );
 };
 
-const BlogManagement: React.FC<IBlogManagement> = ({ blogs, loading }) => {
+const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
     search: "",

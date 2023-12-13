@@ -1,9 +1,14 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import BlogManagement from "@/admin/BlogManagement";
 import { API_ENPOINT } from "@/constants/api";
 import { IBlog } from "@/types";
-import React, { useEffect, useState } from "react";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Quản lý bài viết",
+  description: "Quản lý bài viết",
+};
 
 async function getAllBlog() {
   const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
@@ -17,29 +22,18 @@ async function getAllBlog() {
   return res.json();
 }
 
-const BlogAdmin = () => {
-  const [blogs, setBlogs] = useState<IBlog[]>([]);
+const BlogAdmin = async () => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAllBlog();
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
 
-        if (response?.blogs) {
-          setBlogs(response);
-        } else {
-          setBlogs([]);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-        setBlogs([]);
-      }
-    };
+  const res = await getAllBlog();
 
-    fetchData();
-  }, []);
+  const blogs: IBlog[] = res?.blogs ? res?.blogs : [];
 
-  return <BlogManagement blogs={blogs} loading={false} />;
+  return <BlogManagement blogs={blogs} />;
 };
 
-export default withAuth(BlogAdmin);
+export default BlogAdmin;

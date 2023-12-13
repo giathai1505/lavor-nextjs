@@ -1,9 +1,14 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import ProductManagement from "@/admin/ProductManagement";
 import { API_ENPOINT } from "@/constants/api";
 import { IProduct } from "@/types";
-import React, { useEffect, useState } from "react";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Quản lý sản phẩm",
+  description: "Quản lý sản phẩm",
+};
 
 async function getAllProducts() {
   const res = await fetch(API_ENPOINT + "products", {
@@ -17,29 +22,17 @@ async function getAllProducts() {
   return res.json();
 }
 
-const page = () => {
-  const [products, setProducts] = useState<IProduct[]>([]);
+const page = async () => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAllProducts();
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
+  const res = await getAllProducts();
 
-        if (response?.products) {
-          setProducts(response.products);
-        } else {
-          setProducts([]);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-        setProducts([]);
-      }
-    };
+  const products: IProduct[] = res?.products ? res?.products : [];
 
-    fetchData();
-  }, []);
-
-  return <ProductManagement products={products} loading={false} />;
+  return <ProductManagement products={products} />;
 };
 
-export default withAuth(page);
+export default page;

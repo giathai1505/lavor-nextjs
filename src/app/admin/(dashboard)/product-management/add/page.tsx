@@ -1,8 +1,14 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import ProductForm from "@/admin/ProductManagement/AddNewProduct";
 import { PStatus, ProductType } from "@/types";
-import React from "react";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Thêm bài viết mới",
+  description: "Thêm bài viết",
+};
+
 const defaultProductValue = {
   product_name: "",
   product_price: 0,
@@ -15,8 +21,13 @@ const defaultProductValue = {
   product_status: PStatus.ACTIVE,
   product_images: [],
 };
-const page = () => {
+const page = async () => {
+  const data = await getServerSession();
+
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
   return <ProductForm isEdit={false} defaultValue={defaultProductValue} />;
 };
 
-export default withAuth(page);
+export default page;

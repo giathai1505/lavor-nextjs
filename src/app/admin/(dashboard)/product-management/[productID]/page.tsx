@@ -1,9 +1,15 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import ProductForm from "@/admin/ProductManagement/AddNewProduct";
 import { API_ENPOINT } from "@/constants/api";
-import { IProduct, PStatus, ProductType } from "@/types";
-import React, { useEffect, useState } from "react";
+import { PStatus, ProductType } from "@/types";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Sửa thông tin sản phẩm",
+  description: "Sửa thông tin sản phẩm",
+};
+
 const defaultProductValue = {
   product_name: "",
   product_price: 0,
@@ -33,40 +39,31 @@ async function getProductByID(id: string) {
   return res.json();
 }
 
-const index: React.FC<IPageProps> = ({ params }) => {
-  const [product, setProduct] = useState<IProduct | undefined>(undefined);
-  const [defaultValue, setDefaultValue] = useState<any>();
+const page: React.FC<IPageProps> = async ({ params }) => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getProductByID(params.productID);
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
 
-        if (response) {
-          const defaultValue = {
-            product_name: response.product_name,
-            product_price: response.product_price,
-            product_description: response.product_description,
-            product_feature: response.product_feature,
-            product_detail: response.product_detail,
-            variants: response.variants,
-            product_type: response.product_type ?? ProductType.CHAIR,
-            product_meta: response.product_meta,
-            product_status: PStatus.ACTIVE,
-            product_images: response.product_images,
-          };
-          setDefaultValue(defaultValue);
-        } else {
-          setDefaultValue(undefined);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-        setDefaultValue(undefined);
-      }
+  const res = await getProductByID(params.productID);
+
+  let defaultValue = undefined;
+
+  if (res) {
+    defaultValue = {
+      product_name: res.product_name,
+      product_price: res.product_price,
+      product_description: res.product_description,
+      product_feature: res.product_feature,
+      product_detail: res.product_detail,
+      variants: res.variants,
+      product_type: res.product_type ?? ProductType.CHAIR,
+      product_meta: res.product_meta,
+      product_status: PStatus.ACTIVE,
+      product_images: res.product_images,
     };
-
-    fetchData();
-  }, []);
+  }
 
   return (
     <div>
@@ -79,4 +76,4 @@ const index: React.FC<IPageProps> = ({ params }) => {
   );
 };
 
-export default index;
+export default page;

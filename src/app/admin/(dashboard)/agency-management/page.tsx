@@ -1,9 +1,14 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import AgencyManagement from "@/admin/AgencyManagement";
 import { API_ENPOINT } from "@/constants/api";
 import { IRegion } from "@/types";
-import React, { useEffect, useState } from "react";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Quản lý đại lý",
+  description: "Quản lý đại lý",
+};
 
 async function getAllAgency() {
   const res = await fetch(API_ENPOINT + "agencies", {
@@ -17,28 +22,17 @@ async function getAllAgency() {
   return res.json();
 }
 
-const page = () => {
-  const [regions, setRegions] = useState<IRegion[]>([]);
+const page = async () => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAllAgency();
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
+  const res = await getAllAgency();
 
-        if (response?.regions) {
-          setRegions(response?.regions);
-        } else {
-          setRegions([]);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-        setRegions([]);
-      }
-    };
+  const regions: IRegion[] = res?.regions ? res?.regions : [];
 
-    fetchData();
-  }, []);
-  return <AgencyManagement agencies={regions} />;
+  if (res?.regions) return <AgencyManagement agencies={regions} />;
 };
 
 export default page;

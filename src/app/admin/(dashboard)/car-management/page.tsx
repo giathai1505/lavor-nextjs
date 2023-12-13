@@ -1,9 +1,15 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
 import { API_ENPOINT } from "@/constants/api";
 import { IBrand, IYear } from "@/types";
-import React, { useEffect, useState } from "react";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import React from "react";
+
+export const metadata: Metadata = {
+  title: "Quản lý xe",
+  description: "Quản lý xe",
+};
 
 async function getAllYears() {
   const res = await fetch(API_ENPOINT + "design/years", {
@@ -30,38 +36,22 @@ async function getAllBrands() {
   return res.json();
 }
 
-const page = () => {
-  const [listYears, setListYears] = useState<IYear[]>([]);
-  const [listBrands, setListBrands] = useState<IBrand[]>([]);
+const page = async () => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await Promise.all([getAllYears(), getAllBrands()])
-        .then((result) => {
-          if (Array.isArray(result[0])) {
-            setListYears(result[0]);
-          } else {
-            setListYears([]);
-          }
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
 
-          if (Array.isArray(result[1])) {
-            setListBrands(result[1]);
-          } else {
-            setListBrands([]);
-          }
-        })
-        .catch((error) => {
-          setListBrands([]);
-          setListYears([]);
-        });
-    };
+  const years = await getAllYears();
+  const brands = await getAllBrands();
 
-    fetchData();
-  }, []);
+  const listYears: IYear[] = years ? years : [];
+  const listBrands: IBrand[] = brands ? brands : [];
 
   return (
     <CarManagementForm isEdit={false} years={listYears} brands={listBrands} />
   );
 };
 
-export default withAuth(page);
+export default page;

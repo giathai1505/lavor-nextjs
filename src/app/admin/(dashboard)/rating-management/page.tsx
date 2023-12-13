@@ -1,9 +1,14 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import RatingTablePage from "@/admin/RatingManagement/RatingTablePage";
 import { API_ENPOINT } from "@/constants/api";
 import { TRating } from "@/types";
-import React, { useEffect, useState } from "react";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Quản lý reviews",
+  description: "Quản lý reviews",
+};
 
 async function getAllRatings() {
   const res = await fetch(API_ENPOINT + "review?withDeleted=true", {
@@ -17,27 +22,15 @@ async function getAllRatings() {
   return res.json();
 }
 
-const RatingAdmin = () => {
-  const [ratings, setRatings] = useState<TRating[]>([]);
+const RatingAdmin = async () => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAllRatings();
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
+  const res = await getAllRatings();
 
-        if (response?.reviews && Array.isArray(response.reviews)) {
-          setRatings(response.reviews);
-        } else {
-          setRatings([]);
-        }
-      } catch (error) {
-        console.error("Error fetching ratings:", error);
-        setRatings([]);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const ratings: TRating[] = res?.reviews ? res?.reviews : [];
 
   return <RatingTablePage ratings={ratings} />;
 };

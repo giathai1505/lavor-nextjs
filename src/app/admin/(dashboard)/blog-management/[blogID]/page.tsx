@@ -1,10 +1,14 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
 import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
 import { API_ENPOINT } from "@/constants/api";
-import { Category, IBlog, Status } from "@/types";
-import React, { useEffect, useState } from "react";
+import { Category, Status } from "@/types";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
+export const metadata: Metadata = {
+  title: "Sửa thông tin sản phẩm",
+  description: "Sửa thông tin sản phẩm",
+};
 interface IPageProps {
   params: { blogID: string };
 }
@@ -30,27 +34,13 @@ const defaultBlogsValue = {
   blog_status: Status.ACTIVE,
 };
 
-const index: React.FC<IPageProps> = ({ params }) => {
-  const [blog, setBlog] = useState<IBlog | undefined>(undefined);
+const page: React.FC<IPageProps> = async ({ params }) => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getBlogByID(params.blogID);
-
-        if (response) {
-          setBlog(response);
-        } else {
-          setBlog(undefined);
-        }
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-        setBlog(undefined);
-      }
-    };
-
-    fetchData();
-  }, []);
+  if (!data?.user) {
+    redirect("/admin/auth/login");
+  }
+  const blog = await getBlogByID(params.blogID);
 
   const defaultValue = blog
     ? {
@@ -74,4 +64,4 @@ const index: React.FC<IPageProps> = ({ params }) => {
   );
 };
 
-export default index;
+export default page;

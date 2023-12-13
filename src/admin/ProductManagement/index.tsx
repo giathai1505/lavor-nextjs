@@ -68,7 +68,6 @@ const categoryOptions = [
 
 interface IProductManagement {
   products: IProduct[];
-  loading: boolean;
 }
 
 interface IFilterBlog {

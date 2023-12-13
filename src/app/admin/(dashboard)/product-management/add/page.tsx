@@ -25,7 +25,7 @@ const page = async () => {
   const data = await getServerSession();
 
   if (!data?.user) {
-    redirect("/admin/auth/login");
+    redirect("/admin/login");
   }
   return <ProductForm isEdit={false} defaultValue={defaultProductValue} />;
 };

@@ -4,8 +4,4 @@ export const SocialMediaLink = {
   youtube: "https://www.youtube.com/@LavorLuxury",
 };
 
-export const localStorageKey = {
-  TOKEN: "token",
-};
-
 export const staticRoute = {};

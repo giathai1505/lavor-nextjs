@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { CircleLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import { signIn } from "next-auth/react";
+import { Router } from "next/router";
 
 type ILoginForm = {
   username: string;
@@ -16,6 +17,7 @@ type ILoginForm = {
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const form = useForm<ILoginForm>({
     mode: "all",
@@ -27,17 +29,28 @@ const Login = () => {
   } = form;
 
   const handleLogin = async (data: ILoginForm) => {
+    setIsLoading(true);
     signIn("credentials", {
       username: data.username,
       password: data.password,
-      redirect: true,
-      callbackUrl: "/admin",
+      redirect: false,
     })
       .then((result) => {
-        alert(result);
+        setIsLoading(false);
+
+        if (result?.ok) {
+          toast.success("Đăng nhập thành công!", {
+            position: "top-center",
+          });
+          router.push("/admin");
+        } else {
+          toast.error("Đăng nhập thất bại! Vui lòng thử lại!", {
+            position: "top-center",
+          });
+        }
       })
       .catch((err) => {
-        alert("err: " + err);
+        setIsLoading(false);
       });
   };
 

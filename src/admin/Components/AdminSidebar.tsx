@@ -4,7 +4,7 @@ import React from "react";
 import logo from "@/assets/images/logo/logo-white.png";
 import Image from "next/image";
 import { BiLogOutCircle } from "react-icons/bi";
-import {  usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
 interface IPageProps {
@@ -16,9 +16,8 @@ const AdminSidebar: React.FC<IPageProps> = ({ show }) => {
   const router = useRouter();
 
   const handleLogout = () => {
-    signOut()
-    localStorage.removeItem("token");
-    router.replace("/admin/auth/login");
+    signOut();
+    router.replace("/admin/login");
   };
   return (
     <div className={`sidebar-wrapper ${show ? "show" : ""}`}>

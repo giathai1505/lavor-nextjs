@@ -43,7 +43,7 @@ const page: React.FC<IPageProps> = async ({ params }) => {
   const data = await getServerSession();
 
   if (!data?.user) {
-    redirect("/admin/auth/login");
+    redirect("/admin/login");
   }
 
   const res = await getProductByID(params.productID);

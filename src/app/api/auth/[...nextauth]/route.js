@@ -40,7 +40,7 @@ const authOptions = {
     }),
   ],
   pages: {
-    signIn: "/admin/auth/login",
+    signIn: "/admin/login",
   },
 };
 

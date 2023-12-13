@@ -1,8 +1,25 @@
+'use client'
 import Login from "@/admin/Authentication/Login";
-import React from "react";
+import React, { use } from "react";
+import {signIn, useSession} from "next-auth/react"
+
 
 const page = () => {
-  return <Login />;
+  const a = useSession();
+
+  console.log(a)
+  const handleSubmit = async () => {
+   signIn("credentials", {
+      username: "admin",
+      password: "12121212",
+      redirect: true,
+      callbackUrl: "/admin"
+
+    })
+  }
+  return <div>
+    <button onClick={handleSubmit}>hello</button>
+  </div> 
 };
 
 export default page;

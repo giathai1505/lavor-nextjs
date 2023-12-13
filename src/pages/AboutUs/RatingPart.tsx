@@ -79,9 +79,13 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
                 className={`inline-flex gap-5 relative slide-wrapper`}
                 style={{ left: `${containerTransformLeft}px` }}
               >
-                {ratings.map((item) => {
-                  return <RatingItem rating={item} width={productItemWidth} />;
-                })}
+                {Array.isArray(ratings) &&
+                  ratings.length > 0 &&
+                  ratings.map((item) => {
+                    return (
+                      <RatingItem rating={item} width={productItemWidth} />
+                    );
+                  })}
               </div>
             </div>
           </div>

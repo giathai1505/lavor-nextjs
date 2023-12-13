@@ -1,4 +1,4 @@
-import { getAllBlogs } from "@/api/blog";
+import { getAllBlogs } from "@/api/blogAPI";
 import { API_ENPOINT } from "@/constants/api";
 import DetailNews from "@/pages/News/DetailNews";
 import { Metadata, ResolvingMetadata } from "next";

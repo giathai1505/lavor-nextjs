@@ -1,7 +1,8 @@
+import { API_ENPOINT } from "@/constants/api";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
@@ -12,16 +13,28 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
 
-      // Add logic here to look up the user from the credentials supplied
-
       async authorize(credentials) {
-        // Add your logic here to verify the credentials and get the user data
-        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
+        try {
+          const response = await fetch(API_ENPOINT + "auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+          });
 
-        if (user) {
-          return Promise.resolve(user);
-        } else {
-          return Promise.resolve(null);
+          if (response.ok) {
+            const user = await response.json();
+
+            return {
+              name: user.access_token,
+            };
+          } else {
+            throw new Error("Error logging in");
+          }
+        } catch (error) {
+          console.error(error);
+          throw new Error("Error logging in");
         }
       },
     }),

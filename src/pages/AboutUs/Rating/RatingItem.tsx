@@ -15,7 +15,7 @@ const RatingItem: React.FC<IRatingItem> = ({ width, rating }) => {
     <div
       style={{ width: `${width}px` }}
       className="rating-item"
-      key={rating.review_id}
+      key={rating?.review_id}
     >
       <div className="bg-white inline-block rounded-full p-1 w-fit">
         <Image
@@ -31,7 +31,7 @@ const RatingItem: React.FC<IRatingItem> = ({ width, rating }) => {
           return (
             <BsFillStarFill
               className={`w-5 h-5 cursor-pointer relative ${
-                star <= Number(rating.review_rating) ? "text-[#FED127]" : ""
+                star <= Number(rating?.review_rating) ? "text-[#FED127]" : ""
               }`}
             />
           );
@@ -39,14 +39,14 @@ const RatingItem: React.FC<IRatingItem> = ({ width, rating }) => {
       </div>
       <div className="relative flex-1">
         <FaQuoteLeft className="absolute w-10 h-10 text-[#ffffff2b] z-10" />
-        <p className="z-20 text-center">{rating.review_content}</p>
+        <p className="z-20 text-center">{rating?.review_content}</p>
       </div>
       <div className="flex flex-col items-center">
         <p className="font-bold">
-          {rating.review_name.length > 0 ? rating.review_name : "Ẩn danh"}
+          {rating?.review_name.length > 0 ? rating?.review_name : "Ẩn danh"}
         </p>
         <p className="text-[14px] text-gray italic">
-          {rating.review_phone.length > 0 ? rating.review_phone : "Không có"}
+          {rating?.review_phone.length > 0 ? rating?.review_phone : "Không có"}
         </p>
       </div>
     </div>

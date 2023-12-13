@@ -12,8 +12,8 @@ import AddYearDialog from "../Dialogs/AddYearDialog";
 import AddBrandDialog from "../Dialogs/AddBrandDialog";
 import AddModelDialog from "../Dialogs/AddModelDialog";
 import AddVersionDialog from "../Dialogs/AddVersionDialog";
-import { addCar, getAllBrands, getAllYears } from "@/api/design";
-import { upLoadImage, upLoadImages } from "@/api/image";
+import { addCar, getAllBrands, getAllYears } from "@/api/carAPI";
+import { upLoadImage, upLoadImages } from "@/api/imageAPI";
 import { FaArrowLeft } from "react-icons/fa";
 
 export interface ICarFormValue {

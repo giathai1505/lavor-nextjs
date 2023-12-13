@@ -15,9 +15,9 @@ import FormError from "@/components/Common/FormError";
 import { useRouter } from "next/navigation";
 import { GrFormClose } from "react-icons/gr";
 import dynamic from "next/dynamic.js";
-import { upLoadImages } from "@/api/image";
+import { upLoadImages } from "@/api/imageAPI";
 import { DevTool } from "@hookform/devtools";
-import { addProductAPI, editProductAPI } from "@/api/product";
+import { addProductAPI, editProductAPI } from "@/api/productAPI";
 import { checkAndUploadMultipleImage } from "@/utilities";
 import { FaArrowLeft } from "react-icons/fa";
 

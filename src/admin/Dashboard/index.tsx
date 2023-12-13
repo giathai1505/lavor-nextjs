@@ -1,4 +1,3 @@
-
 import CategoryIcon from "@/assets/icons/adminDashboard/CategoryIcon";
 import ContactIcon from "@/assets/icons/adminDashboard/ContactIcon";
 import ProductCategoryIcon from "@/assets/icons/adminDashboard/ProductCategoryIcon";
@@ -54,4 +53,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard
+export default AdminDashboard;

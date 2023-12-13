@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
-import { addBrand, addModel, getAllBrands } from "@/api/design";
+import { addBrand, addModel, getAllBrands } from "@/api/carAPI";
 import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";

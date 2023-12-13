@@ -22,14 +22,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
 import { IProduct, ProductType, ProductTypeToText, Status } from "@/types";
-import { changeBlogStatus } from "@/api/blog";
+import { changeBlogStatus } from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
 import {
   deleteMultipleProducts,
   deleteProduct,
   getAllProducts,
-} from "@/api/product";
+} from "@/api/productAPI";
 import { formatCurrencyWithDots } from "@/utilities";
 
 const statusOptions = [

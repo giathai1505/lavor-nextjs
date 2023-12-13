@@ -1,6 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
-import { TRating } from "@/types";
 import { getTokenFromLocalStorage } from "@/utilities";
+import { signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 
 export async function getAllRatings() {
@@ -45,34 +45,39 @@ export async function addRating(data: any) {
 
 export async function deleteRating(id: number) {
   try {
-    const loadingToastId = toast.info("Đang xóa đánh giá...", {
-      position: "top-center",
-      autoClose: false,
-    });
-    const response = await fetch(API_ENPOINT + `review/` + id.toString(), {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
-      },
-    });
+    const token: any = await getTokenFromLocalStorage();
+    if (token !== "") {
+      const loadingToastId = toast.info("Đang xóa đánh giá...", {
+        position: "top-center",
+        autoClose: false,
+      });
+      const response = await fetch(API_ENPOINT + `review/` + id.toString(), {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
+        toast.dismiss(loadingToastId);
+        toast.error("Xóa đánh giá thất bại!!!", {
+          position: "top-center",
+        });
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       toast.dismiss(loadingToastId);
-      toast.error("Xóa đánh giá thất bại!!!", {
+
+      toast.success("Xóa đánh giá thành công!!!", {
         position: "top-center",
       });
-      throw new Error(`HTTP error! Status: ${response.status}`);
+
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      signOut();
     }
-
-    toast.dismiss(loadingToastId);
-
-    toast.success("Xóa đánh giá thành công!!!", {
-      position: "top-center",
-    });
-
-    const responseData = await response.json();
-    return responseData;
   } catch (error) {
     console.error("Error:", error);
     throw error;
@@ -81,34 +86,39 @@ export async function deleteRating(id: number) {
 
 export async function restoreRating(id: number) {
   try {
-    const loadingToastId = toast.info("Đang khôi phục đánh giá...", {
-      position: "top-center",
-      autoClose: false,
-    });
-    const response = await fetch(API_ENPOINT + `review/` + id.toString(), {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getTokenFromLocalStorage()}`,
-      },
-    });
+    const token: any = await getTokenFromLocalStorage();
+    if (token !== "") {
+      const loadingToastId = toast.info("Đang khôi phục đánh giá...", {
+        position: "top-center",
+        autoClose: false,
+      });
+      const response = await fetch(API_ENPOINT + `review/` + id.toString(), {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
+        toast.dismiss(loadingToastId);
+        toast.error("Khôi phục đánh giá thất bại!!!", {
+          position: "top-center",
+        });
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       toast.dismiss(loadingToastId);
-      toast.error("Khôi phục đánh giá thất bại!!!", {
+
+      toast.success("Khôi phục đánh giá thành công!!!", {
         position: "top-center",
       });
-      throw new Error(`HTTP error! Status: ${response.status}`);
+
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      signOut();
     }
-
-    toast.dismiss(loadingToastId);
-
-    toast.success("Khôi phục đánh giá thành công!!!", {
-      position: "top-center",
-    });
-
-    const responseData = await response.json();
-    return responseData;
   } catch (error) {
     console.error("Error:", error);
     throw error;

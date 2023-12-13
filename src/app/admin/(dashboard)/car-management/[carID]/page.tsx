@@ -1,6 +1,3 @@
-"use client";
-import withAuth from "@/HOC/withAuth";
-import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
 import { API_ENPOINT } from "@/constants/api";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { getCar } from "@/api/design";
+import { getCar } from "@/api/carAPI";
 import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
 import { IBrand, IModel, IYear } from "@/types";
 import React, { useEffect, useState } from "react";

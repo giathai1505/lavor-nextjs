@@ -5,14 +5,13 @@ import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Category, Status } from "@/types";
-import { addBlogAPI, editBlogAPI } from "@/api/blog";
+import { addBlogAPI, editBlogAPI } from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
 import FormError from "@/components/Common/FormError";
 import { areObjectsEqual } from "@/utilities";
-import ConfirmDialog from "@/components/Common/Dialog";
 import { useRouter } from "next/navigation";
-import { upLoadImage, upLoadImages } from "@/api/image";
+import { upLoadImage } from "@/api/imageAPI";
 import dynamic from "next/dynamic.js";
 import { FaArrowLeft } from "react-icons/fa";
 

@@ -1,4 +1,4 @@
-import { deleteMultipleProducts } from "@/api/product";
+import { deleteMultipleProducts } from "@/api/productAPI";
 import { API_ENPOINT } from "@/constants/api";
 import Product from "@/pages/Product";
 import { IBlog, IProduct } from "@/types";

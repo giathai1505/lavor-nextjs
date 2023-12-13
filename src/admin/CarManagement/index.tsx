@@ -28,7 +28,7 @@ import {
   deleteAPI,
   deleteMultipleBlogs,
   getAllBlogs,
-} from "@/api/blog";
+} from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
 import { renderCategory } from "@/pages/News";

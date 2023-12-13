@@ -1,25 +1,126 @@
-'use client'
-import Login from "@/admin/Authentication/Login";
-import React, { use } from "react";
-import {signIn, useSession} from "next-auth/react"
+"use client";
+import Image from "next/image";
+import React, { useState } from "react";
+import logo from "@/assets/images/logo/logo-black.png";
+import { Controller, useForm } from "react-hook-form";
+import FormError from "@/components/Common/FormError";
+import { useRouter } from "next/navigation";
+import { CircleLoader } from "react-spinners";
+import { ToastContainer, toast } from "react-toastify";
+import { signIn } from "next-auth/react";
 
-
-const page = () => {
-  const a = useSession();
-
-  console.log(a)
-  const handleSubmit = async () => {
-   signIn("credentials", {
-      username: "admin",
-      password: "12121212",
-      redirect: true,
-      callbackUrl: "/admin"
-
-    })
-  }
-  return <div>
-    <button onClick={handleSubmit}>hello</button>
-  </div> 
+type ILoginForm = {
+  username: string;
+  password: string;
 };
 
-export default page;
+const Login = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const form = useForm<ILoginForm>({
+    mode: "all",
+  });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+
+  const handleLogin = async (data: ILoginForm) => {
+    signIn("credentials", {
+      username: data.username,
+      password: data.password,
+      redirect: true,
+      callbackUrl: "/admin",
+    })
+      .then((result) => {
+        alert(result);
+      })
+      .catch((err) => {
+        alert("err: " + err);
+      });
+  };
+
+  return (
+    <div className="auth-form">
+      <Image src={logo} alt="Logo Lavor" className="form-logo" />
+      <p className="font-bold text-3xl">Sign in</p>
+
+      <form onSubmit={handleSubmit(handleLogin)}>
+        <div className="mb-5">
+          <p className="mb-2">
+            Email <span>*</span>
+          </p>
+          <div>
+            <Controller
+              name="username"
+              control={control}
+              rules={{
+                required: "Bạn cần phải nhập username!",
+              }}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  onBlur={() => {
+                    if (!field.value) {
+                      field.onChange("");
+                    }
+                  }}
+                  placeholder="Nhập email"
+                  className="auth-input"
+                />
+              )}
+            />
+            {errors.username && <FormError message={errors.username.message} />}
+          </div>
+        </div>
+        <div className="mb-5">
+          <p className="mb-2">
+            Mật khẩu <span>*</span>
+          </p>
+
+          <div>
+            <Controller
+              name="password"
+              control={control}
+              rules={{
+                required: "Bạn cần phải nhập mật khẩu!",
+              }}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="password"
+                  onBlur={() => {
+                    if (!field.value) {
+                      field.onChange("");
+                    }
+                  }}
+                  placeholder="Nhập mật khẩu"
+                  className="auth-input"
+                />
+              )}
+            />
+            {errors.password && <FormError message={errors.password.message} />}
+          </div>
+        </div>
+
+        <button className={`auth-form-button ${isLoading && "disabled"}`}>
+          {isLoading && (
+            <CircleLoader
+              color={"#ffffff"}
+              loading={isLoading}
+              size={20}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          )}
+          Đăng nhập
+        </button>
+      </form>
+      <ToastContainer />
+    </div>
+  );
+};
+
+export default Login;

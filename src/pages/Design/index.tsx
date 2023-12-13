@@ -100,8 +100,6 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
     setDesignData(newData as TDesignData);
   };
 
-  console.log("===== design data: ", designData);
-
   const renderPhase = useMemo(() => {
     let phaseComponent;
     switch (phase) {

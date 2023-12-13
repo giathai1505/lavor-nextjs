@@ -1,5 +1,6 @@
-import { upLoadImages } from "@/api/image";
+import { upLoadImages } from "@/api/imageAPI";
 import { IAgencyTable, IRegion } from "@/types";
+import { getSession, signOut, useSession } from "next-auth/react";
 
 export function areObjectsEqual<T extends {}>(obj1: T, obj2: T): boolean {
   const keys1 = Object.keys(obj1) as Array<keyof T>;
@@ -84,10 +85,13 @@ export const convertToAgencyArray = (data: IRegion[]): IAgencyTable[] => {
   return result;
 };
 
-export const getTokenFromLocalStorage = () => {
-  if (typeof window !== "undefined") {
-    // Check if running in the browser
-    return localStorage.getItem("token");
+export const getTokenFromLocalStorage = async () => {
+  const session = await getSession();
+
+  if (session) {
+    return session.user?.name;
+  } else {
+    signOut();
+    return "";
   }
-  return null;
 };

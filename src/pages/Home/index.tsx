@@ -4,22 +4,24 @@ import Link from "next/link";
 import startNowButton from "@/assets/images/start-now-button.png";
 import "@/assets/styles/homepage.css";
 import startButton from "@/assets/images/start-now-button.png";
-import homeSlider from "@/assets/images/home-slider/home-slider3.jpeg";
 import Button from "@/components/Common/Button";
 import ProductPart from "./ProductPart";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
-import { amazingCar } from "@/data/homePage";
-import { BsArrowDownCircleFill } from "react-icons/bs";
 import HomeCarousel from "@/components/HomeCarousel";
+import { amazingCar } from "@/assets/staticData";
+import { IProduct } from "@/types/type";
+import React from "react";
 
-export default function HomePage() {
+
+type IPageProps = {
+  products: IProduct[]
+}
+
+ const HomePage : React.FC<IPageProps>=({products}) =>{
   return (
     <div>
       <div className="home-img overflow-hidden">
-        {/* <div className="home-arrow-down">
-          <BsArrowDownCircleFill />
-        </div> */}
         <div className="h-[80vh]">
           <HomeCarousel />
         </div>
@@ -137,7 +139,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <ProductPart />
+      <ProductPart products={products}/>
 
       <div className="bg-secondaryBackground py-10">
         <div className="max-w-[1200px] mx-auto">
@@ -175,3 +177,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+export default HomePage

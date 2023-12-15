@@ -1,17 +1,18 @@
 "use client";
 
-import { products } from "@/data/products";
 import React, { useEffect, useRef, useState } from "react";
-import LazyImage from "./Common/LazyImage";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import Image from "next/image";
+import { IProduct } from "@/types/type";
+import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 let gap = 20;
 
 interface IProductSliderInterface {
   visibleItem: number;
+  products: IProduct[]
 }
 
-const ProductSlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
+const ProductSlider: React.FC<IProductSliderInterface> = ({ visibleItem, products }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(0);
   const [containerTransformLeft, setContainerTransformLeft] =
@@ -56,24 +57,24 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
           className="inline-flex gap-5 relative slide-wrapper"
           style={{ left: `${containerTransformLeft}px` }}
         >
-          {products.map((item) => {
+          {Array.isArray(products) && products.map((item) => {
             return (
               <div
                 style={{ width: `${productItemWidth}px` }}
                 className="pb-2"
-                key={item.id}
+                key={item.product_id}
               >
                 <Image
-                  src={item.image}
+                  src={item.product_images[0]}
                   alt="Product image"
                   className="w-full rounded"
                   width={100}
                 />
                 <div className="mt-3 ml-3 font-bold">
                   <p className="text-white uppercase font-medium">
-                    {item.name}
+                    {item.product_name}
                   </p>
-                  <p className="text-primary">{item.price}</p>
+                  <p className="text-primary">{formatCurrencyWithDots(item.product_price)}</p>
                 </div>
               </div>
             );

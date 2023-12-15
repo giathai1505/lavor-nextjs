@@ -1,6 +1,5 @@
 "use client";
-
-import { carouseSliderImages } from "@/data/homePage";
+import { carouseSliderImages } from "@/assets/staticData";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import {
@@ -27,19 +26,7 @@ const HomeCarousel = () => {
       setActiveSlide(3);
     }
   };
-
-  useEffect(() => {
-    // const timeID = setInterval(() => {
-    //   if (activeSlide === 3) {
-    //     setActiveSlide(1);
-    //   } else {
-    //     setActiveSlide((pre) => pre + 1);
-    //   }
-    // }, 3000);
-    // return () => {
-    //   clearInterval(timeID);
-    // };
-  }, []);
+ 
 
   useEffect(() => {
     const newLeft = -1920 * (activeSlide - 1);

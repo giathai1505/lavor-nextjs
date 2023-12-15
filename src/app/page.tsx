@@ -1,8 +1,10 @@
 import Footer from "@/components/Common/Footer";
 import Header from "@/components/Common/Header";
 import PhoneHeader from "@/components/Common/PhoneHeader";
+import { API_ENPOINT } from "@/constants/api";
 
 import HomePage from "@/pages/Home";
+import { IProduct } from "@/types/type";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +12,26 @@ export const metadata: Metadata = {
   description: "Với Lavor, nội thất xe của bạn sẽ trở nên đẳng cấp hơn",
 };
 
-export default function Home() {
+async function getAllProducts() {
+  try {
+    const res = await fetch(API_ENPOINT + "products?type=PILLOW", {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+     return []
+    }
+  
+    return res.json();
+  } catch (error) {
+    return []
+  }
+
+}
+
+
+const Home = async () => {
+  const products = ( await getAllProducts()) as IProduct[];
   return (
     <div>
       <div className="hidden xl:block">
@@ -21,8 +42,10 @@ export default function Home() {
         <PhoneHeader />
       </div>
 
-      <HomePage />
+      <HomePage products={products}/>
       <Footer />
     </div>
   );
 }
+
+export default Home

@@ -4,8 +4,8 @@ import logo from "@/assets/images/logo/logo-white.png";
 import certificate from "@/assets/images/certificate.png";
 import { FaSquareFacebook, FaTiktok } from "react-icons/fa6";
 import { AiFillGooglePlusCircle, AiFillYoutube } from "react-icons/ai";
-import { footerData } from "@/data/footer";
 import Link from "next/link";
+import { userFooterData } from "@/assets/staticData";
 
 const Footer = () => {
   return (
@@ -30,7 +30,7 @@ const Footer = () => {
             />
           </div>
 
-          {footerData.map((item) => {
+          {userFooterData.map((item) => {
             return (
               <div key={item.id} className="col-span-1 text-white">
                 <h3>{item.name}</h3>

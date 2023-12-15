@@ -1,8 +1,13 @@
 import CategorySlider from "@/components/CategorySlider";
 import ProductSlider from "@/components/ProductSlider";
+import { IProduct } from "@/types/type";
 import React from "react";
 
-const ProductPart = () => {
+type TPageProps = {
+  products: IProduct[]
+}
+
+const ProductPart : React.FC<TPageProps> = ({products}) => {
   return (
     <div className=" bg-black ">
       <div className="wrapper py-10">
@@ -10,13 +15,13 @@ const ProductPart = () => {
           <span>Sản phẩm</span>
         </h2>
         <div className="px-10 hidden xl:block">
-          <ProductSlider visibleItem={4} />
+          <ProductSlider visibleItem={4} products={products} />
         </div>
         <div className="px-10 hidden md:block xl:hidden ">
-          <ProductSlider visibleItem={2} />
+          <ProductSlider visibleItem={2}products={products} />
         </div>
         <div className="px-10 md:hidden">
-          <ProductSlider visibleItem={1} />
+          <ProductSlider visibleItem={1} products={products}/>
         </div>
         <h2 className="my-10">
           <span>Danh mục</span>

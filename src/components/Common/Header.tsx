@@ -1,10 +1,10 @@
 "use client";
-import { navBar } from "@/data/navbar";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import logo from "@/assets/images/logo/logo-white.png";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { userNavbarData } from "@/assets/staticData";
 
 const Header = () => {
   const [showFullHeader, setShowFullHeader] = useState(true);
@@ -48,7 +48,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex z-10 mt-10">
-          {navBar.map((item) => {
+          {userNavbarData.map((item) => {
             return (
               <div className="relative nav-item" key={item.id}>
                 <Link

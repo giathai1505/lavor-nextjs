@@ -1,4 +1,3 @@
-import { sidebarList } from "@/data/adminSidebar";
 import Link from "next/link";
 import React from "react";
 import logo from "@/assets/images/logo/logo-white.png";
@@ -6,6 +5,7 @@ import Image from "next/image";
 import { BiLogOutCircle } from "react-icons/bi";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { AdminSidebarCategories } from "@/assets/staticData";
 
 interface IPageProps {
   show: boolean;
@@ -30,7 +30,7 @@ const AdminSidebar: React.FC<IPageProps> = ({ show }) => {
       </div>
       <p className="dashboard-text ">DASHBOARD</p>
       <ul className="px-3">
-        {sidebarList.map((item, index) => {
+        {AdminSidebarCategories.map((item, index) => {
           return (
             <li
               className={`sidebar-item ${

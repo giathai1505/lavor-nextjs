@@ -1,10 +1,9 @@
-import Button from "@/components/Common/Button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import startButton from "@/assets/images/start-now-button.png";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import { bocGheDa } from "@/data/products";
+import { bocGheDa } from "@/assets/staticData";
 
 const LeatherSeatCover = () => {
   return (

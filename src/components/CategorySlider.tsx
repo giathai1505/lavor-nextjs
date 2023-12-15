@@ -1,13 +1,10 @@
 "use client";
-import { categories, products } from "@/data/products";
 import React, { useEffect, useRef, useState } from "react";
-import LazyImage from "./Common/LazyImage";
-import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import Image from "next/image";
 import { FaPlusCircle } from "react-icons/fa";
 import Link from "next/link";
+import { categories } from "@/assets/staticData";
 const gap = 20;
-
 interface IProductSliderInterface {
   visibleItem: number;
 }
@@ -25,21 +22,7 @@ const CategorySlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
       setProductItemWidth(childWidth);
     }
   }, []);
-
-  const handleMoveSlider = (index: number) => {
-    if (index === 1) {
-      if (containerTransformLeft >= 0) return;
-      setContainerTransformLeft((pre) => pre + productItemWidth + gap);
-    } else {
-      const invisibleItem = products.length - visibleItem;
-
-      const maxWidth =
-        invisibleItem * productItemWidth + (invisibleItem - 1) * gap;
-
-      if (-(maxWidth - productItemWidth) === containerTransformLeft) return;
-      setContainerTransformLeft((pre) => pre - productItemWidth - gap);
-    }
-  };
+ 
 
   return (
     <div ref={containerRef} className="relative">

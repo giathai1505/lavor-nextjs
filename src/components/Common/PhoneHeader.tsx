@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import logo from "@/assets/images/logo/logo-white.png";
 import { BsList } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
-import { navBar } from "@/data/navbar";
 import { usePathname } from "next/navigation";
+import { userNavbarData } from "@/assets/staticData";
 
 const PhoneHeader = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -49,7 +49,7 @@ const PhoneHeader = () => {
           />
         </div>
         <div className="text-white py-5">
-          {navBar.map((item) => {
+          {userNavbarData.map((item) => {
             return (
               <div className="nav-item-phone" key={item.id}>
                 <Link

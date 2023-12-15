@@ -179,3 +179,15 @@ export type TRating = {
   review_content: string;
   review_delete_date: Date;
 };
+
+export type ICarTable = {
+  image_url: string;
+  year: number;
+  model_id: number;
+  model_name: string;
+  version_id: number;
+  version_name: string;
+  brand_id: number;
+  brand_name: string;
+  deleted_at: any;
+};

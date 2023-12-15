@@ -1,6 +1,6 @@
-import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
+import CarManagementTable from "@/admin/CarManagement/CarManagementTable";
 import { API_ENPOINT } from "@/constants/api";
-import { IBrand, IYear } from "@/types/type";
+import { ICarTable } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -23,8 +23,8 @@ async function getAllYears() {
   return res.json();
 }
 
-async function getAllBrands() {
-  const res = await fetch(API_ENPOINT + "design/brands", {
+async function getAllCars() {
+  const res = await fetch(API_ENPOINT + "design/cars", {
     method: "GET",
     cache: "no-store",
   });
@@ -43,15 +43,11 @@ const page = async () => {
     redirect("/admin/login");
   }
 
-  const years = await getAllYears();
-  const brands = await getAllBrands();
+  const res = await getAllCars();
+  let cars: ICarTable[] = [];
 
-  const listYears: IYear[] = years ? years : [];
-  const listBrands: IBrand[] = brands ? brands : [];
-
-  return (
-    <CarManagementForm isEdit={false} years={listYears} brands={listBrands} />
-  );
+  if (res?.cars && Array.isArray(res.cars)) cars = res.cars;
+  return <CarManagementTable cars={cars} />;
 };
 
 export default page;

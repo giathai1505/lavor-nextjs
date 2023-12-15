@@ -11,6 +11,10 @@ import { Category, IBlog, IPagination } from "@/types/type";
 import Pagination from "@/components/Common/Pagination";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import useQueryParams from "@/hooks/useQueryParam";
+import Image from "next/image";
+import NoBlogImage from "@/assets/images/empty-data/empty-blog.svg"
+
+
 const listDanhMuc = [
   {
     key: "",
@@ -115,6 +119,31 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
     Number(pagination?.total) - 1
   );
 
+
+  const renderListBlog = (blogs: IBlog[], typeOfView: any) => {
+    if(blogs.length === 0) return <div className="flex justify-center mt-40 flex-col items-center">
+<Image alt="Không có bài viết nào" src={NoBlogImage} className="w-[200px]"/>
+<p className="text-white mt-5">Chưa có bài viết nào</p>
+    </div>
+
+    return <>
+     {typeOfView === "grid" ? (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {data.map((item) => {
+          return <NewGridViewItem blog={item} />;
+        })}
+      </div>
+    ) : (
+      <div className="grid grid-cols-1 gap-10">
+        {data.map((item) => {
+          return <NewListViewItem blog={item} />;
+        })}
+      </div>
+  )}  </>
+
+
+  }
+
   return (
     <div>
       <PartHeader
@@ -156,21 +185,12 @@ const News: React.FC<INews> = ({ blogs, pagination }) => {
                   </div>
                 </div>
               </div>
+              {
+                  renderListBlog(blogs, typeView)
+              }
 
-              {typeView === "grid" ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  {data.map((item) => {
-                    return <NewGridViewItem blog={item} />;
-                  })}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 gap-10">
-                  {data.map((item) => {
-                    return <NewListViewItem blog={item} />;
-                  })}
-                </div>
-              )}
-
+          
+             
               <div className="mt-5">
                 <Pagination
                   currentPage={Number(currentPage)}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ProductItemVertical from "./components/ProductItemVertical";
 import { IProduct, SlugToTitle } from "@/types/type";
 import { useRouter } from "next/navigation";
+import ProductSkeleton from "@/components/skeleton/ProductSkeleton";
 
 const productFilterOptions = [
   {
@@ -108,6 +109,15 @@ const ListProduct: React.FC<IListProduct> = ({
               placeholder="Lọc"
             />
           </div>
+        </div>
+
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">
+          {[1,2.3,4].map((item) => {
+              return (
+                <ProductSkeleton/>
+              );
+            })}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">

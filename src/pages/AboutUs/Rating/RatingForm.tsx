@@ -37,7 +37,6 @@ const RatingForm = () => {
 
       const result = await addRating(apiData);
 
-      console.log(result);
       // if (result) {
       setIsLoading(false);
       //   //show message send notification successfully

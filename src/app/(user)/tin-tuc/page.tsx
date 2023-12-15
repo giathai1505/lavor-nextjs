@@ -5,15 +5,21 @@ import { Metadata } from "next";
 import React from "react";
 
 async function getAllBlog(url: string) {
-  const res = await fetch(API_ENPOINT + "blogs" + url, {
-    cache: "no-store",
-  });
+  try {
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    const res = await fetch(API_ENPOINT + "blogs" + url, {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+      return []
+    }
+  
+    return res.json();    
+  } catch (error) {
+   return [] 
   }
 
-  return res.json();
 }
 
 export const metadata: Metadata = {
@@ -22,7 +28,6 @@ export const metadata: Metadata = {
 };
 
 const index = async (props: any) => {
-  console.log(props);
   const category = props?.searchParams?.category;
   const categoryURL =
     category && category !== ""
@@ -38,6 +43,7 @@ const index = async (props: any) => {
   if (response?.blogs && Array.isArray(response.blogs)) {
     blogs = response?.blogs;
   }
+  
   const pagination: IPagination = {
     total: response?.total ?? 10,
     page: response?.page ?? 1,

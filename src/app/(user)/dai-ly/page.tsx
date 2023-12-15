@@ -2,7 +2,7 @@ import React from "react";
 import Agency from "@/pages/Agency";
 import { Metadata } from "next";
 import { API_ENPOINT } from "@/constants/api";
-import { IRegion } from "@/types";
+import { IRegion } from "@/types/type";
 
 export const metadata: Metadata = {
   title: "Đại lý toàn quốc",

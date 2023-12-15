@@ -1,4 +1,4 @@
-import { IAgency, ICity } from "@/types";
+import { IAgency, ICity } from "@/types/type";
 import React, { useEffect, useState } from "react";
 import { GoTriangleRight } from "react-icons/go";
 

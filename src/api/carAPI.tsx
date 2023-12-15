@@ -1,6 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
 import { ICarFormValue } from "@/admin/CarManagement/CarManagementForm";
-import { getTokenFromLocalStorage } from "@/utilities";
+import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 
 export async function addYear(year: number) {

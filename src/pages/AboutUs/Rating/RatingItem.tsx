@@ -3,7 +3,7 @@ import React from "react";
 import userAvatar from "@/assets/images/common/user.png";
 import { BsFillStarFill } from "react-icons/bs";
 import { FaQuoteLeft } from "react-icons/fa";
-import { TRating } from "@/types";
+import { TRating } from "@/types/type";
 
 type IRatingItem = {
   rating: TRating;

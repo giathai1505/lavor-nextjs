@@ -5,7 +5,7 @@ import map from "@/assets/images/map.png";
 import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/5.jpeg";
-import { ICity, IRegion } from "@/types";
+import { ICity, IRegion } from "@/types/type";
 
 interface IAgencyProps {
   agencies: IRegion[];

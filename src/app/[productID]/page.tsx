@@ -5,7 +5,7 @@ import titleBackgroundImage from "@/assets/images/headerPart/3.webp";
 import { API_ENPOINT } from "@/constants/api";
 import { Metadata, ResolvingMetadata } from "next";
 import Product from "@/pages/Product";
-import { IProduct } from "@/types";
+import { IProduct } from "@/types/type";
 
 async function getProductByID(id: string) {
   const res = await fetch(API_ENPOINT + "products/" + id, {

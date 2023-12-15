@@ -1,6 +1,6 @@
 import RatingTablePage from "@/admin/RatingManagement/RatingTablePage";
 import { API_ENPOINT } from "@/constants/api";
-import { TRating } from "@/types";
+import { TRating } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

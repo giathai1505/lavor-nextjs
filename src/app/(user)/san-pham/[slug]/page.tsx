@@ -4,7 +4,7 @@ import React from "react";
 import titleBackgroundImage from "@/assets/images/headerPart/3.webp";
 import { Jost } from "next/font/google";
 import { API_ENPOINT } from "@/constants/api";
-import { SlugToType } from "@/types";
+import { SlugToType } from "@/types/type";
 
 async function getProductCategory(url: string) {
   const res = await fetch(API_ENPOINT + "products/" + url, {

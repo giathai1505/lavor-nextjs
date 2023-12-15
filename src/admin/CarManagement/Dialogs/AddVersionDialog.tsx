@@ -6,7 +6,7 @@ import { addVersion, getAllModels } from "@/api/carAPI";
 import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import { IModel } from "@/types";
+import { IModel } from "@/types/type";
 
 interface IDialog {
   open: boolean;

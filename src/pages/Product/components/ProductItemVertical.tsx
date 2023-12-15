@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { IProduct, ProductTypeToText } from "@/types";
-import { formatCurrencyWithDots } from "@/utilities";
+import { IProduct, ProductTypeToText } from "@/types/type";
+import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 
 const color = ["#E6C197", "#F58220", "##000000"];
 

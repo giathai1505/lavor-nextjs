@@ -1,6 +1,6 @@
 import BlogManagement from "@/admin/BlogManagement";
 import { API_ENPOINT } from "@/constants/api";
-import { IBlog } from "@/types";
+import { IBlog } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

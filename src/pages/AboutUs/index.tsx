@@ -5,7 +5,7 @@ import Part3 from "./Part3";
 import PartHeader from "@/components/Common/PartHeader";
 import RatingPart from "./RatingPart";
 import titleBackgroundImage from "@/assets/images/headerPart/2.jpeg";
-import { TRating } from "@/types";
+import { TRating } from "@/types/type";
 
 type TPageProps = {
   ratings: TRating[];

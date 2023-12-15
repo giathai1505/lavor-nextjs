@@ -2,7 +2,7 @@
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import React, { useEffect, useState } from "react";
 import ProductItemVertical from "./components/ProductItemVertical";
-import { IProduct, SlugToTitle } from "@/types";
+import { IProduct, SlugToTitle } from "@/types/type";
 import { useRouter } from "next/navigation";
 
 const productFilterOptions = [

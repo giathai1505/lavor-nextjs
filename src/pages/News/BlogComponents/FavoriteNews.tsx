@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlineArrowRight, AiOutlineCalendar } from "react-icons/ai";
-import { Category, IBlog } from "@/types";
+import { Category, IBlog } from "@/types/type";
 import moment from "moment";
 import Link from "next/link";
 

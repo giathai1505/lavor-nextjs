@@ -1,6 +1,6 @@
 import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
 import { API_ENPOINT } from "@/constants/api";
-import { Category, Status } from "@/types";
+import { Category, Status } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

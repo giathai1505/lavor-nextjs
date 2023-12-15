@@ -6,7 +6,7 @@ import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
 import RatingForm from "./Rating/RatingForm";
 import RatingItem from "./Rating/RatingItem";
-import { TRating } from "@/types";
+import { TRating } from "@/types/type";
 const gap = 20;
 
 interface IRating {

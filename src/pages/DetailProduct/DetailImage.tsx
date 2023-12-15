@@ -1,5 +1,5 @@
 "use client";
-import { IProduct } from "@/types";
+import { IProduct } from "@/types/type";
 import React, { useState } from "react";
 
 interface IDetailImage {

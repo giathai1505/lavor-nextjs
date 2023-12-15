@@ -1,7 +1,7 @@
 import React from "react";
 import { FaFacebookF, FaTiktok, FaYoutube } from "react-icons/fa";
 import Link from "next/link";
-import { formatCurrencyWithDots } from "@/utilities";
+import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import { SocialMediaLink } from "@/constants/resource";
 
 const followList = [

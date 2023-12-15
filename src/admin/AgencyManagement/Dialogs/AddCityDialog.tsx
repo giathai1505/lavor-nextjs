@@ -5,7 +5,7 @@ import FormError from "@/components/Common/FormError";
 import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import { IAgency, ICity, IRegion } from "@/types";
+import { IAgency, ICity, IRegion } from "@/types/type";
 import { addAgencyAPI, addCityAPI } from "@/api/agencyAPI";
 import Agency from "@/pages/Agency";
 

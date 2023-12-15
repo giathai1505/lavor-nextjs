@@ -1,6 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
 import AboutUs from "@/pages/AboutUs";
-import { TRating } from "@/types";
+import { TRating } from "@/types/type";
 import { Metadata } from "next";
 import React from "react";
 

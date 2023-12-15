@@ -21,7 +21,7 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { IProduct, ProductType, ProductTypeToText, Status } from "@/types";
+import { IProduct, ProductType, ProductTypeToText, Status } from "@/types/type";
 import { changeBlogStatus } from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
@@ -30,7 +30,7 @@ import {
   deleteProduct,
   getAllProducts,
 } from "@/api/productAPI";
-import { formatCurrencyWithDots } from "@/utilities";
+import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 
 const statusOptions = [
   {

@@ -2,7 +2,7 @@ import React from "react";
 import DetailImage from "./DetailImage";
 import DetailContent from "./DetailContent";
 import RelatedProduct from "./RelatedProduct";
-import { IProduct } from "@/types";
+import { IProduct } from "@/types/type";
 import parse from "html-react-parser";
 
 interface IDetailProduct {

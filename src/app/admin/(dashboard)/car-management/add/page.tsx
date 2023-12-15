@@ -2,7 +2,7 @@
 
 import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
 import { API_ENPOINT } from "@/constants/api";
-import { IBrand, IYear } from "@/types";
+import { IBrand, IYear } from "@/types/type";
 import React, { useEffect, useState } from "react";
 
 async function getAllYears() {

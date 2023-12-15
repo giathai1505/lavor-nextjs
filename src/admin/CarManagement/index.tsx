@@ -21,7 +21,7 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { Category, IBlog, Status } from "@/types";
+import { Category, IBlog, Status } from "@/types/type";
 import {
   changeBlogStatus,
   changeMultipleBlogStatus,

@@ -1,6 +1,6 @@
 import { getCar } from "@/api/carAPI";
 import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
-import { IBrand, IModel, IYear } from "@/types";
+import { IBrand, IModel, IYear } from "@/types/type";
 import React, { useEffect, useState } from "react";
 import { CircleLoader, ClipLoader } from "react-spinners";
 import { TCar } from ".";
@@ -94,6 +94,22 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
   useEffect(() => {
     setListBrands(initListBrands(brands));
     setListYears(initListYear(years));
+    //check if has brand and model the will init the list models and version too
+    if(carDetail.brand) {
+       
+      setListModels(updateListModelWhenChangeBrand(carDetail.brand.id, brands));
+
+      if(carDetail.model)
+  setListVersions(
+        updateListVersionWhenModelChange(
+          Number(carDetail?.brand?.id),
+         carDetail.model.id, 
+          brands
+        )
+      );
+     }
+
+
   }, []);
 
   useEffect(() => {

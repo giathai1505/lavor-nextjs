@@ -1,4 +1,4 @@
-import { Category, CategoryConvertText, IBlog } from "@/types";
+import { Category, CategoryConvertText, IBlog } from "@/types/type";
 import React from "react";
 
 const calculateNumBlogOfCategory = (blogs: IBlog[]) => {

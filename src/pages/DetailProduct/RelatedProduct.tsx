@@ -1,6 +1,6 @@
 import React from "react";
 import ProductItemVertical from "../Product/components/ProductItemVertical";
-import { IProduct } from "@/types";
+import { IProduct } from "@/types/type";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 

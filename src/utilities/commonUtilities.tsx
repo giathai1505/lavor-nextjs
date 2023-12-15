@@ -1,5 +1,5 @@
 import { upLoadImages } from "@/api/imageAPI";
-import { IAgencyTable, IRegion } from "@/types";
+import { IAgencyTable, IRegion } from "@/types/type";
 import { getSession, signOut, useSession } from "next-auth/react";
 
 export function areObjectsEqual<T extends {}>(obj1: T, obj2: T): boolean {

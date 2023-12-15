@@ -1,6 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
-import { IAgency } from "@/types";
-import { getTokenFromLocalStorage } from "@/utilities";
+import { IAgency } from "@/types/type";
+import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 

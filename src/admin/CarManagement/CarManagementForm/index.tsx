@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
-import { IBrand, IModel, IVersion, IYear } from "@/types";
+import { IBrand, IModel, IVersion, IYear } from "@/types/type";
 import { ToastContainer, toast } from "react-toastify";
 import FormError from "@/components/Common/FormError";
 import { useRouter } from "next/navigation";

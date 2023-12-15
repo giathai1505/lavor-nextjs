@@ -6,7 +6,7 @@ import { addBrand, addModel, getAllBrands } from "@/api/carAPI";
 import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import { IBrand } from "@/types";
+import { IBrand } from "@/types/type";
 
 interface IDialog {
   open: boolean;

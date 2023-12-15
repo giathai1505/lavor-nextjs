@@ -1,6 +1,6 @@
 import AgencyManagement from "@/admin/AgencyManagement";
 import { API_ENPOINT } from "@/constants/api";
-import { IRegion } from "@/types";
+import { IRegion } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

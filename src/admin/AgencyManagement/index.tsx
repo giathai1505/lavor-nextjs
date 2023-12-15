@@ -21,9 +21,9 @@ import NoneFormSelectCustom, {
   IOption,
 } from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { Category, IAgencyTable, ICity, IRegion, Status } from "@/types";
+import { Category, IAgencyTable, ICity, IRegion, Status } from "@/types/type";
 import { ToastContainer } from "react-toastify";
-import { convertToAgencyArray } from "@/utilities";
+import { convertToAgencyArray } from "@/utilities/commonUtilities";
 import { deleteAgencyAPI, getAllAgencies } from "@/api/agencyAPI";
 import AddCityDialog from "./Dialogs/AddCityDialog";
 import ConfirmDialog from "@/components/Common/Dialog";

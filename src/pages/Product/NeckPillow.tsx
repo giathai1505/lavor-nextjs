@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 import ProductItemVertical from "./components/ProductItemVertical";
-import { IProduct } from "@/types";
+import { IProduct } from "@/types/type";
 
 interface INeckPillowProps {
   listPillow: IProduct[];

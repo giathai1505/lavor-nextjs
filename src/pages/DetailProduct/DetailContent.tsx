@@ -1,5 +1,5 @@
-import { IProduct } from "@/types";
-import { formatCurrencyWithDots } from "@/utilities";
+import { IProduct } from "@/types/type";
+import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 

@@ -9,7 +9,7 @@ import carBanner from "@/assets/images/banner/1.jpeg";
 import ProductItemHorizontal from "./components/ProductItemHorizontal";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
-import { IBlog, IProduct, ProductType, ProductTypeToText } from "@/types";
+import { IBlog, IProduct, ProductType, ProductTypeToText } from "@/types/type";
 import NewGridViewItem from "../News/NewItems/NewGridViewItem";
 
 interface IProductProps {

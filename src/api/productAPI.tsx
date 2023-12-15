@@ -1,8 +1,8 @@
 import { IProductFormValue } from "@/admin/ProductManagement/AddNewProduct";
 import { API_ENPOINT } from "@/constants/api";
-import { PStatus } from "@/types";
+import { PStatus } from "@/types/type";
 import { toast } from "react-toastify";
-import { getTokenFromLocalStorage } from "@/utilities";
+import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 
 export async function addProductAPI(data: IProductFormValue) {

@@ -1,7 +1,7 @@
 import { deleteMultipleProducts } from "@/api/productAPI";
 import { API_ENPOINT } from "@/constants/api";
 import Product from "@/pages/Product";
-import { IBlog, IProduct } from "@/types";
+import { IBlog, IProduct } from "@/types/type";
 import { Metadata } from "next";
 import React from "react";
 

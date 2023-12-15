@@ -1,4 +1,4 @@
-import { IBlog } from "@/types";
+import { IBlog } from "@/types/type";
 import React from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import Link from "next/link";

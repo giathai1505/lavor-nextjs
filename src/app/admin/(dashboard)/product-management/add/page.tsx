@@ -1,5 +1,5 @@
 import ProductForm from "@/admin/ProductManagement/AddNewProduct";
-import { PStatus, ProductType } from "@/types";
+import { PStatus, ProductType } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

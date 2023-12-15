@@ -7,7 +7,7 @@ import { BiGridAlt } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
 import NewListViewItem from "./NewItems/NewListViewItem";
 import BlogSidebar from "./BlogSidebar";
-import { Category, IBlog, IPagination } from "@/types";
+import { Category, IBlog, IPagination } from "@/types/type";
 import Pagination from "@/components/Common/Pagination";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import useQueryParams from "@/hooks/useQueryParam";

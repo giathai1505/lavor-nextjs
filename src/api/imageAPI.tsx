@@ -1,5 +1,5 @@
 import { API_ENPOINT } from "@/constants/api";
-import { getTokenFromLocalStorage } from "@/utilities";
+import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 
 export async function upLoadImage(imageFile: File) {

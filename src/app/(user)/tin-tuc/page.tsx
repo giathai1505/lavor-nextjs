@@ -1,6 +1,6 @@
 import { API_ENPOINT } from "@/constants/api";
 import News from "@/pages/News";
-import { IPagination } from "@/types";
+import { IPagination } from "@/types/type";
 import { Metadata } from "next";
 import React from "react";
 

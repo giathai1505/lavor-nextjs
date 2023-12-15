@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import NewGridViewItem from "./NewItems/NewGridViewItem";
-import { IBlog } from "@/types";
+import { IBlog } from "@/types/type";
 
 interface IRelatedNews {
   blogs: IBlog[];

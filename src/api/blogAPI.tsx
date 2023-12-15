@@ -1,7 +1,7 @@
 import { IFormValue } from "@/admin/BlogManagement/AddNewBlog";
 import { API_ENPOINT } from "@/constants/api";
-import { Status } from "@/types";
-import { getTokenFromLocalStorage } from "@/utilities";
+import { Status } from "@/types/type";
+import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 

@@ -3,7 +3,7 @@ import React from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsArrowRightShort } from "react-icons/bs";
 import Link from "next/link";
-import { IBlog } from "@/types";
+import { IBlog } from "@/types/type";
 import moment from "moment";
 import { renderCategory } from "..";
 

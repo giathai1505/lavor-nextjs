@@ -13,7 +13,7 @@ import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
 
 import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import { IBrand, IYear } from "@/types";
+import { IBrand, IYear } from "@/types/type";
 
 interface IPageProps {
   brands: IBrand[];

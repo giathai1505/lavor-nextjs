@@ -1,6 +1,6 @@
 import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
 import { API_ENPOINT } from "@/constants/api";
-import { IBrand, IYear } from "@/types";
+import { IBrand, IYear } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

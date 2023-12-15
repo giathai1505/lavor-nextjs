@@ -31,7 +31,7 @@ import bocTayLai3 from "@/assets/images/products/boc-tay-lai/BTL-3.png";
 
 //san-pham-khac
 import sanPhamKhac1 from "@/assets/images/products/san-pham-khac/SPK-1.jpeg";
-import { ProductType } from "@/types";
+import { ProductType } from "@/types/type";
 
 //product
 import goiCo from "@/assets/images/products/goi-co/GC-1.png";

@@ -16,7 +16,7 @@ import {
   PiCaretRightBold,
 } from "react-icons/pi";
 import { BsTrash } from "react-icons/bs";
-import { TRating } from "@/types";
+import { TRating } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { deleteRating, getAllRatings, restoreRating } from "@/api/ratingAPI";

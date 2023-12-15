@@ -1,5 +1,5 @@
-import { IProduct, ProductTypeToText } from "@/types";
-import { formatCurrencyWithDots } from "@/utilities";
+import { IProduct, ProductTypeToText } from "@/types/type";
+import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import Link from "next/link";
 import React from "react";
 

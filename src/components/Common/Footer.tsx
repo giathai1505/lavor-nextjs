@@ -54,21 +54,25 @@ const Footer = () => {
                     <Link
                       href="https://www.facebook.com/LavorLuxury2"
                       target="_blank"
+                      aria-label="Facebook"
+                      
                     >
                       <FaSquareFacebook className="w-5 h-5" />
                     </Link>
                     <Link
                       href="https://www.tiktok.com/@lavorluxury.official"
                       target="_blank"
+                      aria-label="Tiktok"
                     >
                       <FaTiktok />
                     </Link>
-                    <Link href="https://minhtamvietnam.vn/" target="_blank">
+                    <Link href="https://minhtamvietnam.vn/"                 aria-label="Google"   target="_blank">
                       <AiFillGooglePlusCircle />
                     </Link>
                     <Link
                       href="https://www.youtube.com/channel/UCR4hf6Azj1amYpaDriauRHw"
                       target="_blank"
+                      aria-label="Youtube"
                     >
                       <AiFillYoutube />
                     </Link>

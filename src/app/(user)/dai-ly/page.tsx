@@ -2,7 +2,6 @@ import React from "react";
 import Agency from "@/pages/Agency";
 import { Metadata } from "next";
 import { API_ENPOINT } from "@/constants/api";
-import { IRegion } from "@/types/type";
 
 export const metadata: Metadata = {
   title: "Đại lý toàn quốc",
@@ -10,15 +9,20 @@ export const metadata: Metadata = {
 };
 
 async function getAllAgency() {
-  const res = await fetch(API_ENPOINT + "agencies", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+  try {
+    const res = await fetch(API_ENPOINT + "agencies", {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+      return null
+    }
+  
+    return res.json();
+  } catch (error) {
+    return null
   }
 
-  return res.json();
 }
 
 const index = async () => {

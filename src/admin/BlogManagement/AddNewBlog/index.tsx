@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
-import { Category, Status } from "@/types/type.js";
+import { Category, Status } from "@/types/type";
 import { addBlogAPI, editBlogAPI } from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
 import FormError from "@/components/Common/FormError";
-import { areObjectsEqual } from "@/utilities/commonUtilities.jsx";
+import { areObjectsEqual } from "@/utilities/commonUtilities";
 import { useRouter } from "next/navigation";
 import { upLoadImage } from "@/api/imageAPI";
 import dynamic from "next/dynamic.js";
@@ -334,7 +333,6 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
             />
           </div>
         </div>
-        <DevTool control={control} />
       </div>
       <ToastContainer />
     </form>

@@ -8,7 +8,7 @@ import {
 } from "react-icons/bs";
 import { BiCategory, BiPlus, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { IProductColor, IProductDetail, PStatus, ProductType } from "@/types/type.js";
+import { IProductColor, IProductDetail, PStatus, ProductType } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
 import FormError from "@/components/Common/FormError";
@@ -16,9 +16,8 @@ import { useRouter } from "next/navigation";
 import { GrFormClose } from "react-icons/gr";
 import dynamic from "next/dynamic.js";
 import { upLoadImages } from "@/api/imageAPI";
-import { DevTool } from "@hookform/devtools";
 import { addProductAPI, editProductAPI } from "@/api/productAPI";
-import { checkAndUploadMultipleImage } from "@/utilities/commonUtilities.jsx";
+import { checkAndUploadMultipleImage } from "@/utilities/commonUtilities";
 import { FaArrowLeft } from "react-icons/fa";
 
 export interface IProductFormValue {
@@ -632,7 +631,6 @@ const ProductForm: React.FC<IProductForm> = ({
         </div>
       </div>
       <ToastContainer />
-      <DevTool control={control} />
     </form>
   );
 };

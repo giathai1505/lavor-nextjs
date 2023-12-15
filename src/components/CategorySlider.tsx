@@ -70,9 +70,9 @@ const CategorySlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
                 </div>
                 <Link
                   href={item.href}
-                  className="font-bold text-white bg-primary p-2 block"
+                  className="font-bold p-2 block"
                 >
-                  <p className="text-white uppercase font-bold text-center">
+                  <p className="uppercase  text-white bg-primary text-center">
                     {item.name}
                   </p>
                 </Link>

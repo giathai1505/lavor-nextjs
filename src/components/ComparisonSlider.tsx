@@ -72,6 +72,7 @@ const ComparisonSlider = () => {
               value={sliderValue}
               onChange={onSliderChange}
               className="comparison-slider"
+              aria-label="comparision slider"
               onClick={handleClickSlider}
               onMouseDown={() => setIsDragging(true)}
               onMouseUp={() => setIsDragging(false)}

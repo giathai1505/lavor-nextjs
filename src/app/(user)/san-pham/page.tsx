@@ -1,4 +1,3 @@
-import { deleteMultipleProducts } from "@/api/productAPI";
 import { API_ENPOINT } from "@/constants/api";
 import Product from "@/pages/Product";
 import { IBlog, IProduct } from "@/types/type";
@@ -11,27 +10,37 @@ export const metadata: Metadata = {
 };
 
 async function getAllProducts() {
-  const res = await fetch(API_ENPOINT + "products", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+  try {
+    const res = await fetch(API_ENPOINT + "products", {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+     return []
+    }
+  
+    return res.json();
+  } catch (error) {
+    return []
   }
 
-  return res.json();
 }
 
 async function getAllBlog() {
-  const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+  try {
+    const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+      return []
+    }
+  
+    return res.json();
+  } catch (error) {
+    return []
   }
 
-  return res.json();
 }
 
 const index = async () => {

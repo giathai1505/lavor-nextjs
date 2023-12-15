@@ -9,28 +9,37 @@ export const metadata: Metadata = {
 };
 
 async function getAllYears() {
-  const res = await fetch(API_ENPOINT + "design/years", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    return [];
+  try {
+    const res = await fetch(API_ENPOINT + "design/years", {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+      return []
+    }
+  
+    return res.json();
+  } catch (error) {
+    return []
   }
-
-  return res.json();
 }
 
 async function getAllBrands() {
-  const res = await fetch(API_ENPOINT + "design/brands", {
-    method: "GET",
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    return [];
+  try {
+    const res = await fetch(API_ENPOINT + "design/brands", {
+      method: "GET",
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+      return [];
+    }
+  
+    return res.json();
+  } catch (error) {
+    return []
   }
 
-  return res.json();
 }
 
 const page = async () => {

@@ -4,7 +4,7 @@ import { Poppins } from "next/font/google";
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa6";
 
-export const poppins = Poppins({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "700"],
 });

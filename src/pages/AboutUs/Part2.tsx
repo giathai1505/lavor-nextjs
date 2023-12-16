@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import startButton from "@/assets/images/start-now-button.png";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
+import startButton from "@/assets/images/start-now-button.png";
 import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/introduce.webp";
 
 const Part2 = () => {

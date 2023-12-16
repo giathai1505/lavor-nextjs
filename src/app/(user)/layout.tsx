@@ -14,17 +14,12 @@ import "@/assets/styles/admin/table.css";
 import "@/assets/styles/admin/dialog.css";
 import "@/assets/styles/admin/blog.css";
 import "@/pages/News/blog.css";
-
 import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/Common/Header";
 import PhoneHeader from "@/components/Common/PhoneHeader";
 import Footer from "@/components/Common/Footer";
 
-const assistant = Assistant({
-  subsets: ["latin"],
-  variable: "--font-assistant",
-});
-export const jost = Jost({
+const jost = Jost({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
 });

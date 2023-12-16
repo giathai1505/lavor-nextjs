@@ -11,10 +11,10 @@ const AboutLavor = () => {
           <Image alt="" src={Logo} width={100}></Image>
         </div>
         <p className="font-medium uppercase">Công Ty TNHH Nội thất Lavor</p>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s.
+        <p className="text-center">
+          Lavor Luxury - Thương hiệu thiết kế & sản xuất nội thất ô tô hàng đầu
+          Việt Nam, là nơi chắp cánh cho hàng ngàn thiết kế nội thất ô tô sang
+          trọng bậc nhất.
         </p>
       </div>
     </div>

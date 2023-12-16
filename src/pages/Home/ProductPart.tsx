@@ -4,10 +4,10 @@ import { IProduct } from "@/types/type";
 import React from "react";
 
 type TPageProps = {
-  products: IProduct[]
-}
+  products: IProduct[];
+};
 
-const ProductPart : React.FC<TPageProps> = ({products}) => {
+const ProductPart: React.FC<TPageProps> = ({ products }) => {
   return (
     <div className=" bg-black ">
       <div className="wrapper py-10">
@@ -18,23 +18,23 @@ const ProductPart : React.FC<TPageProps> = ({products}) => {
           <ProductSlider visibleItem={4} products={products} />
         </div>
         <div className="px-10 hidden md:block xl:hidden ">
-          <ProductSlider visibleItem={2}products={products} />
+          <ProductSlider visibleItem={2} products={products} />
         </div>
         <div className="px-10 md:hidden">
-          <ProductSlider visibleItem={1} products={products}/>
+          <ProductSlider visibleItem={1} products={products} />
         </div>
         <h2 className="my-10">
           <span>Danh mục</span>
         </h2>
 
         <div className="px-10 hidden xl:block">
-          <CategorySlider visibleItem={4} />
+          <CategorySlider />
         </div>
         <div className="px-10 hidden md:block xl:hidden ">
-          <CategorySlider visibleItem={2} />
+          <CategorySlider />
         </div>
         <div className="px-10 md:hidden">
-          <CategorySlider visibleItem={1} />
+          <CategorySlider />
         </div>
       </div>
     </div>

@@ -66,6 +66,7 @@ const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
           <Image
             alt="Đại lý toàn quốc"
             src={map}
+            placeholder="blur"
             className="w-[200px] md:w-[300px]"
           />
         </div>

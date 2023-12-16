@@ -26,7 +26,6 @@ const HomeCarousel = () => {
       setActiveSlide(3);
     }
   };
- 
 
   useEffect(() => {
     const newLeft = -1920 * (activeSlide - 1);
@@ -63,10 +62,7 @@ const HomeCarousel = () => {
         >
           {carouseSliderImages.map((item) => {
             return (
-              <div
-                className="carousel-slider-item bg-yellow-200"
-                key={item.src.toString()}
-              >
+              <div className="carousel-slider-item" key={item.src.toString()}>
                 <Image
                   alt=""
                   src={item}
@@ -77,8 +73,8 @@ const HomeCarousel = () => {
             );
           })}
 
-          <div className="carousel-slider-item bg-blue-300"></div>
-          <div className="carousel-slider-item bg-green-300"></div>
+          <div className="carousel-slider-item"></div>
+          <div className="carousel-slider-item"></div>
         </div>
       </div>
     </div>

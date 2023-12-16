@@ -6,20 +6,18 @@ import React from "react";
 
 async function getAllBlog(url: string) {
   try {
-
     const res = await fetch(API_ENPOINT + "blogs" + url, {
       cache: "no-store",
     });
-  
-    if (!res.ok) {
-      return []
-    }
-  
-    return res.json();    
-  } catch (error) {
-   return [] 
-  }
 
+    if (!res.ok) {
+      return [];
+    }
+
+    return res.json();
+  } catch (error) {
+    return [];
+  }
 }
 
 export const metadata: Metadata = {
@@ -37,20 +35,32 @@ const index = async (props: any) => {
   const url = `?page=${props.searchParams.page ?? "1"}&limit=2` + categoryURL;
 
   const response = await getAllBlog(url);
+  const res2 = await getAllBlog("");
 
-  let blogs = [];
+  let filterBlogs = [];
+  let allBlogs = [];
 
   if (response?.blogs && Array.isArray(response.blogs)) {
-    blogs = response?.blogs;
+    filterBlogs = response?.blogs;
   }
-  
+
+  if (res2?.blogs && Array.isArray(res2.blogs)) {
+    allBlogs = res2?.blogs;
+  }
+
   const pagination: IPagination = {
     total: response?.total ?? 10,
     page: response?.page ?? 1,
     limit: response?.limit ?? 10,
   };
 
-  return <News blogs={blogs} pagination={pagination} />;
+  return (
+    <News
+      filterBlogs={filterBlogs}
+      allBlogs={allBlogs}
+      pagination={pagination}
+    />
+  );
 };
 
 export default index;

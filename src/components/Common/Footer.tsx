@@ -9,7 +9,7 @@ import { userFooterData } from "@/assets/staticData";
 
 const Footer = () => {
   return (
-    <div className="bg-black">
+    <div className="bg-[#000000ed]">
       <div className="max-w-[1200px] mx-auto py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 p-5">
           <div className="col-span-1">
@@ -55,7 +55,6 @@ const Footer = () => {
                       href="https://www.facebook.com/LavorLuxury2"
                       target="_blank"
                       aria-label="Facebook"
-                      
                     >
                       <FaSquareFacebook className="w-5 h-5" />
                     </Link>
@@ -66,7 +65,11 @@ const Footer = () => {
                     >
                       <FaTiktok />
                     </Link>
-                    <Link href="https://minhtamvietnam.vn/"                 aria-label="Google"   target="_blank">
+                    <Link
+                      href="https://minhtamvietnam.vn/"
+                      aria-label="Google"
+                      target="_blank"
+                    >
                       <AiFillGooglePlusCircle />
                     </Link>
                     <Link

@@ -1,11 +1,10 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
-import Image from "next/image";
 import { IProduct } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
-let gap = 20;
+const gap = 20;
+const DEFAULT_WIDTH: number = 295;
 
 interface IProductSliderInterface {
   visibleItem: number;
@@ -17,7 +16,8 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({
   products,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [productItemWidth, setProductItemWidth] = useState<number>(0);
+  const [productItemWidth, setProductItemWidth] =
+    useState<number>(DEFAULT_WIDTH);
   const [containerTransformLeft, setContainerTransformLeft] =
     useState<number>(0);
 
@@ -46,15 +46,20 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({
 
   return (
     <div ref={containerRef} className="relative">
-      <AiFillLeftCircle
-        className="slider-navigator -left-[25px]"
-        onClick={() => handleMoveSlider(-1)}
-      />
+      {Array.isArray(products) && products.length > visibleItem ? (
+        <>
+          <AiFillLeftCircle
+            className="slider-navigator -left-[25px]"
+            onClick={() => handleMoveSlider(-1)}
+          />
 
-      <AiFillRightCircle
-        className="slider-navigator -right-[25px]"
-        onClick={() => handleMoveSlider(1)}
-      />
+          <AiFillRightCircle
+            className="slider-navigator -right-[25px]"
+            onClick={() => handleMoveSlider(1)}
+          />
+        </>
+      ) : null}
+
       <div className="overflow-hidden relative">
         <div
           className="inline-flex gap-5 relative slide-wrapper"

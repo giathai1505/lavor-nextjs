@@ -16,6 +16,7 @@ import { renderCategory } from ".";
 interface IPageProps {
   blog: IBlog;
   relatedBlogs: IBlog[];
+  allBlogs: IBlog[];
 }
 
 const getNestedHeadings = (headingElements: any) => {
@@ -37,7 +38,7 @@ const getNestedHeadings = (headingElements: any) => {
   return nestedHeadings;
 };
 
-const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
+const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
   if (!blog) return null;
   const [nestedHeadings, setNestedHeadings] = useState<any>([]);
   const blogContentRef = useRef<null | HTMLDivElement>(null);
@@ -110,13 +111,12 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
       <div className="bg-black p-5 md:p-10">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-10 wrapper">
           <div className="col-span-1 xl:col-span-2 flex flex-col gap-5">
-            {renderCategory(blog.blog_category)}
             <p className="text-2xl text-white">{blog.blog_title}</p>
             <div className="flex items-center gap-5">
               <span className="text-[#a5a6aa]">
                 By <span className="text-white">ADMIN</span>
               </span>
-
+              {renderCategory(blog.blog_category)}
               <div className="flex items-center gap-2 text-[#a5a6aa]">
                 <AiOutlineCalendar />
                 <p>{moment(blog.blog_upload_date).format("DD/MM/YYYY")}</p>
@@ -166,7 +166,7 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs }) => {
                 ))}
               </ul>
             </div>
-            <BlogSidebar blogs={[blog]} />
+            <BlogSidebar blogs={allBlogs} />
           </div>
         </div>
       </div>

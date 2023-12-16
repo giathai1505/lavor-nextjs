@@ -1,4 +1,5 @@
 import { IAgency, ICity } from "@/types/type";
+import { Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { GoTriangleRight } from "react-icons/go";
 
@@ -56,16 +57,28 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
               </div>
               {activeProvince === item.city_id ? (
                 <div>
-                  {listAgency.map((item) => {
-                    return (
-                      <div className="mb-5">
-                        <p className="font-bold text-primary">
-                          {item.agency_name}
-                        </p>
-                        <p className="text-white">{item.agency_address}</p>
-                      </div>
-                    );
-                  })}
+                  {Array.isArray(listAgency) && listAgency.length > 0 ? (
+                    listAgency.map((item) => {
+                      return (
+                        <div className="mb-5 ml-5">
+                          <p className="font-bold text-primary">
+                            {item.agency_name}
+                          </p>
+                          <p className="text-white">{item.agency_address}</p>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="flex flex-col items-center my-5">
+                      <Empty
+                        description=""
+                        imageStyle={{ opacity: 0.5, width: "80px" }}
+                      />
+                      <p className="text-primary italic">
+                        (Chưa có đại lý nào)
+                      </p>
+                    </div>
+                  )}
                 </div>
               ) : null}
             </>

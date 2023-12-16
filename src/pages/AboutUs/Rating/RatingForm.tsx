@@ -22,9 +22,12 @@ const RatingForm = () => {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<TRatingForm>({
     mode: "all",
   });
+
+  const contentValue = watch("review_content");
 
   const handleSubmitRating = async (data: TRatingForm) => {
     const apiData = {
@@ -34,23 +37,17 @@ const RatingForm = () => {
 
     try {
       setIsLoading(true);
-
       const result = await addRating(apiData);
-
-      // if (result) {
       setIsLoading(false);
-      //   //show message send notification successfully
       toast.success("Gửi đánh giá thành công! Đánh giá sẽ được phê duyệt !", {
         position: "bottom-center",
         theme: "dark",
       });
-      // }
     } catch (error) {
       setIsLoading(false);
       toast.error("Gửi đánh giá thất bại! Vui lòng thử lại sau", {
         position: "bottom-center",
       });
-      //show add rating wrong
     }
   };
 
@@ -60,7 +57,6 @@ const RatingForm = () => {
         <Controller
           name="review_name"
           control={control}
-          defaultValue=""
           render={({ field }) => (
             <div className="contact-form-control">
               <BiUser className="text-white" />
@@ -72,7 +68,7 @@ const RatingForm = () => {
                     field.onChange("");
                   }
                 }}
-                placeholder="Tên khách hàng"
+                placeholder="Tên khách hàng (không bắt buộc)"
               />
             </div>
           )}
@@ -87,7 +83,7 @@ const RatingForm = () => {
               <MdOutlineWorkOutline className="text-white" />
               <input
                 type="text"
-                placeholder="Số điện thoại"
+                placeholder="Nghề nghiệp (không bắt buộc)"
                 {...field}
                 onBlur={() => {
                   if (!field.value) {
@@ -101,13 +97,12 @@ const RatingForm = () => {
 
         <Controller
           name="review_content"
-          defaultValue=""
           control={control}
           render={({ field }) => (
             <div className="contact-form-control">
               <BiMessageSquare className="text-white" />
               <textarea
-                placeholder="Nội dung đánh giá"
+                placeholder="Nội dung đánh giá (bắt buộc)"
                 {...field}
                 onBlur={() => {
                   if (!field.value) {
@@ -136,23 +131,27 @@ const RatingForm = () => {
             );
           })}
         </div>
-
-        <button
-          className={`primary-button flex justify-center gap-5 ${
-            isLoading && "opacity-50"
-          }`}
-        >
-          {isLoading && (
-            <CircleLoader
-              color={"#ffffff"}
-              loading={isLoading}
-              size={20}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          )}
-          Hoàn thành
-        </button>
+        <div className="flex flex-col justify-center items-center gap-5">
+          <button
+            className={`primary-button flex justify-center gap-5 ${
+              isLoading && "opacity-50"
+            } ${(contentValue === "" || ratingStar === 0) && "disabled"}`}
+          >
+            {isLoading && (
+              <CircleLoader
+                color={"#ffffff"}
+                loading={isLoading}
+                size={20}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            )}
+            Hoàn thành
+          </button>
+          <p className="italic">
+            (Vui lòng nhập nội dung đánh giá và số sao để thực hiện đánh giá)
+          </p>
+        </div>
       </div>
       <ToastContainer />
     </form>

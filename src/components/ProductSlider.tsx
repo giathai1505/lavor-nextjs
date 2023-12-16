@@ -9,10 +9,13 @@ let gap = 20;
 
 interface IProductSliderInterface {
   visibleItem: number;
-  products: IProduct[]
+  products: IProduct[];
 }
 
-const ProductSlider: React.FC<IProductSliderInterface> = ({ visibleItem, products }) => {
+const ProductSlider: React.FC<IProductSliderInterface> = ({
+  visibleItem,
+  products,
+}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(0);
   const [containerTransformLeft, setContainerTransformLeft] =
@@ -57,28 +60,30 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({ visibleItem, product
           className="inline-flex gap-5 relative slide-wrapper"
           style={{ left: `${containerTransformLeft}px` }}
         >
-          {Array.isArray(products) && products.map((item) => {
-            return (
-              <div
-                style={{ width: `${productItemWidth}px` }}
-                className="pb-2"
-                key={item.product_id}
-              >
-                <Image
-                  src={item.product_images[0]}
-                  alt="Product image"
-                  className="w-full rounded"
-                  width={100}
-                />
-                <div className="mt-3 ml-3 font-bold">
-                  <p className="text-white uppercase font-medium">
-                    {item.product_name}
-                  </p>
-                  <p className="text-primary">{formatCurrencyWithDots(item.product_price)}</p>
+          {Array.isArray(products) &&
+            products.map((item) => {
+              return (
+                <div
+                  style={{ width: `${productItemWidth}px` }}
+                  className="pb-2"
+                  key={item.product_id}
+                >
+                  <img
+                    src={"http://" + item.product_images[0]}
+                    alt="Product image"
+                    className="w-full rounded"
+                  />
+                  <div className="mt-3 ml-3 font-bold">
+                    <p className="text-white uppercase font-medium">
+                      {item.product_name}
+                    </p>
+                    <p className="text-primary">
+                      {formatCurrencyWithDots(item.product_price)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
     </div>

@@ -219,3 +219,34 @@ export async function getCar(year: number, version: number) {
 
   return res.json();
 }
+
+export async function updateCar(data: ICarFormValue) {
+  try {
+    const token: any = await getTokenFromLocalStorage();
+    if (token !== "") {
+      const response = await fetch(
+        API_ENPOINT +
+          `design/years/${data.year}/versions/${data.version_id}/cars`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            image_url: data.image_url,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } else {
+      signOut();
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}

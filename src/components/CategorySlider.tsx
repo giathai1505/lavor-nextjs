@@ -22,7 +22,6 @@ const CategorySlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
       setProductItemWidth(childWidth);
     }
   }, []);
- 
 
   return (
     <div ref={containerRef} className="relative">
@@ -51,11 +50,8 @@ const CategorySlider: React.FC<IProductSliderInterface> = ({ visibleItem }) => {
                     <p className="text-center">{item.desc}</p>
                   </div>
                 </div>
-                <Link
-                  href={item.href}
-                  className="font-bold p-2 block"
-                >
-                  <p className="uppercase  text-white bg-primary text-center">
+                <Link href={item.href} className="font-bold block">
+                  <p className="uppercase text-white bg-primary text-center p-2 ">
                     {item.name}
                   </p>
                 </Link>

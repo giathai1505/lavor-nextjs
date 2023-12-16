@@ -3,17 +3,23 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
-import { IBrand, IModel, IVersion, IYear } from "@/types";
+import { IBrand, IModel, IVersion, IYear } from "@/types/type";
 import { ToastContainer, toast } from "react-toastify";
 import FormError from "@/components/Common/FormError";
-import { useRouter } from "next/navigation";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddYearDialog from "./Dialogs/AddYearDialog";
 import AddBrandDialog from "./Dialogs/AddBrandDialog";
 import AddModelDialog from "./Dialogs/AddModelDialog";
 import AddVersionDialog from "./Dialogs/AddVersionDialog";
-import { addCar, getAllBrands, getAllYears } from "@/api/carAPI";
-import { upLoadImage, upLoadImages } from "@/api/imageAPI";
+import {
+  addCar,
+  getAllBrands,
+  getAllYears,
+  getCar,
+  updateCar,
+} from "@/api/carAPI";
+import { upLoadImage } from "@/api/imageAPI";
+import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
 export interface ICarFormValue {
@@ -24,18 +30,12 @@ export interface ICarFormValue {
   image_url: string;
 }
 
-interface IAddNewBlog {
-  isEdit: boolean;
+interface IAddCarForm {
   years: IYear[];
   brands: IBrand[];
 }
 
-const CarManagementForm: React.FC<IAddNewBlog> = ({
-  isEdit,
-  brands,
-  years,
-}) => {
-  const router = useRouter();
+const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   const [image, setImage] = useState<any>();
   const [listYears, setListYears] = useState<IYear[]>([]);
   const [listBrands, setListBrands] = useState<IBrand[]>([]);
@@ -48,6 +48,7 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
     model: false,
     version: false,
   });
+  const [isEdit, setIsEdit] = useState<boolean>(false);
   const handleResize = () => {
     if (imgContainerRef.current) {
       const width = imgContainerRef.current.clientWidth;
@@ -71,13 +72,42 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
     setValue,
     watch,
   } = form;
 
+  const year = watch("year");
   const brandID = watch("brand_id");
   const modelID = watch("model_id");
+  const versionID = watch("version_id");
+
+  const invokeGetAllBrand = async (type?: string, id?: number) => {
+    getAllBrands()
+      .then((result) => {
+        setListBrands(result);
+      })
+
+      .catch((error) => {
+        setListBrands([]);
+      });
+  };
+
+  const invokeCarByVersion = async (year: number, versionID: number) => {
+    getCar(year, versionID)
+      .then((result) => {
+        if (result.image_url) {
+          setImage(result.image_url);
+          setIsEdit(true);
+        } else {
+          setImage(undefined);
+          setIsEdit(false);
+        }
+      })
+      .catch((err) => {
+        setImage(undefined);
+        setIsEdit(false);
+      });
+  };
 
   useEffect(() => {
     const models: IModel[] = (listBrands.find(
@@ -115,15 +145,9 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
     }
   }, [modelID]);
 
-  const invokeGetAllBrand = async (type?: string, id?: number) => {
-    getAllBrands()
-      .then((result) => {
-        setListBrands(result);
-      })
-      .catch((error) => {
-        setListBrands([]);
-      });
-  };
+  useEffect(() => {
+    invokeCarByVersion(year, versionID);
+  }, [versionID, year]);
 
   useEffect(() => {
     const models: IModel[] = (listBrands.find(
@@ -160,7 +184,33 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
   }, [brands, years]);
 
   const onSubmit = (data: ICarFormValue) => {
+    if (typeof image === "string") return;
     if (isEdit) {
+      const loadingToastId = toast.info("Đang chỉnh sửa...", {
+        position: "top-center",
+        autoClose: false,
+      });
+      Promise.resolve(upLoadImage(image))
+        .then((results) => {
+          const newData = {
+            ...data,
+            image_url: results.url,
+          };
+          return updateCar(newData);
+        })
+        .then((result) => {
+          toast.dismiss(loadingToastId);
+          toast.success("Sửa thành công!!!", {
+            position: "top-center",
+          });
+        })
+        .catch((error) => {
+          toast.dismiss(loadingToastId);
+          toast.error("Sửa thất bại!!!", {
+            position: "top-center",
+          });
+          console.error("Error:", error);
+        });
     } else {
       const loadingToastId = toast.info("Đang thêm  xe...", {
         position: "top-center",
@@ -203,10 +253,6 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
       model: false,
       version: false,
     });
-  };
-
-  const handleBackToListBlog = () => {
-    router.push("/admin/car-management");
   };
 
   const handleAddYearSuccess = async (year: number) => {
@@ -268,16 +314,23 @@ const CarManagementForm: React.FC<IAddNewBlog> = ({
               {isEdit ? "Chỉnh sửa xe" : "Thêm xe mới"}
             </p>
             <div className="flex items-center gap-2 flex-none">
-              {/* <button
+              <Link
                 type="button"
+                href={"/admin/car-management"}
                 className="admin-button basic"
-                onClick={handleBackToListBlog}
               >
                 <FaArrowLeft />
-                Quay lại danh sách xe
-              </button> */}
+                Quay lại danh sách
+              </Link>
 
-              <button className="admin-button primary" type="submit">
+              <button
+                className={`admin-button primary  ${
+                  typeof image === "string" || image === undefined
+                    ? "disabled"
+                    : ""
+                }`}
+                type="submit"
+              >
                 <BiSolidSave />
                 <span> {isEdit ? "Lưu chỉnh sửa" : "Lưu thông tin xe"}</span>
               </button>

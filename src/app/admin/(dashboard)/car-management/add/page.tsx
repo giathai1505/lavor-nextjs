@@ -1,5 +1,4 @@
 "use client";
-
 import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
 import { API_ENPOINT } from "@/constants/api";
 import { IBrand, IYear } from "@/types/type";
@@ -59,9 +58,7 @@ const page = () => {
     fetchData();
   }, []);
 
-  return (
-    <CarManagementForm isEdit={false} years={listYears} brands={listBrands} />
-  );
+  return <CarManagementForm years={listYears} brands={listBrands} />;
 };
 
 export default page;

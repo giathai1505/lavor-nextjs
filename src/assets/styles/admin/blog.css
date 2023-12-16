@@ -166,6 +166,11 @@
   align-items: center;
 }
 
+.admin-button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .admin-button.basic {
   color: rgb(89, 93, 110);
   background-color: white;

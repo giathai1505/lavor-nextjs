@@ -1,7 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Table, Image, Select } from "antd";
-import { Category, ICarTable, Status } from "@/types";
+import { Category, ICarTable, Status } from "@/types/type";
+import Link from "next/link";
+import { AiOutlinePlus } from "react-icons/ai";
 
 interface IBlogManagement {
   cars: ICarTable[];
@@ -14,42 +16,11 @@ interface IFilterBlog {
 }
 
 const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
-  const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
-    search: "",
-    category: undefined,
-    status: undefined,
-  });
-
   const [data, setData] = useState(cars);
 
   useEffect(() => {
     setData(cars);
   }, [cars]);
-
-  // const invokeGetAllBlogs = async () => {
-  //   let url = "?page=1&limit=10";
-  //   if (globalFilter.search !== "") {
-  //     url += "&search=" + globalFilter.search;
-  //   }
-  //   if (globalFilter.status !== undefined) {
-  //     url += "&status=" + globalFilter.status;
-  //   }
-  //   if (globalFilter.category !== undefined) {
-  //     url += "&category=" + globalFilter.category;
-  //   }
-
-  //   getAllBlogs(url)
-  //     .then((result) => {
-  //       setData(result.blogs);
-  //     })
-  //     .catch((error) => {
-  //       setData([]);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   invokeGetAllBlogs();
-  // }, [globalFilter.category, globalFilter.search, globalFilter.status]);
 
   const columns: any = [
     {
@@ -89,37 +60,18 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
         );
       },
     },
-    {
-      title: "Action",
-      render: () => {
-        <div></div>;
-      },
-    },
   ];
 
   return (
     <div className="admin-page-wrapper">
-      <div className="flex mb-5">
+      <div className="flex mb-5 justify-between items-center">
         <p className="admin-title">Danh sách bài viết</p>
-      </div>
-      <div className="flex gap-5 mb-5">
-        <Select
-          placeholder="Lọc theo năm"
-          style={{ width: 200 }}
-          options={[{ value: "lucy", label: "Lucy" }]}
-        />
 
-        <Select
-          placeholder="Lọc hãng xe"
-          style={{ width: 200 }}
-          options={[{ value: "lucy", label: "Lucy" }]}
-        />
-        <Select
-          placeholder="Lọc theo nhãn hiệu"
-          style={{ width: 200 }}
-          options={[{ value: "lucy", label: "Lucy" }]}
-        />
+        <Link href="/admin/car-management/add" className="add-new-button">
+          <AiOutlinePlus /> <span>Thêm/ Chỉnh sửa xe</span>
+        </Link>
       </div>
+      <div className="flex gap-5 mb-5"></div>
       <Table dataSource={data} columns={columns} bordered />
     </div>
   );

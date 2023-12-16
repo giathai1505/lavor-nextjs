@@ -372,12 +372,10 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
             options={statusOptions}
             onChange={(item) => handleFilterBlog("status", item.key)}
             className="admin"
-            // value={globalFilter.status}
             placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
-            // value={globalFilter.category}
             onChange={(item) => handleFilterBlog("category", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"

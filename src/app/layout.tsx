@@ -1,6 +1,5 @@
 "use client";
 import "./globals.css";
-import type { Metadata } from "next";
 import { Assistant } from "next/font/google";
 import "@/assets/styles/common.css";
 import "@/assets/styles/components.css";

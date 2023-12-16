@@ -60,18 +60,22 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
             Khách hàng nói gì về <span>Lavor</span>?
           </h2>
           <div ref={containerRef} className="relative">
-            {canMoveLeft && (
-              <AiFillLeftCircle
-                className="slider-navigator -left-[25px]"
-                onClick={() => handleMoveSlider(1)}
-              />
-            )}
+            {Array.isArray(ratings) && ratings.length > visibleItem && (
+              <>
+                {canMoveLeft && (
+                  <AiFillLeftCircle
+                    className="slider-navigator -left-[25px]"
+                    onClick={() => handleMoveSlider(1)}
+                  />
+                )}
 
-            {canMoveRight && (
-              <AiFillRightCircle
-                className="slider-navigator -right-[15px]"
-                onClick={() => handleMoveSlider(-1)}
-              />
+                {canMoveRight && (
+                  <AiFillRightCircle
+                    className="slider-navigator -right-[15px]"
+                    onClick={() => handleMoveSlider(-1)}
+                  />
+                )}
+              </>
             )}
 
             <div className="overflow-hidden relative">

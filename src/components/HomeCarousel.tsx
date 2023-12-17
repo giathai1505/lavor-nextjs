@@ -64,7 +64,8 @@ const HomeCarousel = () => {
             return (
               <div className="carousel-slider-item" key={item.src.toString()}>
                 <Image
-                  alt=""
+                  alt="Slider ảnh"
+                  loading="eager"
                   src={item}
                   className="w-full h-full object-cover"
                   placeholder="blur"

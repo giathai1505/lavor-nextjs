@@ -1,14 +1,13 @@
-import {
-    AiFillCar,
-    AiOutlineCar,
-    AiOutlineShoppingCart,
-  } from "react-icons/ai";
+import { AiFillCar, AiOutlineCar, AiOutlineShoppingCart } from "react-icons/ai";
 import { BiNews } from "react-icons/bi";
 import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";
 import { FaPhone, FaRegStar } from "react-icons/fa";
-import { FaEarthAmericas, FaLocationDot, FaSquareFacebook } from "react-icons/fa6";
-  
+import {
+  FaEarthAmericas,
+  FaLocationDot,
+  FaSquareFacebook,
+} from "react-icons/fa6";
 
 import image1 from "@/assets/images/youtubeThumbnail/home/1.webp";
 import image2 from "@/assets/images/youtubeThumbnail/home/2.webp";
@@ -19,7 +18,6 @@ import gallery1 from "@/assets/images/headerPart/6.jpeg";
 import gallery2 from "@/assets/images/headerPart/2.jpeg";
 import gallery3 from "@/assets/images/home-slider/home-slider3.webp";
 
-
 import productThumbnail1 from "@/assets/images/youtubeThumbnail/products/1.webp";
 import productThumbnail2 from "@/assets/images/youtubeThumbnail/products/2.webp";
 import productThumbnail3 from "@/assets/images/youtubeThumbnail/products/3.webp";
@@ -27,7 +25,6 @@ import productThumbnail4 from "@/assets/images/youtubeThumbnail/products/4.webp"
 import productThumbnail5 from "@/assets/images/youtubeThumbnail/products/5.webp";
 import productThumbnail6 from "@/assets/images/youtubeThumbnail/products/6.webp";
 import { ProductType } from "@/types/type";
-
 
 import bocGheImg from "@/assets/images/cateogries/boc-ghe.png";
 import goiCoImg from "@/assets/images/cateogries/goi-co.png";
@@ -41,183 +38,179 @@ import goiCoImg1 from "@/assets/images/cateogries/goi-co-img.png";
 import thamLotSanImg1 from "@/assets/images/cateogries/tham-lot-san-img.png";
 import voLangImg1 from "@/assets/images/cateogries/boc-tay-lai-img.jpeg";
 
-
-
 export const AdminSidebarCategories = [
-    {
-      id: 1,
-      name: "Quản lý car",
-      icon: <AiOutlineCar />,
-      link: "/admin/car-management",
-    },
-    {
-      id: 2,
-      name: "Sản phẩm",
-      icon: <AiFillCar />,
-      link: "/admin/product-management",
-    },
-    {
-      id: 3,
-      name: "Bài viết",
-      icon: <BiNews />,
-      link: "/admin/blog-management",
-    },
-    {
-      id: 4,
-      name: "Giỏ hàng",
-      icon: <AiOutlineShoppingCart />,
-      link: "/admin/cart-management",
-    },
-  
-    {
-      id: 5,
-      name: "Đại lý",
-      icon: <CiLocationOn className="text-white" />,
-      link: "/admin/agency-management",
-    },
-  
-    {
-      id: 6,
-      name: "Đánh giá",
-      icon: <FaRegStar />,
-      link: "/admin/rating-management",
-    },
-];
- 
-  
-export const userFooterData = [
-    {
-      id: 1,
-      name: "NỘI THẤT Ô TÔ LAVOR",
-      hasMedia: true,
-      child: [
-        {
-          id: 11,
-          name: "Địa chỉ: Lô A1 KCN Dương Liễu, Hoài Đức, Hà Nội",
-          slug: "/",
-          icon: <FaLocationDot />,
-        },
-  
-        {
-          id: 12,
-          name: "Chi nhánh miền nam: 33 Đường 29, Khu Đô Thị Vạn Phúc, Thủ Đức, Hồ Chí Minh",
-          slug: "/",
-          icon: <FaLocationDot />,
-        },
-        {
-          id: 13,
-          name: "1900 234 556",
-          slug: "/",
-          icon: <FaPhone />,
-        },
-        {
-          id: 15,
-          name: "Website: Lavorluxury.com",
-          slug: "/",
-          icon: <FaEarthAmericas />,
-        },
-        {
-          id: 16,
-          name: "Fanpage: Lavor luxury",
-          slug: "/",
-          icon: <FaSquareFacebook />,
-        },
-        {
-          id: 17,
-          name: "info@minhtamvietnam.com",
-          slug: "/",
-          icon: <CgMail />,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Sản phẩm",
-      hasMedia: false,
-      child: [
-        {
-          id: 21,
-          name: "Bọc ghế",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 22,
-          name: "Bọc tay lái",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 23,
-          name: "Gối cổ",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 24,
-          name: "Thảm lót sàn ô tô",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 25,
-          name: "Sản phẩm khác",
-          slug: "/",
-          icon: <></>,
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "Chính sách",
-      hasMedia: false,
-      child: [
-        {
-          id: 31,
-          name: "Chính sách thanh toán",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 32,
-          name: "Chính đổi trả và hoàn tiền",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 33,
-          name: "Chính sách xử lý khiếu nại",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 34,
-          name: "Chính sách vận chuyển và giao nhận",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 35,
-          name: "Chính sách kiểm hàng",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 36,
-          name: "Chính sách bảo hành",
-          slug: "/",
-          icon: <></>,
-        },
-        {
-          id: 37,
-          name: "Chính sách bảo mật thông tin",
-          slug: "/",
-          icon: <></>,
-        },
-      ],
-    },
+  {
+    id: 1,
+    name: "Quản lý car",
+    icon: <AiOutlineCar />,
+    link: "/admin/car-management",
+  },
+  {
+    id: 2,
+    name: "Sản phẩm",
+    icon: <AiFillCar />,
+    link: "/admin/product-management",
+  },
+  {
+    id: 3,
+    name: "Bài viết",
+    icon: <BiNews />,
+    link: "/admin/blog-management",
+  },
+  // {
+  //   id: 4,
+  //   name: "Giỏ hàng",
+  //   icon: <AiOutlineShoppingCart />,
+  //   link: "/admin/cart-management",
+  // },
+
+  {
+    id: 5,
+    name: "Đại lý",
+    icon: <CiLocationOn className="text-white" />,
+    link: "/admin/agency-management",
+  },
+
+  {
+    id: 6,
+    name: "Đánh giá",
+    icon: <FaRegStar />,
+    link: "/admin/rating-management",
+  },
 ];
 
+export const userFooterData = [
+  {
+    id: 1,
+    name: "NỘI THẤT Ô TÔ LAVOR",
+    hasMedia: true,
+    child: [
+      {
+        id: 11,
+        name: "Địa chỉ: Lô A1 KCN Dương Liễu, Hoài Đức, Hà Nội",
+        slug: "/",
+        icon: <FaLocationDot />,
+      },
+
+      {
+        id: 12,
+        name: "Chi nhánh miền nam: 33 Đường 29, Khu Đô Thị Vạn Phúc, Thủ Đức, Hồ Chí Minh",
+        slug: "/",
+        icon: <FaLocationDot />,
+      },
+      {
+        id: 13,
+        name: "1900 234 556",
+        slug: "/",
+        icon: <FaPhone />,
+      },
+      {
+        id: 15,
+        name: "Website: Lavorluxury.com",
+        slug: "/",
+        icon: <FaEarthAmericas />,
+      },
+      {
+        id: 16,
+        name: "Fanpage: Lavor luxury",
+        slug: "/",
+        icon: <FaSquareFacebook />,
+      },
+      {
+        id: 17,
+        name: "info@minhtamvietnam.com",
+        slug: "/",
+        icon: <CgMail />,
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Sản phẩm",
+    hasMedia: false,
+    child: [
+      {
+        id: 21,
+        name: "Bọc ghế",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 22,
+        name: "Bọc tay lái",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 23,
+        name: "Gối cổ",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 24,
+        name: "Thảm lót sàn ô tô",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 25,
+        name: "Sản phẩm khác",
+        slug: "/",
+        icon: <></>,
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Chính sách",
+    hasMedia: false,
+    child: [
+      {
+        id: 31,
+        name: "Chính sách thanh toán",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 32,
+        name: "Chính đổi trả và hoàn tiền",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 33,
+        name: "Chính sách xử lý khiếu nại",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 34,
+        name: "Chính sách vận chuyển và giao nhận",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 35,
+        name: "Chính sách kiểm hàng",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 36,
+        name: "Chính sách bảo hành",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 37,
+        name: "Chính sách bảo mật thông tin",
+        slug: "/",
+        icon: <></>,
+      },
+    ],
+  },
+];
 
 export const userNavbarData = [
   {
@@ -328,7 +321,6 @@ export const amazingCar = [
 
 export const carouseSliderImages = [gallery3, gallery1, gallery2];
 
-
 export const bocGheDa = [
   {
     id: 1,
@@ -398,8 +390,6 @@ export const bocGheDa = [
     },
   },
 ];
-
-
 
 export const categories = [
   {

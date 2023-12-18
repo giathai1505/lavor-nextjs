@@ -1,4 +1,4 @@
-import AgencyManagement from "@/admin/AgencyManagement";
+import AgencyManagementTable from "@/admin/AgencyManagement/AgencyManagementTable";
 import { API_ENPOINT } from "@/constants/api";
 import { IRegion } from "@/types/type";
 import { Metadata } from "next";
@@ -32,7 +32,7 @@ const page = async () => {
 
   const regions: IRegion[] = res?.regions ? res?.regions : [];
 
-  if (res?.regions) return <AgencyManagement agencies={regions} />;
+  if (res?.regions) return <AgencyManagementTable agencies={regions} />;
 };
 
 export default page;

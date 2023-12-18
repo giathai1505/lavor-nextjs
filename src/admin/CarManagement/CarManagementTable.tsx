@@ -30,17 +30,17 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
     },
 
     {
-      title: "Address",
+      title: "Hãng",
       dataIndex: "brand_name",
       key: "brand_name",
+    },
+    {
+      title: "Model",
+      dataIndex: "model_name",
+      key: "model_name",
     },
     {
       title: "Năm",
-      dataIndex: "brand_name",
-      key: "brand_name",
-    },
-    {
-      title: "Address",
       dataIndex: "year",
       key: "year",
     },
@@ -65,13 +65,13 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
   return (
     <div className="admin-page-wrapper">
       <div className="flex mb-5 justify-between items-center">
-        <p className="admin-title">Danh sách bài viết</p>
+        <p className="admin-title">Danh sách xe</p>
 
         <Link href="/admin/car-management/add" className="add-new-button">
           <AiOutlinePlus /> <span>Thêm/ Chỉnh sửa xe</span>
         </Link>
       </div>
-      <div className="flex gap-5 mb-5"></div>
+
       <Table dataSource={data} columns={columns} bordered />
     </div>
   );

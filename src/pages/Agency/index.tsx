@@ -67,6 +67,7 @@ const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
             alt="Đại lý toàn quốc"
             src={map}
             placeholder="blur"
+            loading="eager"
             className="w-[200px] md:w-[300px]"
           />
         </div>

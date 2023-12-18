@@ -15,7 +15,7 @@ const CategoryList: React.FC<ICategoryListProps> = ({ listValue }) => {
         return (
           <Link href={item.href} className="category-wrapper">
             <div key={item.id} className="list-category-wrapper">
-              <Image src={item.image} alt="Ảnh danh mục sản phẩm" placeholder="blur" />
+              <Image src={item.image} alt="Ảnh danh mục sản phẩm" placeholder="blur" loading="eager" />
             </div>
             <div className="flex items-center text-white flex-col gap-1">
               <p className=" font-bold">{item.name}</p>

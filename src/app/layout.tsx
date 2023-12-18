@@ -15,10 +15,11 @@ import "@/assets/styles/admin/dialog.css";
 import "@/assets/styles/admin/blog.css";
 import "@/pages/News/blog.css";
 import "react-toastify/dist/ReactToastify.css";
-import { Assistant } from "next/font/google";
 
+import { Assistant } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
+
 
 const assistant = Assistant({
   subsets: ["latin"],
@@ -34,7 +35,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+
       <body className={assistant.className}>
+
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>

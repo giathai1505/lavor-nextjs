@@ -29,7 +29,7 @@ const CategorySlider: React.FC<IProductSliderInterface> = () => {
                   </div>
                 </div>
                 <Link href={item.href} className="font-bold block">
-                  <p className="uppercase text-white bg-primary text-center p-2 ">
+                  <p className="category-name">
                     {item.name}
                   </p>
                 </Link>

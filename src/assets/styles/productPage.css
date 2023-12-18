@@ -170,6 +170,14 @@
   flex-direction: column;
   align-items: center;
 }
+.category-name {
+  text-transform: uppercase;
+  color: white;
+  padding: 8px;
+  text-align: center;
+  background-color: #f47a20ab;
+
+}
 
 .category-slider-item-wrapper:hover .category-slider-item-desc {
   top: 0;

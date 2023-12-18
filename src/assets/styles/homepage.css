@@ -30,7 +30,7 @@
 .home-leather {
   width: 100%;
   height: auto;
-  background-image: url("../images/background/leather-pattern.webp");
+
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -95,7 +95,7 @@
   transition: all 0.25s ease 0s;
 }
 .product-banner {
-  background-image: url(https://images.pexels.com/photos/326259/pexels-photo-326259.jpeg?auto=compress&cs=tinysrgb&w=1600);
+
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;

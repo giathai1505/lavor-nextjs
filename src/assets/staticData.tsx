@@ -17,7 +17,7 @@ import image3 from "@/assets/images/youtubeThumbnail/home/3.webp";
 //carousel slider images
 import gallery1 from "@/assets/images/headerPart/6.jpeg";
 import gallery2 from "@/assets/images/headerPart/2.jpeg";
-import gallery3 from "@/assets/images/home-slider/home-slider3.jpeg";
+import gallery3 from "@/assets/images/home-slider/home-slider3.webp";
 
 
 import productThumbnail1 from "@/assets/images/youtubeThumbnail/products/1.webp";

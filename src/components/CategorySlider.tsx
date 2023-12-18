@@ -11,7 +11,7 @@ const CategorySlider: React.FC<IProductSliderInterface> = () => {
   return (
     <div className="relative">
       <div className="overflow-hidden relative">
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
           {categories.map((item, index) => {
             if (index >= 4) return null;
             return (
@@ -29,9 +29,7 @@ const CategorySlider: React.FC<IProductSliderInterface> = () => {
                   </div>
                 </div>
                 <Link href={item.href} className="font-bold block">
-                  <p className="category-name">
-                    {item.name}
-                  </p>
+                  <p className="category-name">{item.name}</p>
                 </Link>
               </div>
             );

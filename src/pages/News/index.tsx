@@ -171,7 +171,7 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
                   value={selectedCategory}
                 />
                 <div className="border border-solid border-[#222121] py-2 px-5 flex items-center gap-10 text-white">
-                  <p className="text-gray text-[15px]">
+                  <p className="text-gray text-[15px] hidden md:block">
                     Hiển thị từ {startIndex + 1} - {endIndex + 1} /{" "}
                     {pagination?.total} bài viết
                   </p>

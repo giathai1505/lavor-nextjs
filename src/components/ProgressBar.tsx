@@ -7,17 +7,16 @@ interface IProgressBar {
 }
 
 const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
-  let activeWith = (100 * active) / 3;
-  let dotArray = [1, 2, 3, 4];
+  const activeWith = (100 * active) / 3;
   return (
-    <div className="w-[500px] py-4 relative">
+    <div className="w-[300px] md:w-[500px] py-4 relative">
       <div className="h-2 rounded-full bg-white"></div>
       <div
         className={`absolute  h-2 rounded-full bg-primary top-1/2 -translate-y-1/2 `}
         style={{ width: `${activeWith}%` }}
       ></div>
       <div className="absolute w-full flex justify-between top-1/2 -translate-y-1/2">
-        {dotArray.map((item, index) => {
+        {new Array(4).fill(null).map((_, index) => {
           return (
             <div
               className={`dot ${index <= active ? "bg-primary" : "bg-white"}`}
@@ -30,12 +29,16 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
       </div>
 
       <span
-        className={`progress-title left-[30%] ${1 <= active ? "show" : ""}`}
+        className={`progress-title left-[28%] md:left-[30%] ${
+          1 <= active ? "show" : ""
+        }`}
       >
         Chọn xe
       </span>
       <span
-        className={`progress-title left-[58%] ${2 <= active ? "show" : ""}`}
+        className={`progress-title left-[53%] md:left-[58%] ${
+          2 <= active ? "show" : ""
+        }`}
       >
         Chọn thiết kế
       </span>

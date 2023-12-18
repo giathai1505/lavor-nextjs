@@ -1,15 +1,26 @@
 "use client";
 import { carouseSliderImages } from "@/assets/staticData";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 
+const DEFAULT_DESKTOP_SCREEN_WIDTH = 1920;
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
+
 const HomeCarousel = () => {
   const [activeSlide, setActiveSlide] = useState<number>(1);
   const [left, setLeft] = useState<number>(0);
+  const carouselWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const handleMoveSlideLeft = () => {
     if (activeSlide > 1) {
@@ -28,12 +39,15 @@ const HomeCarousel = () => {
   };
 
   useEffect(() => {
-    const newLeft = -1920 * (activeSlide - 1);
+    const screenWidth =
+      getWindowDimensions().width ?? DEFAULT_DESKTOP_SCREEN_WIDTH;
+
+    const newLeft = -screenWidth * (activeSlide - 1);
     setLeft(newLeft);
   }, [activeSlide]);
 
   return (
-    <div className="carousel-wrapper">
+    <div className="carousel-wrapper" ref={carouselWrapperRef}>
       <MdOutlineKeyboardArrowLeft
         className="carouselArrow left"
         onClick={handleMoveSlideLeft}
@@ -73,9 +87,6 @@ const HomeCarousel = () => {
               </div>
             );
           })}
-
-          <div className="carousel-slider-item"></div>
-          <div className="carousel-slider-item"></div>
         </div>
       </div>
     </div>

@@ -86,10 +86,10 @@ const ChooseDesign: React.FC<IChooseDesign> = ({
   };
 
   return (
-    <div className="max-w-[1200px] mx-auto">
+    <div className="max-w-[1200px] mx-10">
       <div className="border border-solid border-[#ffffff2b] rounded-md p-2 relative mb-10">
         <p className="design-title">Chọn chất liệu da</p>
-        <div className="grid grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {listMaterials.map((item) => {
             return (
               <div

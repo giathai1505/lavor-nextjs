@@ -160,7 +160,7 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
           <div className="flex justify-center mb-20">
             <ProgressBar active={phase} />
           </div>
-          <div className="pb-40">{renderPhase}</div>
+          <div className="pb-10 md:pb-20 xl:pb-40">{renderPhase}</div>
         </div>
       </div>
       <div className="home-leather py-5">

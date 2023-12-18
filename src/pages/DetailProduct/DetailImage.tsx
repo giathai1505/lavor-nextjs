@@ -31,7 +31,11 @@ const DetailImage: React.FC<IDetailImage> = ({ product }) => {
         </div>
       </div>
       <div className="col-span-4">
-        <img src={"http://" + activeImage} alt="" className="dp-main-img" />
+        <img
+          src={"http://" + activeImage}
+          alt=""
+          className="dp-main-img h-[200px] md:h-[350px]"
+        />
       </div>
     </div>
   );

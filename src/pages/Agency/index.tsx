@@ -6,6 +6,7 @@ import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/5.jpeg";
 import { ICity, IRegion } from "@/types/type";
+import { Tabs } from "antd";
 
 interface IAgencyProps {
   agencies: IRegion[];

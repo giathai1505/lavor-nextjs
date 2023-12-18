@@ -17,7 +17,6 @@
 
 .dp-main-img {
   width: 100%;
-  height: 500px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -176,7 +175,6 @@
   padding: 8px;
   text-align: center;
   background-color: #f47a20ab;
-
 }
 
 .category-slider-item-wrapper:hover .category-slider-item-desc {

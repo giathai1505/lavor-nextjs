@@ -2,7 +2,6 @@ import ComparisonSlider from "@/components/ComparisonSlider";
 import Image from "next/image";
 import Link from "next/link";
 import startNowButton from "@/assets/images/start-now-button.png";
-import "@/assets/styles/homepage.css";
 import startButton from "@/assets/images/start-now-button.png";
 import Button from "@/components/Common/Button";
 import ProductPart from "./ProductPart";
@@ -12,17 +11,17 @@ import HomeCarousel from "@/components/HomeCarousel";
 import { amazingCar } from "@/assets/staticData";
 import { IProduct } from "@/types/type";
 import React from "react";
-
+import "@/assets/styles/homepage.css";
 
 type IPageProps = {
-  products: IProduct[]
-}
+  products: IProduct[];
+};
 
- const HomePage : React.FC<IPageProps>=({products}) =>{
+const HomePage: React.FC<IPageProps> = ({ products }) => {
   return (
     <div>
       <div className="home-img overflow-hidden">
-        <div className="h-[80vh]">
+        <div className="h-[350px] md:h-[800px] xl:h-[80vh]">
           <HomeCarousel />
         </div>
         <div className="absolute home-text-wrapper left-0 z-10 top-[40%] hidden xl:block">
@@ -139,7 +138,7 @@ type IPageProps = {
         </div>
       </div>
 
-      <ProductPart products={products}/>
+      <ProductPart products={products} />
 
       <div className="bg-secondaryBackground py-10">
         <div className="max-w-[1200px] mx-auto">
@@ -176,6 +175,6 @@ type IPageProps = {
       </div>
     </div>
   );
-}
+};
 
-export default HomePage
+export default HomePage;

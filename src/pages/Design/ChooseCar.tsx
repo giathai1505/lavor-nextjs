@@ -95,21 +95,18 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
     setListBrands(initListBrands(brands));
     setListYears(initListYear(years));
     //check if has brand and model the will init the list models and version too
-    if(carDetail.brand) {
-       
+    if (carDetail.brand) {
       setListModels(updateListModelWhenChangeBrand(carDetail.brand.id, brands));
 
-      if(carDetail.model)
-  setListVersions(
-        updateListVersionWhenModelChange(
-          Number(carDetail?.brand?.id),
-         carDetail.model.id, 
-          brands
-        )
-      );
-     }
-
-
+      if (carDetail.model)
+        setListVersions(
+          updateListVersionWhenModelChange(
+            Number(carDetail?.brand?.id),
+            carDetail.model.id,
+            brands
+          )
+        );
+    }
   }, []);
 
   useEffect(() => {
@@ -170,7 +167,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
 
   return (
     <div>
-      <div className="max-w-[1200px] grid grid-cols-4 gap-10">
+      <div className="max-w-[1200px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mx-10">
         <Dropdown
           name="year"
           options={listYears}
@@ -209,7 +206,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
         ) : null}
       </div>
 
-      <div className="ml-8">
+      <div className="m-10">
         {carDetail?.version !== undefined ? (
           <button className="primary-button" onClick={() => onNext(carDetail)}>
             Tiếp theo
@@ -227,7 +224,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
           />
         </div>
       ) : carDetail?.image !== "" ? (
-        <div className="flex justify-center mt-20">
+        <div className="flex justify-center m-10">
           <img src={"http://" + carDetail?.image} className="w-[500px]" />
         </div>
       ) : null}

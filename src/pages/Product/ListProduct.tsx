@@ -6,31 +6,6 @@ import { IProduct, SlugToTitle } from "@/types/type";
 import { useRouter } from "next/navigation";
 import ProductSkeleton from "@/components/skeleton/ProductSkeleton";
 
-const productFilterOptions = [
-  {
-    key: 0,
-    value: "Lọc",
-  },
-  {
-    key: 1,
-    value: "Sản phẩm mới",
-  },
-  {
-    key: 2,
-    value: "Theo mức độ phổ biến",
-  },
-
-  {
-    key: 3,
-    value: "Giá: từ thấp tới cao",
-  },
-
-  {
-    key: 4,
-    value: "Giá từ cao tới thấp",
-  },
-];
-
 const listDanhMuc = [
   {
     key: 0,
@@ -84,7 +59,7 @@ const ListProduct: React.FC<IListProduct> = ({
   return (
     <div className="bg-black p-10 xl:px-0 xl:py-16 text-white">
       <div className="wrapper">
-        <div className="flex justify-between">
+        <div className="flex justify-between flex-col gap-5 md:flex-row">
           <div className="flex items-center gap-3">
             <p className="font-bold text-xl text-primary uppercase">
               {SlugToTitle[slug as keyof typeof SlugToTitle]}
@@ -94,30 +69,14 @@ const ListProduct: React.FC<IListProduct> = ({
               Tổng cộng {Array.isArray(products) && products?.length} sản phẩm
             </p>
           </div>
-          <div className="items-center gap-10 hidden xl:flex">
-            <NoneFormSelectCustom
-              onChange={(a) => handleChangeCategory(a)}
-              options={listDanhMuc}
-              className="user"
-              placeholder="Danh mục"
-              value={selectedCategory}
-            />
-            <NoneFormSelectCustom
-              onChange={(a) => console.log(a)}
-              options={productFilterOptions}
-              className="user"
-              placeholder="Lọc"
-            />
-          </div>
-        </div>
 
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">
-          {[1,2.3,4].map((item) => {
-              return (
-                <ProductSkeleton/>
-              );
-            })}
+          <NoneFormSelectCustom
+            onChange={(a) => handleChangeCategory(a)}
+            options={listDanhMuc}
+            className="user"
+            placeholder="Danh mục"
+            value={selectedCategory}
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">

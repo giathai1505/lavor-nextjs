@@ -122,7 +122,7 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
       </div>
 
       <div className="wrapper mb-20 p-5 md:p-10 xl:px-0 xl:py-10">
-        <div className="flex justify-between items-center gap-20 mb-10">
+        <div className="flex justify-between items-center md:gap-20 mb-10">
           <p className="text-primary font-bold text-xl xl:text-3xl">
             BÀI VIẾT MỚI NHẤT
           </p>

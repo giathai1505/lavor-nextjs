@@ -19,15 +19,14 @@ const Conclusion: React.FC<IConclusion> = ({
   onPrevious,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    <div className="border border-solid border-[#595d6e] text-[#595d6e] py-10 px-20">
+    <div className="border border-solid border-[#595d6e] text-[#595d6e] p-5 m-5 md:p-10 md:m-0 xl:p-20">
       <h3 className="text-center font-bold">
         Cùng nhìn lại lựa chọn thiết kế của bạn ngay bây giờ nhé !
       </h3>
       <p className="design-conclusion-title">Chiếc xe của bạn</p>
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="design-opt">
           <p>- Năm đời xe: {designData?.car?.year?.value}</p>
           <p>- Hãng xe: {designData?.car?.brand?.value}</p>
@@ -41,7 +40,7 @@ const Conclusion: React.FC<IConclusion> = ({
         ></img>
       </div>
       <p className="design-conclusion-title">Thiết kế của bạn</p>
-      <div className="grid grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 gap-10">
         <div className="design-opt ">
           <p>
             - Chất liệu da: {getMaterialName(designData?.design?.materialID)}
@@ -50,19 +49,21 @@ const Conclusion: React.FC<IConclusion> = ({
           <p>- Thiết kế đục lỗ: Mã {designData?.design?.holeID}</p>
         </div>
 
-        <div className="flex flex-col items-center">
-          <div
-            style={{ background: `${designData?.design?.colorID}` }}
-            className="w-20 h-20 rounded-md mb-2"
-          ></div>
-          <p className="text-[#595d6e]">Màu da: Mã xxx</p>
-        </div>
-        <div className="flex flex-col items-center">
-          <div
-            style={{ background: `${designData?.design?.holeID}` }}
-            className="w-20 h-20 rounded-md mb-2"
-          ></div>
-          <p className="text-[#595d6e]">Màu da: Mã xxx</p>
+        <div className="flex items-center gap-10">
+          <div className="flex flex-col items-center">
+            <div
+              style={{ background: `${designData?.design?.colorID}` }}
+              className="w-20 h-20 rounded-md mb-2"
+            ></div>
+            <p className="text-[#595d6e]">Màu da: Mã xxx</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div
+              style={{ background: `${designData?.design?.holeID}` }}
+              className="w-20 h-20 rounded-md mb-2"
+            ></div>
+            <p className="text-[#595d6e]">Màu da: Mã xxx</p>
+          </div>
         </div>
       </div>
 

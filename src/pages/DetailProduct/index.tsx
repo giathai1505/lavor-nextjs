@@ -23,7 +23,7 @@ const DetailProduct: React.FC<IDetailProduct> = ({
           <DetailContent product={product} />
         </div>
 
-        <div className="blog-content db-desc-wrapper mt-40 pt-10">
+        <div className="blog-content db-desc-wrapper mt-5 md:mt-10 xl:mt-20 pt-10">
           <p className="text-3xl font-bold text-primary mb-2">Mô tả sản phẩm</p>
           {parse(product.product_description)}
         </div>

@@ -10,7 +10,7 @@ const Part1 = () => {
           độ xe và dịch vụ lắp đặt nội thất ô tô tại Việt Nam. Chúng tôi cam kết
           luôn làm việc với tác phong chuyên nghiệp, chất lượng và đổi mới dù
           sản phẩm thuộc dòng trung hay cao cấp. <br></br> <br />
-          Qua hơn 10 năm xây dựng và phát triển, trên 1.000 chủng loại sản phẩm
+          Qua hơn 15 năm xây dựng và phát triển, trên 1.000 chủng loại sản phẩm
           được sản xuất với sản lượng 300.000 sản phẩm/năm, Lavor đang dần khẳng
           định vị thế của mình trên khắp thị trường Việt Nam. <br /> <br />
           Sản phẩm tại Lavor được “nuôi dưỡng” tinh tế từ khâu thiết kế, đến quá

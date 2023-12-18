@@ -193,7 +193,7 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
                 Lavor là một thương hiệu sản xuất nội thất ô tô, trực thuộc Công
                 ty TNHH TMDV & SX Minh Tâm – chuyên gia trong lĩnh vực sản xuất
                 nội thất, độ xe và dịch vụ lắp đặt nội thất ô tô tại Việt Nam.
-                Qua hơn 10 năm xây dựng và phát triển, trên 1.000 chủng loại sản
+                Qua hơn 15 năm xây dựng và phát triển, trên 1.000 chủng loại sản
                 phẩm được sản xuất với sản lượng 300.000 sản phẩm/năm, Lavor
                 đang dần khẳng định vị thế của mình trên thị trường. "
               </p>

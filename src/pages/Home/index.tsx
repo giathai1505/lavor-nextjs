@@ -35,7 +35,7 @@ type IPageProps = {
             </p>
           </div>
 
-          <Link href="/choose-your-design" className="relative mt-2">
+          <Link href="/thiet-ke" className="relative mt-2">
             <Image
               alt="choose your design"
               src={startNowButton}
@@ -128,7 +128,7 @@ type IPageProps = {
             </div>
           </div>
           <div className="mt-10 flex justify-center">
-            <Link href="/choose-your-design">
+            <Link href="/thiet-ke">
               <Image
                 src={startButton}
                 alt="Chọn thiêt kế riêng cuả bạn"
@@ -164,7 +164,7 @@ type IPageProps = {
             })}
           </div>
           <div className="mt-10 flex justify-center">
-            <Link href="/choose-your-design">
+            <Link href="/thiet-ke">
               <Image
                 src={startButton}
                 alt="Chọn thiêt kế riêng cuả bạn"

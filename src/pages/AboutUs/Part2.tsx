@@ -40,7 +40,7 @@ const Part2 = () => {
           </div>
         </div>
         <div className="mt-5 md:mt-10 flex justify-center">
-          <Link href="/choose-your-design">
+          <Link href="/thiet-ke">
             <Image
               src={startButton}
               alt="Chọn thiêt kế riêng cuả bạn"

@@ -244,7 +244,7 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
             </div>
           </div>
           <div className="mt-10 flex justify-center">
-            <Link href="/choose-your-design">
+            <Link href="/thiet-ke">
               <Image
                 src={startButton}
                 alt="Chọn thiêt kế riêng cuả bạn"

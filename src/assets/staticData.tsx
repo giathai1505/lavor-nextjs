@@ -439,3 +439,9 @@ export const categories = [
     desc: "",
   },
 ];
+
+export const SocialMediaLink = {
+  facebook: "https://www.facebook.com/LavorLuxury2",
+  tiktok: "https://www.tiktok.com/@lavorluxury.official",
+  youtube: "https://www.youtube.com/@LavorLuxury",
+};

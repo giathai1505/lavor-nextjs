@@ -1,7 +1,7 @@
 import React from "react";
 import Agency from "@/pages/Agency";
 import { Metadata } from "next";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 
 export const metadata: Metadata = {
   title: "Đại lý toàn quốc",
@@ -10,19 +10,18 @@ export const metadata: Metadata = {
 
 async function getAllAgency() {
   try {
-    const res = await fetch(API_ENPOINT + "agencies", {
+    const res = await fetch(SERVER_API_ENPOINT + "agencies", {
       cache: "no-store",
     });
-  
+
     if (!res.ok) {
-      return null
+      return null;
     }
-  
+
     return res.json();
   } catch (error) {
-    return null
+    return null;
   }
-
 }
 
 const index = async () => {

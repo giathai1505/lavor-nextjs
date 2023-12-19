@@ -1,7 +1,7 @@
 import Footer from "@/components/Common/Footer";
 import Header from "@/components/Common/Header";
 import PhoneHeader from "@/components/Common/PhoneHeader";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import HomePage from "@/pages/Home";
 import { IProduct } from "@/types/type";
 import { Metadata } from "next";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 async function getAllProducts() {
   try {
-    const res = await fetch(API_ENPOINT + "products?type=PILLOW", {
+    const res = await fetch(SERVER_API_ENPOINT + "products?type=PILLOW", {
       cache: "no-store",
     });
 

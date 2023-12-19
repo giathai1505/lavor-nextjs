@@ -1,11 +1,11 @@
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import AboutUs from "@/pages/AboutUs";
 import { TRating } from "@/types/type";
 import { Metadata } from "next";
 import React from "react";
 
 async function getAllRatings() {
-  const res = await fetch(API_ENPOINT + "review", {
+  const res = await fetch(SERVER_API_ENPOINT + "review", {
     cache: "no-store",
   });
 

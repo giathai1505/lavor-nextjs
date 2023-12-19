@@ -1,4 +1,4 @@
-import { API_ENPOINT } from "@/constants/api";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import { IAgency } from "@/types/type";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
@@ -9,7 +9,7 @@ export async function addAgencyAPI(data: IAgency, cityID: number) {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
       const response = await fetch(
-        API_ENPOINT + "agencies/cities/" + cityID.toString(),
+        CLIENT_API_ENPOINT + "agencies/cities/" + cityID.toString(),
         {
           method: "POST",
           headers: {
@@ -40,7 +40,10 @@ export async function addCityAPI(cityName: string, regionID: number) {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
       const response = await fetch(
-        API_ENPOINT + "agencies/regions/" + regionID.toString() + "/cities",
+        CLIENT_API_ENPOINT +
+          "agencies/regions/" +
+          regionID.toString() +
+          "/cities",
         {
           method: "POST",
           headers: {
@@ -68,7 +71,7 @@ export async function addCityAPI(cityName: string, regionID: number) {
 
 export async function getAllAgencies() {
   try {
-    const response = await fetch(API_ENPOINT + "agencies", {
+    const response = await fetch(CLIENT_API_ENPOINT + "agencies", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +99,7 @@ export async function deleteAgencyAPI(agencyID: number) {
         autoClose: false,
       });
       const response = await fetch(
-        API_ENPOINT + "agencies/" + agencyID.toString(),
+        CLIENT_API_ENPOINT + "agencies/" + agencyID.toString(),
         {
           method: "Delete",
           headers: {

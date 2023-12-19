@@ -1,4 +1,4 @@
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import Design from "@/pages/Design";
 import { Metadata } from "next";
 import React from "react";
@@ -10,36 +10,35 @@ export const metadata: Metadata = {
 
 async function getAllYears() {
   try {
-    const res = await fetch(API_ENPOINT + "design/years", {
+    const res = await fetch(SERVER_API_ENPOINT + "design/years", {
       cache: "no-store",
     });
-  
+
     if (!res.ok) {
-      return []
+      return [];
     }
-  
+
     return res.json();
   } catch (error) {
-    return []
+    return [];
   }
 }
 
 async function getAllBrands() {
   try {
-    const res = await fetch(API_ENPOINT + "design/brands", {
+    const res = await fetch(SERVER_API_ENPOINT + "design/brands", {
       method: "GET",
       cache: "no-store",
     });
-  
+
     if (!res.ok) {
       return [];
     }
-  
+
     return res.json();
   } catch (error) {
-    return []
+    return [];
   }
-
 }
 
 const page = async () => {

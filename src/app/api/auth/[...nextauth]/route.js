@@ -1,4 +1,4 @@
-import { API_ENPOINT } from "@/constants/api";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -15,7 +15,7 @@ const authOptions = {
 
       async authorize(credentials) {
         try {
-          const response = await fetch(API_ENPOINT + "auth/login", {
+          const response = await fetch(CLIENT_API_ENPOINT + "auth/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

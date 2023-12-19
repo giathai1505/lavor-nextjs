@@ -1,5 +1,5 @@
 import { IProductFormValue } from "@/admin/ProductManagement/AddNewProduct";
-import { API_ENPOINT } from "@/constants/api";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import { PStatus } from "@/types/type";
 import { toast } from "react-toastify";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
@@ -13,7 +13,7 @@ export async function addProductAPI(data: IProductFormValue) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + "products", {
+      const response = await fetch(CLIENT_API_ENPOINT + "products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export async function addProductAPI(data: IProductFormValue) {
 
 export async function getAllProducts(url: string) {
   try {
-    const response = await fetch(API_ENPOINT + "products" + url, {
+    const response = await fetch(CLIENT_API_ENPOINT + "products" + url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export async function deleteProduct(productID: number) {
         autoClose: false,
       });
       const response = await fetch(
-        API_ENPOINT + "products/" + productID.toString(),
+        CLIENT_API_ENPOINT + "products/" + productID.toString(),
         {
           method: "Delete",
           headers: {
@@ -121,7 +121,7 @@ export async function deleteMultipleProducts(productIDs: number[]) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + "products/", {
+      const response = await fetch(CLIENT_API_ENPOINT + "products/", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -164,7 +164,7 @@ export async function changeProductStatus(id: number, status: PStatus) {
         autoClose: false,
       });
       const response = await fetch(
-        API_ENPOINT + "blogs/" + id.toString() + "/status",
+        CLIENT_API_ENPOINT + "blogs/" + id.toString() + "/status",
         {
           method: "PUT",
           headers: {
@@ -211,14 +211,17 @@ export async function editProductAPI(
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + "products/" + productID, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        CLIENT_API_ENPOINT + "products/" + productID,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
         toast.dismiss(loadingToastId);

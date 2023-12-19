@@ -1,5 +1,5 @@
 import ProductForm from "@/admin/ProductManagement/AddNewProduct";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { PStatus, ProductType } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -28,7 +28,7 @@ interface IPageProps {
 }
 
 async function getProductByID(id: string) {
-  const res = await fetch(API_ENPOINT + "products/" + id, {
+  const res = await fetch(SERVER_API_ENPOINT + "products/" + id, {
     cache: "no-store",
   });
 

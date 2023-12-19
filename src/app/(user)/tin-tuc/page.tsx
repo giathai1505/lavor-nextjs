@@ -1,4 +1,4 @@
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import News from "@/pages/News";
 import { IPagination } from "@/types/type";
 import { Metadata } from "next";
@@ -6,7 +6,7 @@ import React from "react";
 
 async function getAllBlog(url: string) {
   try {
-    const res = await fetch(API_ENPOINT + "blogs" + url, {
+    const res = await fetch(SERVER_API_ENPOINT + "blogs" + url, {
       cache: "no-store",
     });
 

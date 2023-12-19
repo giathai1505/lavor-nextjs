@@ -4,11 +4,10 @@ import React, { useEffect, useState } from "react";
 import ProductItemVertical from "./components/ProductItemVertical";
 import { IProduct, SlugToTitle } from "@/types/type";
 import { useRouter } from "next/navigation";
-import ProductSkeleton from "@/components/skeleton/ProductSkeleton";
 
 const listDanhMuc = [
   {
-    key: 0,
+    key: "tat-ca",
     value: "Tất cả sản phẩm",
   },
   {

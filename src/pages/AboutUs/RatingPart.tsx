@@ -8,18 +8,11 @@ import RatingItem from "./Rating/RatingItem";
 import { TRating } from "@/types/type";
 const gap = 20;
 
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-
-import './styles.css';
-
-// import required modules
-import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import { EffectCoverflow, Pagination } from "swiper/modules";
 
 interface IRating {
   visibleItem: number;
@@ -30,7 +23,6 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(315);
 
-
   useEffect(() => {
     if (containerRef.current) {
       let rect = containerRef.current.getBoundingClientRect();
@@ -39,8 +31,6 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
     }
   }, []);
 
-
-
   return (
     <div className=" text-white">
       <div className="wrapper">
@@ -48,39 +38,35 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
           <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
             Khách hàng nói gì về <span>Lavor</span>?
           </h2>
- 
-  
         </div>
 
         <div className="mb-40">
-        <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={true}
-        modules={[EffectCoverflow, Pagination]}
-        className="mySwiper"
-      >
-
-{Array.isArray(ratings) &&
-                  ratings.length > 0 &&
-                  ratings.map((item) => {
-                    return (
-                      <SwiperSlide>
-                      <RatingItem rating={item} width={productItemWidth} />
-                      </SwiperSlide>
-                    );
-                  })}
-
-      </Swiper>
+          <Swiper
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={"auto"}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            pagination={true}
+            modules={[EffectCoverflow, Pagination]}
+            className="review-slider"
+          >
+            {Array.isArray(ratings) &&
+              ratings.length > 0 &&
+              ratings.map((item) => {
+                return (
+                  <SwiperSlide>
+                    <RatingItem rating={item} width={productItemWidth} />
+                  </SwiperSlide>
+                );
+              })}
+          </Swiper>
         </div>
 
         <div className="mt-5 md:mt-10 xl:mt-16">

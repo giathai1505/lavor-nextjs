@@ -1,5 +1,5 @@
 import AgencyManagementTable from "@/admin/AgencyManagement/AgencyManagementTable";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { IRegion } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllAgency() {
-  const res = await fetch(API_ENPOINT + "agencies", {
+  const res = await fetch(SERVER_API_ENPOINT + "agencies", {
     cache: "no-store",
   });
 

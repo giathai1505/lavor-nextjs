@@ -1,5 +1,5 @@
 import BlogManagement from "@/admin/BlogManagement";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { IBlog } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllBlog() {
-  const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
+  const res = await fetch(SERVER_API_ENPOINT + "blogs?page=1&limit=10", {
     cache: "no-store",
   });
 

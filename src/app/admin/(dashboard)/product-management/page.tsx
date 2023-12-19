@@ -1,5 +1,5 @@
 import ProductManagement from "@/admin/ProductManagement";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { IProduct } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllProducts() {
-  const res = await fetch(API_ENPOINT + "products", {
+  const res = await fetch(SERVER_API_ENPOINT + "products", {
     cache: "no-store",
   });
 

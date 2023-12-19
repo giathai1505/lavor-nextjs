@@ -1,5 +1,5 @@
 import CarManagementTable from "@/admin/CarManagement/CarManagementTable";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { ICarTable } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllYears() {
-  const res = await fetch(API_ENPOINT + "design/years", {
+  const res = await fetch(SERVER_API_ENPOINT + "design/years", {
     cache: "no-store",
   });
 
@@ -24,7 +24,7 @@ async function getAllYears() {
 }
 
 async function getAllCars() {
-  const res = await fetch(API_ENPOINT + "design/cars", {
+  const res = await fetch(SERVER_API_ENPOINT + "design/cars", {
     method: "GET",
     cache: "no-store",
   });

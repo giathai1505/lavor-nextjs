@@ -1,4 +1,4 @@
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import Product from "@/pages/Product";
 import { IBlog, IProduct } from "@/types/type";
 import { Metadata } from "next";
@@ -11,36 +11,34 @@ export const metadata: Metadata = {
 
 async function getAllProducts() {
   try {
-    const res = await fetch(API_ENPOINT + "products", {
+    const res = await fetch(SERVER_API_ENPOINT + "products", {
       cache: "no-store",
     });
-  
+
     if (!res.ok) {
-     return []
+      return [];
     }
-  
+
     return res.json();
   } catch (error) {
-    return []
+    return [];
   }
-
 }
 
 async function getAllBlog() {
   try {
-    const res = await fetch(API_ENPOINT + "blogs?page=1&limit=10", {
+    const res = await fetch(SERVER_API_ENPOINT + "blogs?page=1&limit=10", {
       cache: "no-store",
     });
-  
+
     if (!res.ok) {
-      return []
+      return [];
     }
-  
+
     return res.json();
   } catch (error) {
-    return []
+    return [];
   }
-
 }
 
 const index = async () => {

@@ -1,4 +1,4 @@
-import { API_ENPOINT } from "@/constants/api";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import { ICarFormValue } from "@/admin/CarManagement/CarManagementForm";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
@@ -7,7 +7,7 @@ export async function addYear(year: number) {
   try {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
-      const response = await fetch(API_ENPOINT + "design/years", {
+      const response = await fetch(CLIENT_API_ENPOINT + "design/years", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export async function addBrand(brand_name: string) {
   try {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
-      const response = await fetch(API_ENPOINT + "design/brands", {
+      const response = await fetch(CLIENT_API_ENPOINT + "design/brands", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export async function addBrand(brand_name: string) {
 
 export async function getAllBrands() {
   try {
-    const response = await fetch(API_ENPOINT + "design/brands", {
+    const response = await fetch(CLIENT_API_ENPOINT + "design/brands", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export async function getAllBrands() {
 
 export async function getAllModels() {
   try {
-    const response = await fetch(API_ENPOINT + "design/brands", {
+    const response = await fetch(CLIENT_API_ENPOINT + "design/brands", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export async function addModel(brand_id: string, model_name: string) {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
       const response = await fetch(
-        API_ENPOINT + "design/brands/" + brand_id + "/models",
+        CLIENT_API_ENPOINT + "design/brands/" + brand_id + "/models",
         {
           method: "POST",
           headers: {
@@ -134,7 +134,7 @@ export async function addVersion(model_id: string, version_name: string) {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
       const response = await fetch(
-        API_ENPOINT + "design/models/" + model_id + "/versions",
+        CLIENT_API_ENPOINT + "design/models/" + model_id + "/versions",
         {
           method: "POST",
           headers: {
@@ -165,7 +165,7 @@ export async function addCar(data: ICarFormValue) {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
       const response = await fetch(
-        API_ENPOINT +
+        CLIENT_API_ENPOINT +
           `design/years/${data.year}/versions/${data.version_id}/cars`,
         {
           method: "POST",
@@ -194,7 +194,7 @@ export async function addCar(data: ICarFormValue) {
 }
 
 export async function getAllYears() {
-  const res = await fetch(API_ENPOINT + "design/years", {
+  const res = await fetch(CLIENT_API_ENPOINT + "design/years", {
     cache: "no-store",
   });
 
@@ -207,7 +207,7 @@ export async function getAllYears() {
 
 export async function getCar(year: number, version: number) {
   const res = await fetch(
-    API_ENPOINT + `design/years/${year}/versions/${version}/cars`,
+    CLIENT_API_ENPOINT + `design/years/${year}/versions/${version}/cars`,
     {
       cache: "no-store",
     }
@@ -225,7 +225,7 @@ export async function updateCar(data: ICarFormValue) {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
       const response = await fetch(
-        API_ENPOINT +
+        CLIENT_API_ENPOINT +
           `design/years/${data.year}/versions/${data.version_id}/cars`,
         {
           method: "PUT",

@@ -1,5 +1,5 @@
 import RatingTablePage from "@/admin/RatingManagement/RatingTablePage";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { TRating } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllRatings() {
-  const res = await fetch(API_ENPOINT + "review?withDeleted=true", {
+  const res = await fetch(SERVER_API_ENPOINT + "review?withDeleted=true", {
     cache: "no-store",
   });
 

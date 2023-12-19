@@ -1,5 +1,5 @@
 import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { Category, Status } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -14,7 +14,7 @@ interface IPageProps {
 }
 
 async function getBlogByID(id: string) {
-  const res = await fetch(API_ENPOINT + "blogs/" + id, {
+  const res = await fetch(SERVER_API_ENPOINT + "blogs/" + id, {
     cache: "no-store",
   });
 

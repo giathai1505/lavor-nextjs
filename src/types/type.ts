@@ -129,6 +129,7 @@ export enum SlugToType {
   "boc-tay-lai" = "STEERING_WHEEL",
   "boc-ghe" = "CHAIR",
   "san-pham-khac" = "OTHER",
+  "tat-ca" = "",
 }
 
 export enum SlugToTitle {
@@ -137,6 +138,7 @@ export enum SlugToTitle {
   "boc-tay-lai" = "Bọc tay lái",
   "boc-ghe" = "Bọc ghế da",
   "san-pham-khac" = "Sản phẩm khác",
+  "tat-ca" = "Tất cả sản phẩm",
 }
 
 export interface IPagination {

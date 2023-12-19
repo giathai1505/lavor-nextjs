@@ -1,16 +1,19 @@
-import { API_ENPOINT } from "@/constants/api";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 
 export async function getAllRatings() {
   try {
-    const response = await fetch(API_ENPOINT + "review?withDeleted=true", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      CLIENT_API_ENPOINT + "review?withDeleted=true",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -26,7 +29,7 @@ export async function getAllRatings() {
 
 export async function addRating(data: any) {
   try {
-    const response = await fetch(API_ENPOINT + `review`, {
+    const response = await fetch(CLIENT_API_ENPOINT + `review`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,13 +54,16 @@ export async function deleteRating(id: number) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + `review/` + id.toString(), {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        CLIENT_API_ENPOINT + `review/` + id.toString(),
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         toast.dismiss(loadingToastId);
@@ -92,13 +98,16 @@ export async function restoreRating(id: number) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + `review/` + id.toString(), {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        CLIENT_API_ENPOINT + `review/` + id.toString(),
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         toast.dismiss(loadingToastId);

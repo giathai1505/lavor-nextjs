@@ -1,5 +1,5 @@
 import { getAllBlogs } from "@/api/blogAPI";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import DetailNews from "@/pages/News/DetailNews";
 import { Metadata, ResolvingMetadata } from "next";
 import React from "react";
@@ -9,7 +9,7 @@ interface IPageProps {
 }
 
 async function getBlogByID(id: string) {
-  const res = await fetch(API_ENPOINT + "blogs/" + id, {
+  const res = await fetch(SERVER_API_ENPOINT + "blogs/" + id, {
     cache: "no-store",
   });
 
@@ -22,7 +22,7 @@ async function getBlogByID(id: string) {
 
 async function getAllBlog() {
   try {
-    const res = await fetch(API_ENPOINT + "blogs", {
+    const res = await fetch(SERVER_API_ENPOINT + "blogs", {
       cache: "no-store",
     });
 

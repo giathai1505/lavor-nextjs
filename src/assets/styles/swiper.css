@@ -1,0 +1,33 @@
+.swiper-button-next {
+  color: #f47a20 !important;
+}
+
+.swiper-button-prev {
+  color: #f47a20 !important;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  background-color: #f47a20 !important;
+}
+
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: -40px !important;
+}
+
+.swiper {
+  overflow: visible !important;
+  overflow-x: clip !important;
+  background-color: transparent !important;
+}
+
+.review-slider .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}

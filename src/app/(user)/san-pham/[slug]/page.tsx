@@ -2,26 +2,23 @@ import PartHeader from "@/components/Common/PartHeader";
 import ListProduct from "@/pages/Product/ListProduct";
 import React from "react";
 import titleBackgroundImage from "@/assets/images/headerPart/3.webp";
-import { API_ENPOINT } from "@/constants/api";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { SlugToType } from "@/types/type";
 
 async function getProductCategory(url: string) {
-
-
   try {
-    const res = await fetch(API_ENPOINT + "products/" + url, {
+    const res = await fetch(SERVER_API_ENPOINT + "products/" + url, {
       cache: "no-store",
     });
-  
+
     if (!res.ok) {
-      return []
+      return [];
     }
-  
+
     return res.json();
   } catch (error) {
-    return []
+    return [];
   }
-
 }
 
 interface IPageProps {

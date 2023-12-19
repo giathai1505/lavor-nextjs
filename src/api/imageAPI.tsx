@@ -1,4 +1,4 @@
-import { API_ENPOINT } from "@/constants/api";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 
@@ -9,7 +9,7 @@ export async function upLoadImage(imageFile: File) {
       const formData = new FormData();
       formData.append("file", imageFile);
 
-      const response = await fetch(API_ENPOINT + "images/upload", {
+      const response = await fetch(CLIENT_API_ENPOINT + "images/upload", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export async function upLoadImages(imageFiles: File[]) {
         formData.append("files", file);
       });
 
-      const response = await fetch(API_ENPOINT + "images/upload-many", {
+      const response = await fetch(CLIENT_API_ENPOINT + "images/upload-many", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

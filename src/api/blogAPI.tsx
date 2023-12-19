@@ -1,5 +1,5 @@
 import { IFormValue } from "@/admin/BlogManagement/AddNewBlog";
-import { API_ENPOINT } from "@/constants/api";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import { Status } from "@/types/type";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 export async function getAllBlogs(url: string) {
   try {
-    const response = await fetch(API_ENPOINT + "blogs" + url, {
+    const response = await fetch(CLIENT_API_ENPOINT + "blogs" + url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export async function addBlogAPI(data: IFormValue) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + "blogs", {
+      const response = await fetch(CLIENT_API_ENPOINT + "blogs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,13 +76,16 @@ export async function deleteAPI(blogID: number) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + "blogs/" + blogID.toString(), {
-        method: "Delete",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        CLIENT_API_ENPOINT + "blogs/" + blogID.toString(),
+        {
+          method: "Delete",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         toast.dismiss(loadingToastId);
@@ -117,7 +120,7 @@ export async function deleteMultipleBlogs(blogIDs: number[]) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + "blogs/", {
+      const response = await fetch(CLIENT_API_ENPOINT + "blogs/", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -159,7 +162,7 @@ export async function changeBlogStatus(id: number, status: Status) {
       autoClose: false,
     });
     const response = await fetch(
-      API_ENPOINT + "blogs/" + id.toString() + "/status",
+      CLIENT_API_ENPOINT + "blogs/" + id.toString() + "/status",
       {
         method: "PUT",
         headers: {
@@ -205,7 +208,7 @@ export async function editBlogAPI(data: IFormValue, blogID: string) {
         position: "top-center",
         autoClose: false,
       });
-      const response = await fetch(API_ENPOINT + "blogs/" + blogID, {
+      const response = await fetch(CLIENT_API_ENPOINT + "blogs/" + blogID, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -253,7 +256,7 @@ export async function changeMultipleBlogStatus(
 
       const data = { blog_ids: blogIDs, blog_status: status };
 
-      const response = await fetch(API_ENPOINT + "blogs/status", {
+      const response = await fetch(CLIENT_API_ENPOINT + "blogs/status", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

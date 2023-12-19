@@ -1,30 +1,29 @@
 "use client";
-import { IProduct } from "@/types/type";
-import React, { useState } from "react";
+import React from "react";
+import { TImageItem } from ".";
 
 interface IDetailImage {
-  product: IProduct;
+  productImages: TImageItem[];
+  activeVariant: TImageItem;
+onChangeVariant: (data: TImageItem) => void
 }
 
-const DetailImage: React.FC<IDetailImage> = ({ product }) => {
-  if (!product) return null;
-  const [activeImage, setActiveImage] = useState<string>(
-    product.product_images[0]
-  );
+const DetailImage: React.FC<IDetailImage> = ({ productImages, activeVariant, onChangeVariant }) => {
+  if (!productImages) return null;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-white">
       <div className="col-span-1">
         <div className="flex flex-col gap-3">
-          {product.product_images.map((item) => {
+          {productImages.map((item) => {
             return (
               <img
                 alt="Ảnh gối cổ"
-                src={"http://" + item}
+                src={"http://" + item.url}
                 className={`dp-slide-img-item ${
-                  item === activeImage ? "active" : ""
+                  item.id === activeVariant.id ? "active" : ""
                 }`}
-                onClick={() => setActiveImage(item)}
+                onClick={() => onChangeVariant(item)}
               />
             );
           })}
@@ -32,8 +31,8 @@ const DetailImage: React.FC<IDetailImage> = ({ product }) => {
       </div>
       <div className="col-span-4">
         <img
-          src={"http://" + activeImage}
-          alt=""
+          src={"http://" + activeVariant.url}
+          alt="Hình ảnh sản phẩm"
           className="dp-main-img h-[200px] md:h-[350px]"
         />
       </div>

@@ -2,15 +2,20 @@ import { IProduct } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { TImageItem } from ".";
 
-const listColor = ["#E6C197", "#F58220", "#ffffff"];
 
 interface IDetailContent {
   product: IProduct;
+  activeVariant: TImageItem;
+  onChangeColor: (data: string) => void
+  productImages: TImageItem[]
 }
 
-const DetailContent: React.FC<IDetailContent> = ({ product }) => {
+const DetailContent: React.FC<IDetailContent> = ({ product, activeVariant, onChangeColor }) => {
+
   if (!product) return null;
+
   return (
     <div className="flex flex-col gap-5 text-white">
       <div>
@@ -45,11 +50,12 @@ const DetailContent: React.FC<IDetailContent> = ({ product }) => {
         <div>
           <p className="font-bold text-primary mb-3">Lựa chọn màu sắc</p>
           <div className="flex gap-2">
-            {listColor.map((item, index) => {
+            {product?.variants.map((item) => {
               return (
                 <div
-                  style={{ background: item }}
-                  className={`db-color-item ${index === 1 ? "active" : ""}`}
+                  style={{ background: item.variant_color }}
+                  onClick={()=> onChangeColor(item.variant_color)}
+                  className={`db-color-item ${activeVariant.id === item.variant_color ? "active" : ""}`}
                 ></div>
               );
             })}

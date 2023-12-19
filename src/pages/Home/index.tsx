@@ -81,7 +81,7 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
             </div>
           </div>
           <div className="mt-10">
-            <Button link="/about-us" text="Tìm hiểu thêm" />
+            <Button link="/ve-chung-toi" text="Tìm hiểu thêm" />
           </div>
         </div>
       </div>

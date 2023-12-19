@@ -9,6 +9,19 @@ import RatingItem from "./Rating/RatingItem";
 import { TRating } from "@/types/type";
 const gap = 20;
 
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+
+import './styles.css';
+
+// import required modules
+import { EffectCoverflow, Pagination } from 'swiper/modules';
+
 interface IRating {
   visibleItem: number;
   ratings: TRating[];
@@ -17,10 +30,7 @@ interface IRating {
 const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [productItemWidth, setProductItemWidth] = useState<number>(315);
-  const [canMoveRight, setCanMoveRight] = useState<boolean>(true);
-  const [canMoveLeft, setCanMoveLeft] = useState<boolean>(false);
-  const [containerTransformLeft, setContainerTransformLeft] =
-    useState<number>(0);
+
 
   useEffect(() => {
     if (containerRef.current) {
@@ -30,27 +40,7 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
     }
   }, []);
 
-  const handleMoveSlider = (index: number) => {
-    if (index === 1) {
-      setCanMoveRight(true);
-      if (containerTransformLeft + productItemWidth + gap === 0) {
-        setCanMoveLeft(false);
-      }
-      setContainerTransformLeft((pre) => pre + productItemWidth + gap);
-    } else {
-      setCanMoveLeft(true);
-      const invisibleItem = ratings.length - visibleItem;
 
-      const maxWidth =
-        invisibleItem * productItemWidth + (invisibleItem - 1) * gap;
-
-      if (-(maxWidth - productItemWidth) >= containerTransformLeft) {
-        setCanMoveRight(false);
-      }
-
-      setContainerTransformLeft((pre) => pre - productItemWidth - gap);
-    }
-  };
 
   return (
     <div className=" text-white">
@@ -59,40 +49,39 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
           <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
             Khách hàng nói gì về <span>Lavor</span>?
           </h2>
-          <div ref={containerRef} className="relative">
-            {Array.isArray(ratings) && ratings.length > visibleItem && (
-              <>
-                {canMoveLeft && (
-                  <AiFillLeftCircle
-                    className="slider-navigator -left-[25px]"
-                    onClick={() => handleMoveSlider(1)}
-                  />
-                )}
+ 
+  
+        </div>
 
-                {canMoveRight && (
-                  <AiFillRightCircle
-                    className="slider-navigator -right-[15px]"
-                    onClick={() => handleMoveSlider(-1)}
-                  />
-                )}
-              </>
-            )}
+        <div className="mb-40">
+        <Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={'auto'}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination]}
+        className="mySwiper"
+      >
 
-            <div className="overflow-hidden relative">
-              <div
-                className={`inline-flex gap-5 relative slide-wrapper`}
-                style={{ left: `${containerTransformLeft}px` }}
-              >
-                {Array.isArray(ratings) &&
+{Array.isArray(ratings) &&
                   ratings.length > 0 &&
                   ratings.map((item) => {
                     return (
+                      <SwiperSlide>
                       <RatingItem rating={item} width={productItemWidth} />
+                      </SwiperSlide>
                     );
                   })}
-              </div>
-            </div>
-          </div>
+
+      </Swiper>
         </div>
 
         <div className="mt-5 md:mt-10 xl:mt-16">

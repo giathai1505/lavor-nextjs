@@ -50,12 +50,12 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({
         <>
           <AiFillLeftCircle
             className="slider-navigator -left-[25px]"
-            onClick={() => handleMoveSlider(-1)}
+            onClick={() => handleMoveSlider(1)}
           />
 
           <AiFillRightCircle
             className="slider-navigator -right-[25px]"
-            onClick={() => handleMoveSlider(1)}
+            onClick={() => handleMoveSlider(-1)}
           />
         </>
       ) : null}

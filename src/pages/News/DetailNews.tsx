@@ -12,12 +12,36 @@ import moment from "moment";
 import parse from "html-react-parser";
 import RelatedNews from "./RelatedNews";
 import { renderCategory } from ".";
+import { SocialMediaLink } from "@/assets/staticData";
+import LazyImage from "@/components/Common/LazyImage";
 
 interface IPageProps {
   blog: IBlog;
   relatedBlogs: IBlog[];
   allBlogs: IBlog[];
 }
+
+const renderSocialMediIcon = () => {
+  return (
+    <div className="flex items-center gap-2">
+      <Link
+        href={SocialMediaLink.facebook}
+        className="media-icon bg-[#1559c2] "
+      >
+        <FiFacebook className="" />
+      </Link>
+      <Link href={SocialMediaLink.tiktok} className="media-icon bg-[#f65e97] ">
+        <PiTiktokLogo />
+      </Link>
+      <Link href="/" className="media-icon bg-[#43ce13] ">
+        <FiMail />
+      </Link>
+      <Link href={SocialMediaLink.youtube} className="media-icon bg-[#ff6b10] ">
+        <FiYoutube />
+      </Link>
+    </div>
+  );
+};
 
 const getNestedHeadings = (headingElements: any) => {
   const nestedHeadings: any = [];
@@ -42,7 +66,6 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
   if (!blog) return null;
   const [nestedHeadings, setNestedHeadings] = useState<any>([]);
   const blogContentRef = useRef<null | HTMLDivElement>(null);
-  const [activeHeading, setActiveHeading] = useState("");
 
   useEffect(() => {
     if (blogContentRef && blogContentRef.current) {
@@ -58,33 +81,6 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
       });
     }
   }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (blogContentRef && blogContentRef.current) {
-        const headingElements = Array.from(
-          blogContentRef.current.querySelectorAll("h2, h3")
-        );
-
-        let currentActiveHeading = "";
-        for (const heading of headingElements) {
-          const rect = heading.getBoundingClientRect();
-          if (rect.top <= 0 && rect.bottom > 0) {
-            currentActiveHeading = heading.id;
-            break;
-          }
-        }
-
-        setActiveHeading(currentActiveHeading);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [blogContentRef]);
 
   const handleClickTableOfView = (e: any, index: number) => {
     e.preventDefault();
@@ -109,8 +105,8 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
         backgroundImage={titleBackgroundImage}
       />
       <div className="bg-black p-5 md:p-10">
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-10 wrapper">
-          <div className="col-span-1 xl:col-span-2 flex flex-col gap-5">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-10 wrapper">
+          <div className="col-span-1 xl:col-span-3 flex flex-col gap-5">
             <p className="text-2xl text-white">{blog.blog_title}</p>
             <div className="flex items-center gap-5">
               <span className="text-[#a5a6aa]">
@@ -122,23 +118,35 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
                 <p>{moment(blog.blog_upload_date).format("DD/MM/YYYY")}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Link href="/" className="media-icon bg-[#1559c2] ">
-                <FiFacebook className="" />
-              </Link>
-              <Link href="/" className="media-icon bg-[#f65e97] ">
-                <PiTiktokLogo />
-              </Link>
-              <Link href="/" className="media-icon bg-[#43ce13] ">
-                <FiMail />
-              </Link>
-              <Link href="/" className="media-icon bg-[#ff6b10] ">
-                <FiYoutube />
-              </Link>
-            </div>
+
+            {renderSocialMediIcon()}
+
+            {Array.isArray(nestedHeadings) && nestedHeadings.length > 0 && (
+              <div className="w-[400px]">
+                <p className="font-bold text-lg  text-white mb-4">
+                  Nội dung bài viết
+                </p>
+                <div className="table-of-content">
+                  <ul>
+                    {nestedHeadings.map((heading: any, index: number) => (
+                      <li key={heading?.id}>
+                        <a
+                          href={`#${heading?.id}`}
+                          onClick={(e) => handleClickTableOfView(e, index + 1)}
+                        >
+                          {heading?.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
             <p className="text-white">{blog.blog_description}</p>
+
             <div className="h-[150px] md:h-[400px] xl:h-[500px]">
-              <img
+              <LazyImage
                 src={"http://" + blog.blog_image_url}
                 alt="Quảng cáo xe hơi"
                 className="w-full h-full object-cover rounded-lg"
@@ -149,23 +157,6 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
             </div>
           </div>
           <div>
-            <p className="font-bold text-lg  text-white mb-4">
-              Nội dung bài viết
-            </p>
-            <div className="table-of-content">
-              <ul>
-                {nestedHeadings.map((heading: any, index: number) => (
-                  <li key={heading?.id}>
-                    <a
-                      href={`#${heading?.id}`}
-                      onClick={(e) => handleClickTableOfView(e, index + 1)}
-                    >
-                      {heading?.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
             <BlogSidebar blogs={allBlogs} />
           </div>
         </div>

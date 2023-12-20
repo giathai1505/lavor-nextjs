@@ -1,96 +1,100 @@
-"use client";
-import { carouseSliderImages } from "@/assets/staticData";
-import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
 
-const DEFAULT_DESKTOP_SCREEN_WIDTH = 1920;
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
+"use client"
+import React, { useRef, useState } from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-const HomeCarousel = () => {
-  const [activeSlide, setActiveSlide] = useState<number>(1);
-  const [left, setLeft] = useState<number>(0);
-  const carouselWrapperRef = useRef<HTMLDivElement | null>(null);
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import backgroundImage from "../assets/images/home-slider/home-slider3.webp"
+import './styles.css';
 
-  const handleMoveSlideLeft = () => {
-    if (activeSlide > 1) {
-      setActiveSlide((pre) => pre - 1);
-    } else {
-      setActiveSlide(1);
-    }
-  };
+// import required modules
+import { Parallax, Pagination, Navigation } from 'swiper/modules';
 
-  const handleMoveSlideRight = () => {
-    if (activeSlide < 3) {
-      setActiveSlide((pre) => pre + 1);
-    } else {
-      setActiveSlide(3);
-    }
-  };
+export default function HomeCarousel() {
 
-  useEffect(() => {
-    const screenWidth =
-      getWindowDimensions().width ?? DEFAULT_DESKTOP_SCREEN_WIDTH;
-
-    const newLeft = -screenWidth * (activeSlide - 1);
-    setLeft(newLeft);
-  }, [activeSlide]);
 
   return (
-    <div className="carousel-wrapper" ref={carouselWrapperRef}>
-      <MdOutlineKeyboardArrowLeft
-        className="carouselArrow left"
-        onClick={handleMoveSlideLeft}
-      />
-      <MdOutlineKeyboardArrowRight
-        className="carouselArrow right"
-        onClick={handleMoveSlideRight}
-      />
-      <div className="carousel-dot-wrapper">
-        {[1, 2, 3].map((item) => {
-          return (
-            <div
-              className={`carousel-dot-item ${
-                activeSlide === item ? "active" : ""
-              }`}
-              key={item}
-            ></div>
-          );
-        })}
-      </div>
-
-      <div className="carousel-slider-wrapper">
+    <>
+      <Swiper
+        speed={600}
+        parallax={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Parallax, Pagination, Navigation]}
+        className="mySwiper"
+      >
         <div
-          className="inline-flex relative h-full"
-          style={{ left: `${left}px` }}
+          slot="container-start"
+          className="parallax-bg"
+          style={{ backgroundImage:  'url(../assets/images/home-slider/home-slider3.webp)',}}
+          data-swiper-parallax="-23%"
         >
-          {carouseSliderImages.map((item) => {
-            return (
-              <div className="carousel-slider-item" key={item.src.toString()}>
-                <Image
-                  alt="Slider ảnh"
-                  loading="eager"
-                  src={item}
-                  className="w-full h-full object-cover"
-                  placeholder="blur"
-                />
-              </div>
-            );
-          })}
         </div>
-      </div>
-    </div>
+        <SwiperSlide>
+          <div className="title" data-swiper-parallax="-300">
+            Slide 1
+          </div>
+          <div className="subtitle" data-swiper-parallax="-200">
+            Subtitle
+          </div>
+          <div className="text" data-swiper-parallax="-100">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+              dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+              laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+              Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.
+              Aliquam hendrerit lorem at elit facilisis rutrum. Ut at
+              ullamcorper velit. Nulla ligula nisi, imperdiet ut lacinia nec,
+              tincidunt ut libero. Aenean feugiat non eros quis feugiat.
+            </p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="title" data-swiper-parallax="-300">
+            Slide 2
+          </div>
+          <div className="subtitle" data-swiper-parallax="-200">
+            Subtitle
+          </div>
+          <div className="text" data-swiper-parallax="-100">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+              dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+              laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+              Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.
+              Aliquam hendrerit lorem at elit facilisis rutrum. Ut at
+              ullamcorper velit. Nulla ligula nisi, imperdiet ut lacinia nec,
+              tincidunt ut libero. Aenean feugiat non eros quis feugiat.
+            </p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="title" data-swiper-parallax="-300">
+            Slide 3
+          </div>
+          <div className="subtitle" data-swiper-parallax="-200">
+            Subtitle
+          </div>
+          <div className="text" data-swiper-parallax="-100">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+              dictum mattis velit, sit amet faucibus felis iaculis nec. Nulla
+              laoreet justo vitae porttitor porttitor. Suspendisse in sem justo.
+              Integer laoreet magna nec elit suscipit, ac laoreet nibh euismod.
+              Aliquam hendrerit lorem at elit facilisis rutrum. Ut at
+              ullamcorper velit. Nulla ligula nisi, imperdiet ut lacinia nec,
+              tincidunt ut libero. Aenean feugiat non eros quis feugiat.
+            </p>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </>
   );
-};
-
-export default HomeCarousel;
+}

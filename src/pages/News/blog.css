@@ -29,7 +29,14 @@
   border-radius: 4px;
   font-size: 12px;
   padding: 5px;
+  
 }
+.media-icon:hover {
+  opacity: 0.6;
+}
+
+
+
 .media-icon svg {
   width: 20px;
 }
@@ -101,8 +108,9 @@
 .table-of-content {
   color: white;
   padding: 10px;
-  border: 1px solid #8080805e;
+  border: 1px solid #808080;
   margin-bottom: 10px;
+  border-radius: 4px;
 }
 
 .table-of-content p {

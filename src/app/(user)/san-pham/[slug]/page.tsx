@@ -33,7 +33,7 @@ const page: React.FC<IPageProps> = async ({ params }) => {
   return (
     <div>
       <PartHeader
-        breadcrumb="Sẩn phẩm"
+        breadcrumb="Sản phẩm"
         title="Sản phẩm"
         backgroundImage={titleBackgroundImage}
       />

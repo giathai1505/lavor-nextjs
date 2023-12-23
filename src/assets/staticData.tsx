@@ -9,8 +9,8 @@ import {
   FaSquareFacebook,
 } from "react-icons/fa6";
 
-import image1 from "@/assets/images/youtubeThumbnail/home/1.webp";
-import image2 from "@/assets/images/youtubeThumbnail/home/2.webp";
+import image1 from "@/assets/images/youtubeThumbnail/home/vf8.webp";
+import image2 from "@/assets/images/youtubeThumbnail/home/mt.webp";
 import image3 from "@/assets/images/youtubeThumbnail/home/3.webp";
 
 //carousel slider images
@@ -302,10 +302,10 @@ export const userNavbarData = [
 export const amazingCar = [
   {
     id: 1,
-    alt: "Xe độ 5000$",
+    alt: "Lột xác VF8",
     src: image1,
-    link: "https://www.youtube.com/watch?v=jhebym6VHZ8",
-    title: "HOT!!! XE ĐỘ ÂM THANH 5000$ SẼ LỘT XÁC NHỮNG GÌ? | Lavor Luxury",
+    link: "https://www.youtube.com/watch?v=nV7IIKJYZik",
+    title: `Hành trình "lột xác" cho Vinfast VF8 | Lavor Luxury`,
   },
   {
     id: 2,
@@ -313,7 +313,7 @@ export const amazingCar = [
     src: image2,
     link: "https://www.youtube.com/watch?v=k0mTEmHOtqw",
     title:
-      'CAMRY 7 năm tuổi "lột xác" như xe hạng SANG như thế nào? | Lavor Luxury',
+      'Lavor ĐỒNG HÀNH cùng MT Luxury "LỘT XÁC" Peugeot Traveller Luxury | Lavor Laxury',
   },
   {
     id: 3,

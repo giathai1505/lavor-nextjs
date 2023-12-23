@@ -13,7 +13,6 @@ import parse from "html-react-parser";
 import RelatedNews from "./RelatedNews";
 import { renderCategory } from ".";
 import { SocialMediaLink } from "@/assets/staticData";
-import LazyImage from "@/components/Common/LazyImage";
 
 interface IPageProps {
   blog: IBlog;
@@ -146,7 +145,7 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
             <p className="text-white">{blog.blog_description}</p>
 
             <div className="h-[150px] md:h-[400px] xl:h-[500px]">
-              <LazyImage
+              <img
                 src={"http://" + blog.blog_image_url}
                 alt="Quảng cáo xe hơi"
                 className="w-full h-full object-cover rounded-lg"

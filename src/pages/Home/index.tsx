@@ -6,7 +6,7 @@ import startButton from "@/assets/images/start-now-button.png";
 import Button from "@/components/Common/Button";
 import ProductPart from "./ProductPart";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
+import introduceImg from "@/assets/images/common/home-part2.jpeg";
 import HomeCarousel from "@/components/HomeCarousel";
 import { amazingCar } from "@/assets/staticData";
 import { IProduct } from "@/types/type";
@@ -25,11 +25,13 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
           <HomeCarousel />
         </div>
         <div className="absolute home-text-wrapper left-0 z-10 top-[40%] hidden xl:block">
-          <div className="home-text">
+          <div className="home-text ">
             <h3 className="relative pb-5 leading-10 text-2xl">
-              <span className="font-bold">ĐẲNG CẤP HƠN VỚI LAVOR!</span>
+              <span className="font-bold text-3xl">
+                ĐẲNG CẤP HƠN VỚI LAVOR!
+              </span>
             </h3>
-            <p className="common-text">
+            <p className="text-white text-lg">
               Bạn muốn nâng tầm, làm mới nội thất xe của mình?
             </p>
           </div>
@@ -52,11 +54,10 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
           </h2>
           <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
             <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
-              <YoutubeThumbnail
-                imgAlt="Giới thiệu Lavor"
-                imgSrc={introduceImg}
-                link="https://www.youtube.com/watch?v=Q9CR65EpYZU"
-                title="LAVOR LUXURY | Giới thiệu công ty TNHH Thương Mại Dịch Vụ Và Sản Xuất Minh Tâm"
+              <Image
+                alt=""
+                src={introduceImg}
+                className="rounded-xl border-[6px] border-solid border-primary"
               />
             </div>
             <div className="leather-text">

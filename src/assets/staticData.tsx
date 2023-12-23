@@ -14,9 +14,9 @@ import image2 from "@/assets/images/youtubeThumbnail/home/2.webp";
 import image3 from "@/assets/images/youtubeThumbnail/home/3.webp";
 
 //carousel slider images
-import gallery1 from "@/assets/images/headerPart/6.jpeg";
-import gallery2 from "@/assets/images/headerPart/2.jpeg";
-import gallery3 from "@/assets/images/home-slider/home-slider3.webp";
+import gallery1 from "@/assets/images/home-slider/home-slider5.png";
+import gallery2 from "@/assets/images/home-slider/home-slider6.png";
+import gallery3 from "@/assets/images/home-slider/home-slider7.png";
 
 import productThumbnail1 from "@/assets/images/youtubeThumbnail/products/1.webp";
 import productThumbnail2 from "@/assets/images/youtubeThumbnail/products/2.webp";
@@ -215,13 +215,19 @@ export const userFooterData = [
 export const userNavbarData = [
   {
     id: 1,
+    name: "Trang chủ",
+    slug: "/",
+    children: [],
+  },
+  {
+    id: 1,
     name: "Nội thất thiết kế riêng của bạn",
     slug: "/thiet-ke",
     children: [],
   },
   {
     id: 2,
-    name: "Về chúng tôi",
+    name: "Tại sao nên chọn Lavor?",
     slug: "/ve-chung-toi",
     children: [],
   },

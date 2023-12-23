@@ -1,20 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import { AiOutlinePlus } from "react-icons/ai";
-import NoneFormSelectCustom, {
-  IOption,
-} from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { IAgencyTable, ICity, IRegion, Status } from "@/types/type";
+import { IAgencyTable, ICity, IRegion } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { convertToAgencyArray } from "@/utilities/commonUtilities";
 import { deleteAgencyAPI, getAllAgencies } from "@/api/agencyAPI";
 import AddCityDialog from "./Dialogs/AddCityDialog";
 import ConfirmDialog from "@/components/Common/Dialog";
 import AddAgencyDialog from "./Dialogs/AddAgencyDialog";
-import { Table } from "antd";
+import { Select, Table } from "antd";
 import { BsTrash } from "react-icons/bs";
+import type { ColumnsType } from "antd/es/table";
+
+type TSelectOption = {
+  value: number;
+  label: string;
+};
 
 interface IAgencyManagement {
   agencies: IRegion[];
@@ -35,11 +37,11 @@ const initListCity = (regions: IRegion[]): ICity[] => {
   return cities;
 };
 
-const initListRegionFilter = (agencies: IRegion[]): IOption[] => {
-  const result: IOption[] = [];
+const initListRegionFilter = (agencies: IRegion[]): TSelectOption[] => {
+  const result: TSelectOption[] = [];
 
   agencies.forEach((item) => {
-    return result.push({ key: item.region_id, value: item.region_name });
+    return result.push({ value: item.region_id, label: item.region_name });
   });
 
   return result;
@@ -91,7 +93,7 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
     setListRegion(agencies);
   }, [agencies]);
 
-  const columns: any = [
+  const columns: ColumnsType<IAgencyTable> = [
     {
       title: "Tên đại lý",
       dataIndex: "agency_name",
@@ -170,12 +172,8 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
     });
   };
 
-  const handleAddAgencySuccess = () => {
-    invokeGetAllAgency();
-  };
-
-  const handleAddCitySuccess = () => {
-    invokeGetAllAgency();
+  const handleChange = (a: any) => {
+    console.log("==== a: ", a);
   };
 
   return (
@@ -184,13 +182,13 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
         open={showDialog.agency}
         onClose={closeAllDialog}
         cities={initListCity(listRegion)}
-        onSuccess={handleAddAgencySuccess}
+        onSuccess={() => invokeGetAllAgency()}
       />
       <AddCityDialog
         open={showDialog.city}
         onClose={closeAllDialog}
         agencies={agencies}
-        onSuccess={handleAddCitySuccess}
+        onSuccess={() => invokeGetAllAgency()}
       />
       <div className="admin-page-wrapper ">
         <ConfirmDialog
@@ -236,12 +234,12 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
                 </button>
               </div>
             </div>
-            <NoneFormSelectCustom
-              options={initListRegionFilter(agencies)}
-              onChange={(item) => handleFilterBlog("regionID", item.key)}
-              className="admin"
-              value={globalFilter.regionID}
+
+            <Select
+              style={{ width: 200 }}
               placeholder="Lọc theo miền"
+              onChange={(item) => handleFilterBlog("regionID", item)}
+              options={initListRegionFilter(agencies)}
             />
           </div>
         </div>

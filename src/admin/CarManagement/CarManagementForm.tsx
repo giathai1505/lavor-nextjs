@@ -168,9 +168,6 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   }, [listBrands]);
 
   useEffect(() => {
-    // if (defaultValue.image_url !== "") {
-    //   setImage(defaultValue.image_url);
-    // }
     setListYears(years);
 
     setListBrands(brands);

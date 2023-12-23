@@ -10,9 +10,7 @@ import startButton from "@/assets/images/start-now-button.png";
 import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
-
-import introduceImg from "@/assets/images/youtubeThumbnail/home/4.png";
-import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
+import introduceImg from "@/assets/images/common/home-part2.jpeg";
 import { IBrand, IYear } from "@/types/type";
 
 interface IPageProps {
@@ -170,12 +168,11 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
             <span> đẳng cấp</span>
           </h2>
           <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
-            <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
-              <YoutubeThumbnail
-                imgAlt="Giới thiệu Lavor"
-                imgSrc={introduceImg}
-                link="https://www.youtube.com/watch?v=Q9CR65EpYZU"
-                title="LAVOR LUXURY | Giới thiệu công ty TNHH Thương Mại Dịch Vụ Và Sản Xuất Minh Tâm"
+            <div className=" mx-auto mb-5 md:mb-10">
+              <Image
+                alt=""
+                src={introduceImg}
+                className="rounded-xl border-[6px] border-solid border-primary xl:h-[300px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[500px] object-cover"
               />
             </div>
             <div className="leather-text">

@@ -25,7 +25,7 @@ const CategorySlider: React.FC<IProductSliderInterface> = () => {
 
                   <div className="category-slider-item-desc">
                     <FaPlusCircle className="w-10 h-10 mb-3" />
-                    <p className="text-center">{item.desc}</p>
+                    <p className="text-center text-lg">{item.desc}</p>
                   </div>
                 </div>
                 <Link href={item.href} className="font-bold block">

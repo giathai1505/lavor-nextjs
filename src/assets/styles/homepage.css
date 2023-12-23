@@ -10,17 +10,17 @@
 
 .home-text-wrapper {
   transform: translateY(-30%);
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
   left: 200px;
-  padding: 40px;
+  padding: 40px 60px;
 }
 
 .home-text {
   height: auto;
   width: auto;
   color: #f47a21;
-  width: 400px;
+
   text-align: left;
   z-index: 90;
   margin: 0;

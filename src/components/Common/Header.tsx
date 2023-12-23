@@ -35,8 +35,8 @@ const Header = () => {
           : "before:left-[-35px] before:h-[90%]"
       }`}
     >
-      <div className="w-[1200px] justify-between h-full flex mx-auto">
-        <div className="logo mt-[16px] z-20">
+      <div className="justify-between h-full flex mx-auto">
+        <div className="logo mt-[16px] ml-[10%] z-20">
           <Link href="/">
             <Image
               src={logo}
@@ -47,7 +47,7 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="flex z-10 mt-10">
+        <div className="flex z-10 mt-10 mr-[10%]">
           {userNavbarData.map((item) => {
             return (
               <div className="relative nav-item" key={item.id}>

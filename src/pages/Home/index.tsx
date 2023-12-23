@@ -53,15 +53,16 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
             <span> đẳng cấp</span>
           </h2>
           <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
-            <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
+            <div className=" mx-auto mb-5 md:mb-10">
               <Image
-                alt=""
+                alt="Công xưởng Lavor"
                 src={introduceImg}
-                className="rounded-xl border-[6px] border-solid border-primary"
+                loading="eager"
+                className="rounded-xl border-[6px] border-solid border-primary xl:h-[300px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[500px] object-cover"
               />
             </div>
-            <div className="leather-text">
-              <p className="mb-5 text-justify md:mb-10 xl:text-left">
+            <div className="leather-text text:base md:text-lg">
+              <p className="mb-5  text-justify md:mb-10 xl:text-left">
                 Hãy tưởng tượng nội thất xe của bạn được bọc da sang trọng, nâng
                 cấp hiện đại và mang phong cách của riêng bạn. Có thể bạn muốn
                 điều đó nhưng lại lo lắng về chất lượng ở các Garage. Hoặc bạn

@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { FaPlusCircle } from "react-icons/fa";
 import Link from "next/link";
+import { FaPlusCircle } from "react-icons/fa";
 import { categories } from "@/assets/staticData";
 
 interface IProductSliderInterface {}
@@ -23,10 +23,10 @@ const CategorySlider: React.FC<IProductSliderInterface> = () => {
                     className="w-full h-full object-cover"
                   />
 
-                  <div className="category-slider-item-desc">
+                  <Link href={item.href} className="category-slider-item-desc">
                     <FaPlusCircle className="w-10 h-10 mb-3" />
                     <p className="text-center text-lg">{item.desc}</p>
-                  </div>
+                  </Link>
                 </div>
                 <Link href={item.href} className="font-bold block">
                   <p className="category-name">{item.name}</p>

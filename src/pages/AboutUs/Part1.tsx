@@ -1,9 +1,11 @@
+import Image from "next/image";
 import React from "react";
+import directorTreeImg from "@/assets/images/common/director-tree.png";
 
 const Part1 = () => {
   return (
     <div className="bg-black p-5 md:p-10 xl:p-16">
-      <div className="wrapper">
+      <div className="wrapper text-base md:text-lg">
         <p className="text-white common-text text-justify xl:text-left">
           Lavor là một thương hiệu sản xuất nội thất ô tô, trực thuộc Công ty
           TNHH TMDV & SX Minh Tâm – chuyên gia trong lĩnh vực sản xuất nội thất,
@@ -34,6 +36,13 @@ const Part1 = () => {
           trở thành thương hiệu sản xuất nội thất ô tô hàng đầu Việt Nam và đưa
           sản phẩm ra toàn Châu Á vào 5-10 năm tới.
         </p>
+        <div className="flex justify-center mt-10">
+          <Image
+            alt="Sô đồ ban giám đốc"
+            src={directorTreeImg}
+            className="rounded-xl border-[6px] border-solid border-primary xl:h-[400px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[700px] object-cover"
+          />
+        </div>
       </div>
     </div>
   );

@@ -6,7 +6,6 @@ import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/5.jpeg";
 import { ICity, IRegion } from "@/types/type";
-import { Tabs } from "antd";
 
 interface IAgencyProps {
   agencies: IRegion[];
@@ -39,8 +38,8 @@ const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
         title="DANH SÁCH ĐẠI LÝ"
         backgroundImage={titleBackgroundImage}
       />
-      <div className="wrapper grid grid-cols-1 gap-5 pt-10 p-5 md:p-10 xl:p-16 xl:grid-cols-4 xl:gap-20">
-        <div className="col-span-1 grid grid-cols-1 gap-8 md:grid-cols-3 xl:col-span-3">
+      <div className="wrapper grid grid-cols-1 gap-5 pt-10 p-5 md:p-10 xl:p-16 xl:grid-cols-2 xl:gap-20">
+        <div className="col-span-1 grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="col-span-1 border-r-0 border-solid border-[#80808038] pr-5 h-fit  md:border-r md:col-span-1">
             {Array.isArray(agencies) &&
               agencies.map((item) => {
@@ -69,7 +68,7 @@ const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
             src={map}
             placeholder="blur"
             loading="eager"
-            className="w-[200px] md:w-[300px]"
+            className="w-[500px]"
           />
         </div>
       </div>

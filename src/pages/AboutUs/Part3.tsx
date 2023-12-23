@@ -10,7 +10,7 @@ const Part3 = () => {
           QUY TRÌNH SẢN XUẤT VÀ LẮP ĐẶT ĐỘC QUYỀN CỦA <span>LAVOR</span>
         </h2>
         <div className="flex flex-col justify-center gap-10 items-center">
-          <div className="text-white">
+          <div className="text-white text-base md:text-lg">
             <p className="text-justify xl:text-left">
               Nội thất da Lavor chỉ được lắp đặt tại 2 cơ sở chính thức của
               chúng tôi tại Hà Nội và Thành phố Hồ Chí Minh. Tại đó, đội ngũ

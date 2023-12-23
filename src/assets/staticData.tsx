@@ -227,7 +227,7 @@ export const userNavbarData = [
   },
   {
     id: 2,
-    name: "Tại sao nên chọn Lavor?",
+    name: "Về Lavor",
     slug: "/ve-chung-toi",
     children: [],
   },
@@ -238,26 +238,32 @@ export const userNavbarData = [
     children: [
       {
         id: 31,
-        name: "Bọc ghế",
+        name: "Bọc ghế da",
         slug: "/san-pham/boc-ghe-da",
       },
       {
         id: 32,
-        name: "Bọc tay lái",
-        slug: "/san-pham/boc-tay-lai",
-      },
-      {
-        id: 33,
         name: "Gối cổ",
         slug: "/san-pham/goi-co",
       },
       {
+        id: 33,
+        name: "Gối lưng",
+        slug: "/san-pham/goi-co",
+      },
+      {
         id: 34,
+        name: "Bọc tay lái",
+        slug: "/san-pham/boc-tay-lai",
+      },
+
+      {
+        id: 35,
         name: "Thảm lót sàn",
         slug: "/san-pham/tham-lot-san",
       },
       {
-        id: 35,
+        id: 36,
         name: "Sản phẩm khác",
         slug: "/san-pham/san-pham-khac",
       },
@@ -325,7 +331,7 @@ export const amazingCar = [
   },
 ];
 
-export const carouseSliderImages = [gallery3, gallery1, gallery2];
+export const carouseSliderImages = [gallery2, gallery1, gallery3];
 
 export const bocGheDa = [
   {

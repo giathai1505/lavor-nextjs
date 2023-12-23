@@ -349,9 +349,13 @@
   display: flex;
   align-items: center;
 }
-.breadcrumb-wrapper ul li:hover a {
+.breadcrumb-wrapper ul li:first-child:hover a {
   background-color: #f47a20;
   color: white;
+}
+
+.breadcrumb-wrapper ul li:last-child a {
+  pointer-events: none;
 }
 
 .breadcrumb-wrapper ul li:hover a::after {

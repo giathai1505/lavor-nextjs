@@ -170,8 +170,9 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
           <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
             <div className=" mx-auto mb-5 md:mb-10">
               <Image
-                alt=""
+                alt="Công xưởng Lavor"
                 src={introduceImg}
+                loading="eager"
                 className="rounded-xl border-[6px] border-solid border-primary xl:h-[300px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[500px] object-cover"
               />
             </div>

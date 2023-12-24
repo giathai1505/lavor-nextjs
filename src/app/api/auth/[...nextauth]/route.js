@@ -1,6 +1,7 @@
-import { CLIENT_API_ENPOINT } from "@/constants/client.env";
+
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import {SERVER_API_ENPOINT} from "../../../../constants/server.env";
 
 const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -15,7 +16,7 @@ const authOptions = {
 
       async authorize(credentials) {
         try {
-          const response = await fetch(CLIENT_API_ENPOINT + "auth/login", {
+          const response = await fetch(SERVER_API_ENPOINT + "auth/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

@@ -1,1 +1,1 @@
-export const SERVER_API_ENPOINT = "http://localhost:5000/";
+export const SERVER_API_ENPOINT = "http://lavor_be:5000/";

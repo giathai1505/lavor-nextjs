@@ -6,3 +6,9 @@ services:
     restart: always
     ports:
       - 80:3000
+    networks:
+      - lav0r_default
+
+networks:
+  lav0r_default:
+    external: true

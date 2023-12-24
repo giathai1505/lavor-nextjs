@@ -26,7 +26,7 @@
     "moment": "^2.29.4",
     "next": "^13.4.19",
     "next-auth": "^4.24.5",
-    "postcss": "8.4.29",
+    "postcss": "^8.4.32",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.47.0",

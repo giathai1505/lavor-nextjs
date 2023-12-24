@@ -1,11 +1,11 @@
 "use client";
 import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
-import { SERVER_API_ENPOINT } from "@/constants/server.env";
+import { CLIENT_API_ENPOINT } from "@/constants/client.env";
 import { IBrand, IYear } from "@/types/type";
 import React, { useEffect, useState } from "react";
 
 async function getAllYears() {
-  const res = await fetch(SERVER_API_ENPOINT + "design/years", {
+  const res = await fetch(CLIENT_API_ENPOINT + "design/years", {
     cache: "no-store",
   });
 
@@ -17,7 +17,7 @@ async function getAllYears() {
 }
 
 async function getAllBrands() {
-  const res = await fetch(SERVER_API_ENPOINT + "design/brands", {
+  const res = await fetch(CLIENT_API_ENPOINT + "design/brands", {
     method: "GET",
     cache: "no-store",
   });

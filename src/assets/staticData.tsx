@@ -14,9 +14,9 @@ import image2 from "@/assets/images/youtubeThumbnail/home/mt.webp";
 import image3 from "@/assets/images/youtubeThumbnail/home/3.webp";
 
 //carousel slider images
-import gallery1 from "@/assets/images/home-slider/home-slider5.png";
-import gallery2 from "@/assets/images/home-slider/home-slider6.png";
-import gallery3 from "@/assets/images/home-slider/home-slider7.png";
+import gallery1 from "@/assets/images/home-slider/home-slider5.webp";
+import gallery2 from "@/assets/images/home-slider/home-slider6.webp";
+import gallery3 from "@/assets/images/home-slider/home-slider7.webp";
 
 import productThumbnail1 from "@/assets/images/youtubeThumbnail/products/1.webp";
 import productThumbnail2 from "@/assets/images/youtubeThumbnail/products/2.webp";

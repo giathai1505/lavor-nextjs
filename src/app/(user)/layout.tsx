@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/Common/Header";
 import PhoneHeader from "@/components/Common/PhoneHeader";
 import Footer from "@/components/Common/Footer";
+import LiveChatIcon from "@/components/Common/LiveChatIcon";
 
 const jost = Jost({
   subsets: ["latin"],
@@ -47,6 +48,8 @@ export default function RootLayout({
               <PhoneHeader />
             </div>
             {children}
+            <div>Ngô Gia Thái</div>
+            <LiveChatIcon />
             <Footer />
           </div>
         }

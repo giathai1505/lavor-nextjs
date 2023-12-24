@@ -1,5 +1,3 @@
-"use client";
-
 import "./globals.css";
 import "@/assets/styles/common.css";
 import "@/assets/styles/components.css";
@@ -16,23 +14,21 @@ import "@/assets/styles/admin/blog.css";
 import "@/assets/styles/swiper.css";
 import "@/pages/News/blog.css";
 import "react-toastify/dist/ReactToastify.css";
-
+import SessionProvider from "@/components/Common/SessionProvider";
 import { Assistant } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
-import { Session } from "next-auth";
+import { getServerSession } from "next-auth";
 
 const assistant = Assistant({
   subsets: ["latin"],
   variable: "--font-assistant",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  session,
 }: {
-  session: Session | null;
   children: React.ReactNode;
 }) {
+  const session = await getServerSession();
   return (
     <html lang="en">
       <body className={assistant.className}>

@@ -16,11 +16,14 @@ interface IProductSliderInterface {
   products: IProduct[];
 }
 
-const ProductSlider: React.FC<IProductSliderInterface> = ({ products }) => {
+const ProductSlider: React.FC<IProductSliderInterface> = ({
+  products,
+  visibleItem,
+}) => {
   return (
     <>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={visibleItem}
         spaceBetween={30}
         loop={true}
         pagination={{

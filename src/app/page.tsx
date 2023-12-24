@@ -1,5 +1,6 @@
 import Footer from "@/components/Common/Footer";
 import Header from "@/components/Common/Header";
+import LiveChatIcon from "@/components/Common/LiveChatIcon";
 import PhoneHeader from "@/components/Common/PhoneHeader";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import HomePage from "@/pages/Home";
@@ -42,6 +43,7 @@ const Home = async () => {
       </div>
 
       <HomePage products={products} />
+      <LiveChatIcon />
       <Footer />
     </div>
   );

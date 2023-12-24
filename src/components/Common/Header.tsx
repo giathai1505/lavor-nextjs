@@ -164,7 +164,7 @@ const Header = () => {
               />
             </Link>
           </div>
-          <div className="flex z-10 mt-5 mr-[10%]">
+          <div className="flex z-10 mt-5 mr-[5%]">
             <div className="flex mt-5">
               {userNavbarData.map((item) => {
                 return (
@@ -206,7 +206,7 @@ const Header = () => {
                 );
               })}
             </div>
-            <div className="flex gap-5 ml-5">
+            <div className="flex gap-5 ml-5 mt-2">
               <Image
                 src={searchIcon}
                 alt="Tìm kiếm sản phẩm"

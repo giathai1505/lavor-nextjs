@@ -48,7 +48,6 @@ export default function RootLayout({
               <PhoneHeader />
             </div>
             {children}
-            <div>Ngô Gia Thái</div>
             <LiveChatIcon />
             <Footer />
           </div>

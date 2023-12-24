@@ -38,14 +38,13 @@ const ComparisonSlider = () => {
             HÃY CHIÊM NGƯỠNG SỰ ĐẲNG CẤP CỦA LAVOR
           </span>
         </h2>
-        <div className=" mx-auto bg-black relative h-[360px] w-[390px] md:h-[570px] md:w-[700px] xl:w-[900px] xl:h-[750px]">
+        <div className="mx-auto bg-black relative h-[360px] w-[330px] md:h-[570px] md:w-[700px] xl:w-[900px] xl:h-[750px]">
           <div className="w-full h-full flex">
             <Image
               src={oldCar}
               alt="old car"
               placeholder="blur"
               className="w-full h-full absolute object-cover"
-
             />
             <Image
               src={newCar}

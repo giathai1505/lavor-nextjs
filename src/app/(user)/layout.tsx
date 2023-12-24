@@ -37,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={jost.className}>
+      <body>
         {
           <div>
             <div className="hidden xl:block">

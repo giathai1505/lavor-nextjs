@@ -31,7 +31,7 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
-      <body className={assistant.className}>
+      <body>
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>

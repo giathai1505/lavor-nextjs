@@ -8,16 +8,12 @@ import { userNavbarData } from "@/assets/staticData";
 import cartIcon from "@/assets/images/common/cart-icon.png";
 import searchIcon from "@/assets/images/common/search-icon.png";
 import { Badge, Button, Drawer, Empty, Modal } from "antd";
-import {
-  CategoryConvertText,
-  IProduct,
-  ProductType,
-  ProductTypeToText,
-} from "@/types/type";
+import { IProduct, ProductTypeToText } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "./FormError";
 import { AiOutlineClose } from "react-icons/ai";
+import { ee } from "@/pages/DetailProduct/DetailContent";
 
 type IOrderContact = {
   contact_name: string;
@@ -63,6 +59,7 @@ const RenderCartItem: React.FC<TRenderCartItem> = ({
       }
     }
   };
+
   return (
     <>
       {carts.map((item) => {
@@ -112,6 +109,12 @@ const Header = () => {
     handleSubmit,
     formState: { errors },
   } = form;
+
+  const handleEventAddToCart = (carts: IProduct[]) => {
+    setcarts(carts);
+  };
+
+  ee.on("addToCart", handleEventAddToCart);
 
   useLayoutEffect(() => {
     document.addEventListener("scroll", handleScroll);
@@ -271,7 +274,7 @@ const Header = () => {
         onCancel={() => setConfirmModelOpen(false)}
         footer={[
           <Button key="back" onClick={() => setOpen(false)}>
-            Return
+            Hủy
           </Button>,
           <Button
             key="submit"
@@ -284,10 +287,12 @@ const Header = () => {
           </Button>,
         ]}
       >
-        <div className="mt-5">
-          <p className="font-bold mb-2">Thông tin đơn hàng</p>
+        <div className="mt-10">
+          <p className="font-bold mb-4">Thông tin đơn hàng</p>
           <div>
-            <p className="mb-2">Số lượng sản phẩm: {carts.length}</p>
+            <p className="mb-3 font-bold text-primary">
+              Số lượng sản phẩm: {carts.length}
+            </p>
             <div>
               <RenderCartItem
                 carts={carts}
@@ -295,11 +300,19 @@ const Header = () => {
                 setListCart={setcarts}
               />
             </div>
+            <div className="mt-5 pt-5 border-t-2 border-solid border-[#EAEBED">
+              <div className="flex items-center justify-between">
+                <p className="font-bold">Tổng cộng</p>
+                <p className="font-bold">
+                  {formatCurrencyWithDots(getTotalBill(carts))} đ
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mt-5">
-          <p className="font-bold mb-2">Thông tin liên hệ</p>
-          <form>
+        <div className="mt-10">
+          <p className="font-bold mb-5">Thông tin liên hệ</p>
+          <div>
             <div className="form-control">
               <div className="form-control-title">
                 <span>Tên</span>
@@ -396,7 +409,7 @@ const Header = () => {
                 <FormError message={errors.contact_email.message} />
               )}
             </div>
-          </form>
+          </div>
         </div>
       </Modal>
     </>

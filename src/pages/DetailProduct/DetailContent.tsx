@@ -5,6 +5,9 @@ import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import { TImageItem } from ".";
+import EventEmitter from "events";
+
+export const ee = new EventEmitter();
 
 interface IDetailContent {
   product: IProduct;
@@ -36,6 +39,7 @@ const DetailContent: React.FC<IDetailContent> = ({
         return;
       } else {
         newCarts = [...oldCartsParsed];
+        ee.emit("addToCart", newCarts);
       }
     }
     newCarts.push(product);

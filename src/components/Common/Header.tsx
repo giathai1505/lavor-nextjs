@@ -14,6 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 import FormError from "./FormError";
 import { AiOutlineClose } from "react-icons/ai";
 import { ee } from "@/pages/DetailProduct/DetailContent";
+import SearchBox from "../Header/SearchBox";
 
 type IOrderContact = {
   contact_name: string;
@@ -102,6 +103,7 @@ const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [confirmModelOpen, setConfirmModelOpen] = useState<boolean>(false);
   const [api, contextHolder] = notification.useNotification();
+  const [isShowSearch, setIsShowSearch] = useState<boolean>(false);
   const path = usePathname();
 
   const form = useForm<IOrderContact>({
@@ -240,18 +242,27 @@ const Header = () => {
               })}
             </div>
             <div className="flex gap-5 ml-5 mt-2">
-              <Image
-                src={searchIcon}
-                alt="Tìm kiếm sản phẩm"
-                className="w-8 h-8 object-cover cursor-pointer"
-                loading="eager"
-              />
+              <div className="relative">
+                <Image
+                  src={searchIcon}
+                  alt="Tìm kiếm sản phẩm"
+                  className="w-8 h-8 object-cover cursor-pointer"
+                  loading="eager"
+                  onClick={() => setIsShowSearch(true)}
+                />
+                {isShowSearch && (
+                  <SearchBox
+                    show={isShowSearch}
+                    close={() => setIsShowSearch(false)}
+                  />
+                )}
+              </div>
 
               <div onClick={() => setOpen(true)}>
                 <Badge count={carts.length}>
                   <Image
                     src={cartIcon}
-                    alt="Tìm kiếm sản phẩm"
+                    alt="Giỏ hàng"
                     className="w-8 h-8 object-cover cursor-pointer"
                     loading="eager"
                   />

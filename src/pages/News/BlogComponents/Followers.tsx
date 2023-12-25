@@ -13,14 +13,14 @@ const followList = [
     link: SocialMediaLink.facebook,
   },
   {
-    id: 1,
+    id: 2,
     name: "Tiktok",
     followers: 27000,
     icon: <FaTiktok />,
     link: SocialMediaLink.tiktok,
   },
   {
-    id: 1,
+    id: 3,
     name: "Youtube",
     followers: 126000,
     icon: <FaYoutube />,

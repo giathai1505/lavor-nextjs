@@ -36,11 +36,10 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
         provinces.length > 0 &&
         provinces.map((item) => {
           return (
-            <>
+            <div key={item.city_id}>
               <div
                 className="flex items-center gap-2 bg-[#4f4f4f] mb-2 cursor-pointer text-white py-2 pl-5"
                 onClick={() => toggleActiveProvince(item.city_id)}
-                key={item.city_id}
               >
                 <GoTriangleRight
                   className={` ${
@@ -60,7 +59,7 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
                   {Array.isArray(listAgency) && listAgency.length > 0 ? (
                     listAgency.map((item) => {
                       return (
-                        <div className="mb-5 ml-5">
+                        <div className="mb-5 ml-5" key={item.agency_id}>
                           <p className="font-bold text-primary">
                             {item.agency_name}
                           </p>
@@ -81,7 +80,7 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
                   )}
                 </div>
               ) : null}
-            </>
+            </div>
           );
         })}
     </div>

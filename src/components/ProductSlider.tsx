@@ -36,7 +36,7 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({
         {Array.isArray(products) &&
           products.map((item) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={item.product_id}>
                 <div className="pb-2" key={item.product_id}>
                   <div className="rounded h-[215px] overflow-hidden">
                     <LazyImage

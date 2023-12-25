@@ -1,5 +1,3 @@
-import { spawn } from "child_process";
-import { unescape } from "querystring";
 import React, { useEffect, useRef, useState } from "react";
 export interface IDropdownOption {
   id: number;
@@ -76,6 +74,7 @@ const Dropdown: React.FC<IDropdown> = ({
               <li
                 className={`${item.id === selectedOption?.id && "active"}`}
                 onClick={() => handleChangeOption(item, name)}
+                key={item.id}
               >
                 {item.value}
               </li>

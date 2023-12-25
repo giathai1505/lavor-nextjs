@@ -20,6 +20,7 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
           return (
             <div
               className={`dot ${index <= active ? "bg-primary" : "bg-white"}`}
+              key={index}
             ></div>
           );
         })}

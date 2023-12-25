@@ -61,7 +61,7 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
               ratings.length > 0 &&
               ratings.map((item) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={item.review_id}>
                     <RatingItem rating={item} width={productItemWidth} />
                   </SwiperSlide>
                 );

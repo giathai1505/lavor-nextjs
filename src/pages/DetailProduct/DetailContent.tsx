@@ -3,9 +3,9 @@ import React from "react";
 import { IProduct } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
 import { TImageItem } from ".";
 import EventEmitter from "events";
+import { notification } from "antd";
 
 export const ee = new EventEmitter();
 ee.setMaxListeners(100);
@@ -23,6 +23,23 @@ const DetailContent: React.FC<IDetailContent> = ({
   onChangeColor,
 }) => {
   if (!product) return null;
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotificationAddCartFail = () => {
+    api["error"]({
+      message: "Sản phẩm đã tồn tại trong giỏ hàng!",
+      description:
+        "Quý khách không thể thêm hai sản phẩm giống nhau vào trong giỏ hàng! Vui lòng nhấn vào icon giỏ hàng để kiểm tra thông tin.",
+    });
+  };
+
+  const openNotificationAddCartSuccess = () => {
+    api["success"]({
+      message: "Thêm vào giở hàng thành công!",
+      description:
+        "Sản phẩm đã được thêm vào giỏ hàng thành công! Vui lòng nhấn vào icon giỏ hàng để xem chi tiết.",
+    });
+  };
 
   const handleAddToCart = () => {
     let newCarts: IProduct[] = [];
@@ -34,9 +51,7 @@ const DetailContent: React.FC<IDetailContent> = ({
         (item) => item.product_id === product.product_id
       );
       if (isExist !== -1) {
-        toast.error("Sản phẩm đã có trong giỏ hàng!", {
-          position: "top-right",
-        });
+        openNotificationAddCartFail();
         return;
       } else {
         newCarts = [...oldCartsParsed];
@@ -45,13 +60,12 @@ const DetailContent: React.FC<IDetailContent> = ({
     }
     newCarts.push(product);
     localStorage.setItem("carts", JSON.stringify(newCarts));
-    toast.success("Thêm sản phẩm vào giỏ hàng thành công!!!", {
-      position: "top-right",
-    });
+    openNotificationAddCartSuccess();
   };
 
   return (
     <>
+      {contextHolder}
       <div className="flex flex-col gap-5 text-white">
         <div>
           <p className="db-name ">{product?.product_name}</p>
@@ -64,7 +78,7 @@ const DetailContent: React.FC<IDetailContent> = ({
                 Array.isArray(product.product_detail) &&
                 product.product_detail.map((item) => {
                   return (
-                    <li>
+                    <li key={item.value}>
                       {item.name} : {item.value}
                     </li>
                   );
@@ -93,6 +107,7 @@ const DetailContent: React.FC<IDetailContent> = ({
                     className={`db-color-item ${
                       activeVariant.id === item.variant_color ? "active" : ""
                     }`}
+                    key={item.variant_color}
                   ></div>
                 );
               })}
@@ -105,7 +120,6 @@ const DetailContent: React.FC<IDetailContent> = ({
           <span>Thêm vào giỏ hàng</span>
         </button>
       </div>
-      <ToastContainer />
     </>
   );
 };

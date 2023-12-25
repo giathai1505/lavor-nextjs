@@ -4,6 +4,7 @@ import userAvatar from "@/assets/images/common/user.png";
 import { BsFillStarFill } from "react-icons/bs";
 import { FaQuoteLeft } from "react-icons/fa";
 import { TRating } from "@/types/type";
+import Item from "antd/es/list/Item";
 
 type IRatingItem = {
   rating: TRating;
@@ -33,6 +34,7 @@ const RatingItem: React.FC<IRatingItem> = ({ width, rating }) => {
               className={`w-5 h-5 cursor-pointer relative ${
                 star <= Number(rating?.review_rating) ? "text-[#FED127]" : ""
               }`}
+              key={star.toString()}
             />
           );
         })}

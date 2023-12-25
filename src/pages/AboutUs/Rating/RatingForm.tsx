@@ -127,6 +127,7 @@ const RatingForm = () => {
                 onMouseOver={() => setHoverIndex(item)}
                 onMouseLeave={() => setHoverIndex(-1)}
                 onClick={() => setRatingStar(item)}
+                key={item}
               />
             );
           })}

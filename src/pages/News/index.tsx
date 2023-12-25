@@ -69,22 +69,11 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
   const { deleteQueryParam, getQueryParam, setQueryParam } = useQueryParams();
   const [data, setData] = useState<IBlog[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<any>();
-  const typeView = getQueryParam("view");
-  const currentPage = getQueryParam("page");
+  const typeView = getQueryParam("view") ?? "grid";
+  const currentPage = getQueryParam("page") ?? 1;
   const category = getQueryParam("category");
 
   useEffect(() => {
-    let params: any = {};
-
-    if (!typeView) {
-      params.view = "grid";
-    }
-    if (pagination) {
-      params.page = pagination?.page.toString();
-      params.pageSize = pagination?.limit.toString();
-      setQueryParam(params);
-    }
-
     setSelectedCategory(category as Category);
     setData(filterBlogs);
   }, []);
@@ -137,13 +126,13 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
         {typeOfView === "grid" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {data.map((item) => {
-              return <NewGridViewItem blog={item} />;
+              return <NewGridViewItem blog={item} key={item.blog_id} />;
             })}
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-10">
             {data.map((item) => {
-              return <NewListViewItem blog={item} />;
+              return <NewListViewItem blog={item} key={item.blog_id} />;
             })}
           </div>
         )}

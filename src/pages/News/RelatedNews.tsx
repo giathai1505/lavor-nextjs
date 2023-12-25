@@ -30,7 +30,7 @@ const RelatedNews: React.FC<IRelatedNews> = ({ blogs }) => {
         {Array.isArray(blogs) &&
           blogs.length > 0 &&
           blogs.map((item) => {
-            return <NewGridViewItem blog={item} />;
+            return <NewGridViewItem blog={item} key={item.blog_id} />;
           })}
       </div>
     </div>

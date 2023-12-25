@@ -105,9 +105,8 @@ const ChooseDesign: React.FC<IChooseDesign> = ({
                   <label htmlFor="" className="">
                     <input
                       type="checkbox"
-                      name=""
+                      readOnly
                       checked={selectedMaterial?.materialID === item.id}
-                      id=""
                       className="w-6 h-6"
                     />
                   </label>

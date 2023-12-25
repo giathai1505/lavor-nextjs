@@ -5,10 +5,14 @@ import { TImageItem } from ".";
 interface IDetailImage {
   productImages: TImageItem[];
   activeVariant: TImageItem;
-onChangeVariant: (data: TImageItem) => void
+  onChangeVariant: (data: TImageItem) => void;
 }
 
-const DetailImage: React.FC<IDetailImage> = ({ productImages, activeVariant, onChangeVariant }) => {
+const DetailImage: React.FC<IDetailImage> = ({
+  productImages,
+  activeVariant,
+  onChangeVariant,
+}) => {
   if (!productImages) return null;
 
   return (
@@ -18,12 +22,13 @@ const DetailImage: React.FC<IDetailImage> = ({ productImages, activeVariant, onC
           {productImages.map((item) => {
             return (
               <img
-                alt="Ảnh gối cổ"
+                alt="Ảnh sản phẩm"
                 src={"http://" + item.url}
                 className={`dp-slide-img-item ${
                   item.id === activeVariant.id ? "active" : ""
                 }`}
                 onClick={() => onChangeVariant(item)}
+                key={item.id}
               />
             );
           })}

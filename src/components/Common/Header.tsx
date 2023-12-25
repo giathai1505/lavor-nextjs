@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { userNavbarData } from "@/assets/staticData";
 import cartIcon from "@/assets/images/common/cart-icon.png";
 import searchIcon from "@/assets/images/common/search-icon.png";
-import { Badge, Button, Drawer, Empty, Modal } from "antd";
+import { Badge, Button, Drawer, Empty, Modal, notification } from "antd";
 import { IProduct, ProductTypeToText } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import { Controller, useForm } from "react-hook-form";
@@ -64,7 +64,10 @@ const RenderCartItem: React.FC<TRenderCartItem> = ({
     <>
       {carts.map((item) => {
         return (
-          <div className="flex justify-between items-center">
+          <div
+            className="flex justify-between items-center"
+            key={item.product_id}
+          >
             <div className="flex gap-5 mb-5">
               <img
                 src={"http://" + item.product_images[0]}
@@ -98,16 +101,22 @@ const Header = () => {
   const [carts, setcarts] = useState<IProduct[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [confirmModelOpen, setConfirmModelOpen] = useState<boolean>(false);
+  const [api, contextHolder] = notification.useNotification();
   const path = usePathname();
 
   const form = useForm<IOrderContact>({
+    defaultValues: {
+      contact_email: "",
+      contact_name: "",
+      contact_phone: "",
+    },
     mode: "all",
   });
 
   const {
     control,
-    handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
+    reset,
   } = form;
 
   const handleEventAddToCart = (carts: IProduct[]) => {
@@ -141,10 +150,34 @@ const Header = () => {
     }
   };
 
-  const handleOrderSuccess = () => {};
+  const openNotificationWithIcon = () => {
+    api["success"]({
+      message: "Đơn hàng thành công!",
+      description:
+        "Đơn hàng đã được gửi đến bộ phận quản lý. Sẽ có nhân viên liên hệ và hỗ trợ quý khách. Cảm ơn quý khách đã tin tưởng và ủng hộ Lavor!",
+    });
+  };
+
+  const handleOrderSuccess = () => {
+    setConfirmModelOpen(false);
+    setOpen(false);
+    openNotificationWithIcon();
+
+    //reset form value
+    reset({
+      contact_email: "",
+      contact_name: "",
+      contact_phone: "",
+    });
+
+    //clear cart
+    localStorage.setItem("carts", JSON.stringify([]));
+    setcarts([]);
+  };
 
   return (
     <>
+      {contextHolder}
       <div
         className={`h-[110px] text-white text-[13px] header fixed left-0 top-0 z-30 w-[100vw] ${
           showFullHeader
@@ -270,147 +303,148 @@ const Header = () => {
       <Modal
         title="Xác nhận đơn hàng"
         open={confirmModelOpen}
-        onOk={handleOrderSuccess}
         onCancel={() => setConfirmModelOpen(false)}
         footer={[
-          <Button key="back" onClick={() => setOpen(false)}>
+          <Button key="back" onClick={() => setConfirmModelOpen(false)}>
             Hủy
           </Button>,
           <Button
             key="submit"
             type="primary"
             className="text-white bg-primary hover:bg-primary"
-            disabled={false}
-            onClick={() => setOpen(false)}
+            disabled={!isDirty || !isValid}
+            onClick={handleOrderSuccess}
           >
             Gửi thông tin
           </Button>,
         ]}
       >
-        <div className="mt-10">
-          <p className="font-bold mb-4">Thông tin đơn hàng</p>
-          <div>
-            <p className="mb-3 font-bold text-primary">
-              Số lượng sản phẩm: {carts.length}
-            </p>
+        <form>
+          <div className="mt-10">
+            <p className="font-bold mb-4">Thông tin đơn hàng</p>
             <div>
-              <RenderCartItem
-                carts={carts}
-                isShowCloseIcon={false}
-                setListCart={setcarts}
-              />
-            </div>
-            <div className="mt-5 pt-5 border-t-2 border-solid border-[#EAEBED">
-              <div className="flex items-center justify-between">
-                <p className="font-bold">Tổng cộng</p>
-                <p className="font-bold">
-                  {formatCurrencyWithDots(getTotalBill(carts))} đ
-                </p>
+              <p className="mb-3 font-bold text-primary">
+                Số lượng sản phẩm: {carts.length}
+              </p>
+              <div>
+                <RenderCartItem
+                  carts={carts}
+                  isShowCloseIcon={false}
+                  setListCart={setcarts}
+                />
+              </div>
+              <div className="mt-5 pt-5 border-t-2 border-solid border-[#EAEBED">
+                <div className="flex items-center justify-between">
+                  <p className="font-bold">Tổng cộng</p>
+                  <p className="font-bold">
+                    {formatCurrencyWithDots(getTotalBill(carts))} đ
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="mt-10">
-          <p className="font-bold mb-5">Thông tin liên hệ</p>
-          <div>
-            <div className="form-control">
-              <div className="form-control-title">
-                <span>Tên</span>
-                <div>*</div>
-              </div>
+          <div className="mt-10">
+            <p className="font-bold mb-5">Thông tin liên hệ</p>
+            <div>
+              <div className="form-control">
+                <div className="form-control-title">
+                  <span>Tên</span>
+                  <div>*</div>
+                </div>
 
-              <Controller
-                name="contact_name"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Bạn cần phải nhập trường này!",
-                }}
-                render={({ field }) => (
-                  <input
-                    {...field}
-                    type="text"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
-                    placeholder="Nhập tên"
-                    className="admin-input"
-                    id="text"
-                  />
+                <Controller
+                  name="contact_name"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: "Bạn cần phải nhập trường này!",
+                  }}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      onBlur={() => {
+                        if (!field.value) {
+                          field.onChange("");
+                        }
+                      }}
+                      placeholder="Nhập tên"
+                      className="admin-input"
+                      id="text"
+                    />
+                  )}
+                />
+                {errors.contact_name && (
+                  <FormError message={errors.contact_name.message} />
                 )}
-              />
-              {errors.contact_name && (
-                <FormError message={errors.contact_name.message} />
-              )}
-            </div>
-            <div className="form-control">
-              <div className="form-control-title">
-                <span>Số điện thoại</span>
-                <div>*</div>
               </div>
+              <div className="form-control">
+                <div className="form-control-title">
+                  <span>Số điện thoại</span>
+                  <div>*</div>
+                </div>
 
-              <Controller
-                name="contact_phone"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Bạn cần phải nhập trường này!",
-                }}
-                render={({ field }) => (
-                  <input
-                    {...field}
-                    type="text"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
-                    placeholder="Nhập số điện thoại"
-                    className="admin-input"
-                    id="text"
-                  />
+                <Controller
+                  name="contact_phone"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: "Bạn cần phải nhập trường này!",
+                  }}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      onBlur={() => {
+                        if (!field.value) {
+                          field.onChange("");
+                        }
+                      }}
+                      placeholder="Nhập số điện thoại"
+                      className="admin-input"
+                      id="text"
+                    />
+                  )}
+                />
+                {errors.contact_phone && (
+                  <FormError message={errors.contact_phone.message} />
                 )}
-              />
-              {errors.contact_phone && (
-                <FormError message={errors.contact_phone.message} />
-              )}
-            </div>
-            <div className="form-control">
-              <div className="form-control-title">
-                <span>Email</span>
-                <div>*</div>
               </div>
+              <div className="form-control">
+                <div className="form-control-title">
+                  <span>Email</span>
+                  <div>*</div>
+                </div>
 
-              <Controller
-                name="contact_phone"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: "Bạn cần phải nhập trường này!",
-                }}
-                render={({ field }) => (
-                  <input
-                    {...field}
-                    type="text"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
-                    placeholder="Nhập email"
-                    className="admin-input"
-                    id="text"
-                  />
+                <Controller
+                  name="contact_email"
+                  control={control}
+                  defaultValue=""
+                  rules={{
+                    required: "Bạn cần phải nhập trường này!",
+                  }}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      onBlur={() => {
+                        if (!field.value) {
+                          field.onChange("");
+                        }
+                      }}
+                      placeholder="Nhập email"
+                      className="admin-input"
+                      id="text"
+                    />
+                  )}
+                />
+                {errors.contact_email && (
+                  <FormError message={errors.contact_email.message} />
                 )}
-              />
-              {errors.contact_email && (
-                <FormError message={errors.contact_email.message} />
-              )}
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </Modal>
     </>
   );

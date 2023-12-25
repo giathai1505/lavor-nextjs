@@ -214,7 +214,7 @@ export const userFooterData = [
 
 export const userNavbarData = [
   {
-    id: 1,
+    id: 0,
     name: "Trang chủ",
     slug: "/",
     children: [],

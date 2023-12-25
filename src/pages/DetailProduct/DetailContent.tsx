@@ -8,6 +8,7 @@ import { TImageItem } from ".";
 import EventEmitter from "events";
 
 export const ee = new EventEmitter();
+ee.setMaxListeners(100);
 
 interface IDetailContent {
   product: IProduct;

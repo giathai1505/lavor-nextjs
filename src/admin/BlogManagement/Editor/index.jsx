@@ -46,7 +46,7 @@ function CustomEditor({ setValue, value }) {
     <div className="App">
       <div style={{ width: "100%" }}>
         <Editor
-          apiKey={`0l9ca7pyz0qyliy0v9mmkfl2cz69uodvc8l6md8o4cnf6rnc`}
+          apiKey={`84mzwz95p2153mijzz37ax0vqgwiwukfr5xzyqlvrnwvq62d`}
           init={{
             height: 600,
             menubar: true,

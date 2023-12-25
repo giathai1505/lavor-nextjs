@@ -1,6 +1,6 @@
 import Footer from "@/components/Common/Footer";
-import Header from "@/components/Common/Header";
-import PhoneHeader from "@/components/Common/PhoneHeader";
+import Header from "@/components/Header/Header";
+import PhoneHeader from "@/components/Header/PhoneHeader";
 import { Metadata } from "next";
 import React from "react";
 

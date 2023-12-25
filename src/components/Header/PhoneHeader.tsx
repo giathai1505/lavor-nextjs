@@ -1,31 +1,60 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@/assets/images/logo/logo-white.png";
 import { BsList } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
 import { usePathname } from "next/navigation";
 import { userNavbarData } from "@/assets/staticData";
+import { IProduct } from "@/types/type";
+import { ee } from "@/pages/DetailProduct/DetailContent";
+import Cart from "./Cart";
+import ConfirmOrderModel from "./ConfirmOrderModel";
 
 const PhoneHeader = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const path = usePathname();
+  const [carts, setCarts] = useState<IProduct[]>([]);
+  const [confirmModelOpen, setConfirmModelOpen] = useState<boolean>(false);
+
+  const handleEventAddToCart = (carts: IProduct[]) => {
+    setCarts(carts);
+  };
+
+  ee.on("addToCart", handleEventAddToCart);
+
+  useEffect(() => {
+    const carts = localStorage.getItem("carts");
+    if (carts) {
+      const parsedCarts: IProduct[] = JSON.parse(carts);
+      Array.isArray(parsedCarts) && parsedCarts.length > 0
+        ? setCarts(parsedCarts)
+        : setCarts([]);
+    }
+  }, []);
 
   return (
     <div>
-      <div className="flex p-2 md:p-3 justify-between items-center fixed top-0 left-0 right-0 z-30 bg-black">
+      <div className="header-phone-wrapper">
         <Link href="/">
           <Image
             src={logo}
-            alt="Logo"
+            alt="Logo Lavor"
             className={`w-[100px] logo-img md:w-[160px]`}
           />
         </Link>
-        <BsList
-          className="w-[30px] h-[30px] text-white cursor-pointer"
-          onClick={() => setShowSidebar(true)}
-        />
+        <div className="flex items-center gap-5">
+          <Cart
+            showConfirmModal={setConfirmModelOpen}
+            carts={carts}
+            setCarts={setCarts}
+          />
+          <BsList
+            className="w-[30px] h-[30px] text-white cursor-pointer"
+            onClick={() => setShowSidebar(true)}
+          />
+        </div>
       </div>
 
       <div
@@ -90,6 +119,12 @@ const PhoneHeader = () => {
           })}
         </div>
       </div>
+      <ConfirmOrderModel
+        carts={carts}
+        setCarts={setCarts}
+        isShow={confirmModelOpen}
+        setShow={setConfirmModelOpen}
+      />
     </div>
   );
 };

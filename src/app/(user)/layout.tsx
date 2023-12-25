@@ -15,8 +15,8 @@ import "@/assets/styles/admin/dialog.css";
 import "@/assets/styles/admin/blog.css";
 import "@/pages/News/blog.css";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "@/components/Common/Header";
-import PhoneHeader from "@/components/Common/PhoneHeader";
+import Header from "@/components/Header/Header";
+import PhoneHeader from "@/components/Header/PhoneHeader";
 import Footer from "@/components/Common/Footer";
 import LiveChatIcon from "@/components/Common/LiveChatIcon";
 

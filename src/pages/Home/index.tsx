@@ -21,7 +21,7 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
   return (
     <div>
       <div className="home-img overflow-hidden">
-        <div className="h-[350px] md:h-[800px] xl:h-[80vh]">
+        <div className="h-[280px] md:h-[800px] xl:h-[80vh]">
           <HomeCarousel />
         </div>
         <div className="absolute home-text-wrapper left-0 z-10 top-[40%] hidden xl:block">

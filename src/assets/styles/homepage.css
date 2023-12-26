@@ -10,21 +10,36 @@
 
 .home-text-wrapper {
   transform: translateY(-30%);
-  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
-  left: 200px;
-  padding: 40px 60px;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  position: absolute;
 }
 
 .home-text {
   height: auto;
   width: auto;
+  padding: 30px 50px;
   color: #f47a21;
-
   text-align: left;
   z-index: 90;
   margin: 0;
   margin-bottom: 40px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.home-text::before {
+  content: "";
+  position: absolute;
+  left: -100px;
+  top: 0px;
+  height: 100%;
+  width: 100px;
+  -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+  clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .home-leather {

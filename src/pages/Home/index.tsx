@@ -24,26 +24,6 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
         <div className="h-[280px] md:h-[800px] xl:h-[80vh]">
           <HomeCarousel />
         </div>
-        <div className="absolute home-text-wrapper left-0 z-10 top-[40%] hidden xl:block">
-          <div className="home-text ">
-            <h3 className="relative pb-5 leading-10 text-2xl">
-              <span className="font-bold text-3xl">
-                ĐẲNG CẤP HƠN VỚI LAVOR!
-              </span>
-            </h3>
-            <p className="text-white text-lg">
-              Bạn muốn nâng tầm, làm mới nội thất xe của mình?
-            </p>
-          </div>
-
-          <Link href="/thiet-ke" className="relative mt-2">
-            <Image
-              alt="choose your design"
-              src={startNowButton}
-              className="start-button w-80"
-            />
-          </Link>
-        </div>
       </div>
 
       <div className="home-leather py-5">

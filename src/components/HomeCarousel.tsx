@@ -1,7 +1,10 @@
 "use client";
 import { carouseSliderImages } from "@/assets/staticData";
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import startNowButton from "@/assets/images/common/start-now-button.png";
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
@@ -68,7 +71,24 @@ const HomeCarousel = () => {
           );
         })}
       </div>
+      <div className="home-text-wrapper hidden xl:block">
+        <div className="home-text">
+          <p className="relative pb-3 leading-10 text-xl">
+            <span className="font-bold text-2xl">ĐẲNG CẤP HƠN VỚI LAVOR!</span>
+          </p>
+          <p className="text-white text-lg">
+            Bạn muốn nâng tầm, làm mới nội thất xe của mình?
+          </p>
+        </div>
 
+        <Link href="/thiet-ke" className="relative mt-2">
+          <Image
+            alt="choose your design"
+            src={startNowButton}
+            className="start-button w-[500px] mr-[100px]"
+          />
+        </Link>
+      </div>
       <div className="carousel-slider-wrapper">
         <div
           className="inline-flex relative h-full"

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import directorTreeImg from "@/assets/images/common/director-tree.png";
+import directorTreeImg from "@/assets/images/common/director-tree.webp";
 
 const Part1 = () => {
   return (

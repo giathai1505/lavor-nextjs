@@ -1,5 +1,5 @@
 import React from "react";
-import authBg from "@/assets/images/admin/auth-bg.jpeg";
+import authBg from "@/assets/images/admin/auth-bg.webp";
 import Image from "next/image";
 
 export default function AdminAuthLayout({

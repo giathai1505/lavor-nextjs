@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import map from "@/assets/images/map.png";
+import map from "@/assets/images/common/agency-map.png";
 import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/5.jpeg";

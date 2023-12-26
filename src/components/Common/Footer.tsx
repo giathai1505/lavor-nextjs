@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import logo from "@/assets/images/logo/logo-white.png";
-import certificate from "@/assets/images/certificate.png";
+import certificate from "@/assets/images/common/footer-certificate.png";
 import { FaSquareFacebook, FaTiktok } from "react-icons/fa6";
 import { AiFillGooglePlusCircle, AiFillYoutube } from "react-icons/ai";
 import Link from "next/link";

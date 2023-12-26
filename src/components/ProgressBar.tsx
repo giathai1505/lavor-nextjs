@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import startImg from "@/assets/images/start-circle.png";
+import startImg from "@/assets/images/common/start-circle-button.png";
 
 interface IProgressBar {
   active: number;

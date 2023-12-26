@@ -11,8 +11,7 @@ import { Category, IBlog, IPagination } from "@/types/type";
 import Pagination from "@/components/Common/Pagination";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import useQueryParams from "@/hooks/useQueryParam";
-import Image from "next/image";
-import NoBlogImage from "@/assets/images/empty-data/empty-blog.svg";
+import { Empty } from "antd";
 
 const listDanhMuc = [
   {
@@ -112,13 +111,8 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
     if (blogs.length === 0)
       return (
         <div className="flex justify-center mt-40 flex-col items-center">
-          <Image
-            alt="Không có bài viết nào"
-            src={NoBlogImage}
-            className="w-[200px]"
-          />
-          <p className="text-white mt-5">Chưa có bài viết nào</p>
-        </div>
+          <Empty description={<span className="text-white">Chưa có bài viết nào</span>} />
+        </div> 
       );
 
     return (

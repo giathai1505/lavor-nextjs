@@ -6,7 +6,7 @@ import ChooseDesign from "./ChooseDesign";
 import Conclusion from "./Conclusion";
 import Link from "next/link";
 import Image from "next/image";
-import startButton from "@/assets/images/start-now-button.png";
+import startButton from "@/assets/images/common/start-now-button.png";
 import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";

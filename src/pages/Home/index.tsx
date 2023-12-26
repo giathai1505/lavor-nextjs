@@ -6,7 +6,7 @@ import startButton from "@/assets/images/start-now-button.png";
 import Button from "@/components/Common/Button";
 import ProductPart from "./ProductPart";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import introduceImg from "@/assets/images/common/home-part2.jpeg";
+import introduceImg from "@/assets/images/common/home-part2.webp";
 import HomeCarousel from "@/components/HomeCarousel";
 import { amazingCar } from "@/assets/staticData";
 import { IProduct } from "@/types/type";

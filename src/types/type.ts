@@ -193,3 +193,9 @@ export type ICarTable = {
   brand_name: string;
   deleted_at: any;
 };
+
+export enum EDesignPhase {
+  CHOOSE_CAR = 1,
+  CHOOSE_DESIGN = 2,
+  CONCLUSION = 3,
+}

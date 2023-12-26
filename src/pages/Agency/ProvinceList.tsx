@@ -1,7 +1,7 @@
-import { IAgency, ICity } from "@/types/type";
-import { Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { GoTriangleRight } from "react-icons/go";
+import { IAgency, ICity } from "@/types/type";
+import { Empty } from "antd";
 
 interface IProvinceList {
   provinces: ICity[];
@@ -48,11 +48,7 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
                       : ""
                   }`}
                 />
-                <span
-                  className={`${activeProvince === item.city_id ? "" : ""}`}
-                >
-                  {item?.city_name}
-                </span>
+                <span>{item?.city_name}</span>
               </div>
               {activeProvince === item.city_id ? (
                 <div>
@@ -70,12 +66,13 @@ const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
                   ) : (
                     <div className="flex flex-col items-center my-5">
                       <Empty
-                        description=""
+                        description={
+                          <p className="text-primary italic">
+                            (Chưa có đại lý nào)
+                          </p>
+                        }
                         imageStyle={{ opacity: 0.5, width: "80px" }}
                       />
-                      <p className="text-primary italic">
-                        (Chưa có đại lý nào)
-                      </p>
                     </div>
                   )}
                 </div>

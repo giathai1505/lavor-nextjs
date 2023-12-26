@@ -1,8 +1,8 @@
 import { getCar } from "@/api/carAPI";
 import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
-import { IBrand, IModel, IYear } from "@/types/type";
+import { IBrand, IYear } from "@/types/type";
 import React, { useEffect, useState } from "react";
-import { CircleLoader, ClipLoader } from "react-spinners";
+import { CircleLoader } from "react-spinners";
 import { TCar } from ".";
 
 interface IChooseCar {

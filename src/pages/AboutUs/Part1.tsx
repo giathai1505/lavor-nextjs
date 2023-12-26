@@ -40,6 +40,7 @@ const Part1 = () => {
           <Image
             alt="Sô đồ ban giám đốc"
             src={directorTreeImg}
+            priority={true}
             className="rounded-xl border-[6px] border-solid border-primary xl:h-[400px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[700px] object-cover"
           />
         </div>

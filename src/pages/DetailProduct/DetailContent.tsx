@@ -6,6 +6,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { TImageItem } from ".";
 import EventEmitter from "events";
 import { notification } from "antd";
+import { eventKeys } from "@/constants/constants";
 
 export const ee = new EventEmitter();
 ee.setMaxListeners(100);
@@ -55,7 +56,7 @@ const DetailContent: React.FC<IDetailContent> = ({
         return;
       } else {
         newCarts = [...oldCartsParsed];
-        ee.emit("addToCart", newCarts);
+        ee.emit(eventKeys.ADD_TO_CART, newCarts);
       }
     }
     newCarts.push(product);

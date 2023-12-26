@@ -3,6 +3,7 @@ import { GoLocation } from "react-icons/go";
 import { PiHouseLight } from "react-icons/pi";
 import { AiOutlinePhone, AiOutlineGlobal } from "react-icons/ai";
 import { CiMail, CiFacebook } from "react-icons/ci";
+
 const ContactInfo = () => {
   return (
     <div>

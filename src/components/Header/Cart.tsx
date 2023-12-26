@@ -6,6 +6,12 @@ import { IProduct, ProductTypeToText } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import Link from "next/link";
 import { AiOutlineClose } from "react-icons/ai";
+import { localStorageKeys, webRouter } from "@/constants/constants";
+
+const STATIC_TEXT = {
+  emptyCart: "Giỏ hàng rỗng",
+  cartName: "Giỏ hàng",
+};
 
 export const getTotalBill = (products: IProduct[]): number => {
   if (products.length === 0) return 0;
@@ -28,10 +34,10 @@ export const RenderCartItem: React.FC<TRenderCartItem> = ({
   setListCart,
   isShowCloseIcon,
 }) => {
-  if (carts.length === 0) return <Empty description="Giỏ hàng rỗng" />;
+  if (carts.length === 0) return <Empty description={STATIC_TEXT.emptyCart} />;
 
   const handldeRemoveItemFromCart = (id: number) => {
-    const carts = localStorage.getItem("carts");
+    const carts = localStorage.getItem(localStorageKeys.CARTS);
     if (carts) {
       const parsedCarts: IProduct[] = JSON.parse(carts);
       if (Array.isArray(parsedCarts) && parsedCarts.length > 0) {
@@ -41,7 +47,10 @@ export const RenderCartItem: React.FC<TRenderCartItem> = ({
 
         parsedCarts.splice(removeIndex, 1);
         setListCart(parsedCarts);
-        localStorage.setItem("carts", JSON.stringify(parsedCarts));
+        localStorage.setItem(
+          localStorageKeys.CARTS,
+          JSON.stringify(parsedCarts)
+        );
       }
     }
   };
@@ -97,7 +106,7 @@ const Cart: React.FC<TProps> = ({ showConfirmModal, carts, setCarts }) => {
         <Badge count={carts.length}>
           <Image
             src={cartIcon}
-            alt="Giỏ hàng"
+            alt={STATIC_TEXT.cartName}
             className="w-8 h-8 object-cover cursor-pointer"
             loading="eager"
           />
@@ -105,7 +114,7 @@ const Cart: React.FC<TProps> = ({ showConfirmModal, carts, setCarts }) => {
       </div>
 
       <Drawer
-        title="Giỏ hàng "
+        title={STATIC_TEXT.cartName}
         placement="right"
         onClose={() => setOpen(false)}
         open={open}
@@ -126,7 +135,7 @@ const Cart: React.FC<TProps> = ({ showConfirmModal, carts, setCarts }) => {
           </div>
           <div className="flex flex-col gap-5 mt-10">
             <Link
-              href={"/san-pham"}
+              href={webRouter.user.sanPham}
               className="block  text-white bg-black font-bold py-3 text-center hover:text-white hover:bg-primary"
             >
               Tiếp tục mua hàng

@@ -6,13 +6,12 @@ import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-tru
 import RatingForm from "./Rating/RatingForm";
 import RatingItem from "./Rating/RatingItem";
 import { TRating } from "@/types/type";
-const gap = 20;
-
 import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+const GAP = 20;
 
 interface IRating {
   visibleItem: number;
@@ -26,7 +25,7 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
   useEffect(() => {
     if (containerRef.current) {
       let rect = containerRef.current.getBoundingClientRect();
-      let childWidth = (rect.width - (visibleItem - 1) * gap) / visibleItem;
+      let childWidth = (rect.width - (visibleItem - 1) * GAP) / visibleItem;
       setProductItemWidth(childWidth);
     }
   }, []);

@@ -79,7 +79,7 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
         <LeatherSeatCover />
       </div>
 
-      <div className="w-full h-[150px] product-banner mt-10"></div>
+      <div className="w-full h-[150px] xl:h-[300px] product-banner mt-10"></div>
 
       <div className="wrapper">
         <NeckPillow
@@ -95,7 +95,7 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
 
       <div className="wrapper">
         <Image
-          alt=""
+          alt="Product banner"
           src={carBanner}
           className="w-full h-[150px] object-cover"
         />

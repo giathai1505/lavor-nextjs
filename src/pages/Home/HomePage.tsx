@@ -1,7 +1,6 @@
 import ComparisonSlider from "@/components/ComparisonSlider";
 import Image from "next/image";
 import Link from "next/link";
-import startNowButton from "@/assets/images/common/start-now-button.png";
 import startButton from "@/assets/images/common/start-now-button.png";
 import Button from "@/components/Common/Button";
 import ProductPart from "./ProductPart";

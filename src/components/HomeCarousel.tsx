@@ -4,23 +4,16 @@ import React, { useEffect, useRef, useState } from "react";
 import startNowButton from "@/assets/images/common/start-now-button.png";
 import Image from "next/image";
 import Link from "next/link";
-
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
+import { getWindowDimensions } from "@/utilities/commonUtilities";
 
 const DEFAULT_DESKTOP_SCREEN_WIDTH = 1920;
+const TOTAL_SLIDER = 3;
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
-
-const HomeCarousel = () => {
+const HomeCarousel: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState<number>(1);
   const [left, setLeft] = useState<number>(0);
   const carouselWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -34,10 +27,10 @@ const HomeCarousel = () => {
   };
 
   const handleMoveSlideRight = () => {
-    if (activeSlide < 3) {
+    if (activeSlide < TOTAL_SLIDER) {
       setActiveSlide((pre) => pre + 1);
     } else {
-      setActiveSlide(3);
+      setActiveSlide(TOTAL_SLIDER);
     }
   };
 
@@ -60,13 +53,13 @@ const HomeCarousel = () => {
         onClick={handleMoveSlideRight}
       />
       <div className="carousel-dot-wrapper">
-        {[1, 2, 3].map((item) => {
+        {new Array(3).fill(null).map((_, index) => {
           return (
             <div
               className={`carousel-dot-item ${
-                activeSlide === item ? "active" : ""
+                activeSlide === index + 1 ? "active" : ""
               }`}
-              key={item}
+              key={index + 1}
             ></div>
           );
         })}
@@ -94,13 +87,14 @@ const HomeCarousel = () => {
           className="inline-flex relative h-full"
           style={{ left: `${left}px` }}
         >
-          {carouseSliderImages.map((item) => {
+          {carouseSliderImages.map((item, index) => {
             return (
               <div className="carousel-slider-item" key={item.src.toString()}>
                 <Image
                   alt="Slider ảnh"
                   loading="eager"
                   src={item}
+                  priority={index === 0 ? true : false}
                   className="w-full h-full object-cover"
                   placeholder="blur"
                 />

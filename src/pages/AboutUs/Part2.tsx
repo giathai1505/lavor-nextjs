@@ -3,8 +3,9 @@ import Link from "next/link";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import startButton from "@/assets/images/common/start-now-button.png";
 import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/introduce.webp";
+import React from "react";
 
-const Part2 = () => {
+const Part2: React.FC = () => {
   return (
     <div className="bg-secondaryBackground p-5 md:p-10 xl:p-16">
       <div className="wrapper">

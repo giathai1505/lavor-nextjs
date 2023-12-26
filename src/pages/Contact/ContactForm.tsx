@@ -2,10 +2,9 @@
 import React, { useState } from "react";
 import { BiUser, BiMessageSquare } from "react-icons/bi";
 import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
-import "./style.css";
-import Button from "@/components/Common/Button";
 import { Controller, useForm } from "react-hook-form";
 import { CircleLoader } from "react-spinners";
+import "./style.css";
 
 export type TContactForm = {
   contact_name: string;
@@ -16,12 +15,7 @@ export type TContactForm = {
 
 const ContactForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<TContactForm>({
+  const { control, handleSubmit, watch } = useForm<TContactForm>({
     mode: "all",
   });
 
@@ -33,7 +27,7 @@ const ContactForm = () => {
 
   return (
     <div>
-      <form action="" onSubmit={handleSubmit(handleSubmitRating)}>
+      <form onSubmit={handleSubmit(handleSubmitRating)}>
         <div className="flex flex-col gap-5">
           <Controller
             name="contact_name"
@@ -44,11 +38,6 @@ const ContactForm = () => {
                 <input
                   type="text"
                   {...field}
-                  onBlur={() => {
-                    if (!field.value) {
-                      field.onChange("");
-                    }
-                  }}
                   placeholder="Tên khách hàng (bắt buộc)"
                 />
               </div>
@@ -61,16 +50,7 @@ const ContactForm = () => {
             render={({ field }) => (
               <div className="contact-form-control">
                 <AiOutlineMail className="text-white" />
-                <input
-                  type="text"
-                  {...field}
-                  onBlur={() => {
-                    if (!field.value) {
-                      field.onChange("");
-                    }
-                  }}
-                  placeholder="Email"
-                />
+                <input type="text" {...field} placeholder="Email" />
               </div>
             )}
           />
@@ -84,11 +64,6 @@ const ContactForm = () => {
                 <input
                   type="text"
                   {...field}
-                  onBlur={() => {
-                    if (!field.value) {
-                      field.onChange("");
-                    }
-                  }}
                   placeholder="Số điện thoại (bắt buộc)"
                 />
               </div>
@@ -103,11 +78,6 @@ const ContactForm = () => {
                 <BiMessageSquare className="text-white" />
                 <textarea
                   {...field}
-                  onBlur={() => {
-                    if (!field.value) {
-                      field.onChange("");
-                    }
-                  }}
                   placeholder="Nội dung lưu ý của bạn (bắt buộc)"
                 />
               </div>

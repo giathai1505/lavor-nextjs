@@ -9,6 +9,7 @@ import { ee } from "@/pages/DetailProduct/DetailContent";
 import Cart from "./Cart";
 import ConfirmOrderModel from "./ConfirmOrderModel";
 import PhoneDrawerNavbar from "./PhoneDrawerNavbar";
+import { eventKeys } from "@/constants/constants";
 
 const PhoneHeader = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -20,7 +21,7 @@ const PhoneHeader = () => {
   };
 
   //listen add to cart event then update the carts
-  ee.on("addToCart", handleEventAddToCart);
+  ee.on(eventKeys.ADD_TO_CART, handleEventAddToCart);
 
   useEffect(() => {
     const carts = localStorage.getItem("carts");
@@ -56,7 +57,7 @@ const PhoneHeader = () => {
       </div>
 
       <PhoneDrawerNavbar setShow={setShowSidebar} show={showSidebar} />
-      
+
       <ConfirmOrderModel
         carts={carts}
         setCarts={setCarts}

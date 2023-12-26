@@ -20,7 +20,7 @@ const PartHeader: React.FC<IPartHeader> = ({
         src={backgroundImage}
         fill
         className="absolute object-cover"
-        placeholder="blur"
+        priority={true}
       />
 
       <div className="header-bg"></div>

@@ -48,21 +48,6 @@ const listColors = [
   },
 ];
 
-const listHolds = [
-  {
-    id: "#F2E3C6",
-    color: "#F2E3C6",
-  },
-  {
-    id: "#BA804C",
-    color: "#BA804C",
-  },
-  {
-    id: "#C44B3B",
-    color: "#C44B3B",
-  },
-];
-
 interface IChooseDesign {
   onNext: (data: any) => void;
   onPrevious: () => void;
@@ -180,8 +165,6 @@ const ChooseDesign: React.FC<IChooseDesign> = ({
         <h3 className="design-title">Lưu ý đặc biệt</h3>
         <br />
         <textarea
-          name=""
-          id=""
           className="border border-solid border-[#ffffff2b]"
           cols={30}
           rows={10}

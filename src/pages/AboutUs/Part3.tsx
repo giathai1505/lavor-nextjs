@@ -1,8 +1,8 @@
-import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import React from "react";
+import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/2.png";
 
-const Part3 = () => {
+const Part3: React.FC = () => {
   return (
     <div className="bg-black p-5 md:p-10">
       <div className="wrapper">

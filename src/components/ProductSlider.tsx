@@ -2,14 +2,14 @@
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "./styles.css";
 import { Pagination, Navigation } from "swiper/modules";
 import { IProduct } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import LazyImage from "./Common/LazyImage";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "./styles.css";
 
 interface IProductSliderInterface {
   visibleItem: number;

@@ -11,7 +11,7 @@ import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
 import introduceImg from "@/assets/images/common/home-part2.webp";
-import { IBrand, IYear } from "@/types/type";
+import { EDesignPhase, IBrand, IYear } from "@/types/type";
 
 interface IPageProps {
   brands: IBrand[];
@@ -45,8 +45,7 @@ type TDesignData = {
 };
 
 const Design: React.FC<IPageProps> = ({ brands, years }) => {
-  const [phase, setPhase] = useState<number>(1);
-
+  const [phase, setPhase] = useState<EDesignPhase>(EDesignPhase.CHOOSE_CAR);
   const [designData, setDesignData] = useState<TDesignData>({
     car: {
       brand: undefined,
@@ -64,31 +63,30 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
     phoneNumber: "",
   });
 
-  const handleDesignDataChange = (phase: number, data: any) => {
+  const handleDesignDataChange = (phase: EDesignPhase, data: any) => {
     let newData;
     switch (phase) {
-      case 1:
+      case EDesignPhase.CHOOSE_CAR:
         newData = {
           ...designData,
           car: structuredClone(data),
         };
-        setPhase(2);
+        setPhase(EDesignPhase.CHOOSE_DESIGN);
 
         break;
-      case 2:
+      case EDesignPhase.CHOOSE_DESIGN:
         newData = {
           ...designData,
           design: structuredClone(data),
         };
-        setPhase(3);
+        setPhase(EDesignPhase.CONCLUSION);
 
         break;
-      case 3:
+      case EDesignPhase.CONCLUSION:
         newData = {
           ...designData,
           phoneNumber: structuredClone(data),
         };
-        //handle submit tai day
 
         break;
       default:
@@ -101,10 +99,12 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
   const renderPhase = useMemo(() => {
     let phaseComponent;
     switch (phase) {
-      case 1:
+      case EDesignPhase.CHOOSE_CAR:
         phaseComponent = (
           <ChooseCar
-            onNext={(data: any) => handleDesignDataChange(1, data)}
+            onNext={(data: any) =>
+              handleDesignDataChange(EDesignPhase.CHOOSE_CAR, data)
+            }
             brands={brands}
             years={years}
             data={designData.car}
@@ -112,21 +112,25 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
         );
 
         break;
-      case 2:
+      case EDesignPhase.CHOOSE_DESIGN:
         phaseComponent = (
           <ChooseDesign
-            onNext={(data: any) => handleDesignDataChange(2, data)}
+            onNext={(data: any) =>
+              handleDesignDataChange(EDesignPhase.CHOOSE_DESIGN, data)
+            }
             data={designData.design}
-            onPrevious={() => setPhase(1)}
+            onPrevious={() => setPhase(EDesignPhase.CHOOSE_CAR)}
           />
         );
 
         break;
-      case 3:
+      case EDesignPhase.CONCLUSION:
         phaseComponent = (
           <Conclusion
-            onPrevious={() => setPhase(2)}
-            onComplete={(data: any) => handleDesignDataChange(3, data)}
+            onPrevious={() => setPhase(EDesignPhase.CHOOSE_CAR)}
+            onComplete={(data: any) =>
+              handleDesignDataChange(EDesignPhase.CONCLUSION, data)
+            }
             designData={designData}
           />
         );
@@ -146,6 +150,7 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
     }
     return phaseComponent;
   }, [phase, brands, years]);
+
   return (
     <div className="design-wrapper">
       <PartHeader

@@ -11,9 +11,10 @@ import { ee } from "@/pages/DetailProduct/DetailContent";
 import SearchBox from "./SearchBox";
 import Cart from "./Cart";
 import ConfirmOrderModel from "./ConfirmOrderModel";
+import { eventKeys } from "@/constants/constants";
 
-const Header = () => {
-  const [showFullHeader, setShowFullHeader] = useState(true);
+const Header: React.FC = () => {
+  const [showFullHeader, setShowFullHeader] = useState<boolean>(true);
   const [carts, setCarts] = useState<IProduct[]>([]);
   const [confirmModelOpen, setConfirmModelOpen] = useState<boolean>(false);
   const [isShowSearch, setIsShowSearch] = useState<boolean>(false);
@@ -23,7 +24,7 @@ const Header = () => {
     setCarts(carts);
   };
 
-  ee.on("addToCart", handleEventAddToCart);
+  ee.on(eventKeys.ADD_TO_CART, handleEventAddToCart);
 
   useLayoutEffect(() => {
     document.addEventListener("scroll", handleScroll);

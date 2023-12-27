@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import startImg from "@/assets/images/common/start-circle-button.png";
+import { EDesignPhase } from "@/types/type";
 
 interface IProgressBar {
   active: number;
@@ -31,21 +32,21 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
 
       <span
         className={`progress-title left-[28%] md:left-[30%] ${
-          1 <= active ? "show" : ""
+           EDesignPhase.CHOOSE_CAR <= active ? "show" : ""
         }`}
       >
         Chọn xe
       </span>
       <span
         className={`progress-title left-[53%] md:left-[58%] ${
-          2 <= active ? "show" : ""
+          EDesignPhase.CHOOSE_DESIGN <= active ? "show" : ""
         }`}
       >
         Chọn thiết kế
       </span>
       <span
         className={`progress-title right-[-24px] translate-x-[-20px] ${
-          3 <= active ? "show" : ""
+          EDesignPhase.CONCLUSION <= active ? "show" : ""
         }`}
       >
         liên hệ

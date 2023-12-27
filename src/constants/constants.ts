@@ -5,6 +5,7 @@ export const localStorageKeys = {
 export const webRouter = {
   user: {
     sanPham: "/san-pham",
+    HOME_PAGE: "/",
   },
   admin: {},
 };

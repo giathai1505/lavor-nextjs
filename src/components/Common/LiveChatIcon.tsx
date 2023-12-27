@@ -1,7 +1,7 @@
+import React from "react"
 import { SocialMediaLink } from "@/assets/staticData";
 import { Tooltip } from "antd";
 import Link from "next/link";
-import React from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { RiMessengerFill } from "react-icons/ri";
 
@@ -14,7 +14,7 @@ const LiveChatIcon = () => {
   return (
     <div className="fixed bottom-10 p-2 rounded-tl-lg rounded-bl-lg right-5 flex flex-col gap-5 z-[9999999]">
       <Tooltip placement="left" title={TIP_CONTENT.messenger}>
-        <Link href={SocialMediaLink.messenger} className="media-ring-icon">
+        <Link href={SocialMediaLink.messenger} className="media-ring-icon" target="_blank">
           <RiMessengerFill className="w-8 h-8 z-10" />
         </Link>
       </Tooltip>

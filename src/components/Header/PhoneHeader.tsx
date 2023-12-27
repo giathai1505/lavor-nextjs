@@ -9,7 +9,7 @@ import { ee } from "@/pages/DetailProduct/DetailContent";
 import Cart from "./Cart";
 import ConfirmOrderModel from "./ConfirmOrderModel";
 import PhoneDrawerNavbar from "./PhoneDrawerNavbar";
-import { eventKeys } from "@/constants/constants";
+import { eventKeys, webRouter } from "@/constants/constants";
 
 const PhoneHeader = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -36,10 +36,11 @@ const PhoneHeader = () => {
   return (
     <div>
       <div className="header-phone-wrapper">
-        <Link href="/">
+        <Link href={webRouter.user.HOME_PAGE}>
           <Image
             src={logo}
             alt="Logo Lavor"
+            priority={true}
             className={`w-[100px] logo-img md:w-[160px]`}
           />
         </Link>

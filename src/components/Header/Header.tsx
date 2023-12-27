@@ -69,6 +69,7 @@ const Header: React.FC = () => {
                 className={`${
                   showFullHeader ? "w-[210px]" : "w-[120px]"
                 } logo-img`}
+                priority={true}
               />
             </Link>
           </div>

@@ -13,7 +13,7 @@ const Part2: React.FC = () => {
           Chọn chiếc xe của bạn - còn lại để <span>Lavor</span> lo
         </h2>
         <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
-          <div className="text-white text-base md:text-lg mb-5 md:mb-10 ">
+          <div className="text-white text-base md:text-lg mb-5 md:mb-10 text-center">
             <p>
               1. Bạn chỉ cần tìm chiếc xe của mình bằng cách chọn năm sản xuất,
               hãng xe, dòng xe sau đó nhấn tiếp tục để chọn thiết kế riêng của
@@ -31,7 +31,7 @@ const Part2: React.FC = () => {
               bạn
             </p>
           </div>
-          <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
+          <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[220px] xl:w-[400px]">
             <YoutubeThumbnail
               imgAlt="Hướng dẫn lắp đặt bộ massage 3 chức năng"
               imgSrc={introduceImg}

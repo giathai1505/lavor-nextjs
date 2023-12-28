@@ -14,26 +14,26 @@ const ProductPart: React.FC<TPageProps> = ({ products }) => {
         <h2 className="mb-10">
           <span>Sản phẩm</span>
         </h2>
-        <div className="px-10 hidden xl:block mb-36">
+        <div className="px-10 hidden xl:block mb-20">
           <ProductSlider visibleItem={4} products={products} />
         </div>
-        <div className="px-10 hidden md:block xl:hidden mb-36">
+        <div className="px-10 hidden md:block xl:hidden mb-20">
           <ProductSlider visibleItem={2} products={products} />
         </div>
-        <div className="px-10 md:hidden mb-36">
+        <div className="px-10 md:hidden mb-20">
           <ProductSlider visibleItem={1} products={products} />
         </div>
         <h2 className="my-10">
           <span>Danh mục</span>
         </h2>
 
-        <div className="px-10 hidden xl:block">
+        <div className="px-10 hidden xl:block mb-20">
           <CategorySlider />
         </div>
-        <div className="px-10 hidden md:block xl:hidden ">
+        <div className="px-10 hidden md:block xl:hidden mb-20">
           <CategorySlider />
         </div>
-        <div className="px-10 md:hidden">
+        <div className="px-10 md:hidden mb-20">
           <CategorySlider />
         </div>
       </div>

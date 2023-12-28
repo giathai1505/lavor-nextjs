@@ -27,10 +27,11 @@ import productThumbnail5 from "@/assets/images/youtubeThumbnail/products/5.webp"
 import productThumbnail6 from "@/assets/images/youtubeThumbnail/products/6.webp";
 import { ProductType } from "@/types/type";
 
-import bocGheImg from "@/assets/images/cateogries/boc-ghe.png";
-import goiCoImg from "@/assets/images/cateogries/goi-co.png";
-import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san.png";
-import voLangImg from "@/assets/images/cateogries/vo-lang.png";
+import bocGheImg from "@/assets/images/cateogries/boc-ghe-category.png";
+import goiLungImg from "@/assets/images/cateogries/goi-lung-category.png";
+import goiCoImg from "@/assets/images/cateogries/goi-co-category.png";
+import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san-category.png";
+import voLangImg from "@/assets/images/cateogries/boc-vo-lang-category.png";
 import sanPhamKhacImg from "@/assets/images/cateogries/san-pham-khac.png";
 
 //category image
@@ -38,6 +39,8 @@ import bocGheImg1 from "@/assets/images/cateogries/boc-ghe-img.jpeg";
 import goiCoImg1 from "@/assets/images/cateogries/goi-co-img.png";
 import thamLotSanImg1 from "@/assets/images/cateogries/tham-lot-san-img.png";
 import voLangImg1 from "@/assets/images/cateogries/boc-tay-lai-img.jpeg";
+import goiLung1 from "@/assets/images/cateogries/goi-lung.jpeg";
+
 import Link from "next/link";
 import { webRouter } from "@/constants/constants";
 
@@ -432,7 +435,7 @@ export const bocGheDa = [
 export const categories = [
   {
     id: ProductType.CHAIR,
-    name: "Bọc ghế",
+    name: "Bọc ghế da",
     image: bocGheImg,
     href: "/san-pham/boc-ghe-da",
     quantity: 9,
@@ -441,15 +444,6 @@ export const categories = [
   },
 
   {
-    id: ProductType.STEERING_WHEEL,
-    name: "Bọc tay lái",
-    image: voLangImg,
-    href: "/san-pham/boc-tay-lai",
-    quantity: 9,
-    icon: voLangImg1,
-    desc: "Làm từ chất liệu da cao cấp. Thiết kế các lỗ thoáng khí giúp thấm mồ hôi, không còn cảm giác dớp dính khi lái xe. Cam kết chất lượng tốt nhất trên thị trường, mang đến trải nghiệm tuyệt vời cho khách hàng.",
-  },
-  {
     id: ProductType.PILLOW,
     name: "Gối cổ",
     image: goiCoImg,
@@ -457,6 +451,24 @@ export const categories = [
     quantity: 27,
     icon: goiCoImg1,
     desc: "Giúp người lái xe có thể tựa và giữ cổ vai thoải mái, giảm mỏi cổ vai và không bị nghiêng người mỗi lúc xe vào cua. Gối được làm từ chất liệu da cao cấp, chống mồ hôi, êm ái, không chất độc hại.",
+  },
+  {
+    id: "GOI_LUNG",
+    name: "Gối lưng",
+    image: goiLungImg,
+    href: "/san-pham/goi-lung",
+    quantity: 9,
+    icon: goiLung1,
+    desc: "Sử dụng chất liệu da cao cấp giúp bảo vệ thân ghế, chống bám bẩn, chống bám bụi, chống ám mùi, an toàn cho sức khỏe. Đem lại hiệu quả thẩm mỹ cao, thể hiện sự Sang trọng – Đẳng cấp – Cá tính.",
+  },
+  {
+    id: ProductType.STEERING_WHEEL,
+    name: "Bọc tay lái",
+    image: voLangImg,
+    href: "/san-pham/boc-tay-lai",
+    quantity: 9,
+    icon: voLangImg1,
+    desc: "Làm từ chất liệu da cao cấp. Thiết kế các lỗ thoáng khí giúp thấm mồ hôi, không còn cảm giác dớp dính khi lái xe. Cam kết chất lượng tốt nhất trên thị trường, mang đến trải nghiệm tuyệt vời cho khách hàng.",
   },
   {
     id: ProductType.FLOOR,

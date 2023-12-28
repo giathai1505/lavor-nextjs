@@ -1,4 +1,5 @@
-import { AiFillCar, AiOutlineCar, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiFillCar, AiOutlineCar } from "react-icons/ai";
+import { SlLocationPin } from "react-icons/sl";
 import { BiNews } from "react-icons/bi";
 import { CgMail } from "react-icons/cg";
 import { CiLocationOn } from "react-icons/ci";
@@ -37,6 +38,8 @@ import bocGheImg1 from "@/assets/images/cateogries/boc-ghe-img.jpeg";
 import goiCoImg1 from "@/assets/images/cateogries/goi-co-img.png";
 import thamLotSanImg1 from "@/assets/images/cateogries/tham-lot-san-img.png";
 import voLangImg1 from "@/assets/images/cateogries/boc-tay-lai-img.jpeg";
+import Link from "next/link";
+import { webRouter } from "@/constants/constants";
 
 export const AdminSidebarCategories = [
   {
@@ -57,13 +60,6 @@ export const AdminSidebarCategories = [
     icon: <BiNews />,
     link: "/admin/blog-management",
   },
-  // {
-  //   id: 4,
-  //   name: "Giỏ hàng",
-  //   icon: <AiOutlineShoppingCart />,
-  //   link: "/admin/cart-management",
-  // },
-
   {
     id: 5,
     name: "Đại lý",
@@ -76,6 +72,36 @@ export const AdminSidebarCategories = [
     name: "Đánh giá",
     icon: <FaRegStar />,
     link: "/admin/rating-management",
+  },
+];
+
+export const AdminSiderMenuData = [
+  {
+    key: "1",
+    icon: <AiOutlineCar />,
+    label: <Link href={webRouter.admin.CAR_MANAGEMENT}>Quản lý xe</Link>,
+  },
+  {
+    key: "2",
+    icon: <AiFillCar />,
+    label: <Link href={webRouter.admin.PRODUCT_MANAGEMENT}>Sản phẩm</Link>,
+  },
+
+  {
+    key: "3",
+    icon: <BiNews />,
+    label: <Link href={webRouter.admin.BLOG_MANAGEMENT}>Bài viết</Link>,
+  },
+
+  {
+    key: "4",
+    icon: <SlLocationPin />,
+    label: <Link href={webRouter.admin.AGENCY_MANAGEMENT}>Đại lý</Link>,
+  },
+  {
+    key: "5",
+    icon: <FaRegStar />,
+    label: <Link href={webRouter.admin.REVIEW_MANAGEMENT}>Đánh giá</Link>,
   },
 ];
 
@@ -213,12 +239,6 @@ export const userFooterData = [
 ];
 
 export const userNavbarData = [
-  {
-    id: 0,
-    name: "Trang chủ",
-    slug: "/",
-    children: [],
-  },
   {
     id: 1,
     name: "Nội thất thiết kế riêng của bạn",

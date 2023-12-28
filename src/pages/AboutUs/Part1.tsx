@@ -41,7 +41,7 @@ const Part1 = () => {
             alt="Sô đồ ban giám đốc"
             src={directorTreeImg}
             priority={true}
-            className="rounded-xl border-[6px] border-solid border-primary xl:h-[400px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[700px] object-cover"
+            className="rounded-xl border-[6px] border-solid border-primary h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:h-[500px]  xl:w-[900px] object-cover"
           />
         </div>
       </div>

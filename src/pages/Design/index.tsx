@@ -169,8 +169,8 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
       <div className="home-leather py-5">
         <div className="container mx-auto max-w-[1200px] p-5 md:p-10">
           <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
-            Với <span>Lavor</span> , nội thất xe của bạn sẽ trở nên <br />
-            <span> đẳng cấp</span>
+            LỘT XÁC NỘI THẤT CÙNG <br />
+            <span>LAVOR</span>
           </h2>
           <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
             <div className=" mx-auto mb-5 md:mb-10">
@@ -181,29 +181,26 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
                 className="rounded-xl border-[6px] border-solid border-primary xl:h-[300px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[500px] object-cover"
               />
             </div>
-            <div className="leather-text">
-              <p className="mb-5 text-justify md:mb-10 xl:text-left">
-                Hãy tưởng tượng nội thất xe của bạn được bọc da sang trọng, nâng
-                cấp hiện đại và mang phong cách của riêng bạn. Có thể bạn muốn
-                điều đó nhưng lại lo lắng về chất lượng ở các Garage. Hoặc bạn
-                đang cảm thấy khó khăn khi muốn chiếc ghế da mang phong cách cá
-                nhân của mình trở nên thông minh và hữu ích hơn nữa. Dù mong
-                muốn của bạn là gì, Lavor cũng có thể thực hiện nó, tăng thêm sự
-                sang trọng, tiện nghi và phong cách cho chiếc xe của bạn.
+            <div className="leather-text text:base md:text-lg">
+              <p className="mb-3 text-justify md:mb-5 xl:text-left">
+                Lavor là thương hiệu hàng đầu Việt Nam về sản xuất các sản phẩm
+                liên quan đến da cho nội thất ô tô. Chúng tôi đáp ứng mọi mong
+                đợi của khách hàng từ phổ thông đến khác biệt nhất.
               </p>
-
               <p className="text-justify xl:text-left">
-                Lavor là một thương hiệu sản xuất nội thất ô tô, trực thuộc Công
-                ty TNHH TMDV & SX Minh Tâm – chuyên gia trong lĩnh vực sản xuất
-                nội thất, độ xe và dịch vụ lắp đặt nội thất ô tô tại Việt Nam.
-                Qua hơn 15 năm xây dựng và phát triển, trên 1.000 chủng loại sản
-                phẩm được sản xuất với sản lượng 300.000 sản phẩm/năm, Lavor
-                đang dần khẳng định vị thế của mình trên thị trường. "
+                Lavor tự hào với sự kết hợp cùng vị vua ngành da Mastrotto từ Ý
+                và phụ liệu Amann hàng đầu từ Đức. Bên cạnh đó, Lavor sở hữu đội
+                ngũ chuyên gia và kỹ thuật viên giàu kinh nghiệm, các kỹ sư có
+                tuổi nghề lên tới 30 năm, luôn được đào tạo nâng cao nhằm đáp
+                ứng các tiêu chuẩn phức tạp cũng như xu hướng của thị trường nội
+                địa và quốc tế. Các sản phẩm liên quan tới da và bọc ghế da tại
+                Lavor rất đa dạng như: Nệm ghế da ô tô, sàn xe, thảm lót chân,
+                gối cổ, bọc tay lái...
               </p>
             </div>
           </div>
           <div className="mt-10">
-            <Button link="/about-us" text="Tìm hiểu thêm" />
+            <Button link="/ve-chung-toi" text="Tìm hiểu thêm" />
           </div>
         </div>
       </div>

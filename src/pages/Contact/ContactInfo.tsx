@@ -9,14 +9,13 @@ const ContactInfo = () => {
     <div>
       <h3 className="mb-5 text-[22px] leading-8">
         LAVOR LUXURY - <br></br>THƯƠNNG HIỆU THIẾT KẾ & <br /> SẢN XUẤT NỘI THẤT
-        OTÔ
+        Ô TÔ
       </h3>
       <div className="text-white flex flex-col gap-4 mb-10">
         <div className="flex items-center gap-2">
           <GoLocation className="text-primary" />
           <span>
-            Địa chỉ: Lô 1A, KCN Dươnng Liễu, xa Dương Liễu, H.Hoài Đức, TP Hà
-            Nội
+            Địa chỉ: Lô 1A, KCN Dương Liễu, xã Dương Liễu, H.Hoài Đức, TP Hà Nội
           </span>
         </div>
         <div className="flex items-center gap-2">

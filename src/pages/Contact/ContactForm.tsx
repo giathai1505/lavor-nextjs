@@ -86,7 +86,7 @@ const ContactForm = () => {
 
           <div className="flex flex-col gap-5 items-end">
             <p className="italic text-white">
-              (Vui lòng nhập nội dung đánh giá và số sao để thực hiện đánh giá)
+              (Vui lòng nhập tên, số điện thoại và ý kiến của bạn!)
             </p>
             <button
               className={`primary-button flex justify-center gap-5 w-fit ${

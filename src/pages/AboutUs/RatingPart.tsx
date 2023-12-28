@@ -92,7 +92,7 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
                 <p>
                   Lavor có được thành tựu như hôm nay là nhờ sự ủng hộ và đóng
                   góp ý kiến của các bạn. Hãy cùng nhau để lại ý kiến để giúp
-                  Lavor phát triển hơn nửa nhé
+                  Lavor phát triển hơn nữa nhé!
                 </p>
               </div>
             </div>

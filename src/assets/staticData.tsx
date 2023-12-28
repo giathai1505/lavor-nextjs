@@ -157,30 +157,36 @@ export const userFooterData = [
     child: [
       {
         id: 21,
-        name: "Bọc ghế",
+        name: "Bọc ghế da",
         slug: "/",
         icon: <></>,
       },
       {
         id: 22,
-        name: "Bọc tay lái",
-        slug: "/",
-        icon: <></>,
-      },
-      {
-        id: 23,
         name: "Gối cổ",
         slug: "/",
         icon: <></>,
       },
       {
+        id: 23,
+        name: "Gối Lưng",
+        slug: "/",
+        icon: <></>,
+      },
+      {
         id: 24,
-        name: "Thảm lót sàn ô tô",
+        name: "Bọc tay lái",
         slug: "/",
         icon: <></>,
       },
       {
         id: 25,
+        name: "Thảm lót sàn ô tô",
+        slug: "/",
+        icon: <></>,
+      },
+      {
+        id: 26,
         name: "Sản phẩm khác",
         slug: "/",
         icon: <></>,

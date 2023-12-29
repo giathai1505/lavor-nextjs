@@ -12,7 +12,7 @@ const LeatherSeatCover = () => {
         <span>Bọc ghế da</span>
       </h2>
       <p className="m-0 mb-14 text-base text-white text-center max-w-3xl mx-auto">
-        Sơ đồ cấu trúc Website Lavor 100% C7 Dưới đây là một số mẫu bọc ghế da
+    Dưới đây là một số mẫu bọc ghế da
         đã được thực hiện tại Lavor. Các bạn có thể tham khảo để dễ dàng tạo ra
         thiết kế cho riêng mình nhé!
       </p>

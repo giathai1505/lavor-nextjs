@@ -2,14 +2,12 @@
 import React from "react";
 import { Pagination, Navigation } from "swiper/modules";
 import { IProduct } from "@/types/type";
-import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
-import LazyImage from "./Common/LazyImage";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ProductItemVertical from "@/pages/Product/components/ProductItemVertical";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./styles.css";
-import ProductItemVertical from "@/pages/Product/components/ProductItemVertical";
 
 interface IProductSliderInterface {
   visibleItem: number;
@@ -36,7 +34,7 @@ const ProductSlider: React.FC<IProductSliderInterface> = ({
         products.map((item) => {
           return (
             <SwiperSlide key={item.product_id}>
-         <ProductItemVertical product={item}/>  
+              <ProductItemVertical product={item} />
             </SwiperSlide>
           );
         })}

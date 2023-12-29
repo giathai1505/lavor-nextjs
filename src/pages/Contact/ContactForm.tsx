@@ -16,6 +16,12 @@ export type TContactForm = {
 const ContactForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { control, handleSubmit, watch } = useForm<TContactForm>({
+    defaultValues: {
+      contact_content: "",
+      contact_email: "",
+      contact_name: "",
+      contact_phone: "",
+    },
     mode: "all",
   });
 

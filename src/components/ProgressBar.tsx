@@ -3,12 +3,15 @@ import React from "react";
 import startImg from "@/assets/images/common/start-circle-button.png";
 import { EDesignPhase } from "@/types/type";
 
+const TOTAL_PHASE: number = 3;
+
 interface IProgressBar {
   active: number;
 }
 
 const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
-  const activeWith = (100 * active) / 3;
+  const activeWith = (100 * active) / TOTAL_PHASE;
+
   return (
     <div className="w-[300px] md:w-[500px] py-4 relative">
       <div className="h-2 rounded-full bg-white"></div>
@@ -32,7 +35,7 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
 
       <span
         className={`progress-title left-[28%] md:left-[30%] ${
-           EDesignPhase.CHOOSE_CAR <= active ? "show" : ""
+          EDesignPhase.CHOOSE_CAR <= active ? "show" : ""
         }`}
       >
         Chọn xe

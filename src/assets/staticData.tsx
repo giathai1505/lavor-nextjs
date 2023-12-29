@@ -31,7 +31,7 @@ import bocGheImg from "@/assets/images/cateogries/boc-ghe-category.png";
 import goiLungImg from "@/assets/images/cateogries/goi-lung-category.png";
 import goiCoImg from "@/assets/images/cateogries/goi-co-category.png";
 import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san-category.png";
-import voLangImg from "@/assets/images/cateogries/boc-vo-lang-category.png";
+import voLangImg from "@/assets/images/cateogries/boc-vo-lang-category.webp";
 import sanPhamKhacImg from "@/assets/images/cateogries/san-pham-khac.png";
 
 //category image

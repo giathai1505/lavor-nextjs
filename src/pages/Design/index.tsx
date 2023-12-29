@@ -10,7 +10,7 @@ import startButton from "@/assets/images/common/start-now-button.png";
 import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
-import introduceImg from "@/assets/images/common/home-part2.webp";
+import LavorFactoryImage from "@/assets/images/common/lavor-fatory.jpg";
 import { EDesignPhase, IBrand, IYear } from "@/types/type";
 
 interface IPageProps {
@@ -176,9 +176,9 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
             <div className=" mx-auto mb-5 md:mb-10">
               <Image
                 alt="Công xưởng Lavor"
-                src={introduceImg}
+                src={LavorFactoryImage}
                 loading="eager"
-                className="rounded-xl border-[6px] border-solid border-primary xl:h-[300px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[500px] object-cover"
+                className="rounded-xl border-[6px] border-solid border-white xl:h-[300px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[500px] object-cover"
               />
             </div>
             <div className="leather-text text:base md:text-lg">

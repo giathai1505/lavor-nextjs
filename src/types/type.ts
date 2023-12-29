@@ -111,6 +111,7 @@ export enum ProductType {
   OTHER = "OTHER",
   CHAIR = "CHAIR",
   STEERING_WHEEL = "STEERING_WHEEL",
+  NECK_PILLOW = "NECK_PILLOW",
   PILLOW = "PILLOW",
   FLOOR = "FLOOR",
 }
@@ -119,12 +120,14 @@ export enum ProductTypeToText {
   OTHER = "Sản phẩm khác",
   CHAIR = "Bọc ghế da",
   STEERING_WHEEL = "Bọc tay lái",
-  PILLOW = "Gối cổ",
+  NECK_PILLOW = "Gối cổ",
+  PILLOW = "Gối lưng",
   FLOOR = "Thảm lót sàn",
 }
 
 export enum SlugToType {
-  "goi-co" = "PILLOW",
+  "goi-co" = "NECK_PILLOW",
+  "goi-lung" = "PILLOW",
   "tham-lot-san" = "FLOOR",
   "boc-tay-lai" = "STEERING_WHEEL",
   "boc-ghe" = "CHAIR",
@@ -134,9 +137,10 @@ export enum SlugToType {
 
 export enum SlugToTitle {
   "goi-co" = "Gối cổ",
+  "goi-lung" = "Gối lưng",
   "tham-lot-san" = "Thảm lót sàn",
   "boc-tay-lai" = "Bọc tay lái",
-  "boc-ghe" = "Bọc ghế da",
+  "boc-ghe-da" = "Bọc ghế da",
   "san-pham-khac" = "Sản phẩm khác",
   "tat-ca" = "Tất cả sản phẩm",
 }

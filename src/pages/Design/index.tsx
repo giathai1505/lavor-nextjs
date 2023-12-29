@@ -10,7 +10,7 @@ import startButton from "@/assets/images/common/start-now-button.png";
 import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
-import LavorFactoryImage from "@/assets/images/common/lavor-fatory.jpg";
+import LavorFactoryImage from "@/assets/images/common/lavor-fatory.webp";
 import { EDesignPhase, IBrand, IYear } from "@/types/type";
 
 interface IPageProps {

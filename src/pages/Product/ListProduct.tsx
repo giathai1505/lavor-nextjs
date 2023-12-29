@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import ProductItemVertical from "./components/ProductItemVertical";
 import { IProduct, SlugToTitle } from "@/types/type";
 import { useRouter } from "next/navigation";
+import { Empty } from "antd";
 
 const listDanhMuc = [
   {
@@ -11,19 +12,21 @@ const listDanhMuc = [
     value: "Tất cả sản phẩm",
   },
   {
-    key: "boc-ghe",
-    value: "Bọc ghé",
+    key: "boc-ghe-da",
+    value: "Bọc ghế da",
+  },
+  {
+    key: "goi-co",
+    value: "Gối cổ",
+  },
+  {
+    key: "goi-lung",
+    value: "Gối lưng",
   },
   {
     key: "boc-tay-lai",
     value: "Bọc tay lái",
   },
-
-  {
-    key: "goi-co",
-    value: "Gối cổ",
-  },
-
   {
     key: "tham-lot-san",
     value: "Thảm lót sàn",
@@ -65,7 +68,8 @@ const ListProduct: React.FC<IListProduct> = ({
             </p>
             --------
             <p className="text-[15px]">
-              Tổng cộng {Array.isArray(products) && products?.length} sản phẩm
+              Tổng cộng {Array.isArray(products) ? products?.length : 0} sản
+              phẩm
             </p>
           </div>
 
@@ -77,15 +81,23 @@ const ListProduct: React.FC<IListProduct> = ({
             value={selectedCategory}
           />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">
-          {Array.isArray(products) &&
-            products.map((item) => {
+        {Array.isArray(products) ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">
+            {products.map((item) => {
               return (
                 <ProductItemVertical product={item} key={item.product_id} />
               );
             })}
-        </div>
+          </div>
+        ) : (
+          <div className="flex justify-center my-20">
+            <Empty
+              description={
+                <span className="text-white">Chưa có sản phẩm nào</span>
+              }
+            />
+          </div>
+        )}
       </div>
     </div>
   );

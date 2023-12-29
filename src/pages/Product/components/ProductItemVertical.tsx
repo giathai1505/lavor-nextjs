@@ -14,7 +14,7 @@ const ProductItemVertical: React.FC<IProductVertical> = ({ product }) => {
   if (!product) return null;
   return (
     <Link
-      href={"/" + product.product_id}
+    href={"/chi-tiet-san-pham/" + product.product_id}
       className="product-wrapper w-[300px] mx-auto border border-solid border-[#443e3e] hover:border-primary"
       key={product.product_id}
     >

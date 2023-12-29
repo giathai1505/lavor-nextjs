@@ -278,7 +278,7 @@ export const userNavbarData = [
       {
         id: 33,
         name: "Gối lưng",
-        slug: "/san-pham/goi-co",
+        slug: "/san-pham/goi-lung",
       },
       {
         id: 34,

@@ -13,13 +13,13 @@ const ProductItemHorizontal: React.FC<IProductItemHorizontal> = ({
   if (!product) return null;
   return (
     <Link
-      href=""
+      href={"/chi-tiet-san-pham/" + product.product_id}
       className="product-wrapper text-white grid grid-cols-2 gap-5 mb-10"
     >
       <div className="w-full h-[150px] overflow-hidden">
         <img
-          alt=""
           src={"http://" + product.product_images[0]}
+          alt="Hình ảnh sản phẩm"
           className="w-full h-full rounded-sm object-cover"
         ></img>
       </div>

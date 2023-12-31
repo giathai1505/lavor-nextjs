@@ -20,7 +20,7 @@ const RatingItem: React.FC<IRatingItem> = ({ rating }) => {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <p className="font-bold text-primary ">{rating.review_name}</p>
+        <p className="font-bold text-primary ">{rating?.review_name}</p>
         <div className="flex gap-1">
           {new Array(5).fill(null).map((_, index) => {
             return (
@@ -36,9 +36,9 @@ const RatingItem: React.FC<IRatingItem> = ({ rating }) => {
           })}
         </div>
 
-        <p className="italic text-md text-[#b9b3b3]">{rating.review_phone}</p>
+        <p className="italic text-md text-[#b9b3b3]">{rating?.review_phone}</p>
 
-        <p>{rating.review_content}</p>
+        <p>{rating?.review_content}</p>
       </div>
     </div>
   );

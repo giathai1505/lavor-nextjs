@@ -1,4 +1,4 @@
-import { getCar } from "@/api/carAPI";
+import { getCar, getCarByYear } from "@/api/carAPI";
 import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
 import { IBrand, IYear } from "@/types/type";
 import React, { useEffect, useState } from "react";
@@ -91,6 +91,15 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
       });
   };
 
+  const invokeGetCarByYear = async (year: number) => {
+    const result = await getCarByYear(year);
+    if (result?.cars) {
+      setBrands(result?.cars);
+      const brands = initListBrands(result?.cars);
+      setListBrands(brands);
+    }
+  };
+
   useEffect(() => {
     setListYears(initListYear(years));
     //check if has brand and model the will init the list models and version too
@@ -119,7 +128,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
     let newState;
     switch (type) {
       case "year":
-        //get brand by year
+        invokeGetCarByYear(value.year.id);
 
         newState = {
           ...value,

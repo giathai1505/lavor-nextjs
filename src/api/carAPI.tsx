@@ -298,3 +298,27 @@ export async function delelteCar(year: number, versionID: number) {
     throw error;
   }
 }
+
+export async function getCarByYear(year: number) {
+  try {
+    const response = await fetch(
+      CLIENT_API_ENPOINT + "design/years/" + year.toString() + "/cars",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}

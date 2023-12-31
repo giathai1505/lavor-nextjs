@@ -12,9 +12,8 @@ const LeatherSeatCover = () => {
         <span>Bọc ghế da</span>
       </h2>
       <p className="m-0 mb-14 text-base text-white text-center max-w-3xl mx-auto">
-    Dưới đây là một số mẫu bọc ghế da
-        đã được thực hiện tại Lavor. Các bạn có thể tham khảo để dễ dàng tạo ra
-        thiết kế cho riêng mình nhé!
+        Dưới đây là một số mẫu bọc ghế da đã được thực hiện tại Lavor. Các bạn
+        có thể tham khảo để dễ dàng tạo ra thiết kế cho riêng mình nhé!
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {bocGheDa.map((item) => {
@@ -25,7 +24,7 @@ const LeatherSeatCover = () => {
                   imgAlt={item.videoThumbnail.alt}
                   imgSrc={item.videoThumbnail.image}
                   title={item.videoThumbnail.title}
-                  link={item.videoThumbnail.url}
+                  embedId={item.videoThumbnail.embedId}
                 />
               </div>
               <p className="uppercase text-center text-primary mt-2 text-xl">

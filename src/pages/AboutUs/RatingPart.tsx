@@ -36,7 +36,7 @@ const RatingPart: React.FC<IRating> = ({ ratings }) => {
                   imgAlt="Phòng trưng bày Lavor"
                   imgSrc={PhongTrungBayImg}
                   title="ĐỘT NHẬP phòng trưng bày phân xưởng sản xuất nội thất ô tô hàng đầu Việt Nam | Lavor Luxury"
-                  link="https://www.youtube.com/watch?v=TusPsCPkLxo"
+                  embedId="TusPsCPkLxo?si=ivvu5xs7fp73IPm3"
                 />
               </div>
               <div className="text-white text-justify">

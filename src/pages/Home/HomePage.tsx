@@ -136,7 +136,7 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
                   <YoutubeThumbnail
                     imgAlt={item.alt}
                     imgSrc={item.src}
-                    link={item.link}
+                    embedId={item.embedId}
                     title={item.title}
                   />
                 </div>

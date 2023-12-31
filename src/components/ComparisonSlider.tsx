@@ -30,7 +30,7 @@ const ComparisonSlider = () => {
     e.stopPropagation();
   };
   return (
-    <div className=" bg-[#171717]">
+    <div className=" bg-black">
       <div className="w-full mx-auto p-5 md:p-10">
         <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
           <span className="font-light">HƠN CẢ MỘT CHIẾC GHẾ DA</span> <br />

@@ -339,24 +339,24 @@ export const amazingCar = [
     id: 1,
     alt: "Lột xác VF8",
     src: image1,
-    link: "https://www.youtube.com/watch?v=nV7IIKJYZik",
     title: `Hành trình "lột xác" cho Vinfast VF8 | Lavor Luxury`,
+    embedId: "nV7IIKJYZik?si=lN7vtNHJbmTJVygR",
   },
   {
     id: 2,
     alt: "Camry 7 năm tuổi lột xác",
     src: image2,
-    link: "https://www.youtube.com/watch?v=k0mTEmHOtqw",
     title:
       'Lavor ĐỒNG HÀNH cùng MT Luxury "LỘT XÁC" Peugeot Traveller Luxury | Lavor Laxury',
+    embedId: "k0mTEmHOtqw?si=VZMue01qLlIeoNyV",
   },
   {
     id: 3,
     alt: "Ford Everest lột xác",
     src: image3,
-    link: "https://www.youtube.com/watch?v=KqFnFYv-DLk",
     title:
       'HOT!!! FORD EVEREST NEXT GEN bọc lại nội thất "chủ tịch" siêu VIP | Lavor Luxury',
+    embedId: "KqFnFYv-DLk?si=aXvJ1NpLBO8VJGCK",
   },
 ];
 
@@ -370,8 +370,8 @@ export const bocGheDa = [
       image: productThumbnail1,
       title:
         "Biến hình VINFAST LUX SA với nội thất tone sur tone | Lavor Luxury",
-      url: "https://www.youtube.com/watch?v=o94cR8g0QvM",
       alt: "Biến hình VINFAST LUX SA",
+      embedId: "o94cR8g0QvM?si=p9VWz91UUB10VbGC",
     },
   },
   {
@@ -381,8 +381,8 @@ export const bocGheDa = [
       image: productThumbnail2,
       title:
         "HOT !!! LEXUS RX 350 2023 lắp đặt bộ sản phẩm Sàn 360 và Thảm lót chân ô tô Lavor",
-      url: "https://www.youtube.com/watch?v=o94cR8g0QvM",
       alt: "LEXUS RX 350 2023",
+      embedId: "o94cR8g0QvM?si=p9VWz91UUB10VbGC",
     },
   },
   {
@@ -392,10 +392,9 @@ export const bocGheDa = [
       image: productThumbnail3,
       title:
         "Roll-Royce Phantom 2006 '' LỘT XÁC '' hoàn toàn màu cực đỉnh Hermes Siêu Độc | Lavor",
-      url: "https://www.youtube.com/watch?v=y50Bq7FMKrM",
       alt: "Roll-Royce Phantom 2006",
+      embedId: "y50Bq7FMKrM?si=HjDRg1tJagIUOb__",
     },
-    videoURL: "https://www.youtube.com/watch?v=nV7IIKJYZik",
   },
   {
     id: 4,
@@ -404,8 +403,8 @@ export const bocGheDa = [
       image: productThumbnail4,
       title:
         "Lavor ĐỒNG HÀNH cùng MT Luxury LỘT XÁC Peugeot Traveller Luxury | Lavor Laxury",
-      url: "https://www.youtube.com/watch?v=xGGOYmIsUvY",
       alt: "Peugeot Traveller Luxury",
+      embedId: "xGGOYmIsUvY?si=tkf7BkrstLcxXf9S",
     },
   },
   {
@@ -415,8 +414,8 @@ export const bocGheDa = [
       image: productThumbnail5,
       title:
         "Nệm ghế da Mercedes GLS 450 Lavor thiết kế siêu đẹp | LAVOR LUXURY |",
-      url: "https://www.youtube.com/watch?v=4Ve7LJJbbPI",
       alt: "Mercedes GLS 450 ",
+      embedId: "4Ve7LJJbbPI?si=nUTrADUUNGPYijKC",
     },
   },
   {
@@ -426,8 +425,8 @@ export const bocGheDa = [
       image: productThumbnail6,
       title:
         "Hoá phép nội thất Vinfast Lux A 2.0 thành nội thất Maybach S | Lavor Luxury |",
-      url: "https://www.youtube.com/watch?v=chOKemxoKBk",
       alt: "Vinfast Lux A 2.0",
+      embedId: "chOKemxoKBk?si=VeM8g9cs4Y2PXAul",
     },
   },
 ];

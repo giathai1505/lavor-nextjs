@@ -30,7 +30,7 @@ const Part3: React.FC = () => {
               <YoutubeThumbnail
                 imgAlt="Giới thiệu phân xưởng Lavor"
                 imgSrc={introduceImg}
-                link="https://www.youtube.com/watch?v=nV7IIKJYZik&t=28s"
+                embedId="nV7IIKJYZik?si=Ca3mXnTdnosRYk9T"
                 title="Phân xưởng sản xuất nội thất ô tô hàng đầu Việt Nam có gì? | Lavor Luxury"
               />
             </div>

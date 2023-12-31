@@ -36,7 +36,7 @@ const Part2: React.FC = () => {
               imgAlt="Hướng dẫn lắp đặt bộ massage 3 chức năng"
               imgSrc={introduceImg}
               title="Hướng dẫn lắp đặt bộ Massage 3 chức năng - Lavor"
-              link="https://www.youtube.com/watch?v=WxabGfI3CVk"
+              embedId="WxabGfI3CVk?si=yZ1hAl9hVjLVnQLN"
             />
           </div>
         </div>

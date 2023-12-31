@@ -11,7 +11,7 @@ type IRatingItem = {
 const RatingItem: React.FC<IRatingItem> = ({ rating }) => {
   return (
     <div className="rating-item" key={rating?.review_id}>
-      <div>
+      <div className="flex-none">
         <Image
           alt="Hình đại diện người dùng"
           placeholder="blur"

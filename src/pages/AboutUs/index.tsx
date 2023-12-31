@@ -22,14 +22,8 @@ const AboutUs: React.FC<TPageProps> = ({ ratings }) => {
       <Part1 />
       <Part2 />
       <Part3 />
-      <div className="p-5 md:p-10 xl:p-16 bg-[#000000e8] hidden xl:block">
-        <RatingPart visibleItem={4} ratings={ratings} />
-      </div>
-      <div className="p-5 md:p-10 xl:p-16 bg-[#000000e8] hidden md:block xl:hidden ">
-        <RatingPart visibleItem={2} ratings={ratings} />
-      </div>
-      <div className="p-5 md:p-10 xl:p-16 bg-[#000000e8] md:hidden">
-        <RatingPart visibleItem={1} ratings={ratings} />
+      <div className="p-5 md:p-10 xl:p-16 bg-[#000000e8] ">
+        <RatingPart ratings={ratings} />
       </div>
     </div>
   );

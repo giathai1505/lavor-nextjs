@@ -16,15 +16,13 @@
 }
 
 .rating-item {
-  position: relative;
-  padding: 20px;
-  color: white;
-  border-radius: 10px;
-  overflow: hidden;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   gap: 20px;
-  user-select: none;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #3a3535;
+}
+
+.rating-item:last-child {
+  border: 0;
 }

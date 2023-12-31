@@ -2,55 +2,43 @@ import Image from "next/image";
 import React from "react";
 import userAvatar from "@/assets/images/common/user.png";
 import { BsFillStarFill } from "react-icons/bs";
-import { FaQuoteLeft } from "react-icons/fa";
 import { TRating } from "@/types/type";
 
 type IRatingItem = {
   rating: TRating;
-  width: number;
 };
 
-const RatingItem: React.FC<IRatingItem> = ({ width, rating }) => {
+const RatingItem: React.FC<IRatingItem> = ({ rating }) => {
   return (
-    <div
-      style={{ width: `${width}px` }}
-      className="rating-item"
-      key={rating?.review_id}
-    >
-      <div className="bg-white inline-block rounded-full p-1 w-fit">
+    <div className="rating-item" key={rating?.review_id}>
+      <div>
         <Image
           alt="Hình đại diện người dùng"
           placeholder="blur"
           src={userAvatar}
-          className="w-20 h-20"
+          className="w-10 h-10"
         />
       </div>
+      <div className="flex flex-col gap-2">
+        <p className="font-bold text-primary ">{rating.review_name}</p>
+        <div className="flex gap-1">
+          {new Array(5).fill(null).map((_, index) => {
+            return (
+              <BsFillStarFill
+                className={`w-5 h-5 cursor-pointer relative ${
+                  index + 1 <= Number(rating?.review_rating)
+                    ? "text-[#ffce3d]"
+                    : ""
+                }`}
+                key={index.toString()}
+              />
+            );
+          })}
+        </div>
 
-      <div className="flex gap-1">
-        {new Array(5).fill(null).map((_, index) => {
-          return (
-            <BsFillStarFill
-              className={`w-5 h-5 cursor-pointer relative ${
-                index + 1 <= Number(rating?.review_rating)
-                  ? "text-[#FED127]"
-                  : ""
-              }`}
-              key={index.toString()}
-            />
-          );
-        })}
-      </div>
-      <div className="relative flex-1">
-        <FaQuoteLeft className="absolute w-10 h-10 text-[#ffffff2b] z-10" />
-        <p className="z-20 text-center">{rating?.review_content}</p>
-      </div>
-      <div className="flex flex-col items-center">
-        <p className="font-bold">
-          {rating?.review_name.length > 0 ? rating?.review_name : "Ẩn danh"}
-        </p>
-        <p className="text-[14px] text-gray italic">
-          {rating?.review_phone.length > 0 ? rating?.review_phone : "Không có"}
-        </p>
+        <p className="italic text-md text-[#b9b3b3]">{rating.review_phone}</p>
+
+        <p>{rating.review_content}</p>
       </div>
     </div>
   );

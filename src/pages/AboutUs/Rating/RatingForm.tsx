@@ -1,3 +1,4 @@
+"use client";
 import { addRating } from "@/api/ratingAPI";
 import { notification } from "antd";
 import React, { useState } from "react";

@@ -1,35 +1,16 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "../Contact/style.css";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
 import RatingForm from "./Rating/RatingForm";
-import RatingItem from "./Rating/RatingItem";
 import { TRating } from "@/types/type";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-const GAP = 20;
+import RatingList from "./Rating/RatingList";
 
 interface IRating {
-  visibleItem: number;
   ratings: TRating[];
 }
 
-const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [productItemWidth, setProductItemWidth] = useState<number>(315);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      let rect = containerRef.current.getBoundingClientRect();
-      let childWidth = (rect.width - (visibleItem - 1) * GAP) / visibleItem;
-      setProductItemWidth(childWidth);
-    }
-  }, []);
-
+const RatingPart: React.FC<IRating> = ({ ratings }) => {
   return (
     <div className=" text-white">
       <div className="wrapper">
@@ -40,32 +21,7 @@ const RatingPart: React.FC<IRating> = ({ visibleItem, ratings }) => {
         </div>
 
         <div className="mb-40">
-          <Swiper
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={"auto"}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            pagination={true}
-            modules={[EffectCoverflow, Pagination]}
-            className="review-slider"
-          >
-            {Array.isArray(ratings) &&
-              ratings.length > 0 &&
-              ratings.map((item) => {
-                return (
-                  <SwiperSlide key={item.review_id}>
-                    <RatingItem rating={item} width={productItemWidth} />
-                  </SwiperSlide>
-                );
-              })}
-          </Swiper>
+          <RatingList ratings={ratings} />
         </div>
 
         <div className="mt-5 md:mt-10 xl:mt-16">

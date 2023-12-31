@@ -1,11 +1,11 @@
-"use client";
 import CarManagementForm from "@/admin/CarManagement/CarManagementForm";
-import { CLIENT_API_ENPOINT } from "@/constants/client.env";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { IBrand, IYear } from "@/types/type";
-import React, { useEffect, useState } from "react";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 async function getAllYears() {
-  const res = await fetch(CLIENT_API_ENPOINT + "design/years", {
+  const res = await fetch(SERVER_API_ENPOINT + "design/years", {
     cache: "no-store",
   });
 
@@ -17,7 +17,7 @@ async function getAllYears() {
 }
 
 async function getAllBrands() {
-  const res = await fetch(CLIENT_API_ENPOINT + "design/brands", {
+  const res = await fetch(SERVER_API_ENPOINT + "design/brands", {
     method: "GET",
     cache: "no-store",
   });
@@ -29,36 +29,21 @@ async function getAllBrands() {
   return res.json();
 }
 
-const page = () => {
-  const [listYears, setListYears] = useState<IYear[]>([]);
-  const [listBrands, setListBrands] = useState<IBrand[]>([]);
+const page = async () => {
+  const data = await getServerSession();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await Promise.all([getAllYears(), getAllBrands()])
-        .then((result) => {
-          if (Array.isArray(result[0])) {
-            setListYears(result[0]);
-          } else {
-            setListYears([]);
-          }
+  if (!data?.user) {
+    redirect("/admin/login");
+  }
 
-          if (Array.isArray(result[1])) {
-            setListBrands(result[1]);
-          } else {
-            setListBrands([]);
-          }
-        })
-        .catch((error) => {
-          setListBrands([]);
-          setListYears([]);
-        });
-    };
+  const yearRes = await getAllYears();
 
-    fetchData();
-  }, []);
+  const years: IYear[] = yearRes ? yearRes : [];
+  const brandRes = await getAllBrands();
 
-  return <CarManagementForm years={listYears} brands={listBrands} />;
+  const brands: IBrand[] = brandRes ? brandRes : [];
+
+  return <CarManagementForm years={years} brands={brands} />;
 };
 
 export default page;

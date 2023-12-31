@@ -14,7 +14,6 @@ import LavorFactoryImage from "@/assets/images/common/lavor-fatory.webp";
 import { EDesignPhase, IBrand, IYear } from "@/types/type";
 
 interface IPageProps {
-  brands: IBrand[];
   years: IYear[];
 }
 
@@ -44,7 +43,7 @@ type TDesignData = {
   phoneNumber: string;
 };
 
-const Design: React.FC<IPageProps> = ({ brands, years }) => {
+const Design: React.FC<IPageProps> = ({ years }) => {
   const [phase, setPhase] = useState<EDesignPhase>(EDesignPhase.CHOOSE_CAR);
   const [designData, setDesignData] = useState<TDesignData>({
     car: {
@@ -105,7 +104,6 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
             onNext={(data: any) =>
               handleDesignDataChange(EDesignPhase.CHOOSE_CAR, data)
             }
-            brands={brands}
             years={years}
             data={designData.car}
           />
@@ -140,7 +138,6 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
       default:
         phaseComponent = (
           <ChooseCar
-            brands={brands}
             years={years}
             onNext={(data: any) => handleDesignDataChange(1, data)}
             data={designData.car}
@@ -149,7 +146,7 @@ const Design: React.FC<IPageProps> = ({ brands, years }) => {
         break;
     }
     return phaseComponent;
-  }, [phase, brands, years]);
+  }, [phase, years]);
 
   return (
     <div className="design-wrapper">

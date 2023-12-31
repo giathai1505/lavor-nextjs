@@ -11,10 +11,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./styles.css";
 
-const CategorySlider: React.FC = () => {
+type TCategorySliderProps = {
+  slidesPerView: number;
+};
+
+const CategorySlider: React.FC<TCategorySliderProps> = ({ slidesPerView }) => {
   return (
     <Swiper
-      slidesPerView={4}
+      slidesPerView={slidesPerView}
       spaceBetween={30}
       loop={true}
       pagination={{

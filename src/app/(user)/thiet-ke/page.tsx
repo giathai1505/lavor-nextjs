@@ -44,10 +44,9 @@ async function getAllBrands() {
 const page = async () => {
   const years = await getAllYears();
 
-  const brands = await getAllBrands();
   return (
     <div>
-      <Design years={years} brands={brands} />
+      <Design years={years} />
     </div>
   );
 };

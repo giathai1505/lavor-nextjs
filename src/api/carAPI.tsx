@@ -56,6 +56,27 @@ export async function addBrand(brand_name: string) {
   }
 }
 
+export async function getAllCarTable() {
+  try {
+    const response = await fetch(CLIENT_API_ENPOINT + "design/cars", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 export async function getAllBrands() {
   try {
     const response = await fetch(CLIENT_API_ENPOINT + "design/brands", {
@@ -236,6 +257,33 @@ export async function updateCar(data: ICarFormValue) {
           body: JSON.stringify({
             image_url: data.image_url,
           }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } else {
+      signOut();
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function delelteCar(year: number, versionID: number) {
+  try {
+    const token: any = await getTokenFromLocalStorage();
+    if (token !== "") {
+      const response = await fetch(
+        CLIENT_API_ENPOINT + `design/years/${year}/versions/${versionID}/cars`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

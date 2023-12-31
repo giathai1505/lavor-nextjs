@@ -28,13 +28,13 @@ const ProductPart: React.FC<TPageProps> = ({ products }) => {
         </h2>
 
         <div className="px-10 hidden xl:block mb-20">
-          <CategorySlider />
+          <CategorySlider slidesPerView={4} />
         </div>
         <div className="px-10 hidden md:block xl:hidden mb-20">
-          <CategorySlider />
+          <CategorySlider slidesPerView={2} />
         </div>
         <div className="px-10 md:hidden mb-20">
-          <CategorySlider />
+          <CategorySlider slidesPerView={1} />
         </div>
       </div>
     </div>

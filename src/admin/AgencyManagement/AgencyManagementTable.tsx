@@ -172,8 +172,12 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
     });
   };
 
-  const handleChange = (a: any) => {
-    console.log("==== a: ", a);
+  const handleModelSuccess = () => {
+    invokeGetAllAgency();
+    setShowDialog({
+      agency: false,
+      city: false,
+    });
   };
 
   return (
@@ -182,13 +186,13 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
         open={showDialog.agency}
         onClose={closeAllDialog}
         cities={initListCity(listRegion)}
-        onSuccess={() => invokeGetAllAgency()}
+        onSuccess={handleModelSuccess}
       />
       <AddCityDialog
         open={showDialog.city}
         onClose={closeAllDialog}
         agencies={agencies}
-        onSuccess={() => invokeGetAllAgency()}
+        onSuccess={handleModelSuccess}
       />
       <div className="admin-page-wrapper ">
         <ConfirmDialog

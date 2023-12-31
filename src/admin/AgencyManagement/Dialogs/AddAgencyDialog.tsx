@@ -75,9 +75,8 @@ const AddAgencyDialog: React.FC<IDialog> = ({
           });
           setValue("agency_address", "");
           setValue("agency_name", "");
-
-          onSuccess();
           setIsOpen(false);
+          onSuccess();
         }
       })
       .catch((error) => {

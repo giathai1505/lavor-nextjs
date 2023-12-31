@@ -8,7 +8,6 @@ import { TCar } from ".";
 interface IChooseCar {
   onNext: (data: any) => void;
   years: IYear[];
-  brands: IBrand[];
   data: TCar;
 }
 
@@ -65,11 +64,12 @@ const updateListVersionWhenModelChange = (
   });
 };
 
-const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
+const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
   const [carDetail, setCarDetail] = useState<TCar>(data);
 
   const [listYears, setListYears] = useState<IDropdownOption[]>([]);
   const [listBrands, setListBrands] = useState<IDropdownOption[]>([]);
+  const [brands, setBrands] = useState<IBrand[]>([]);
   const [listModels, setListModels] = useState<IDropdownOption[]>([]);
   const [listVersions, setListVersions] = useState<IDropdownOption[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -92,7 +92,6 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
   };
 
   useEffect(() => {
-    setListBrands(initListBrands(brands));
     setListYears(initListYear(years));
     //check if has brand and model the will init the list models and version too
     if (carDetail.brand) {
@@ -120,6 +119,8 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, brands, data }) => {
     let newState;
     switch (type) {
       case "year":
+        //get brand by year
+
         newState = {
           ...value,
           brand: undefined,

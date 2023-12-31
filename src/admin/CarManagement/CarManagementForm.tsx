@@ -65,6 +65,11 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   }, []);
 
   const form = useForm<ICarFormValue>({
+    defaultValues: {
+      year: Array.isArray(years) && years.length > 0 ? years[0].year : NaN,
+      brand_id:
+        Array.isArray(brands) && brands.length > 0 ? brands[0].brand_id : NaN,
+    },
     mode: "all",
   });
 
@@ -110,7 +115,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   };
 
   useEffect(() => {
-    const models: IModel[] = (listBrands.find(
+    const models: IModel[] = (brands.find(
       (item) => item.brand_id === Number(brandID)
     )?.models || []) as IModel[];
 

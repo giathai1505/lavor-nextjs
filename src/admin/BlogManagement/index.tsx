@@ -32,8 +32,10 @@ import {
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
 
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { renderCategory } from "@/pages/News";
+import 'moment/locale/vi';
+import { fromNow } from "@/lib/time";
 
 const statusOptions = [
   {
@@ -108,6 +110,8 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
     status: Status | undefined;
   }>({ id: undefined, status: undefined });
 
+  
+
   const invokeGetAllBlogs = async () => {
     let url = "?page=1&limit=10";
     if (globalFilter.search !== "") {
@@ -128,6 +132,8 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         setData([]);
       });
   };
+
+
 
   useEffect(() => {
     invokeGetAllBlogs();
@@ -242,7 +248,7 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         id: "blog_upload_date",
         cell: ({ row }) => (
           <p className="time">
-            {moment(row.original.blog_upload_date).fromNow()}
+          {fromNow(row.original.blog_upload_date)}
           </p>
         ),
         header: () => <span className="time">Ngày đăng</span>,

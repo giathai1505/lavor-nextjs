@@ -5,8 +5,10 @@ import React, { useRef, useState } from "react";
 import oldCar from "@/assets/images/comparison-slider/old.webp";
 import newCar from "@/assets/images/comparison-slider/new.webp";
 
-const ComparisonSlider = () => {
-  const [sliderValue, setSliderValue] = useState<number>(50);
+const DEFAULT_SLIDER_VALUE : number = 50
+
+const ComparisonSlider : React.FC = () => {
+  const [sliderValue, setSliderValue] = useState<number>(DEFAULT_SLIDER_VALUE);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const lineRef = useRef<HTMLDivElement | null>(null);
@@ -29,6 +31,7 @@ const ComparisonSlider = () => {
     e.preventDefault();
     e.stopPropagation();
   };
+
   return (
     <div className=" bg-black">
       <div className="w-full mx-auto p-5 md:p-10">

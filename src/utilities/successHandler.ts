@@ -1,6 +1,14 @@
 import { codeMessage } from "@/constants/constants";
 import { notification } from "antd";
 
+type TSuccessHandler<T> = {
+  response: T;
+  options: {
+    notifyOnSuccess: boolean;
+    notifyOnFailed: boolean;
+  };
+};
+
 const successHandler = (
   response: any,
   options = { notifyOnSuccess: false, notifyOnFailed: true }

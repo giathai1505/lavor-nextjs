@@ -30,7 +30,6 @@
 .carousel-wrapper {
   height: 100%;
   position: relative;
-  background-color: red;
 }
 
 .carousel-wrapper:hover .carouselArrow.right {

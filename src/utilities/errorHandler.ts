@@ -5,15 +5,7 @@ const errorHandler = (error: any) => {
   const { response } = error;
 
   if (response.data && response.data.jwtExpired) {
-    const result = window.localStorage.getItem("auth");
-    const jsonFile = window.localStorage.getItem("isLogout");
-    const { isLogout } = (jsonFile && JSON.parse(jsonFile)) || false;
-
-    window.localStorage.removeItem("auth");
-    window.localStorage.removeItem("isLogout");
-    if (result || isLogout) {
-      window.location.href = "/logout";
-    }
+    //check if token is expired then will direct to logout page
   }
 
   if (response && response.status) {

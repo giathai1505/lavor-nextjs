@@ -23,19 +23,12 @@ export enum PStatus {
 
 export interface IBlog {
   blog_id: number;
-
   blog_title: string;
-
   blog_content: string;
-
   blog_image_url: string;
-
   blog_description: string;
-
   blog_category: Category;
-
   blog_upload_date: Date;
-
   blog_status: Status;
   blog_url?: string;
 }
@@ -54,25 +47,15 @@ export interface IProductDetail {
 export interface IProduct {
   product_id: number;
   product_type: ProductType;
-
   product_name: string;
-
   product_price: number;
-
   product_detail: IProductDetail[];
-
   product_feature: string;
-
   product_description: string;
-
   product_meta: string;
-
   product_upload_date: Date;
-
   product_status: Status;
-
   product_images: string[];
-
   variants: IProductVariant[];
 }
 

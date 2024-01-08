@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/api/auth/[...nextauth].tsdfdfdf"
+    "types/next-auth.d.ts"
   ],
   "exclude": ["node_modules"]
 }

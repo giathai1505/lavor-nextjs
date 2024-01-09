@@ -1,7 +1,6 @@
-
 import NextAuth from "next-auth";
+import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {SERVER_API_ENPOINT} from "../../../../constants/server.env";
 
 const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -26,10 +25,7 @@ const authOptions = {
 
           if (response.ok) {
             const user = await response.json();
-
-            return {
-              name: user.access_token,
-            };
+            return user;
           } else {
             throw new Error("Error logging in");
           }
@@ -40,6 +36,22 @@ const authOptions = {
       },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === "update") {
+        return { ...token, ...session.user };
+      }
+      return { ...token, ...user };
+    },
+
+    async session({ session, token, user }) {
+      session.user = token;
+
+      return session;
+    },
+  },
+
   pages: {
     signIn: "/admin/login",
   },

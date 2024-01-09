@@ -1,5 +1,5 @@
-import { codeMessage } from "@/constants/constants";
 import { notification } from "antd";
+import { codeMessage } from "../constants/constants";
 
 type TSuccessHandler<T> = {
   response: T;

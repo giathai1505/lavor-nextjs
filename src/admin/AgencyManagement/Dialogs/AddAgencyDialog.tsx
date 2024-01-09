@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IAgency, ICity, IRegion } from "@/types/type";
-import { addAgencyAPI } from "@/api/agencyAPI";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
 
 interface IDialog {
   open: boolean;
@@ -39,6 +39,8 @@ const AddAgencyDialog: React.FC<IDialog> = ({
 
   const [listCity, setListCity] = useState<ICity[]>([]);
 
+  const axios = useAxiosAuth();
+
   const {
     control,
     handleSubmit,
@@ -65,27 +67,29 @@ const AddAgencyDialog: React.FC<IDialog> = ({
       agency_id: 0,
     };
 
-    addAgencyAPI(newData, data.city_id)
-      .then((result) => {
-        if (result) {
-          toast.dismiss(loadingToastId);
+    try {
+      const res = await axios.post(`agencies/cities/${data.city_id}`, {
+        agencies: [newData],
+      });
 
-          toast.success("Thêm đại lý thành công!!!", {
-            position: "top-center",
-          });
-          setValue("agency_address", "");
-          setValue("agency_name", "");
-          setIsOpen(false);
-          onSuccess();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+      if (res) {
         toast.dismiss(loadingToastId);
-        toast.error("Thêm đại lý thất bại!!!", {
+
+        toast.success("Thêm đại lý thành công!!!", {
           position: "top-center",
         });
+        setValue("agency_address", "");
+        setValue("agency_name", "");
+        setIsOpen(false);
+        onSuccess();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.dismiss(loadingToastId);
+      toast.error("Thêm đại lý thất bại!!!", {
+        position: "top-center",
       });
+    }
   };
 
   useEffect(() => {

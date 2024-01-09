@@ -13,7 +13,7 @@ export default function AdminAuthLayout({
       <div className="auth-bg relative">
         <Image
           src={authBg}
-          alt=""
+          alt="Hình ảnh xe"
           className="absolute w-full h-full object-cover"
         />
         <div className="absolute w-full h-full bg-[rgba(30,41,59,0.9)]"></div>

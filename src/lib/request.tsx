@@ -1,7 +1,7 @@
-import { CLIENT_API_ENPOINT } from "@/constants/client.env";
-import errorHandler from "@/utilities/errorHandler";
-import successHandler from "@/utilities/successHandler";
 import axios from "axios";
+import { CLIENT_API_ENPOINT } from "../constants/client.env";
+import successHandler from "../utilities/successHandler";
+import errorHandler from "../utilities/errorHandler";
 
 enum Endpoints {
   Create = "/create",

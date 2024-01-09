@@ -1,15 +1,11 @@
-"use client";
 import CategoryIcon from "@/assets/icons/adminDashboard/CategoryIcon";
 import ContactIcon from "@/assets/icons/adminDashboard/ContactIcon";
 import ProductCategoryIcon from "@/assets/icons/adminDashboard/ProductCategoryIcon";
 import ProductIcon from "@/assets/icons/adminDashboard/ProductIcon";
-import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import React from "react";
 
 const AdminDashboard = () => {
-  const a = getTokenFromLocalStorage();
 
-  console.log("======== a: ", a);
   return (
     <div>
       <div className="grid grid-cols-4 gap-10">

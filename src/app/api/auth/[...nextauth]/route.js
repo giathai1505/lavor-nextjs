@@ -25,7 +25,6 @@ const authOptions = {
 
           if (response.ok) {
             const user = await response.json();
-            console.log("===== user: ", user);
             return user;
           } else {
             throw new Error("Error logging in");
@@ -47,10 +46,6 @@ const authOptions = {
     },
 
     async session({ session, token, user }) {
-      console.log("==== session: ", session);
-      console.log("==== token: ", token);
-      console.log("==== user: ", user);
-
       session.user = token;
 
       return session;

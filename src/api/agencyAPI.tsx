@@ -27,7 +27,6 @@ export async function addAgencyAPI(data: IAgency, cityID: number) {
         agencies: [data],
       });
 
-      console.log("===========", response);
 
       // if (!response?.ok) {
       //   throw new Error(`HTTP error! Status: ${response.status}`);

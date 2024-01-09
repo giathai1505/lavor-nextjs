@@ -6,9 +6,8 @@ import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
 import { useRouter } from "next/navigation";
 import { CircleLoader } from "react-spinners";
-import { ToastContainer, toast } from "react-toastify";
 import { signIn } from "next-auth/react";
-import { Router } from "next/router";
+import useToast from "@/hooks/useToast";
 
 type ILoginForm = {
   username: string;
@@ -18,6 +17,7 @@ type ILoginForm = {
 const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const {contextHolder, showNotification} = useToast()
 
   const form = useForm<ILoginForm>({
     defaultValues: {
@@ -43,14 +43,10 @@ const Login = () => {
         setIsLoading(false);
 
         if (result?.ok) {
-          toast.success("Đăng nhập thành công!", {
-            position: "top-center",
-          });
+          showNotification("success", "Đăng nhập thành công!", "")
           router.push("/admin");
         } else {
-          toast.error("Đăng nhập thất bại! Vui lòng thử lại!", {
-            position: "top-center",
-          });
+          showNotification("error", "Đăng nhập thât bại!", "Vui lòng thử lại sau.")
         }
       })
       .catch((err) => {
@@ -59,6 +55,8 @@ const Login = () => {
   };
 
   return (
+    <>
+   {contextHolder}
     <div className="auth-form">
       <Image src={logo} alt="Logo Lavor" className="form-logo" />
       <p className="font-bold text-3xl">Sign in</p>
@@ -135,8 +133,8 @@ const Login = () => {
           Đăng nhập
         </button>
       </form>
-      <ToastContainer />
     </div>
+ </>
   );
 };
 

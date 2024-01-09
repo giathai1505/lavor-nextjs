@@ -7,52 +7,67 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { AdminSidebarCategories } from "@/assets/staticData";
 
+const renderAdminMenu = (menu: any[]) => {
+  if (menu.length === 0) return null;
+  const path = usePathname();
+
+  const menuItemClass = (itemUrl: string): string => {
+    let className = "sidebar-item";
+    if (path?.toString().includes(itemUrl)) {
+      className += " active";
+    }
+    return className;
+  };
+
+  return (
+    <ul className="px-3">
+      {menu.map((item, index) => {
+        return (
+          <li key={index} className={menuItemClass(item.link)}>
+            <Link
+              href={item.link}
+              className="flex gap-5 items-center text-[14px] text-white"
+            >
+              {item.icon}
+              <span>{item.name}</span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
 interface IPageProps {
   show: boolean;
 }
 
 const AdminSidebar: React.FC<IPageProps> = ({ show }) => {
-  const path = usePathname();
   const router = useRouter();
 
-  const handleLogout = () => {
-    signOut();
-    router.replace("/admin/login");
+  const handleLogout = async () => {
+    signOut({ redirect: false }).then(() => {
+      router.push("/admin/login");
+    });
   };
+
   return (
     <div className={`sidebar-wrapper ${show ? "show" : ""}`}>
-      <div></div>
       <div className="sidebar-avatar">
         <Link href="/admin">
           <Image src={logo} alt="logo-white" className="sidebar-logo" />
         </Link>
         <p>Xin chào Lavor</p>
       </div>
-      <p className="dashboard-text ">DASHBOARD</p>
-      <ul className="px-3">
-        {AdminSidebarCategories.map((item, index) => {
-          return (
-            <li
-              className={`sidebar-item ${
-                path?.toString().includes(item.link) ? "active" : ""
-              }`}
-              key={index}
-            >
-              <Link
-                href={item.link}
-                className="flex gap-5 items-center text-[14px] text-white"
-              >
-                {item.icon}
-                <span>{item.name}</span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-      <div className="sidebar-logout" onClick={handleLogout}>
+      
+      <p className="dashboard-text">DASHBOARD</p>
+
+      {renderAdminMenu(AdminSidebarCategories)}
+
+      <button className="sidebar-logout" onClick={handleLogout}>
         <BiLogOutCircle />
         <span>Đăng xuất</span>
-      </div>
+      </button>
     </div>
   );
 };

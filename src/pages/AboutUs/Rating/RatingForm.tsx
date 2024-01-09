@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { BiMessageSquare, BiUser } from "react-icons/bi";
 import { BsFillStarFill } from "react-icons/bs";
 import { MdOutlineWorkOutline } from "react-icons/md";
-import { CircleLoader } from "react-spinners";
+import  CircleLoader  from "react-spinners/CircleLoader";
 
 export type TRatingForm = {
   review_phone: string;

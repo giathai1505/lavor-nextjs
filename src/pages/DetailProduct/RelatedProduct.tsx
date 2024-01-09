@@ -29,9 +29,7 @@ const RelatedProduct: React.FC<IRelatedProducts> = ({ products }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4  gap-10">
-        {Array.isArray(products) &&
-          products.map((item, index) => {
-            if (index > 3) return null;
+        {Array.isArray(products) && products.slice(0,4).map((item) => {
             return <ProductItemVertical product={item} key={item.product_id} />;
           })}
       </div>

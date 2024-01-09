@@ -8,6 +8,30 @@ type IRatingItem = {
   rating: TRating;
 };
 
+type TStar = {
+  star: string;
+};
+
+const RenderStar: React.FC<TStar> = ({ star }) => {
+  const starClassName = (index: number) =>
+    `w-5 h-5 cursor-pointer relative ${
+      index + 1 <= Number(star) && "text-[#ffce3d]"
+    }`;
+
+  return (
+    <div className="flex gap-1">
+      {new Array(5).fill(null).map((_, index) => {
+        return (
+          <BsFillStarFill
+            className={starClassName(index)}
+            key={index.toString()}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
 const RatingItem: React.FC<IRatingItem> = ({ rating }) => {
   return (
     <div className="rating-item" key={rating?.review_id}>
@@ -21,20 +45,8 @@ const RatingItem: React.FC<IRatingItem> = ({ rating }) => {
       </div>
       <div className="flex flex-col gap-2">
         <p className="font-bold text-primary ">{rating?.review_name}</p>
-        <div className="flex gap-1">
-          {new Array(5).fill(null).map((_, index) => {
-            return (
-              <BsFillStarFill
-                className={`w-5 h-5 cursor-pointer relative ${
-                  index + 1 <= Number(rating?.review_rating)
-                    ? "text-[#ffce3d]"
-                    : ""
-                }`}
-                key={index.toString()}
-              />
-            );
-          })}
-        </div>
+
+        <RenderStar star={rating?.review_rating}/>
 
         <p className="italic text-md text-[#b9b3b3]">{rating?.review_phone}</p>
 

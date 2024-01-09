@@ -1,11 +1,16 @@
 import React from "react";
-import Part1 from "./Part1";
-import Part2 from "./Part2";
-import Part3 from "./Part3";
+import AboutUsStaticContentPart1 from "./AboutUsStaticContentPart1";
+import AboutUsStaticContentPart2 from "./AboutUsStaticContentPart2";
+import AboutUsStaticContentPart3 from "./AboutUsStaticContentPart3";
 import PartHeader from "@/components/Common/PartHeader";
-import RatingPart from "./RatingPart";
 import titleBackgroundImage from "@/assets/images/headerPart/2.jpeg";
 import { TRating } from "@/types/type";
+import dynamic from "next/dynamic";
+
+
+const LazyRatingPart = dynamic(() => import('./RatingPart'), {
+  loading: () => <p>Loading...</p>,
+})
 
 type TPageProps = {
   ratings: TRating[];
@@ -19,11 +24,11 @@ const AboutUs: React.FC<TPageProps> = ({ ratings }) => {
         title="VỀ CHÚNG TÔI"
         backgroundImage={titleBackgroundImage}
       />
-      <Part1 />
-      <Part2 />
-      <Part3 />
+      <AboutUsStaticContentPart1 />
+      <AboutUsStaticContentPart2 />
+      <AboutUsStaticContentPart3 />
       <div className="p-5 md:p-10 xl:p-16 bg-[#000000e8] ">
-        <RatingPart ratings={ratings} />
+        <LazyRatingPart ratings={ratings} />
       </div>
     </div>
   );

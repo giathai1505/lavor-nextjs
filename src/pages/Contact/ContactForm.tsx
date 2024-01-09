@@ -4,7 +4,6 @@ import { BiUser, BiMessageSquare } from "react-icons/bi";
 import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import { Controller, useForm } from "react-hook-form";
 import { CircleLoader } from "react-spinners";
-import "./style.css";
 
 export type TContactForm = {
   contact_name: string;

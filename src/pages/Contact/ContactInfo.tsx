@@ -4,7 +4,7 @@ import { PiHouseLight } from "react-icons/pi";
 import { AiOutlinePhone, AiOutlineGlobal } from "react-icons/ai";
 import { CiMail, CiFacebook } from "react-icons/ci";
 
-const ContactInfo = () => {
+const ContactInfo : React.FC = () => {
   return (
     <div>
       <h3 className="mb-5 text-[22px] leading-8">

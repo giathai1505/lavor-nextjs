@@ -1,16 +1,29 @@
-import ComparisonSlider from "@/components/ComparisonSlider";
 import Image from "next/image";
 import Link from "next/link";
 import startButton from "@/assets/images/common/start-now-button.png";
 import Button from "@/components/Common/Button";
-import ProductPart from "./ProductPart";
-import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import introduceImg from "@/assets/images/common/home-part2.webp";
 import HomeCarousel from "@/components/HomeCarousel";
-import { amazingCar } from "@/assets/staticData";
 import { IProduct } from "@/types/type";
 import React from "react";
-import "@/assets/styles/homepage.css";
+import dynamic from "next/dynamic";
+
+const LazyComparisonSlider = dynamic(
+  () => import("@/components/ComparisonSlider"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
+
+const LazyProductPart = dynamic(() => import("./ProductPart"), {
+  loading: () => <p>Loading...</p>,
+});
+
+const LazySimpleVideo = dynamic(() => import("./SampleVideos"), {
+  loading: () => <p>Loading...</p>,
+});
+
+
 
 type IPageProps = {
   products: IProduct[];
@@ -67,7 +80,7 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
         </div>
       </div>
 
-      <ComparisonSlider />
+      <LazyComparisonSlider />
 
       <div className="bg-secondaryBackground p-10 xl:p-20">
         <div className="max-w-[1200px] mx-auto text-center">
@@ -95,7 +108,7 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
                   tư vấn cụ thể hơn và lên lịch nâng cấp nội thất xe giúp bạn.
                 </p>
               </div>
-            </div>{" "}
+            </div>
             <div className="flex gap-5 text-left font-light">
               <p className="p3-big-text phone">3.</p>
               <div>
@@ -119,41 +132,9 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
         </div>
       </div>
 
-      <ProductPart products={products} />
+      <LazyProductPart products={products} />
 
-      <div className="bg-secondaryBackground py-10">
-        <div className="max-w-[1200px] mx-auto">
-          <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
-            NHỮNG <span>TUYỆT PHẨM</span> ĐƯỢC NÂNG CẤP TẠI <span>LAVOR</span>
-          </h2>
-          <div className="grid grid-cols-1 gap-10 xl:grid-cols-3 xl:my-20">
-            {amazingCar.map((item) => {
-              return (
-                <div
-                  className="h-[200px] w-[350px] mx-auto md:h-[350px] md:w-[600px] xl:w-[350px] xl:h-[200px]"
-                  key={item.id}
-                >
-                  <YoutubeThumbnail
-                    imgAlt={item.alt}
-                    imgSrc={item.src}
-                    embedId={item.embedId}
-                    title={item.title}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <div className="mt-10 flex justify-center">
-            <Link href="/thiet-ke">
-              <Image
-                src={startButton}
-                alt="Chọn thiêt kế riêng cuả bạn"
-                className="w-80 start-button"
-              />
-            </Link>
-          </div>
-        </div>
-      </div>
+      <LazySimpleVideo />
     </div>
   );
 };

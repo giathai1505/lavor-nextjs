@@ -1,6 +1,8 @@
 import React from "react";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/2.png";
+import VideoThumbnailImg from "@/assets/images/youtubeThumbnail/aboutUs/2.png";
+
+const VIDEO_EMBEDID: string = "WnV7IIKJYZik?si=Ca3mXnTdnosRYk9T";
 
 const Part3: React.FC = () => {
   return (
@@ -28,10 +30,10 @@ const Part3: React.FC = () => {
           <div>
             <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
               <YoutubeThumbnail
-                imgAlt="Giới thiệu phân xưởng Lavor"
-                imgSrc={introduceImg}
-                embedId="nV7IIKJYZik?si=Ca3mXnTdnosRYk9T"
                 title="Phân xưởng sản xuất nội thất ô tô hàng đầu Việt Nam có gì? | Lavor Luxury"
+                imgAlt="Giới thiệu phân xưởng Lavor"
+                imgSrc={VideoThumbnailImg}
+                embedId={VIDEO_EMBEDID}
               />
             </div>
           </div>

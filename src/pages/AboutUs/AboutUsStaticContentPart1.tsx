@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import directorTreeImg from "@/assets/images/common/director-tree.webp";
 
-const Part1 = () => {
+const Part1 : React.FC = () => {
   return (
     <div className="bg-black p-5 md:p-10 xl:p-16">
       <div className="wrapper text-base md:text-lg">

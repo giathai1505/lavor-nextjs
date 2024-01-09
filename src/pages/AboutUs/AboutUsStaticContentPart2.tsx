@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import startButton from "@/assets/images/common/start-now-button.png";
-import introduceImg from "@/assets/images/youtubeThumbnail/aboutUs/introduce.webp";
 import React from "react";
+import VideoThumbnailImg from "@/assets/images/youtubeThumbnail/aboutUs/introduce.webp";
+
+const VIDEO_EMBEDID : string = "WxabGfI3CVk?si=yZ1hAl9hVjLVnQLN"
 
 const Part2: React.FC = () => {
   return (
@@ -34,9 +36,9 @@ const Part2: React.FC = () => {
           <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[220px] xl:w-[400px]">
             <YoutubeThumbnail
               imgAlt="Hướng dẫn lắp đặt bộ massage 3 chức năng"
-              imgSrc={introduceImg}
+              imgSrc={VideoThumbnailImg}
               title="Hướng dẫn lắp đặt bộ Massage 3 chức năng - Lavor"
-              embedId="WxabGfI3CVk?si=yZ1hAl9hVjLVnQLN"
+              embedId={VIDEO_EMBEDID}
             />
           </div>
         </div>

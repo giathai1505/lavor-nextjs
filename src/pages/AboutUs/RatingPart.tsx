@@ -1,10 +1,11 @@
 import React from "react";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
 import RatingForm from "./Rating/RatingForm";
-import { TRating } from "@/types/type";
 import RatingList from "./Rating/RatingList";
-import "../Contact/style.css";
+import YoutubeThumbnailImage from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
+import { TRating } from "@/types/type";
+
+const VIDEO_EMBEDID : string = 'TusPsCPkLxo?si=ivvu5xs7fp73IPm3'
 
 interface IRating {
   ratings: TRating[];
@@ -34,9 +35,9 @@ const RatingPart: React.FC<IRating> = ({ ratings }) => {
               <div className="h-[200px] w-[350px] mx-auto mb-5 md:mb-10 md:h-[350px] md:w-[600px] xl:h-[300px] xl:w-[500px]">
                 <YoutubeThumbnail
                   imgAlt="Phòng trưng bày Lavor"
-                  imgSrc={PhongTrungBayImg}
+                  imgSrc={YoutubeThumbnailImage}
                   title="ĐỘT NHẬP phòng trưng bày phân xưởng sản xuất nội thất ô tô hàng đầu Việt Nam | Lavor Luxury"
-                  embedId="TusPsCPkLxo?si=ivvu5xs7fp73IPm3"
+                  embedId={VIDEO_EMBEDID}
                 />
               </div>
               <div className="text-white text-justify">

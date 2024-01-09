@@ -1,4 +1,5 @@
 import { CLIENT_API_ENPOINT } from "@/constants/client.env";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
 import { IAgency } from "@/types/type";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
@@ -8,24 +9,33 @@ export async function addAgencyAPI(data: IAgency, cityID: number) {
   try {
     const token: any = await getTokenFromLocalStorage();
     if (token !== "") {
-      const response = await fetch(
-        CLIENT_API_ENPOINT + "agencies/cities/" + cityID.toString(),
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ agencies: [data] }),
-        }
-      );
+      const axios = useAxiosAuth();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      // const response = await fetch(
+      //   CLIENT_API_ENPOINT + "agencies/cities/" + cityID.toString(),
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //     body: JSON.stringify({ agencies: [data] }),
+      //   }
+      // );
 
-      const responseData = await response.json();
-      return responseData;
+      const response = axios.post(`agencies/cities/${cityID.toString()}`, {
+        agencies: [data],
+      });
+
+      console.log("===========", response);
+
+      // if (!response?.ok) {
+      //   throw new Error(`HTTP error! Status: ${response.status}`);
+      // }
+
+      // const responseData = await response.json();
+      // return responseData;
+      return response;
     } else {
       signOut();
     }

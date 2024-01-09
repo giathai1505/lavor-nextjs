@@ -89,7 +89,7 @@ export const getTokenFromLocalStorage = async () => {
   const session = await getSession();
 
   if (session) {
-    return session.user?.name;
+    return session.user?.access_token;
   } else {
     signOut();
     return "";

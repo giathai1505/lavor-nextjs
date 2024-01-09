@@ -1,28 +1,22 @@
-import { CLIENT_API_ENPOINT } from "@/constants/client.env";
-import errorHandler from "@/utilities/errorHandler";
-import successHandler from "@/utilities/successHandler";
 import axios from "axios";
+import { CLIENT_API_ENPOINT } from "../constants/client.env";
+import successHandler from "../utilities/successHandler";
+import errorHandler from "../utilities/errorHandler";
 
 enum Endpoints {
-    Create = '/create',
-    Read = '/read',
-  }
+  Create = "/create",
+  Read = "/read",
+}
 
-
-  type TRequestParam = {
-    entity: string;
-    jsonData?: Record<string, any>,
-    id?: string;
-    options:  Record<string, any>,
-
-
-  }
-
+type TRequestParam = {
+  entity: string;
+  jsonData?: Record<string, any>;
+  id?: string;
+  options: Record<string, any>;
+};
 
 axios.defaults.baseURL = CLIENT_API_ENPOINT;
 axios.defaults.withCredentials = true;
-
-
 
 class ApiRequest {
   private static instance: ApiRequest | null = null;
@@ -42,10 +36,12 @@ class ApiRequest {
     return ApiRequest.instance;
   }
 
-
   public create = async ({ entity, jsonData }: TRequestParam) => {
     try {
-      const response = await axios.post(`${entity}${Endpoints.Create}`, jsonData);
+      const response = await axios.post(
+        `${entity}${Endpoints.Create}`,
+        jsonData
+      );
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -55,7 +51,6 @@ class ApiRequest {
       return errorHandler(error);
     }
   };
-
 
   public createAndUpload = async ({ entity, jsonData }: TRequestParam) => {
     try {

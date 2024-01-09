@@ -15,28 +15,29 @@ async function refreshToken(refreshToken: string) {
   return data.accessToken;
 }
 
+// especially used for getData in ServerComponent
 export async function AuthGetApi(url: string) {
   const session = await getServerSession();
-  console.log("before: ", session?.user.accessToken);
+  console.log("before: ", session?.user.access_token);
 
   let res = await fetch(CLIENT_API_ENPOINT + url, {
     method: "GET",
     headers: {
-      Authorization: `bearer ${session?.user.accessToken}`,
+      Authorization: `bearer ${session?.user.access_token}`,
     },
   });
 
   if (res.status == 401) {
     if (session)
-      session.user.accessToken = await refreshToken(
-        session?.user.refreshToken ?? ""
+      session.user.access_token = await refreshToken(
+        session?.user.refresh_token ?? ""
       );
-    console.log("after: ", session?.user.accessToken);
+    console.log("after: ", session?.user.access_token);
 
     res = await fetch(CLIENT_API_ENPOINT + url, {
       method: "GET",
       headers: {
-        Authorization: `bearer ${session?.user.accessToken}`,
+        Authorization: `bearer ${session?.user.access_token}`,
       },
     });
     return await res.json();

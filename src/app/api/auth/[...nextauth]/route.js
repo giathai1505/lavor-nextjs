@@ -25,6 +25,7 @@ const authOptions = {
 
           if (response.ok) {
             const user = await response.json();
+            console.log("===== user: ", user);
             return user;
           } else {
             throw new Error("Error logging in");
@@ -38,13 +39,20 @@ const authOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user, account }) {
-      console.log({ account });
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === "update") {
+        return { ...token, ...session.user };
+      }
       return { ...token, ...user };
     },
 
     async session({ session, token, user }) {
+      console.log("==== session: ", session);
+      console.log("==== token: ", token);
+      console.log("==== user: ", user);
+
       session.user = token;
+
       return session;
     },
   },

@@ -20,6 +20,10 @@ const Login = () => {
   const router = useRouter();
 
   const form = useForm<ILoginForm>({
+    defaultValues: {
+      username: "admin",
+      password: "12345678",
+    },
     mode: "all",
   });
   const {

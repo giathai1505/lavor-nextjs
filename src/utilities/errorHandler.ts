@@ -1,11 +1,10 @@
-import { codeMessage } from "@/constants/constants";
 import { notification } from "antd";
+import { codeMessage } from "../constants/constants";
 
 const errorHandler = (error: any) => {
   const { response } = error;
 
   if (response.data && response.data.jwtExpired) {
-    //check if token is expired then will direct to logout page
   }
 
   if (response && response.status) {

@@ -1,6 +1,6 @@
 "use client";
 import { addRating } from "@/api/ratingAPI";
-import { notification } from "antd";
+import useToast from "@/hooks/useToast";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { BiMessageSquare, BiUser } from "react-icons/bi";
@@ -14,11 +14,11 @@ export type TRatingForm = {
   review_content: string;
 };
 
-const RatingForm = () => {
+const RatingForm: React.FC = () => {
   const [hoverIndex, setHoverIndex] = useState<number>(-1);
   const [ratingStar, setRatingStar] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [api, contextHolder] = notification.useNotification();
+  const { contextHolder, showNotification } = useToast();
 
   const { control, handleSubmit, watch } = useForm<TRatingForm>({
     defaultValues: {
@@ -31,21 +31,6 @@ const RatingForm = () => {
 
   const contentValue = watch("review_content");
 
-  const openSuccessNotification = () => {
-    api["success"]({
-      message: "Gửi đánh giá thành công!",
-      description:
-        "Đánh giá của bạn sẽ được admin phê duyệt trước khi được hiện trên website để tránh nội dung nhạy cảm!",
-    });
-  };
-
-  const openFailNotification = () => {
-    api["error"]({
-      message: "Gửi đánh giá thất bại!",
-      description: "Lỗi hệ thống! Vui lòng thử lại sau.",
-    });
-  };
-
   const handleSubmitRating = async (data: TRatingForm) => {
     const apiData = {
       ...data,
@@ -56,10 +41,18 @@ const RatingForm = () => {
       setIsLoading(true);
       const result = await addRating(apiData);
       setIsLoading(false);
-      openSuccessNotification();
+      showNotification(
+        "success",
+        "Gửi đánh giá thành công!",
+        "Đánh giá của bạn sẽ được admin phê duyệt trước khi được hiện trên website để tránh nội dung nhạy cảm!"
+      );
     } catch (error) {
       setIsLoading(false);
-      openFailNotification();
+      showNotification(
+        "error",
+        "Gửi đánh giá thất bại!",
+        "Lỗi hệ thống! Vui lòng thử lại sau."
+      );
     }
   };
 

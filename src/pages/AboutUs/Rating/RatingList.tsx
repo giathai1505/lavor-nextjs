@@ -11,8 +11,10 @@ type TRatingListProps = {
 };
 
 const RatingList: React.FC<TRatingListProps> = ({ ratings }) => {
-  const [isShowMore, setisShowMore] = useState<boolean>(false);
   if (!ratings) return null;
+
+  const [isShowMore, setisShowMore] = useState<boolean>(false);
+
   return (
     <div>
       <div>
@@ -22,22 +24,22 @@ const RatingList: React.FC<TRatingListProps> = ({ ratings }) => {
             return <RatingItem rating={item} key={index} />;
           })}
       </div>
-      <p
+      <div
         className="cursor-pointer text-right text-primary italic flex justify-end mt-3"
         onClick={() => setisShowMore((prev) => !prev)}
       >
         {isShowMore ? (
-          <div className="flex items-center gap-2">
+          <p className="flex items-center gap-2">
             <span>Ẩn bớt</span>
             <IoMdArrowDropup />
-          </div>
+          </p>
         ) : (
-          <div className="flex items-center gap-2">
+          <p className="flex items-center gap-2">
             <span> Xem thêm</span>
             <IoMdArrowDropdown />
-          </div>
+          </p>
         )}
-      </p>
+      </div>
     </div>
   );
 };

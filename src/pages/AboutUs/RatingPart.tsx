@@ -1,10 +1,10 @@
 import React from "react";
-import "../Contact/style.css";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import PhongTrungBayImg from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
 import RatingForm from "./Rating/RatingForm";
 import { TRating } from "@/types/type";
 import RatingList from "./Rating/RatingList";
+import "../Contact/style.css";
 
 interface IRating {
   ratings: TRating[];

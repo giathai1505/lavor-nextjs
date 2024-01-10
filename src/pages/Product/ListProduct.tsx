@@ -5,6 +5,7 @@ import ProductItemVertical from "./components/ProductItemVertical";
 import { IProduct, SlugToTitle } from "@/types/type";
 import { useRouter } from "next/navigation";
 import { Empty } from "antd";
+import Each from "@/lib/Each";
 
 const listDanhMuc = [
   {
@@ -83,11 +84,12 @@ const ListProduct: React.FC<IListProduct> = ({
         </div>
         {Array.isArray(products) ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 pt-10 pb-40">
-            {products.map((item) => {
-              return (
+            <Each
+              of={products}
+              render={(item) => (
                 <ProductItemVertical product={item} key={item.product_id} />
-              );
-            })}
+              )}
+            />
           </div>
         ) : (
           <div className="flex justify-center my-20">

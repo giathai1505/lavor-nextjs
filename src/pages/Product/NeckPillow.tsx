@@ -10,6 +10,7 @@ interface INeckPillowProps {
 }
 
 const NeckPillow: React.FC<INeckPillowProps> = ({ listPillow }) => {
+  if(!Array.isArray(listPillow)) return null
   return (
     <div className="p-5 md:p-10 xl:px-0 xl:py-10">
       <div className="mb-10">

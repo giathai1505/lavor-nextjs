@@ -6,11 +6,10 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { AdminSidebarCategories } from "@/assets/staticData";
+import Each from "@/lib/Each";
 
-const renderAdminMenu = (menu: any[]) => {
-  if (menu.length === 0) return null;
+const renderMenuItem = (menu: any, index: number) => {
   const path = usePathname();
-
   const menuItemClass = (itemUrl: string): string => {
     let className = "sidebar-item";
     if (path?.toString().includes(itemUrl)) {
@@ -18,23 +17,16 @@ const renderAdminMenu = (menu: any[]) => {
     }
     return className;
   };
-
   return (
-    <ul className="px-3">
-      {menu.map((item, index) => {
-        return (
-          <li key={index} className={menuItemClass(item.link)}>
-            <Link
-              href={item.link}
-              className="flex gap-5 items-center text-[14px] text-white"
-            >
-              {item.icon}
-              <span>{item.name}</span>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+    <li key={index} className={menuItemClass(menu.link)}>
+      <Link
+        href={menu.link}
+        className="flex gap-5 items-center text-[14px] text-white"
+      >
+        {menu.icon}
+        <span>{menu.name}</span>
+      </Link>
+    </li>
   );
 };
 
@@ -59,10 +51,15 @@ const AdminSidebar: React.FC<IPageProps> = ({ show }) => {
         </Link>
         <p>Xin chào Lavor</p>
       </div>
-      
+
       <p className="dashboard-text">DASHBOARD</p>
 
-      {renderAdminMenu(AdminSidebarCategories)}
+      <ul className="px-3">
+        <Each
+          of={AdminSidebarCategories}
+          render={(item, index) => renderMenuItem(item, index)}
+        />
+      </ul>
 
       <button className="sidebar-logout" onClick={handleLogout}>
         <BiLogOutCircle />

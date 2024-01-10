@@ -4,8 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import startButton from "@/assets/images/common/start-now-button.png";
+import Each from "@/lib/Each";
 
-const SampleVideos : React.FC = () => {
+const renderYouTubeVideo = (youtube: any) => {
+  return (
+    <div
+      className="h-[200px] w-[350px] mx-auto md:h-[350px] md:w-[600px] xl:w-[350px] xl:h-[200px]"
+      key={youtube.id}
+    >
+      <YoutubeThumbnail
+        imgAlt={youtube.alt}
+        imgSrc={youtube.src}
+        embedId={youtube.embedId}
+        title={youtube.title}
+      />
+    </div>
+  );
+};
+
+const SampleVideos = () => {
   return (
     <div className="bg-secondaryBackground py-10">
       <div className="max-w-[1200px] mx-auto">
@@ -13,21 +30,7 @@ const SampleVideos : React.FC = () => {
           NHỮNG <span>TUYỆT PHẨM</span> ĐƯỢC NÂNG CẤP TẠI <span>LAVOR</span>
         </h2>
         <div className="grid grid-cols-1 gap-10 xl:grid-cols-3 xl:my-20">
-          {amazingCar.map((item) => {
-            return (
-              <div
-                className="h-[200px] w-[350px] mx-auto md:h-[350px] md:w-[600px] xl:w-[350px] xl:h-[200px]"
-                key={item.id}
-              >
-                <YoutubeThumbnail
-                  imgAlt={item.alt}
-                  imgSrc={item.src}
-                  embedId={item.embedId}
-                  title={item.title}
-                />
-              </div>
-            );
-          })}
+          <Each of={amazingCar} render={(item) => renderYouTubeVideo(item)} />
         </div>
         <div className="mt-10 flex justify-center">
           <Link href="/thiet-ke">

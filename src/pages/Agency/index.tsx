@@ -62,13 +62,12 @@ const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
             {activeRegion && <ProvinceList provinces={listProvinces} />}
           </div>
         </div>
-        <div className="flex justify-center col-span-1">
+        <div className="col-span-1">
           <Image
             alt="Đại lý toàn quốc"
             src={map}
-            placeholder="blur"
             loading="eager"
-            className="w-[500px]"
+            className="w-full object-cover"
           />
         </div>
       </div>

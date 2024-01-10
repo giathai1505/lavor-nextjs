@@ -34,9 +34,10 @@ import { redirect } from "next/navigation";
 
 import moment, { Moment } from "moment";
 import { renderCategory } from "@/pages/News";
-import 'moment/locale/vi';
+import "moment/locale/vi";
 import { fromNow } from "@/lib/time";
 import { indexArray } from "@/utilities/commonUtilities";
+import Each from "@/lib/Each";
 
 const statusOptions = [
   {
@@ -111,8 +112,6 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
     status: Status | undefined;
   }>({ id: undefined, status: undefined });
 
-  
-
   const invokeGetAllBlogs = async () => {
     let url = "?page=1&limit=10";
     if (globalFilter.search !== "") {
@@ -133,8 +132,6 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         setData([]);
       });
   };
-
-
 
   useEffect(() => {
     invokeGetAllBlogs();
@@ -248,9 +245,7 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         accessorFn: (row) => row.blog_upload_date,
         id: "blog_upload_date",
         cell: ({ row }) => (
-          <p className="time">
-          {fromNow(row.original.blog_upload_date)}
-          </p>
+          <p className="time">{fromNow(row.original.blog_upload_date)}</p>
         ),
         header: () => <span className="time">Ngày đăng</span>,
       },
@@ -557,11 +552,14 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
             }}
             className="pagination-select "
           >
-            {indexArray(5,10).map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                {pageSize}
-              </option>
-            ))}
+            <Each
+              of={indexArray(5, 10)}
+              render={(item, _) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              )}
+            />
           </select>
         </div>
         <br />

@@ -7,6 +7,7 @@ import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IAgency, ICity, IRegion } from "@/types/type";
 import useAxiosAuth from "@/hooks/useAxiosAuth";
+import Each from "@/lib/Each";
 
 interface IDialog {
   open: boolean;
@@ -133,15 +134,14 @@ const AddAgencyDialog: React.FC<IDialog> = ({
                     rules={{ required: "Bạn cần phải nhập trường này!" }}
                     render={({ field }) => (
                       <select {...field}>
-                        {Array.isArray(listCity) &&
-                          listCity.length > 0 &&
-                          listCity.map((item) => {
-                            return (
-                              <option value={item?.city_id}>
-                                {item?.city_name}
-                              </option>
-                            );
-                          })}
+                        <Each
+                          of={listCity}
+                          render={(item, _) => (
+                            <option value={item?.city_id}>
+                              {item?.city_name}
+                            </option>
+                          )}
+                        />
                       </select>
                     )}
                   />

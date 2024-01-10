@@ -21,6 +21,7 @@ import {
 import { upLoadImage } from "@/api/imageAPI";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
+import Each from "@/lib/Each";
 
 export interface ICarFormValue {
   year: number;
@@ -356,11 +357,12 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
                         rules={{ required: "Bạn cần phải nhập trường này!" }}
                         render={({ field }) => (
                           <select {...field}>
-                            {listYears.map((item) => {
-                              return (
+                            <Each
+                              of={listYears}
+                              render={(item, _) => (
                                 <option value={item.year}>{item.year}</option>
-                              );
-                            })}
+                              )}
+                            />
                           </select>
                         )}
                       />

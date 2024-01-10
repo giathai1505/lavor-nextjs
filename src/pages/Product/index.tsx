@@ -11,6 +11,7 @@ import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 import { IBlog, IProduct, ProductType, ProductTypeToText } from "@/types/type";
 import NewGridViewItem from "../News/NewItems/NewGridViewItem";
+import Each from "@/lib/Each";
 
 interface IProductProps {
   products: IProduct[];
@@ -64,6 +65,10 @@ const calculateNumProductOfCategory = (products: IProduct[]) => {
 };
 
 const Product: React.FC<IProductProps> = ({ products, blogs }) => {
+  if(!Array.isArray(products)) return null
+  const pillowProducts = products.filter(
+    (item) => item.product_type === ProductType.PILLOW
+  )
   return (
     <div className="bg-black">
       <PartHeader
@@ -82,15 +87,7 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
       <div className="w-full h-[150px] xl:h-[300px] product-banner mt-10"></div>
 
       <div className="wrapper">
-        <NeckPillow
-          listPillow={
-            Array.isArray(products)
-              ? products.filter(
-                  (item) => item.product_type === ProductType.PILLOW
-                )
-              : []
-          }
-        />
+        <NeckPillow listPillow={pillowProducts} />
       </div>
 
       <div className="wrapper">
@@ -139,11 +136,10 @@ const Product: React.FC<IProductProps> = ({ products, blogs }) => {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-          {Array.isArray(blogs) &&
-            blogs.map((item, index) => {
-              if (index > 2) return <></>;
-              return <NewGridViewItem blog={item} />;
-            })}
+          <Each
+            of={blogs.splice(0, 3)}
+            render={(blog) => <NewGridViewItem blog={blog} />}
+          />
         </div>
       </div>
     </div>

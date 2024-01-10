@@ -3,7 +3,6 @@ import FavoriteNews from "./BlogComponents/FavoriteNews";
 import Followers from "./BlogComponents/Followers";
 import BlogCategory from "./BlogComponents/BlogCategory";
 import AboutLavor from "./BlogComponents/AboutLavor";
-import { BsSearch } from "react-icons/bs";
 import { IBlog } from "@/types/type";
 
 interface IBlogSidebarProps {

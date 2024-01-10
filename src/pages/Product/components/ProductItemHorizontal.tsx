@@ -18,7 +18,7 @@ const ProductItemHorizontal: React.FC<IProductItemHorizontal> = ({
     >
       <div className="w-full h-[150px] overflow-hidden">
         <img
-          src={"http://" + product.product_images[0]}
+          src={product.product_images[0]}
           alt="Hình ảnh sản phẩm"
           className="w-full h-full rounded-sm object-cover"
         ></img>

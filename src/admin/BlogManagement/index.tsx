@@ -36,6 +36,7 @@ import moment, { Moment } from "moment";
 import { renderCategory } from "@/pages/News";
 import 'moment/locale/vi';
 import { fromNow } from "@/lib/time";
+import { indexArray } from "@/utilities/commonUtilities";
 
 const statusOptions = [
   {
@@ -556,7 +557,7 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
             }}
             className="pagination-select "
           >
-            {[10, 20, 30, 40, 50].map((pageSize) => (
+            {indexArray(5,10).map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 {pageSize}
               </option>

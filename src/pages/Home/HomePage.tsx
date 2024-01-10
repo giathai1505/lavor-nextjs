@@ -7,6 +7,7 @@ import HomeCarousel from "@/components/HomeCarousel";
 import { IProduct } from "@/types/type";
 import React from "react";
 import dynamic from "next/dynamic";
+import { indexArray } from "@/utilities/commonUtilities";
 
 const LazyComparisonSlider = dynamic(
   () => import("@/components/ComparisonSlider"),

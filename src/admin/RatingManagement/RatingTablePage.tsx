@@ -8,6 +8,7 @@ import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { deleteRating, getAllRatings, restoreRating } from "@/api/ratingAPI";
 import { MdOutlineSettingsBackupRestore } from "react-icons/md";
 import { Table } from "antd";
+import { indexArray } from "@/utilities/commonUtilities";
 
 interface IRatingTable {
   ratings: TRating[];
@@ -16,7 +17,7 @@ interface IRatingTable {
 const renderStar = (star: number) => {
   return (
     <div className="flex item-center gap-1">
-      {[1, 2, 3, 4, 5].map((item) => {
+      {indexArray(5).map((item) => {
         return (
           <div className="flex items-center" key={item}>
             {item <= star ? (

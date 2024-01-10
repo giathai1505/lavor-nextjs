@@ -103,3 +103,8 @@ export function getWindowDimensions() {
     height,
   };
 }
+
+
+export const indexArray = (length: number, gap: number = 1) : number[] => {
+  return new Array(length).fill(null).map((_, index) => (index + 1)*gap);
+}

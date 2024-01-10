@@ -8,7 +8,7 @@ import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
-import { getWindowDimensions } from "@/utilities/commonUtilities";
+import { getWindowDimensions, indexArray } from "@/utilities/commonUtilities";
 
 const DEFAULT_DESKTOP_SCREEN_WIDTH = 1920;
 const TOTAL_SLIDER = 3;
@@ -53,13 +53,13 @@ const HomeCarousel: React.FC = () => {
         onClick={handleMoveSlideRight}
       />
       <div className="carousel-dot-wrapper">
-        {new Array(3).fill(null).map((_, index) => {
+        {indexArray(3).map((item) => {
           return (
             <div
               className={`carousel-dot-item ${
-                activeSlide === index + 1 ? "active" : ""
+                activeSlide === item ? "active" : ""
               }`}
-              key={index + 1}
+              key={item}
             ></div>
           );
         })}

@@ -3,6 +3,7 @@ import React from "react";
 import userAvatar from "@/assets/images/common/user.png";
 import { BsFillStarFill } from "react-icons/bs";
 import { TRating } from "@/types/type";
+import { indexArray } from "@/utilities/commonUtilities";
 
 type IRatingItem = {
   rating: TRating;
@@ -15,16 +16,16 @@ type TStar = {
 const RenderStar: React.FC<TStar> = ({ star }) => {
   const starClassName = (index: number) =>
     `w-5 h-5 cursor-pointer relative ${
-      index + 1 <= Number(star) && "text-[#ffce3d]"
+      index <= Number(star) && "text-[#ffce3d]"
     }`;
 
   return (
     <div className="flex gap-1">
-      {new Array(5).fill(null).map((_, index) => {
+      {indexArray(5).map((star) => {
         return (
           <BsFillStarFill
-            className={starClassName(index)}
-            key={index.toString()}
+            className={starClassName(star)}
+            key={star}
           />
         );
       })}

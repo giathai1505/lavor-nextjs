@@ -17,7 +17,7 @@ const NewGridViewItem: React.FC<INewBlogItem> = ({ blog }) => {
     <div className="blog-item-wrapper border border-solid border-[#8080805e] text-white mb-5">
       <div className="h-[250px] overflow-hidden">
         <img
-          src={"http://" + blog.blog_image_url}
+          src={blog.blog_image_url}
           alt=""
           className="w-full h-full object-cover"
         />

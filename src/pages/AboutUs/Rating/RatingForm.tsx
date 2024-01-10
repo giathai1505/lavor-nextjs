@@ -1,6 +1,7 @@
 "use client";
 import { addRating } from "@/api/ratingAPI";
 import useToast from "@/hooks/useToast";
+import { indexArray } from "@/utilities/commonUtilities";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { BiMessageSquare, BiUser } from "react-icons/bi";
@@ -108,7 +109,7 @@ const RatingForm: React.FC = () => {
         </div>
         <div className="flex justify-center items-center flex-col gap-10 my-10">
           <div className="flex gap-1 rating-stars">
-            {[1, 2, 3, 4, 5].map((item) => {
+            {indexArray(5).map((item) => {
               return (
                 <BsFillStarFill
                   className={`w-10 h-10 cursor-pointer relative ${

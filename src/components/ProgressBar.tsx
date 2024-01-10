@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import startImg from "@/assets/images/common/start-circle-button.png";
 import { EDesignPhase } from "@/types/type";
+import { indexArray } from "@/utilities/commonUtilities";
 
 const TOTAL_PHASE: number = 3;
 
@@ -20,11 +21,11 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
         style={{ width: `${activeWith}%` }}
       ></div>
       <div className="absolute w-full flex justify-between top-1/2 -translate-y-1/2">
-        {new Array(4).fill(null).map((_, index) => {
+        {indexArray(4).map((item) => {
           return (
             <div
-              className={`dot ${index <= active ? "bg-primary" : "bg-white"}`}
-              key={index}
+              className={`dot ${item - 1 <= active ? "bg-primary" : "bg-white"}`}
+              key={item}
             ></div>
           );
         })}

@@ -30,7 +30,7 @@ import {
   deleteProduct,
   getAllProducts,
 } from "@/api/productAPI";
-import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
+import { formatCurrencyWithDots, indexArray } from "@/utilities/commonUtilities";
 
 const statusOptions = [
   {
@@ -577,7 +577,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
             }}
             className="pagination-select "
           >
-            {[10, 20, 30, 40, 50].map((pageSize) => (
+            {indexArray(5,10).map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 {pageSize}
               </option>

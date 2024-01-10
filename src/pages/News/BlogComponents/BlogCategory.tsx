@@ -14,6 +14,10 @@ const calculateNumBlogOfCategory = (blogs: IBlog[]) => {
   }, new Map<string, number>());
 };
 
+const render = () => {
+  return;
+};
+
 interface IBlogCategoryProps {
   blogs: IBlog[];
 }

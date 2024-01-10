@@ -23,19 +23,20 @@ const renderProductByCategory = (
   type: ProductType,
   url: string
 ) => {
+  const listProducts = products
+    .filter((item) => item.product_type === type)
+    .splice(0, 3);
+
   return (
     <div>
       <p className="font-bold text-xl text-primary mb-10 uppercase">
         {ProductTypeToText[type]}
       </p>
 
-      {Array.isArray(products) &&
-        products
-          .filter((item) => item.product_type === type)
-          .map((p, index) => {
-            if (index >= 3) return <></>;
-            return <ProductItemHorizontal product={p} />;
-          })}
+      <Each
+        of={listProducts}
+        render={(p) => <ProductItemHorizontal product={p} />}
+      />
 
       <div className="flex justify-end">
         <Link
@@ -65,10 +66,12 @@ const calculateNumProductOfCategory = (products: IProduct[]) => {
 };
 
 const Product: React.FC<IProductProps> = ({ products, blogs }) => {
-  if(!Array.isArray(products)) return null
+  if (!Array.isArray(products)) return null;
+
   const pillowProducts = products.filter(
     (item) => item.product_type === ProductType.PILLOW
-  )
+  );
+
   return (
     <div className="bg-black">
       <PartHeader

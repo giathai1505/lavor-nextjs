@@ -3,12 +3,14 @@ import ProductItemVertical from "../Product/components/ProductItemVertical";
 import { IProduct } from "@/types/type";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
+import Each from "@/lib/Each";
 
 interface IRelatedProducts {
   products: IProduct[];
 }
 
 const RelatedProduct: React.FC<IRelatedProducts> = ({ products }) => {
+  if (!Array.isArray(products)) return null;
   return (
     <div className="text-white mt-10">
       <div className="flex justify-between items-center gap-5 md:gap-20 mb-10">
@@ -29,9 +31,12 @@ const RelatedProduct: React.FC<IRelatedProducts> = ({ products }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4  gap-10">
-        {Array.isArray(products) && products.slice(0,4).map((item) => {
-            return <ProductItemVertical product={item} key={item.product_id} />;
-          })}
+        <Each
+          of={products.slice(0, 4)}
+          render={(product) => (
+            <ProductItemVertical product={product} key={product.product_id} />
+          )}
+        />
       </div>
     </div>
   );

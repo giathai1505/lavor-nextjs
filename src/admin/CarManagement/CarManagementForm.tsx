@@ -399,13 +399,14 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
                         rules={{ required: "Bạn cần phải nhập thông tin này!" }}
                         render={({ field }) => (
                           <select {...field}>
-                            {listBrands.map((item) => {
-                              return (
+                            <Each
+                              of={listBrands}
+                              render={(item) => (
                                 <option value={item.brand_id}>
                                   {item.brand_name}
                                 </option>
-                              );
-                            })}
+                              )}
+                            />
                           </select>
                         )}
                       />

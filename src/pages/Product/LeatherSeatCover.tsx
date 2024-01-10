@@ -4,6 +4,25 @@ import React from "react";
 import startButton from "@/assets/images/common/start-now-button.png";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import { bocGheDa } from "@/assets/staticData";
+import Each from "@/lib/Each";
+
+const renderYoutubeVideo = (item: any) => {
+  return (
+    <div key={item.id}>
+      <div className="h-[200px] w-[350px] mx-auto ">
+        <YoutubeThumbnail
+          imgAlt={item.videoThumbnail.alt}
+          imgSrc={item.videoThumbnail.image}
+          title={item.videoThumbnail.title}
+          embedId={item.videoThumbnail.embedId}
+        />
+      </div>
+      <p className="uppercase text-center text-primary mt-2 text-xl">
+        {item.name}
+      </p>
+    </div>
+  );
+};
 
 const LeatherSeatCover = () => {
   return (
@@ -16,23 +35,7 @@ const LeatherSeatCover = () => {
         có thể tham khảo để dễ dàng tạo ra thiết kế cho riêng mình nhé!
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-        {bocGheDa.map((item) => {
-          return (
-            <div key={item.id}>
-              <div className="h-[200px] w-[350px] mx-auto ">
-                <YoutubeThumbnail
-                  imgAlt={item.videoThumbnail.alt}
-                  imgSrc={item.videoThumbnail.image}
-                  title={item.videoThumbnail.title}
-                  embedId={item.videoThumbnail.embedId}
-                />
-              </div>
-              <p className="uppercase text-center text-primary mt-2 text-xl">
-                {item.name}
-              </p>
-            </div>
-          );
-        })}
+        <Each of={bocGheDa} render={(item) => renderYoutubeVideo(item)} />
       </div>
       <div className="mt-14 flex justify-center">
         <Link href="/thiet-ke">

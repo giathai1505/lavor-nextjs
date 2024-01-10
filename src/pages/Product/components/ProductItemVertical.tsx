@@ -1,7 +1,30 @@
 import Link from "next/link";
 import React from "react";
-import { IProduct, ProductTypeToText } from "@/types/type";
+import { IProduct, IProductVariant, ProductTypeToText } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
+import Each from "@/lib/Each";
+
+type TProductVariant = {
+  variants: IProductVariant[];
+};
+
+const ProductVariant = ({ variants }: TProductVariant) => {
+  if (variants.length <= 1) return null;
+  return (
+    <div className="flex gap-2">
+      <Each
+        of={variants}
+        render={(v) => (
+          <div
+            key={v.variant_color}
+            style={{ background: v.variant_color }}
+            className={`w-4 h-4 rounded-full border border-solid border-gray cursor-pointer`}
+          />
+        )}
+      />
+    </div>
+  );
+};
 
 interface IProductVertical {
   product: IProduct;
@@ -11,7 +34,7 @@ const ProductItemVertical: React.FC<IProductVertical> = ({ product }) => {
   if (!product) return null;
   return (
     <Link
-    href={"/chi-tiet-san-pham/" + product.product_id}
+      href={"/chi-tiet-san-pham/" + product.product_id}
       className="product-wrapper w-[300px] mx-auto border border-solid border-[#443e3e] hover:border-primary"
       key={product.product_id}
     >
@@ -32,19 +55,7 @@ const ProductItemVertical: React.FC<IProductVertical> = ({ product }) => {
           {product.product_name}
         </p>
 
-        {product.variants.length > 1 && (
-          <div className="flex gap-2">
-            {product.variants.map((variant) => {
-              return (
-                <div
-                  key={variant.variant_color}
-                  style={{ background: variant.variant_color }}
-                  className={`w-4 h-4 rounded-full border border-solid border-gray cursor-pointer`}
-                ></div>
-              );
-            })}
-          </div>
-        )}
+        <ProductVariant variants={product.variants} />
 
         {product.product_price !== 0 && (
           <div className="flex items-center text-primary">
@@ -54,7 +65,6 @@ const ProductItemVertical: React.FC<IProductVertical> = ({ product }) => {
             <span className="text-xs">đ</span>
           </div>
         )}
-
       </div>
     </Link>
   );

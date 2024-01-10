@@ -577,7 +577,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
                                   <img
                                     src={
                                       typeof image === "string"
-                                        ? "http://" + image
+                                        ? image
                                         : URL.createObjectURL(image)
                                     }
                                     className="w-full h-full object-cover rounded-md"

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 import ProductItemVertical from "./components/ProductItemVertical";
 import { IProduct } from "@/types/type";
+import Each from "@/lib/Each";
 
 interface INeckPillowProps {
   listPillow: IProduct[];
@@ -29,11 +30,7 @@ const NeckPillow: React.FC<INeckPillowProps> = ({ listPillow }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 px-10 md:p-0 gap-12">
-        {Array.isArray(listPillow) &&
-          listPillow.map((item, index) => {
-            if (index > 3) return <></>;
-            return <ProductItemVertical product={item} key={item.product_id} />;
-          })}
+        <Each of={listPillow.slice(0,4)} render={(props)=> <ProductItemVertical product={props} key={props.product_id} />}/>
       </div>
     </div>
   );

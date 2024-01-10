@@ -1,10 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import Image from "next/image";
 import { IProduct, ProductTypeToText } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
-
-const color = ["#E6C197", "#F58220", "##000000"];
 
 interface IProductVertical {
   product: IProduct;
@@ -22,7 +19,7 @@ const ProductItemVertical: React.FC<IProductVertical> = ({ product }) => {
         <img
           className="w-full h-full object-cover"
           alt="Hình ảnh sản phẩm"
-          src={"http://" + product.product_images[0]}
+          src={product.product_images[0]}
           placeholder="blur"
         />
       </div>
@@ -58,7 +55,6 @@ const ProductItemVertical: React.FC<IProductVertical> = ({ product }) => {
           </div>
         )}
 
-        {/* <p className="text-md">Màu sắc:</p> */}
       </div>
     </Link>
   );

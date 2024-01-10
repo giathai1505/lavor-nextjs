@@ -16,7 +16,7 @@ const NewListViewItem: React.FC<INewBlogItem> = ({ blog }) => {
     <div className="blog-item-wrapper grid grid-cols-3 border gap-2 border-solid h-[150px] md:h-[250px] xl:h-[300px] border-[#8080805e] overflow-hidden">
       <div className="h-full w-full overflow-hidden col-span-1">
         <img
-          src={"http://" + blog.blog_image_url}
+          src={blog.blog_image_url}
           className="object-cover w-full h-full"
         />
       </div>

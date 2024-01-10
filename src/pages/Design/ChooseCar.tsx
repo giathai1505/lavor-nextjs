@@ -235,7 +235,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
         </div>
       ) : carDetail?.image !== "" ? (
         <div className="flex justify-center m-10">
-          <img src={"http://" + carDetail?.image} className="w-[500px]" />
+          <img src={carDetail?.image} className="w-[500px]" />
         </div>
       ) : null}
     </div>

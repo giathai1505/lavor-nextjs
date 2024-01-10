@@ -23,7 +23,7 @@ const DetailImage: React.FC<IDetailImage> = ({
             return (
               <img
                 alt="Ảnh sản phẩm"
-                src={"http://" + item.url}
+                src={item.url}
                 className={`dp-slide-img-item ${
                   item.id === activeVariant.id ? "active" : ""
                 }`}
@@ -36,7 +36,7 @@ const DetailImage: React.FC<IDetailImage> = ({
       </div>
       <div className="col-span-4">
         <img
-          src={"http://" + activeVariant.url}
+          src={activeVariant.url}
           alt="Hình ảnh sản phẩm"
           className="dp-main-img h-[200px] md:h-[350px]"
         />

@@ -34,7 +34,7 @@ const Conclusion: React.FC<IConclusion> = ({
           <p>- Phiên bản: {designData?.car?.version?.value}</p>
         </div>
         <img
-          src={"http://" + designData?.car?.image}
+          src={designData?.car?.image}
           alt="xe của bạn"
           className="h-28"
         ></img>

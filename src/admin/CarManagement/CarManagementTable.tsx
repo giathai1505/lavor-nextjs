@@ -91,7 +91,7 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
               width={100}
               height={30}
               className="rounded-md object-cover"
-              src={"http://" + record.image_url}
+              src={record.image_url}
             />
           </div>
         );

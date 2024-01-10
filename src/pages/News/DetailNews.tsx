@@ -146,7 +146,7 @@ const DetailNews: React.FC<IPageProps> = ({ blog, relatedBlogs, allBlogs }) => {
 
             <div className="h-[150px] md:h-[400px] xl:h-[500px]">
               <img
-                src={"http://" + blog.blog_image_url}
+                src={blog.blog_image_url}
                 alt="Quảng cáo xe hơi"
                 className="w-full h-full object-cover rounded-lg"
               />

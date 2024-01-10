@@ -212,7 +212,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
         cell: ({ row }) => (
           <div className="w-20 h-20">
             <img
-              src={"http://" + row.original.product_images[0]}
+              src={row.original.product_images[0]}
               alt="Hình ảnh sản phẩm"
               className="w-20 h-20 rounded-full object-cover"
             />

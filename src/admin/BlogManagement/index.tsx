@@ -234,8 +234,8 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         cell: ({ row }) => (
           <div className="w-20 h-20">
             <img
-              src={"http://" + row.original.blog_image_url}
-              alt=""
+              src={row.original.blog_image_url}
+              alt="Hình ảnh bài viết"
               className="w-20 h-20 rounded-full object-cover"
             />
           </div>

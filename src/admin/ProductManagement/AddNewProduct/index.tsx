@@ -490,7 +490,7 @@ const ProductForm: React.FC<IProductForm> = ({
                                   <img
                                     src={
                                       typeof field.value === "string"
-                                        ? "http://" + field.value
+                                        ? field.value
                                         : URL.createObjectURL(field.value[0])
                                     }
                                     className="w-full h-full object-cover rounded-md"
@@ -583,7 +583,7 @@ const ProductForm: React.FC<IProductForm> = ({
                                 <img
                                   src={
                                     typeof item === "string"
-                                      ? "http://" + item
+                                      ? item
                                       : URL.createObjectURL(item)
                                   }
                                   alt=""

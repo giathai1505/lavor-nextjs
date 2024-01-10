@@ -74,7 +74,7 @@ const SearchBox: React.FC<TSearchBoxProps> = ({ close, show }) => {
                   >
                     <div className="flex gap-5 mb-5">
                       <img
-                        src={"http://" + item.product_images[0]}
+                        src={item.product_images[0]}
                         className="w-20 h-20 rounded object-cover"
                       />
                       <div className=" flex flex-col gap-[5px] mb-1">

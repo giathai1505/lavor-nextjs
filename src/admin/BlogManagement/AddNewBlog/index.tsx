@@ -292,7 +292,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                           <img
                             src={
                               typeof image === "string"
-                                ? "http://" + image
+                                ? image
                                 : URL.createObjectURL(image)
                             }
                             className="w-full h-full object-cover rounded-md"

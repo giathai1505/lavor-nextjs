@@ -132,11 +132,6 @@ const ConfirmOrderModel: React.FC<TProps> = ({
                     <input
                       {...field}
                       type="text"
-                      onBlur={() => {
-                        if (!field.value) {
-                          field.onChange("");
-                        }
-                      }}
                       placeholder="Nhập tên"
                       className="admin-input"
                       id="text"
@@ -164,11 +159,6 @@ const ConfirmOrderModel: React.FC<TProps> = ({
                     <input
                       {...field}
                       type="text"
-                      onBlur={() => {
-                        if (!field.value) {
-                          field.onChange("");
-                        }
-                      }}
                       placeholder="Nhập số điện thoại"
                       className="admin-input"
                       id="text"
@@ -196,11 +186,6 @@ const ConfirmOrderModel: React.FC<TProps> = ({
                     <input
                       {...field}
                       type="text"
-                      onBlur={() => {
-                        if (!field.value) {
-                          field.onChange("");
-                        }
-                      }}
                       placeholder="Nhập email"
                       className="admin-input"
                       id="text"

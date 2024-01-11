@@ -1,4 +1,5 @@
 import { Category, CategoryConvertText, IBlog } from "@/types/type";
+import Link from "next/link";
 import React from "react";
 
 const calculateNumBlogOfCategory = (blogs: IBlog[]) => {
@@ -12,10 +13,6 @@ const calculateNumBlogOfCategory = (blogs: IBlog[]) => {
 
     return result;
   }, new Map<string, number>());
-};
-
-const render = () => {
-  return;
 };
 
 interface IBlogCategoryProps {
@@ -34,12 +31,15 @@ const BlogCategory: React.FC<IBlogCategoryProps> = ({ blogs }) => {
           {(Object.keys(Category) as Category[]).map((item) => {
             return (
               <li key={item}>
-                <div className="flex justify-between">
+                <Link
+                  className="flex justify-between hover:text-primary"
+                  href={`/tin-tuc?category=${item}&page=1`}
+                >
                   <span>{CategoryConvertText[item]}</span>
                   <span>
                     ({categories.has(item) ? categories.get(item) : 0})
                   </span>
-                </div>
+                </Link>
               </li>
             );
           })}

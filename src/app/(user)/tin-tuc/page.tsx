@@ -32,7 +32,7 @@ const index = async (props: any) => {
       ? "&category=" + props?.searchParams?.category
       : "";
 
-  const url = `?page=${props.searchParams.page ?? "1"}&limit=2` + categoryURL;
+  const url = `?page=${props.searchParams.page ?? "1"}&limit=8` + categoryURL;
 
   const response = await getAllBlog(url);
   const res2 = await getAllBlog("");

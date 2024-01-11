@@ -32,7 +32,6 @@ import goiLungImg from "@/assets/images/cateogries/goi-lung-category.png";
 import goiCoImg from "@/assets/images/cateogries/goi-co-category.png";
 import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san-category.png";
 import voLangImg from "@/assets/images/cateogries/boc-vo-lang-category.webp";
-import sanPhamKhacImg from "@/assets/images/cateogries/san-pham-khac.png";
 
 //category image
 import bocGheImg1 from "@/assets/images/cateogries/boc-ghe-img.jpeg";
@@ -481,7 +480,7 @@ export const categories = [
   {
     id: ProductType.OTHER,
     name: "Sản phẩm khác",
-    image: sanPhamKhacImg,
+    image: thamLotSanImg,
     href: "/san-pham/san-pham-khac",
     quantity: 1,
     icon: bocGheImg1,

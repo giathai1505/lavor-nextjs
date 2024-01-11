@@ -32,7 +32,6 @@ import {
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
 
-import moment, { Moment } from "moment";
 import { renderCategory } from "@/pages/News";
 import "moment/locale/vi";
 import { fromNow } from "@/lib/time";

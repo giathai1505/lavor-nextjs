@@ -23,7 +23,7 @@ const RelatedProduct: React.FC<IRelatedProducts> = ({ products }) => {
         </div>
         <Link
           href="/san-pham/goi-co"
-          className="flex items-center gap-2 bg-white text-primary hover:bg-primary hover:text-white rounded-sm px-3 py-2 w-fit"
+          className="flex items-center gap-2 text-primary hover:bg-primary hover:text-white rounded-sm px-3 py-2 w-fit"
         >
           <span>Xem tất cả</span>
           <BsArrowRightShort />

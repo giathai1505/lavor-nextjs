@@ -8,7 +8,7 @@ const AboutLavor = () => {
       <p className="font-bold text-lg  text-white mb-4">Về Lavor</p>
       <div className="p-5 mb-10 border border-solid border-[#8080805e] flex flex-col gap-5 items-center">
         <div>
-          <Image alt="" src={Logo} width={100}></Image>
+          <Image alt="Logo Lavor" src={Logo} width={100}></Image>
         </div>
         <p className="font-medium uppercase">Công Ty TNHH Nội thất Lavor</p>
         <p className="text-center">

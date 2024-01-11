@@ -12,6 +12,7 @@ import SearchBox from "./SearchBox";
 import Cart from "./Cart";
 import ConfirmOrderModel from "./ConfirmOrderModel";
 import { eventKeys } from "@/constants/constants";
+import useToast from "@/hooks/useToast";
 
 const Header: React.FC = () => {
   const [showFullHeader, setShowFullHeader] = useState<boolean>(true);
@@ -19,6 +20,7 @@ const Header: React.FC = () => {
   const [confirmModelOpen, setConfirmModelOpen] = useState<boolean>(false);
   const [isShowSearch, setIsShowSearch] = useState<boolean>(false);
   const path = usePathname();
+  const { contextHolder, showNotification } = useToast();
 
   const handleEventAddToCart = (carts: IProduct[]) => {
     setCarts(carts);
@@ -53,6 +55,7 @@ const Header: React.FC = () => {
 
   return (
     <>
+      {contextHolder}
       <div
         className={`h-[110px] text-white text-[13px] header fixed left-0 top-0 z-30 w-[100vw] ${
           showFullHeader

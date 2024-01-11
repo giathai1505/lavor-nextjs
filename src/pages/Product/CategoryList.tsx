@@ -5,7 +5,9 @@ import React from "react";
 import { categories } from "@/assets/staticData";
 
 const renderCategoryItem = (category: any, listValue: Map<string, number>) => {
-  const numOfProduct = listValue.has(category.id) ? listValue.get(category.id) : 0
+  const numOfProduct =
+    listValue && listValue.has(category.id) ? listValue.get(category.id) : 0;
+
   return (
     <Link href={category.href} className="category-wrapper">
       <div key={category.id} className="list-category-wrapper">
@@ -19,9 +21,7 @@ const renderCategoryItem = (category: any, listValue: Map<string, number>) => {
       </div>
       <div className="flex categorys-center text-white flex-col gap-1">
         <p className=" font-bold">{category.name}</p>
-        <span className="text-[12px]">
-          {numOfProduct} sản phẩm
-        </span>
+        <span className="text-[12px]">{numOfProduct} sản phẩm</span>
       </div>
     </Link>
   );
@@ -32,11 +32,12 @@ interface ICategoryListProps {
 }
 
 const CategoryList: React.FC<ICategoryListProps> = ({ listValue }) => {
-  if (!listValue) return null;
+  const listCategories = [...categories].splice(0, 5);
+
   return (
     <div className="grid grid-cols-5 gap-5 my-14">
       <Each
-        of={categories.splice(0, 5)}
+        of={listCategories}
         render={(item) => renderCategoryItem(item, listValue)}
       />
     </div>

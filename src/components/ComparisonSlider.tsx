@@ -5,9 +5,9 @@ import React, { useRef, useState } from "react";
 import oldCar from "@/assets/images/comparison-slider/old.webp";
 import newCar from "@/assets/images/comparison-slider/new.webp";
 
-const DEFAULT_SLIDER_VALUE : number = 50
+const DEFAULT_SLIDER_VALUE: number = 50;
 
-const ComparisonSlider : React.FC = () => {
+const ComparisonSlider: React.FC = () => {
   const [sliderValue, setSliderValue] = useState<number>(DEFAULT_SLIDER_VALUE);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -45,17 +45,19 @@ const ComparisonSlider : React.FC = () => {
           <div className="w-full h-full flex">
             <Image
               src={oldCar}
-              alt="old car"
-              placeholder="blur"
+              alt="Hình ảnh xe trước khi được Lavor lột xác"
               className="w-full h-full absolute object-cover"
+              loading="eager"
+              priority={true}
             />
             <Image
               src={newCar}
-              alt="new car"
+              alt="Hình ảnh xe sau khi được Lavor lột xác"
               className="w-full h-full absolute object-cover"
               id="old-car-img"
               ref={imgRef}
-              placeholder="blur"
+              loading="eager"
+              priority={true}
             />
           </div>
 

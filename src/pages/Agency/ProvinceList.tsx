@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { GoTriangleRight } from "react-icons/go";
 import { IAgency, ICity } from "@/types/type";
 import { Empty } from "antd";
@@ -8,6 +10,7 @@ interface IProvinceList {
 }
 
 const ProvinceList: React.FC<IProvinceList> = ({ provinces }) => {
+  if (!provinces) return;
   const [activeProvince, setActiveProvince] = useState<number>(NaN);
 
   const [listAgency, setListAgency] = useState<IAgency[]>([]);

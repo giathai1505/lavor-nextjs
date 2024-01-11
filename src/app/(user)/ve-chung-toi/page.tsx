@@ -5,15 +5,19 @@ import { Metadata } from "next";
 import React from "react";
 
 async function getAllRatings() {
-  const res = await fetch(SERVER_API_ENPOINT + "review", {
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch(SERVER_API_ENPOINT + "review", {
+      cache: "no-store",
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    if (!res.ok) {
+      return [];
+    }
+
+    return res.json();
+  } catch (error) {
+    return [];
   }
-
-  return res.json();
 }
 
 export const metadata: Metadata = {

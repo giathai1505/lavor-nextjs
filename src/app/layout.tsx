@@ -15,13 +15,7 @@ import "@/assets/styles/swiper.css";
 import "@/pages/News/blog.css";
 import "react-toastify/dist/ReactToastify.css";
 import SessionProvider from "@/components/Common/SessionProvider";
-import { Assistant } from "next/font/google";
 import { getServerSession } from "next-auth";
-
-const assistant = Assistant({
-  subsets: ["latin"],
-  variable: "--font-assistant",
-});
 
 export default async function RootLayout({
   children,

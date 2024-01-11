@@ -1,11 +1,10 @@
-import React from "react";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import RatingForm from "./Rating/RatingForm";
 import RatingList from "./Rating/RatingList";
 import YoutubeThumbnailImage from "@/assets/images/youtubeThumbnail/aboutUs/phong-trung-bay.webp";
 import { TRating } from "@/types/type";
 
-const VIDEO_EMBEDID : string = 'TusPsCPkLxo?si=ivvu5xs7fp73IPm3'
+const VIDEO_EMBEDID: string = "TusPsCPkLxo?si=ivvu5xs7fp73IPm3";
 
 interface IRating {
   ratings: TRating[];

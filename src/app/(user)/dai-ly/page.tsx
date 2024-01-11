@@ -15,12 +15,12 @@ async function getAllAgency() {
     });
 
     if (!res.ok) {
-      return null;
+      return [];
     }
 
     return res.json();
   } catch (error) {
-    return null;
+    return [];
   }
 }
 
@@ -28,7 +28,7 @@ const index = async () => {
   const response = await getAllAgency();
 
   let agencies = [];
-  if (response?.regions && Array.isArray(response?.regions)) {
+  if (response?.regions && Array.isArray(response.regions)) {
     agencies = response?.regions;
   }
   return (

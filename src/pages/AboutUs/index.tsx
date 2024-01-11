@@ -1,4 +1,3 @@
-import React from "react";
 import AboutUsStaticContentPart1 from "./AboutUsStaticContentPart1";
 import AboutUsStaticContentPart2 from "./AboutUsStaticContentPart2";
 import AboutUsStaticContentPart3 from "./AboutUsStaticContentPart3";
@@ -7,10 +6,9 @@ import titleBackgroundImage from "@/assets/images/headerPart/2.jpeg";
 import { TRating } from "@/types/type";
 import dynamic from "next/dynamic";
 
-
-const LazyRatingPart = dynamic(() => import('./RatingPart'), {
+const LazyRatingPart = dynamic(() => import("./RatingPart"), {
   loading: () => <p>Loading...</p>,
-})
+});
 
 type TPageProps = {
   ratings: TRating[];

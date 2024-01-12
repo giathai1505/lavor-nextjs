@@ -11,7 +11,7 @@ const Breadcrumb: React.FC<IBreadCrumb> = ({ text }) => {
     <div className="breadcrumb-wrapper">
       <ul>
         <li>
-          <Link href="/" className="z-40 px-2">
+          <Link href="/" className="z-40 px-2" aria-label="Trang chủ">
             <AiFillHome />
           </Link>
         </li>

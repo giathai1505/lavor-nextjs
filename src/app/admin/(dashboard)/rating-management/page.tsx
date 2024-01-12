@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllRatings() {
-  const res = await fetch(SERVER_API_ENPOINT + "review?withDeleted=true", {
+  const res = await fetch(SERVER_API_ENPOINT + "review?withPending=true", {
     cache: "no-store",
   });
 

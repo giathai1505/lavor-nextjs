@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 export async function getAllRatings() {
   try {
     const response = await fetch(
-      CLIENT_API_ENPOINT + "review?withDeleted=true",
+      CLIENT_API_ENPOINT + "review?withPending=true",
       {
         method: "GET",
         headers: {

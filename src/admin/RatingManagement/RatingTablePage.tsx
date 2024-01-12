@@ -6,9 +6,10 @@ import { TRating } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { deleteRating, getAllRatings, restoreRating } from "@/api/ratingAPI";
-import { MdOutlineSettingsBackupRestore } from "react-icons/md";
 import { Table } from "antd";
 import { indexArray } from "@/utilities/commonUtilities";
+import useToast from "@/hooks/useToast";
+import useAxiosAuth from "@/hooks/useAxiosAuth";
 
 interface IRatingTable {
   ratings: TRating[];
@@ -39,6 +40,21 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
   const [showInfoDialog, setShowInfoDialog] = useState<boolean>(false);
   const [data, setData] = useState<TRating[]>(ratings);
   const [activeId, setActiveId] = useState<number>(NaN);
+  const { contextHolder, showNotification } = useToast();
+  const axios = useAxiosAuth();
+
+  const invokeApproveReview = async (id: number) => {
+    try {
+      const result: any = await axios.put(`review/${id.toString()}/approve`);
+
+      if (result?.ok) {
+      } else {
+        showNotification("success", "Đánh giá đã được duyệt thành công!", "");
+      }
+    } catch (error) {
+      showNotification("error", "Đã có lỗi xảy ra! Vui lòng thử lại sau.", "");
+    }
+  };
 
   const invokeGetAllRatings = async () => {
     getAllRatings()
@@ -52,6 +68,11 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
       .catch((error) => {
         setData([]);
       });
+  };
+
+  const handleApproveReview = async (id: number) => {
+    await invokeApproveReview(id);
+    await invokeGetAllRatings();
   };
 
   const columns: any = [
@@ -105,7 +126,18 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
       render: (_: any, record: any) => {
         return (
           <div>
-            {record.review_delete_date === null ? (
+            {record.approve_date === null ? (
+              <>
+                <button
+                  className="button-delete-row-selection justify-center"
+                  style={{ width: "120px" }}
+                  onClick={() => handleApproveReview(record.review_id)}
+                >
+                  <BsTrash />
+                  <span>Duyệt</span>
+                </button>
+              </>
+            ) : (
               <button
                 className="button-delete-row-selection justify-center"
                 style={{ width: "120px" }}
@@ -116,18 +148,6 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
               >
                 <BsTrash />
                 <span>Xóa</span>
-              </button>
-            ) : (
-              <button
-                className="button-delete-row-selection justify-center"
-                style={{ width: "120px" }}
-                onClick={() => {
-                  setShowInfoDialog(true);
-                  setActiveId(record.review_id);
-                }}
-              >
-                <MdOutlineSettingsBackupRestore />
-                <span>Khôi phục</span>
               </button>
             )}
           </div>
@@ -164,33 +184,36 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
   };
 
   return (
-    <div className="admin-page-wrapper ">
-      <ConfirmDialog
-        onOk={handleRestoreRating}
-        title="Khôi phục đánh giá"
-        open={showInfoDialog}
-        content="Bạn có chắc muốn khôi phục đánh giá này không?"
-        onClose={() => setShowInfoDialog(false)}
-        type="information"
-      />
-      <ConfirmDialog
-        onOk={handleDelete}
-        title="Xóa đánh giá"
-        open={isOpenDeleteConfirmDialog}
-        content="Bạn có chắc muốn xóa đánh giá này không?"
-        onClose={() => setIsOpenDeleteConfirmDialog(false)}
-        type="delete"
-      />
-      <div className="p-2">
-        <div className="flex items-center justify-between mb-10">
-          <p className="admin-title">Danh sách đánh giá</p>
-        </div>
-        <div className="h-2" />
+    <>
+      {contextHolder}
+      <div className="admin-page-wrapper ">
+        <ConfirmDialog
+          onOk={handleRestoreRating}
+          title="Khôi phục đánh giá"
+          open={showInfoDialog}
+          content="Bạn có chắc muốn khôi phục đánh giá này không?"
+          onClose={() => setShowInfoDialog(false)}
+          type="information"
+        />
+        <ConfirmDialog
+          onOk={handleDelete}
+          title="Xóa đánh giá"
+          open={isOpenDeleteConfirmDialog}
+          content="Bạn có chắc muốn xóa đánh giá này không?"
+          onClose={() => setIsOpenDeleteConfirmDialog(false)}
+          type="delete"
+        />
+        <div className="p-2">
+          <div className="flex items-center justify-between mb-10">
+            <p className="admin-title">Danh sách đánh giá</p>
+          </div>
+          <div className="h-2" />
 
-        <Table dataSource={data} columns={columns} bordered />
+          <Table dataSource={data} columns={columns} bordered />
+        </div>
+        <ToastContainer />
       </div>
-      <ToastContainer />
-    </div>
+    </>
   );
 };
 

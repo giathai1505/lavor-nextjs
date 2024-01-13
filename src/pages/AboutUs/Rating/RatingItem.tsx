@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import userAvatar from "@/assets/images/common/user.png";
+import userAvatar from "@/assets/images/common/user.webp";
 import { BsFillStarFill } from "react-icons/bs";
 import { TRating } from "@/types/type";
 import { indexArray } from "@/utilities/commonUtilities";
@@ -22,12 +22,7 @@ const RenderStar: React.FC<TStar> = ({ star }) => {
   return (
     <div className="flex gap-1">
       {indexArray(5).map((star) => {
-        return (
-          <BsFillStarFill
-            className={starClassName(star)}
-            key={star}
-          />
-        );
+        return <BsFillStarFill className={starClassName(star)} key={star} />;
       })}
     </div>
   );
@@ -47,7 +42,7 @@ const RatingItem: React.FC<IRatingItem> = ({ rating }) => {
       <div className="flex flex-col gap-2">
         <p className="font-bold text-primary ">{rating?.review_name}</p>
 
-        <RenderStar star={rating?.review_rating}/>
+        <RenderStar star={rating?.review_rating} />
 
         <p className="italic text-md text-[#b9b3b3]">{rating?.review_phone}</p>
 

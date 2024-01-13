@@ -52,9 +52,13 @@ const AddCityDialog: React.FC<IDialog> = ({
 
   const invokeAddCity = async (data: IAddCityForm) => {
     try {
-      const res = await create(API_ROUTES.agency.addCity(data.region_id), {
-        city_name: data.city_name,
-      });
+      const res = await create(
+        API_ROUTES.agency.addCity(data.region_id),
+        {
+          city_name: data.city_name,
+        },
+        false
+      );
 
       if (res) {
         setValue("city_name", "");

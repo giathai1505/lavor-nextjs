@@ -6,9 +6,20 @@ const API_ROUTES = {
       `/agencies/regions/${regionId.toString()}/cities`,
     addAgency: (cityId: number) => `/agencies/cities/${cityId.toString()}`,
   },
-  blogs: {},
+  blogs: {
+    getAll: (url: string) => `blogs${url}`,
+    addBlog: "/blogs",
+    editBlog: (id: number) => `/blogs/${id.toString()}`,
+    deleteOne: (id: number) => `/blogs/${id.toString()}`,
+    deleteMany: "/blogs",
+    changeStatus: (id: number) => `/blogs/${id.toString()}/status`,
+    changeManyStatus: `/blogs/status`,
+  },
   car: {},
-  image: {},
+  image: {
+    upload: "/images/upload",
+    uploadMany: "/images/upload-many",
+  },
   product: {},
   review: {
     getAllApprove: "/review",

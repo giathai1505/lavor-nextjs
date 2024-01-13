@@ -22,21 +22,15 @@ import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
 import { Category, IBlog, Status } from "@/types/type";
-import {
-  changeBlogStatus,
-  changeMultipleBlogStatus,
-  deleteAPI,
-  deleteMultipleBlogs,
-  getAllBlogs,
-} from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
-
 import { renderCategory } from "@/pages/News";
 import "moment/locale/vi";
 import { fromNow } from "@/lib/time";
 import { indexArray } from "@/utilities/commonUtilities";
 import Each from "@/lib/Each";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 const statusOptions = [
   {
@@ -106,13 +100,14 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
   const [data, setData] = useState(blogs);
   const [itemHovered, setItemHovered] = useState<string | undefined>(undefined);
   const [activeField, setActiveField] = useState<number | undefined>(undefined);
+  const { edit, get, delete: deleteBlog } = useFetchApi();
   const [activeChangeStatus, setActiveChangeStatus] = useState<{
     id: number | undefined;
     status: Status | undefined;
   }>({ id: undefined, status: undefined });
 
   const invokeGetAllBlogs = async () => {
-    let url = "?page=1&limit=10";
+    let url = "";
     if (globalFilter.search !== "") {
       url += "&search=" + globalFilter.search;
     }
@@ -123,13 +118,17 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
       url += "&category=" + globalFilter.category;
     }
 
-    getAllBlogs(url)
-      .then((result) => {
-        setData(result.blogs);
-      })
-      .catch((error) => {
+    try {
+      const res: any = await get(API_ROUTES.blogs.getAll(url));
+
+      if (res && res.blogs) {
+        setData(res.blogs);
+      } else {
         setData([]);
-      });
+      }
+    } catch (error) {
+      setData([]);
+    }
   };
 
   useEffect(() => {
@@ -292,18 +291,22 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
     redirect(`/admin/blog-management/${id.toString()}`);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     setIsOpenDeleteConfirmDialog(false);
 
     if (typeof activeField === "number") {
-      deleteAPI(activeField);
-      setActiveField(undefined);
+      try {
+        await deleteBlog(API_ROUTES.blogs.deleteOne(activeField));
+        setActiveField(undefined);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     window.location.reload();
   };
 
-  const handleChangeStatus = () => {
+  const handleChangeStatus = async () => {
     setShowInfoDialog(false);
     if (
       typeof activeChangeStatus.id === "number" &&
@@ -313,7 +316,11 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         activeChangeStatus.status === Status.ACTIVE
           ? Status.SUSPENDED
           : Status.ACTIVE;
-      changeBlogStatus(activeChangeStatus.id, targetStatus);
+
+      await edit(API_ROUTES.blogs.changeStatus(activeChangeStatus.id), {
+        blog_status: targetStatus,
+      });
+
       setActiveChangeStatus({ id: undefined, status: undefined });
       window.location.reload();
     }
@@ -324,16 +331,29 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
     setGlobalFilter(newFilterObject);
   };
 
-  const handleDeleteMultipleBlog = () => {
+  const handleDeleteMultipleBlog = async () => {
     const blogIds = Object.keys(rowSelection).map((item) => Number(item));
-    deleteMultipleBlogs(blogIds);
-    invokeGetAllBlogs();
+
+    try {
+      await deleteBlog(API_ROUTES.blogs.deleteMany, { blog_ids: blogIds });
+      await invokeGetAllBlogs();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleChangeMultipleStatus = (status: any) => {
-    const blogIds = Object.keys(rowSelection).map((item) => Number(item));
-    changeMultipleBlogStatus(blogIds, status.key);
-    invokeGetAllBlogs();
+  const handleChangeMultipleStatus = async (status: any) => {
+    try {
+      const blogIds = Object.keys(rowSelection).map((item) => Number(item));
+      await edit(API_ROUTES.blogs.changeManyStatus, {
+        blog_ids: blogIds,
+        blog_status: status,
+      });
+
+      await invokeGetAllBlogs();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

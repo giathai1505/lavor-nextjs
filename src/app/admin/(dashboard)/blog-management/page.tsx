@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllBlog() {
-  const res = await fetch(SERVER_API_ENPOINT + "blogs?page=1&limit=10", {
+  const res = await fetch(SERVER_API_ENPOINT + "blogs", {
     cache: "no-store",
   });
 

@@ -1,4 +1,3 @@
-import { getAllBlogs } from "@/api/blogAPI";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import DetailNews from "@/pages/News/DetailNews";
 import { Metadata, ResolvingMetadata } from "next";
@@ -20,9 +19,9 @@ async function getBlogByID(id: string) {
   return res.json();
 }
 
-async function getAllBlog() {
+async function getAllBlog(url: string) {
   try {
-    const res = await fetch(SERVER_API_ENPOINT + "blogs", {
+    const res = await fetch(SERVER_API_ENPOINT + "blogs" + url, {
       cache: "no-store",
     });
 
@@ -39,7 +38,7 @@ async function getAllBlog() {
 async function getRelatedBlog(CategoryId: string) {
   const url = "?page=1&limit=10" + "&category=" + CategoryId;
 
-  const res = await getAllBlogs(url);
+  const res = await getAllBlog(url);
 
   return res;
 }
@@ -68,7 +67,7 @@ const index: React.FC<IPageProps> = async ({ params }) => {
   const blog = await getBlogByID(id);
 
   //get all blogs
-  const res = await getAllBlog();
+  const res = await getAllBlog("");
   let allBlogs = [];
   if (res?.blogs && Array.isArray(res.blogs)) {
     allBlogs = res?.blogs;

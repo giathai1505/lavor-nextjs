@@ -22,7 +22,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
 import { IProduct, ProductType, ProductTypeToText, Status } from "@/types/type";
-import { changeBlogStatus } from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
 import {
@@ -30,7 +29,10 @@ import {
   deleteProduct,
   getAllProducts,
 } from "@/api/productAPI";
-import { formatCurrencyWithDots, indexArray } from "@/utilities/commonUtilities";
+import {
+  formatCurrencyWithDots,
+  indexArray,
+} from "@/utilities/commonUtilities";
 
 const statusOptions = [
   {
@@ -337,7 +339,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
         activeChangeStatus.status === Status.ACTIVE
           ? Status.SUSPENDED
           : Status.ACTIVE;
-      await changeBlogStatus(activeChangeStatus.id, targetStatus);
+      //   await changeBlogStatus(activeChangeStatus.id, targetStatus);
       setActiveChangeStatus({ id: undefined, status: undefined });
       await invokeGetAllProducts();
     }
@@ -577,7 +579,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
             }}
             className="pagination-select "
           >
-            {indexArray(5,10).map((pageSize) => (
+            {indexArray(5, 10).map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 {pageSize}
               </option>

@@ -64,9 +64,13 @@ const AddAgencyDialog: React.FC<IDialog> = ({
     };
 
     try {
-      const res = await create(API_ROUTES.agency.addAgency(data.city_id), {
-        agencies: [newData],
-      });
+      const res = await create(
+        API_ROUTES.agency.addAgency(data.city_id),
+        {
+          agencies: [newData],
+        },
+        false
+      );
 
       if (res) {
         setValue("agency_address", "");

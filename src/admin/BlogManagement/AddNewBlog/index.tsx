@@ -4,15 +4,15 @@ import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
 import { Category, Status } from "@/types/type";
-import { addBlogAPI, editBlogAPI } from "@/api/blogAPI";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
 import FormError from "@/components/Common/FormError";
 import { areObjectsEqual } from "@/utilities/commonUtilities";
 import { useRouter } from "next/navigation";
-import { upLoadImage } from "@/api/imageAPI";
 import dynamic from "next/dynamic.js";
 import { FaArrowLeft } from "react-icons/fa";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 const NoSSREditor = dynamic(() => import("../Editor/index.jsx"), {
   ssr: false,
@@ -48,6 +48,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
 
   const router = useRouter();
   const [image, setImage] = useState<any>("");
+  const { create, edit } = useFetchApi();
 
   const form = useForm<IFormValue>({
     defaultValues: defaultValue,
@@ -78,15 +79,19 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
     if (isEdit) {
       if (!blogID) return;
       if (typeof image !== "string") {
-        const uploadImage = await upLoadImage(image);
-        if (uploadImage.url) {
+        const uploadImage: any = await create(
+          API_ROUTES.image.upload,
+          image,
+          true
+        );
+        if (uploadImage && uploadImage.url) {
           const newData = {
             ...data,
             blog_content: editorContent,
             blog_image_url: uploadImage.url,
           };
 
-          editBlogAPI(newData, blogID);
+          await edit(API_ROUTES.blogs.editBlog(+blogID), newData);
         }
       } else {
         const newData = {
@@ -95,22 +100,23 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
         };
         const isDataChange = !areObjectsEqual(defaultValue, newData);
         if (isDataChange && blogID) {
-          editBlogAPI(newData, blogID);
+          await edit(API_ROUTES.blogs.editBlog(+blogID), newData);
         }
       }
     } else {
-      Promise.resolve(upLoadImage(image))
-        .then((results) => {
-          return addBlogAPI({
-            ...data,
-            blog_content: editorContent,
-            blog_image_url: results.url,
-          });
-        })
-        .then((result) => {})
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      try {
+        const res: any = await create(API_ROUTES.image.upload, image, true);
+
+        const requestData = {
+          ...data,
+          blog_content: editorContent,
+          blog_image_url: res?.url,
+        };
+
+        await create(API_ROUTES.blogs.addBlog, requestData, false);
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 

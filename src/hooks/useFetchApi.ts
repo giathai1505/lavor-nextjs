@@ -88,7 +88,14 @@ const useFetchApi = (): UseFetchApi => {
     [makeRequest]
   );
 
-  return { create, edit, get, delete: remove, error, loading };
+  return {
+    create,
+    edit,
+    get,
+    delete: remove,
+    error,
+    loading,
+  };
 };
 
 export default useFetchApi;

@@ -1,8 +1,8 @@
 "use client";
 
 import API_ROUTES from "@/constants/apiRoutes";
-import useFetchApi from "@/hooks/useFetchApi";
 import useToast from "@/hooks/useToast";
+import axios from "@/lib/axios";
 import { indexArray } from "@/utilities/commonUtilities";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -22,7 +22,6 @@ const RatingForm: React.FC = () => {
   const [ratingStar, setRatingStar] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contextHolder, showNotification } = useToast();
-  const { create: createReview } = useFetchApi();
 
   const { control, handleSubmit, watch } = useForm<TRatingForm>({
     defaultValues: {
@@ -43,7 +42,7 @@ const RatingForm: React.FC = () => {
 
     try {
       setIsLoading(true);
-      await createReview(API_ROUTES.review.addReview, apiData, false);
+      await axios.post(API_ROUTES.review.addReview, apiData);
       setIsLoading(false);
       showNotification(
         "success",

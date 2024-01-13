@@ -11,7 +11,7 @@ import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/7.webp";
 import LavorFactoryImage from "@/assets/images/common/lavor-fatory.webp";
-import { EDesignPhase, IBrand, IYear } from "@/types/type";
+import { EDesignPhase, IYear } from "@/types/type";
 
 interface IPageProps {
   years: IYear[];

@@ -1,5 +1,7 @@
 "use client";
-import { addRating } from "@/api/ratingAPI";
+
+import API_ROUTES from "@/constants/apiRoutes";
+import useFetchApi from "@/hooks/useFetchApi";
 import useToast from "@/hooks/useToast";
 import { indexArray } from "@/utilities/commonUtilities";
 import React, { useState } from "react";
@@ -7,7 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import { BiMessageSquare, BiUser } from "react-icons/bi";
 import { BsFillStarFill } from "react-icons/bs";
 import { MdOutlineWorkOutline } from "react-icons/md";
-import  CircleLoader  from "react-spinners/CircleLoader";
+import CircleLoader from "react-spinners/CircleLoader";
 
 export type TRatingForm = {
   review_phone: string;
@@ -20,6 +22,7 @@ const RatingForm: React.FC = () => {
   const [ratingStar, setRatingStar] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contextHolder, showNotification } = useToast();
+  const { create: createReview } = useFetchApi();
 
   const { control, handleSubmit, watch } = useForm<TRatingForm>({
     defaultValues: {
@@ -40,7 +43,7 @@ const RatingForm: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const result = await addRating(apiData);
+      await createReview(API_ROUTES.review.addReview, apiData, false);
       setIsLoading(false);
       showNotification(
         "success",

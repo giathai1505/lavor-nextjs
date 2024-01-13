@@ -3,13 +3,11 @@ import React, { useEffect, useState } from "react";
 import ConfirmDialog from "@/components/Common/Dialog";
 import { BsTrash } from "react-icons/bs";
 import { TRating } from "@/types/type";
-import { ToastContainer } from "react-toastify";
 import { IoIosStar, IoIosStarOutline } from "react-icons/io";
-import { deleteRating, getAllRatings, restoreRating } from "@/api/ratingAPI";
 import { Table } from "antd";
 import { indexArray } from "@/utilities/commonUtilities";
-import useToast from "@/hooks/useToast";
-import useInterceptorsAxios from "@/hooks/useInterceptorsAxios";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 interface IRatingTable {
   ratings: TRating[];
@@ -37,42 +35,35 @@ const renderStar = (star: number) => {
 const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState<boolean>(false);
-  const [showInfoDialog, setShowInfoDialog] = useState<boolean>(false);
   const [data, setData] = useState<TRating[]>(ratings);
   const [activeId, setActiveId] = useState<number>(NaN);
-  const { contextHolder, showNotification } = useToast();
-  const axios = useInterceptorsAxios();
+  const { edit, get, delete: deleteReview } = useFetchApi();
 
-  const invokeApproveReview = async (id: number) => {
+  const invokeGetAllRatings = async () => {
     try {
-      const result: any = await axios.put(`review/${id.toString()}/approve`);
-
-      if (result?.ok) {
+      const res: any = await get(API_ROUTES.review.getAllPending);
+      if (res && res.reviews) {
+        setData(res.reviews);
       } else {
-        showNotification("success", "Đánh giá đã được duyệt thành công!", "");
+        setData([]);
       }
     } catch (error) {
-      showNotification("error", "Đã có lỗi xảy ra! Vui lòng thử lại sau.", "");
+      console.log(error);
+      setData([]);
     }
   };
 
-  const invokeGetAllRatings = async () => {
-    getAllRatings()
-      .then((result) => {
-        if (result && result.reviews && Array.isArray(result.reviews)) {
-          setData(result.reviews);
-        } else {
-          setData([]);
-        }
-      })
-      .catch((error) => {
-        setData([]);
-      });
+  const invokeApproveReview = async (id: number) => {
+    try {
+      await edit(API_ROUTES.review.approve(id), {});
+      await invokeGetAllRatings();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleApproveReview = async (id: number) => {
     await invokeApproveReview(id);
-    await invokeGetAllRatings();
   };
 
   const columns: any = [
@@ -99,10 +90,10 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
       render: (_: any, record: any) => {
         return (
           <div>
-            {record.review_delete_date === null ? (
-              <span className="active-tag">Hoạt động</span>
+            {record.approve_date === null ? (
+              <span className="active-tag deActive">Chưa duyệt</span>
             ) : (
-              <span className="active-tag deActive">Ẩn</span>
+              <span className="active-tag">Hoạt động</span>
             )}
           </div>
         );
@@ -166,35 +157,17 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
 
     if (activeId) {
       try {
-        await deleteRating(activeId);
-      } catch (error) {}
+        await deleteReview(API_ROUTES.review.deleteOne(activeId));
+        await invokeGetAllRatings();
+      } catch (error) {
+        console.log(error);
+      }
     }
-    await invokeGetAllRatings();
-  };
-
-  const handleRestoreRating = async () => {
-    setShowInfoDialog(false);
-    setActiveId(NaN);
-    if (activeId) {
-      try {
-        await restoreRating(activeId);
-      } catch (error) {}
-    }
-    invokeGetAllRatings();
   };
 
   return (
     <>
-      {contextHolder}
       <div className="admin-page-wrapper ">
-        <ConfirmDialog
-          onOk={handleRestoreRating}
-          title="Khôi phục đánh giá"
-          open={showInfoDialog}
-          content="Bạn có chắc muốn khôi phục đánh giá này không?"
-          onClose={() => setShowInfoDialog(false)}
-          type="information"
-        />
         <ConfirmDialog
           onOk={handleDelete}
           title="Xóa đánh giá"
@@ -208,10 +181,8 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
             <p className="admin-title">Danh sách đánh giá</p>
           </div>
           <div className="h-2" />
-
           <Table dataSource={data} columns={columns} bordered />
         </div>
-        <ToastContainer />
       </div>
     </>
   );

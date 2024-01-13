@@ -2,17 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BiRefresh } from "react-icons/bi";
-import { IAgencyTable, ICity, IRegion } from "@/types/type";
-import { ToastContainer } from "react-toastify";
-import { convertToAgencyArray } from "@/utilities/commonUtilities";
 import AddCityDialog from "./Dialogs/AddCityDialog";
-import ConfirmDialog from "@/components/Common/Dialog";
 import AddAgencyDialog from "./Dialogs/AddAgencyDialog";
 import { Select, Table } from "antd";
 import { BsTrash } from "react-icons/bs";
 import type { ColumnsType } from "antd/es/table";
+import { IAgencyTable, ICity, IRegion } from "@/types/type";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import ConfirmDialog from "@/components/Common/Dialog";
+import { convertToAgencyArray } from "@/utilities/commonUtilities";
 
 type TSelectOption = {
   value: number;
@@ -261,7 +260,6 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
           </div>
         </div>
         <Table dataSource={data} columns={columns} bordered />
-        <ToastContainer />
       </div>
     </>
   );

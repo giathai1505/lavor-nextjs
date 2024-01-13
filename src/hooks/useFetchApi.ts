@@ -7,7 +7,12 @@ import useInterceptorsAxios from "./useInterceptorsAxios";
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 interface UseFetchApi {
-  create: <T>(url: string, data: any, config?: object) => Promise<T>;
+  create: <T>(
+    url: string,
+    data: any,
+    option?: boolean,
+    config?: object
+  ) => Promise<T>;
   edit: <T>(url: string, data: any, config?: object) => Promise<T>;
   get: <T>(url: string, config?: object) => Promise<T>;
   delete: <T>(url: string, config?: object) => Promise<T>;
@@ -56,8 +61,12 @@ const useFetchApi = (): UseFetchApi => {
   );
 
   const create = useCallback(
-    async <T>(url: string, data: any, config?: object): Promise<T> =>
-      makeRequest<T>("POST", url, data, config),
+    async <T>(
+      url: string,
+      data: any,
+      option: boolean = true,
+      config?: object
+    ): Promise<T> => makeRequest<T>("POST", url, data, config, option),
     [makeRequest]
   );
 

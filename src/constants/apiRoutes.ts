@@ -10,16 +10,14 @@ const API_ROUTES = {
   car: {},
   image: {},
   product: {},
-  review: {},
+  review: {
+    getAllApprove: "/review",
+    getAllPending: "/review?withPending=true",
+    approve: (id: number) => `/review/${id.toString()}/approve`,
+    deleteOne: (id: number) => `/review/${id.toString()}`,
+    addReview: "/review",
+  },
   auth: {},
-  users: {
-    getAll: "/api/users",
-    getById: (userId: number) => `/api/users/${userId.toString()}`,
-  },
-  posts: {
-    getAll: "/api/posts",
-    getById: (postId: number) => `/api/posts/${postId.toString()}`,
-  },
 };
 
 export default API_ROUTES;

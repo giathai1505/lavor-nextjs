@@ -1,21 +1,23 @@
 import { notification } from "antd";
 import { codeMessage } from "../constants/constants";
 
-type TSuccessHandler<T> = {
-  response: T;
-  options: {
-    notifyOnSuccess: boolean;
-    notifyOnFailed: boolean;
-  };
-};
+// type TSuccessHandler<T> = {
+//   response: T;
+//   options: {
+//     notifyOnSuccess: boolean;
+//     notifyOnFailed: boolean;
+//   };
+// };
+
+const successStatus = [204];
 
 const successHandler = (
   response: any,
   options = { notifyOnSuccess: false, notifyOnFailed: true }
 ) => {
-  const { data } = response;
-  if (data && data.success === true) {
-    const message = response.data && data.message;
+  const { data, status } = response;
+  if (data || successStatus.includes(status)) {
+    const message = response.data && data?.message;
     const successText = message || codeMessage[response.status];
 
     if (options.notifyOnSuccess) {

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
-import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import { IAgency, ICity, IRegion } from "@/types/type";
-import useAxiosAuth from "@/hooks/useAxiosAuth";
+import { IAgency, ICity } from "@/types/type";
 import Each from "@/lib/Each";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 interface IDialog {
   open: boolean;
@@ -40,7 +40,7 @@ const AddAgencyDialog: React.FC<IDialog> = ({
 
   const [listCity, setListCity] = useState<ICity[]>([]);
 
-  const axios = useAxiosAuth();
+  const { create } = useFetchApi();
 
   const {
     control,
@@ -57,11 +57,6 @@ const AddAgencyDialog: React.FC<IDialog> = ({
   }, [cities]);
 
   const invokeAddAgency = async (data: IAddAgencyForm) => {
-    const loadingToastId = toast.info("Đang thêm đại lý...", {
-      position: "top-center",
-      autoClose: false,
-    });
-
     const newData: IAgency = {
       agency_address: data.agency_address,
       agency_name: data.agency_name,
@@ -69,16 +64,11 @@ const AddAgencyDialog: React.FC<IDialog> = ({
     };
 
     try {
-      const res = await axios.post(`agencies/cities/${data.city_id}`, {
+      const res = await create(API_ROUTES.agency.addAgency(data.city_id), {
         agencies: [newData],
       });
 
       if (res) {
-        toast.dismiss(loadingToastId);
-
-        toast.success("Thêm đại lý thành công!!!", {
-          position: "top-center",
-        });
         setValue("agency_address", "");
         setValue("agency_name", "");
         setIsOpen(false);
@@ -86,10 +76,6 @@ const AddAgencyDialog: React.FC<IDialog> = ({
       }
     } catch (error) {
       console.log(error);
-      toast.dismiss(loadingToastId);
-      toast.error("Thêm đại lý thất bại!!!", {
-        position: "top-center",
-      });
     }
   };
 
@@ -167,11 +153,6 @@ const AddAgencyDialog: React.FC<IDialog> = ({
                   <input
                     {...field}
                     type="text"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
                     placeholder="Nhập tên đại lý"
                     className="admin-input"
                     id="text"

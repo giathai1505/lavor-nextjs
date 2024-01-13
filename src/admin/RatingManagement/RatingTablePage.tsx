@@ -9,7 +9,7 @@ import { deleteRating, getAllRatings, restoreRating } from "@/api/ratingAPI";
 import { Table } from "antd";
 import { indexArray } from "@/utilities/commonUtilities";
 import useToast from "@/hooks/useToast";
-import useAxiosAuth from "@/hooks/useAxiosAuth";
+import useInterceptorsAxios from "@/hooks/useInterceptorsAxios";
 
 interface IRatingTable {
   ratings: TRating[];
@@ -41,7 +41,7 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
   const [data, setData] = useState<TRating[]>(ratings);
   const [activeId, setActiveId] = useState<number>(NaN);
   const { contextHolder, showNotification } = useToast();
-  const axios = useAxiosAuth();
+  const axios = useInterceptorsAxios();
 
   const invokeApproveReview = async (id: number) => {
     try {

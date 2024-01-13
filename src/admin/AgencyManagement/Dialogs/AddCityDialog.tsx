@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
-import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IRegion } from "@/types/type";
-import useAxiosAuth from "@/hooks/useAxiosAuth";
+import API_ROUTES from "@/constants/apiRoutes";
+import useFetchApi from "@/hooks/useFetchApi";
 
 interface IDialog {
   open: boolean;
@@ -34,7 +34,8 @@ const AddCityDialog: React.FC<IDialog> = ({
     },
     mode: "all",
   });
-  const axios = useAxiosAuth();
+
+  const { create, loading } = useFetchApi();
 
   const {
     control,
@@ -50,36 +51,18 @@ const AddCityDialog: React.FC<IDialog> = ({
   }, [agencies]);
 
   const invokeAddCity = async (data: IAddCityForm) => {
-    const loadingToastId = toast.info("Đang thêm tỉnh/thành phố ...", {
-      position: "top-center",
-      autoClose: false,
-    });
-
     try {
-      const res = await axios.post(
-        `agencies/regions/${data.region_id.toString()}/cities`,
-        {
-          city_name: data.city_name,
-        }
-      );
+      const res = await create(API_ROUTES.agency.addCity(data.region_id), {
+        city_name: data.city_name,
+      });
 
       if (res) {
-        toast.dismiss(loadingToastId);
-
-        toast.success("Thêm tỉnh/ thành phố thành công!!!", {
-          position: "top-center",
-        });
         setValue("city_name", "");
-
         onSuccess();
         setIsOpen(false);
       }
     } catch (error) {
       console.log(error);
-      toast.dismiss(loadingToastId);
-      toast.error("Thêm tỉnh/ thành phố thất bại!!!", {
-        position: "top-center",
-      });
     }
   };
 

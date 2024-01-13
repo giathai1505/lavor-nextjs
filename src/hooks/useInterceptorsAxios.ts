@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import axios, { axiosAuth } from "@/lib/axios";
 
-const useAxiosAuth = () => {
+const useInterceptorsAxios = () => {
   const { data: session, update } = useSession();
 
   useEffect(() => {
@@ -63,4 +63,4 @@ const useAxiosAuth = () => {
   return axiosAuth;
 };
 
-export default useAxiosAuth;
+export default useInterceptorsAxios;

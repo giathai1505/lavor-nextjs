@@ -5,14 +5,14 @@ import { BiRefresh } from "react-icons/bi";
 import { IAgencyTable, ICity, IRegion } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { convertToAgencyArray } from "@/utilities/commonUtilities";
-import { deleteAgencyAPI, getAllAgencies } from "@/api/agencyAPI";
 import AddCityDialog from "./Dialogs/AddCityDialog";
 import ConfirmDialog from "@/components/Common/Dialog";
 import AddAgencyDialog from "./Dialogs/AddAgencyDialog";
 import { Select, Table } from "antd";
 import { BsTrash } from "react-icons/bs";
 import type { ColumnsType } from "antd/es/table";
-import { useSession } from "next-auth/react";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 type TSelectOption = {
   value: number;
@@ -40,11 +40,9 @@ const initListCity = (regions: IRegion[]): ICity[] => {
 
 const initListRegionFilter = (agencies: IRegion[]): TSelectOption[] => {
   const result: TSelectOption[] = [];
-
   agencies.forEach((item) => {
     return result.push({ value: item.region_id, label: item.region_name });
   });
-
   return result;
 };
 
@@ -65,21 +63,37 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
     city: false,
   });
 
+  const { get, delete: deleteAgency } = useFetchApi();
+
   const invokeGetAllAgency = async () => {
     setGlobalFilter({
       cityID: NaN,
       regionID: NaN,
     });
-    getAllAgencies()
-      .then((result) => {
-        const newData = convertToAgencyArray(result?.regions ?? []);
 
+    try {
+      const res: any = await get(API_ROUTES.agency.getAll);
+
+      if (res && res.regions) {
+        const newData = convertToAgencyArray(res.regions);
         setData(newData);
-        setListRegion(result?.regions ?? ([] as IRegion[]));
-      })
-      .catch((error) => {
+        setListRegion(res.regions as IRegion[]);
+      } else {
         setData([]);
-      });
+      }
+    } catch (error) {
+      setData([]);
+    }
+  };
+
+  const invokeDeleteAgency = async (id: number) => {
+    try {
+      await deleteAgency(API_ROUTES.agency.deleteOne(id));
+      await invokeGetAllAgency();
+      setActiveField(undefined);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -150,10 +164,8 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
   const handleDelete = async () => {
     setIsOpenDeleteConfirmDialog(false);
     if (typeof activeField === "number") {
-      await deleteAgencyAPI(activeField);
+      await invokeDeleteAgency(activeField);
     }
-    await invokeGetAllAgency();
-    setActiveField(undefined);
   };
 
   const handleFilterBlog = (name: string, item: any) => {

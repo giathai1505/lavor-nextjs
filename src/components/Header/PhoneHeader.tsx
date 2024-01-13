@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import logo from "@/assets/images/logo/logo-white.png";
+import logo from "@/assets/images/logo/logo-white.webp";
 import { BsList } from "react-icons/bs";
 import { IProduct } from "@/types/type";
 import { ee } from "@/pages/DetailProduct/DetailContent";

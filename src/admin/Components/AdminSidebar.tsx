@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import logo from "@/assets/images/logo/logo-white.png";
+import logo from "@/assets/images/logo/logo-white.webp";
 import Image from "next/image";
 import { BiLogOutCircle } from "react-icons/bi";
 import { usePathname, useRouter } from "next/navigation";

@@ -1,11 +1,11 @@
 "use client";
 import React, { useLayoutEffect, useState } from "react";
-import logo from "@/assets/images/logo/logo-white.png";
+import logo from "@/assets/images/logo/logo-white.webp";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { userNavbarData } from "@/assets/staticData";
-import searchIcon from "@/assets/images/common/search-icon.png";
+import searchIcon from "@/assets/images/common/search-icon.webp";
 import { IProduct } from "@/types/type";
 import { ee } from "@/pages/DetailProduct/DetailContent";
 import SearchBox from "./SearchBox";

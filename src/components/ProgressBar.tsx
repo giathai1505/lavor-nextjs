@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import startImg from "@/assets/images/common/start-circle-button.png";
+import startImg from "@/assets/images/common/start-circle-button.webp";
 import { EDesignPhase } from "@/types/type";
 import { indexArray } from "@/utilities/commonUtilities";
 
@@ -24,7 +24,9 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
         {indexArray(4).map((item) => {
           return (
             <div
-              className={`dot ${item - 1 <= active ? "bg-primary" : "bg-white"}`}
+              className={`dot ${
+                item - 1 <= active ? "bg-primary" : "bg-white"
+              }`}
               key={item}
             ></div>
           );

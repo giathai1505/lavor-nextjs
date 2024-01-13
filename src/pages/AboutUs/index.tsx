@@ -2,7 +2,7 @@ import AboutUsStaticContentPart1 from "./AboutUsStaticContentPart1";
 import AboutUsStaticContentPart2 from "./AboutUsStaticContentPart2";
 import AboutUsStaticContentPart3 from "./AboutUsStaticContentPart3";
 import PartHeader from "@/components/Common/PartHeader";
-import titleBackgroundImage from "@/assets/images/headerPart/2.jpeg";
+import titleBackgroundImage from "@/assets/images/headerPart/2.webp";
 import { TRating } from "@/types/type";
 import dynamic from "next/dynamic";
 

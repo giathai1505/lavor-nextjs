@@ -1,6 +1,6 @@
 import React from "react";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import VideoThumbnailImg from "@/assets/images/youtubeThumbnail/aboutUs/2.png";
+import VideoThumbnailImg from "@/assets/images/youtubeThumbnail/aboutUs/2.webp";
 
 const VIDEO_EMBEDID: string = "WnV7IIKJYZik?si=Ca3mXnTdnosRYk9T";
 

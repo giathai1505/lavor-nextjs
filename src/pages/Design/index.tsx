@@ -6,10 +6,10 @@ import ChooseDesign from "./ChooseDesign";
 import Conclusion from "./Conclusion";
 import Link from "next/link";
 import Image from "next/image";
-import startButton from "@/assets/images/common/start-now-button.png";
+import startButton from "@/assets/images/common/start-now-button.webp";
 import Button from "@/components/Common/Button";
 import PartHeader from "@/components/Common/PartHeader";
-import titleBackgroundImage from "@/assets/images/headerPart/7.jpeg";
+import titleBackgroundImage from "@/assets/images/headerPart/7.webp";
 import LavorFactoryImage from "@/assets/images/common/lavor-fatory.webp";
 import { EDesignPhase, IBrand, IYear } from "@/types/type";
 

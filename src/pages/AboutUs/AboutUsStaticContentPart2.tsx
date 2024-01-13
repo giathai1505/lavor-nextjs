@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
-import startButton from "@/assets/images/common/start-now-button.png";
+import startButton from "@/assets/images/common/start-now-button.webp";
 import React from "react";
 import VideoThumbnailImg from "@/assets/images/youtubeThumbnail/aboutUs/introduce.webp";
 
-const VIDEO_EMBEDID : string = "WxabGfI3CVk?si=yZ1hAl9hVjLVnQLN"
+const VIDEO_EMBEDID: string = "WxabGfI3CVk?si=yZ1hAl9hVjLVnQLN";
 
 const Part2: React.FC = () => {
   return (

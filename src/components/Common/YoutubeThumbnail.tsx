@@ -1,7 +1,7 @@
 "use client";
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
-import logo from "@/assets/images/logo/logo-black.png";
+import logo from "@/assets/images/logo/logo-black.webp";
 import { BsYoutube } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
 

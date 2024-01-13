@@ -1,7 +1,7 @@
 import { Badge, Drawer, Empty } from "antd";
 import Image from "next/image";
 import React, { useState } from "react";
-import cartIcon from "@/assets/images/common/cart-icon.png";
+import cartIcon from "@/assets/images/common/cart-icon.webp";
 import { IProduct, ProductTypeToText } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import Link from "next/link";

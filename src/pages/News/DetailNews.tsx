@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FiFacebook, FiMail, FiYoutube } from "react-icons/fi";
 import { PiTiktokLogo } from "react-icons/pi";
 import { AiOutlineCalendar } from "react-icons/ai";
-import titleBackgroundImage from "@/assets/images/headerPart/6.jpeg";
+import titleBackgroundImage from "@/assets/images/headerPart/6.webp";
 import { IBlog } from "@/types/type";
 import BlogSidebar from "./BlogSidebar";
 import moment from "moment";

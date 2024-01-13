@@ -27,18 +27,18 @@ import productThumbnail5 from "@/assets/images/youtubeThumbnail/products/5.webp"
 import productThumbnail6 from "@/assets/images/youtubeThumbnail/products/6.webp";
 import { ProductType } from "@/types/type";
 
-import bocGheImg from "@/assets/images/cateogries/boc-ghe-category.png";
-import goiLungImg from "@/assets/images/cateogries/goi-lung-category.png";
-import goiCoImg from "@/assets/images/cateogries/goi-co-category.png";
-import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san-category.png";
+import bocGheImg from "@/assets/images/cateogries/boc-ghe-category.webp";
+import goiLungImg from "@/assets/images/cateogries/goi-lung-category.webp";
+import goiCoImg from "@/assets/images/cateogries/goi-co-category.webp";
+import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san-category.webp";
 import voLangImg from "@/assets/images/cateogries/boc-vo-lang-category.webp";
 
 //category image
-import bocGheImg1 from "@/assets/images/cateogries/boc-ghe-img.jpeg";
-import goiCoImg1 from "@/assets/images/cateogries/goi-co-img.png";
-import thamLotSanImg1 from "@/assets/images/cateogries/tham-lot-san-img.png";
-import voLangImg1 from "@/assets/images/cateogries/boc-tay-lai-img.jpeg";
-import goiLung1 from "@/assets/images/cateogries/goi-lung.jpeg";
+import bocGheImg1 from "@/assets/images/cateogries/boc-ghe-img.webp";
+import goiCoImg1 from "@/assets/images/cateogries/goi-co-img.webp";
+import thamLotSanImg1 from "@/assets/images/cateogries/tham-lot-san-img.webp";
+import voLangImg1 from "@/assets/images/cateogries/boc-tay-lai-img.webp";
+import goiLung1 from "@/assets/images/cateogries/goi-lung.webp";
 
 import Link from "next/link";
 import { webRouter } from "@/constants/constants";

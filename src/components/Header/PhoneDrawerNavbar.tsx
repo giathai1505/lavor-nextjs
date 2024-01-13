@@ -5,7 +5,7 @@ import { Drawer } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import logo from "@/assets/images/logo/logo-white.png";
+import logo from "@/assets/images/logo/logo-white.webp";
 import { MdClose } from "react-icons/md";
 
 type TProps = {
@@ -24,7 +24,7 @@ const PhoneDrawerNavbar: React.FC<TProps> = ({ show, setShow }) => {
           </Link>
         </div>
       }
-      closeIcon={<MdClose className="text-white"/>}
+      closeIcon={<MdClose className="text-white" />}
       placement="right"
       onClose={() => setShow(false)}
       open={show}

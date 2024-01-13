@@ -1,7 +1,7 @@
 "use client";
 import PartHeader from "@/components/Common/PartHeader";
 import React, { Suspense, useEffect, useState } from "react";
-import titleBackgroundImage from "@/assets/images/headerPart/6.jpeg";
+import titleBackgroundImage from "@/assets/images/headerPart/6.webp";
 import NewGridViewItem from "./NewItems/NewGridViewItem";
 import { BiGridAlt } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
@@ -111,8 +111,12 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
     if (blogs.length === 0)
       return (
         <div className="flex justify-center mt-40 flex-col items-center">
-          <Empty description={<span className="text-white">Chưa có bài viết nào</span>} />
-        </div> 
+          <Empty
+            description={
+              <span className="text-white">Chưa có bài viết nào</span>
+            }
+          />
+        </div>
       );
 
     return (

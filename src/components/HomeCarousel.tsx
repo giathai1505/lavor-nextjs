@@ -1,7 +1,7 @@
 "use client";
 import { carouseSliderImages } from "@/assets/staticData";
 import React, { useEffect, useRef, useState } from "react";
-import startNowButton from "@/assets/images/common/start-now-button.png";
+import startNowButton from "@/assets/images/common/start-now-button.webp";
 import Image from "next/image";
 import Link from "next/link";
 import {

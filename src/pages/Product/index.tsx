@@ -5,7 +5,7 @@ import PartHeader from "@/components/Common/PartHeader";
 import CategoryList from "./CategoryList";
 import Image from "next/image";
 import titleBackgroundImage from "@/assets/images/headerPart/3.webp";
-import carBanner from "@/assets/images/background/product-banner.jpeg";
+import carBanner from "@/assets/images/background/product-banner.webp";
 import ProductItemHorizontal from "./components/ProductItemHorizontal";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";

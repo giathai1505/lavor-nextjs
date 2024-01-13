@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import map from "@/assets/images/common/agency-map.png";
+import map from "@/assets/images/common/agency-map.webp";
 import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
-import titleBackgroundImage from "@/assets/images/headerPart/5.jpeg";
+import titleBackgroundImage from "@/assets/images/headerPart/5.webp";
 import { ICity, IRegion } from "@/types/type";
 
 type TListAgency = {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import startButton from "@/assets/images/common/start-now-button.png";
+import startButton from "@/assets/images/common/start-now-button.webp";
 import Button from "@/components/Common/Button";
 import introduceImg from "@/assets/images/common/home-part2.webp";
 import HomeCarousel from "@/components/HomeCarousel";
@@ -23,8 +23,6 @@ const LazyProductPart = dynamic(() => import("./ProductPart"), {
 const LazySimpleVideo = dynamic(() => import("./SampleVideos"), {
   loading: () => <p>Loading...</p>,
 });
-
-
 
 type IPageProps = {
   products: IProduct[];

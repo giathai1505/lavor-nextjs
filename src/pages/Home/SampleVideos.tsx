@@ -3,7 +3,7 @@ import YoutubeThumbnail from "@/components/Common/YoutubeThumbnail";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import startButton from "@/assets/images/common/start-now-button.png";
+import startButton from "@/assets/images/common/start-now-button.webp";
 import Each from "@/lib/Each";
 
 const renderYouTubeVideo = (youtube: any) => {

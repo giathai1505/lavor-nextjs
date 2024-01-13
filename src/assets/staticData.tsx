@@ -27,18 +27,19 @@ import productThumbnail5 from "@/assets/images/youtubeThumbnail/products/5.webp"
 import productThumbnail6 from "@/assets/images/youtubeThumbnail/products/6.webp";
 import { ProductType } from "@/types/type";
 
-import bocGheImg from "@/assets/images/cateogries/boc-ghe-category.webp";
-import goiLungImg from "@/assets/images/cateogries/goi-lung-category.webp";
-import goiCoImg from "@/assets/images/cateogries/goi-co-category.webp";
-import thamLotSanImg from "@/assets/images/cateogries/tham-lot-san-category.webp";
-import voLangImg from "@/assets/images/cateogries/boc-vo-lang-category.webp";
+import seatCoverIcon from "@/assets/images/cateogries/seat-cover-icon.webp";
+import backPillowIcon from "@/assets/images/cateogries/back-pillow-icon.webp";
+import neckPillowIcon from "@/assets/images/cateogries/neck-pillow-icon.webp";
+import floorMatsIcon from "@/assets/images/cateogries/floor-mats-icon.webp";
+import steeringWheelIcon from "@/assets/images/cateogries/steering-wheel-icon.webp";
 
 //category image
-import bocGheImg1 from "@/assets/images/cateogries/boc-ghe-img.webp";
-import goiCoImg1 from "@/assets/images/cateogries/goi-co-img.webp";
-import thamLotSanImg1 from "@/assets/images/cateogries/tham-lot-san-img.webp";
-import voLangImg1 from "@/assets/images/cateogries/boc-tay-lai-img.webp";
-import goiLung1 from "@/assets/images/cateogries/goi-lung.webp";
+import seatCoverImage from "@/assets/images/cateogries/seat-cover-image.webp";
+import neckPillowImage from "@/assets/images/cateogries/neck-pillow-image.webp";
+import floorMatsImage from "@/assets/images/cateogries/floor-mats-image.webp";
+import steeringWheelImage from "@/assets/images/cateogries/steering-wheel-image.webp";
+import backPillowImage from "@/assets/images/cateogries/back-pillow-image.webp";
+import differentImage from "@/assets/images/cateogries/different-product-image.webp";
 
 import Link from "next/link";
 import { webRouter } from "@/constants/constants";
@@ -434,56 +435,56 @@ export const categories = [
   {
     id: ProductType.CHAIR,
     name: "Bọc ghế da",
-    image: bocGheImg,
+    image: seatCoverIcon,
     href: "/san-pham/boc-ghe-da",
     quantity: 9,
-    icon: bocGheImg1,
+    icon: seatCoverImage,
     desc: "Sử dụng chất liệu da cao cấp giúp bảo vệ thân ghế, chống bám bẩn, chống bám bụi, chống ám mùi, an toàn cho sức khỏe. Đem lại hiệu quả thẩm mỹ cao, thể hiện sự Sang trọng – Đẳng cấp – Cá tính.",
   },
 
   {
     id: ProductType.PILLOW,
     name: "Gối cổ",
-    image: goiCoImg,
+    image: neckPillowIcon,
     href: "/san-pham/goi-co",
     quantity: 27,
-    icon: goiCoImg1,
+    icon: neckPillowImage,
     desc: "Giúp người lái xe có thể tựa và giữ cổ vai thoải mái, giảm mỏi cổ vai và không bị nghiêng người mỗi lúc xe vào cua. Gối được làm từ chất liệu da cao cấp, chống mồ hôi, êm ái, không chất độc hại.",
   },
   {
     id: "GOI_LUNG",
     name: "Gối lưng",
-    image: goiLungImg,
+    image: backPillowIcon,
     href: "/san-pham/goi-lung",
     quantity: 9,
-    icon: goiLung1,
+    icon: backPillowImage,
     desc: "Sử dụng chất liệu da cao cấp giúp bảo vệ thân ghế, chống bám bẩn, chống bám bụi, chống ám mùi, an toàn cho sức khỏe. Đem lại hiệu quả thẩm mỹ cao, thể hiện sự Sang trọng – Đẳng cấp – Cá tính.",
   },
   {
     id: ProductType.STEERING_WHEEL,
     name: "Bọc tay lái",
-    image: voLangImg,
+    image: steeringWheelIcon,
     href: "/san-pham/boc-tay-lai",
     quantity: 9,
-    icon: voLangImg1,
+    icon: steeringWheelImage,
     desc: "Làm từ chất liệu da cao cấp. Thiết kế các lỗ thoáng khí giúp thấm mồ hôi, không còn cảm giác dớp dính khi lái xe. Cam kết chất lượng tốt nhất trên thị trường, mang đến trải nghiệm tuyệt vời cho khách hàng.",
   },
   {
     id: ProductType.FLOOR,
     name: "Thảm lót sàn",
-    image: thamLotSanImg,
+    image: floorMatsIcon,
     href: "/san-pham/tham-lot-san",
     quantity: 6,
-    icon: thamLotSanImg1,
+    icon: floorMatsImage,
     desc: "Thiết kế hiện đại, sang trọng, đảm bảo che phủ toàn bộ phần sàn xe.. Ngăn ngừa tuyệt đối bụi bẩn và chất lỏng lọt xuống sàn xe gây mốc sàn và bốc mùi khó chịu. Chống trầy xước, chịu nhiệt tốt, độ bền cao.",
   },
   {
     id: ProductType.OTHER,
     name: "Sản phẩm khác",
-    image: thamLotSanImg,
+    image: floorMatsIcon,
     href: "/san-pham/san-pham-khac",
     quantity: 1,
-    icon: bocGheImg1,
+    icon: differentImage,
     desc: "",
   },
 ];

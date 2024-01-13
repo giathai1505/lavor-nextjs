@@ -15,7 +15,7 @@ const renderCategoryItem = (category: any, listValue: Map<string, number>) => {
           src={category.image}
           alt="Ảnh danh mục sản phẩm"
           placeholder="blur"
-          className="object-cover"
+          className="object-cover rounded-full"
           loading="eager"
         />
       </div>

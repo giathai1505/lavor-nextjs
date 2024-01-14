@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import logo from "@/assets/images/logo/logo-white.webp";
@@ -37,10 +36,14 @@ const PhoneHeader = () => {
     <div>
       <div className="header-phone-wrapper">
         <Link href={webRouter.user.HOME_PAGE}>
-          <Image
-            src={logo}
+          <img
+            src={logo.src}
             alt="Logo Lavor"
-            priority={true}
+            fetchPriority="high"
+            width="210"
+            height="93"
+            decoding="async"
+            data-nimg="1"
             className={`w-[100px] logo-img md:w-[160px]`}
           />
         </Link>
@@ -57,7 +60,7 @@ const PhoneHeader = () => {
         </div>
       </div>
 
-      <PhoneDrawerNavbar setShow={setShowSidebar} show={showSidebar} />
+      <PhoneDrawerNavbar setShow={setShowSidebar} show={showSidebar}/>
 
       <ConfirmOrderModel
         carts={carts}

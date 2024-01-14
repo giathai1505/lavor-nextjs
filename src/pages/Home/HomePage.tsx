@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import startButton from "@/assets/images/common/start-now-button.webp";
 import Button from "@/components/Common/Button";
@@ -45,10 +44,14 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
           </h2>
           <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10">
             <div className=" mx-auto mb-5 md:mb-10">
-              <Image
+              <img
                 alt="Công xưởng Lavor"
-                src={introduceImg}
+                src={introduceImg.src}
                 loading="eager"
+                width="500"
+                height="333"
+                decoding="async"
+                data-nimg="1"
                 className="rounded-xl border-[6px] border-solid border-primary xl:h-[300px] h-[200px] md:h-[350px] md:w-[600px] w-[350px] xl:w-[500px] object-cover"
               />
             </div>
@@ -121,8 +124,13 @@ const HomePage: React.FC<IPageProps> = ({ products }) => {
           </div>
           <div className="mt-10 flex justify-center">
             <Link href="/thiet-ke">
-              <Image
-                src={startButton}
+              <img
+                src={startButton.src}
+                loading="lazy"
+                width="489"
+                height="160"
+                decoding="async"
+                data-nimg="1"
                 alt="Chọn thiêt kế riêng cuả bạn"
                 className="w-80 start-button"
               />

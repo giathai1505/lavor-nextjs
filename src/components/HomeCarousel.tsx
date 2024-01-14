@@ -1,14 +1,13 @@
 "use client";
-import { carouseSliderImages } from "@/assets/staticData";
-import React, { useEffect, useRef, useState } from "react";
+import {carouseSliderImages} from "@/assets/staticData";
+import React, {useEffect, useRef, useState} from "react";
 import startNowButton from "@/assets/images/common/start-now-button.webp";
-import Image from "next/image";
 import Link from "next/link";
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
-import { getWindowDimensions, indexArray } from "@/utilities/commonUtilities";
+import {getWindowDimensions, indexArray} from "@/utilities/commonUtilities";
 
 const DEFAULT_DESKTOP_SCREEN_WIDTH = 1920;
 const TOTAL_SLIDER = 3;
@@ -75,9 +74,14 @@ const HomeCarousel: React.FC = () => {
         </div>
 
         <Link href="/thiet-ke" className="relative mt-2">
-          <Image
-            alt="choose your design"
-            src={startNowButton}
+          <img
+            alt="Chọn thiết kế tiêng của bạn"
+            src={startNowButton.src}
+            loading="lazy"
+            width="489"
+            height="160"
+            decoding="async"
+            data-nimg="1"
             className="start-button w-[500px] mr-[100px]"
           />
         </Link>
@@ -85,18 +89,21 @@ const HomeCarousel: React.FC = () => {
       <div className="carousel-slider-wrapper">
         <div
           className="inline-flex relative h-full"
-          style={{ left: `${left}px` }}
+          style={{left: `${left}px`}}
         >
           {carouseSliderImages.map((item, index) => {
             return (
               <div className="carousel-slider-item" key={item.src.toString()}>
-                <Image
+                <img
                   alt="Slider ảnh"
                   loading="eager"
-                  src={item}
-                  priority={index === 0 ? true : false}
+                  src={item.src}
+                  fetchPriority="high"
+                  width="1920"
+                  height="960"
                   className="w-full h-full object-cover"
                   placeholder="blur"
+                  decoding="async"
                 />
               </div>
             );

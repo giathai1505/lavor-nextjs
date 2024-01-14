@@ -25,14 +25,11 @@ import { IProduct, ProductType, ProductTypeToText, Status } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
 import {
-  deleteMultipleProducts,
-  deleteProduct,
-  getAllProducts,
-} from "@/api/productAPI";
-import {
   formatCurrencyWithDots,
   indexArray,
 } from "@/utilities/commonUtilities";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 const statusOptions = [
   {
@@ -95,17 +92,15 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
   });
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState(false);
-  const [showInfoDialog, setShowInfoDialog] = useState(false);
+
   const [data, setData] = useState(products);
   const [itemHovered, setItemHovered] = useState<string | undefined>(undefined);
   const [activeField, setActiveField] = useState<number | undefined>(undefined);
-  const [activeChangeStatus, setActiveChangeStatus] = useState<{
-    id: number | undefined;
-    status: Status | undefined;
-  }>({ id: undefined, status: undefined });
+
+  const { get, delete: deleteProduct } = useFetchApi();
 
   const invokeGetAllProducts = async () => {
-    let url = "?page=1&limit=10";
+    let url = "";
     if (globalFilter.search !== "") {
       url += "&search=" + globalFilter.search;
     }
@@ -116,13 +111,17 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
       url += "&type=" + globalFilter.type;
     }
 
-    getAllProducts(url)
-      .then((result) => {
-        setData(result.products);
-      })
-      .catch((error) => {
+    try {
+      const res: any = await get(API_ROUTES.product.getAll(url));
+
+      if (res && res.products) {
+        setData(res.products);
+      } else {
         setData([]);
-      });
+      }
+    } catch (error) {
+      setData([]);
+    }
   };
 
   useEffect(() => {
@@ -182,25 +181,6 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
                 }}
               >
                 Xóa
-              </button>
-              |
-              <button
-                className="admin-row-action active"
-                onClick={() => {
-                  setShowInfoDialog(true);
-                  setActiveChangeStatus({
-                    id: row.original.product_id,
-                    status: row.original.product_status,
-                  });
-                }}
-              >
-                {row.original.product_status === Status.SUSPENDED ? (
-                  <span> Hoạt động</span>
-                ) : (
-                  <span className="stop-active  whitespace-nowrap">
-                    Ngưng hoạt động
-                  </span>
-                )}
               </button>
             </div>
           </div>
@@ -321,27 +301,14 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
   const handleDelete = async () => {
     setIsOpenDeleteConfirmDialog(false);
 
-    if (typeof activeField === "number") {
-      await deleteProduct(activeField);
-      setActiveField(undefined);
-    }
-
-    await invokeGetAllProducts();
-  };
-
-  const handleChangeStatus = async () => {
-    setShowInfoDialog(false);
-    if (
-      typeof activeChangeStatus.id === "number" &&
-      activeChangeStatus.status !== undefined
-    ) {
-      const targetStatus =
-        activeChangeStatus.status === Status.ACTIVE
-          ? Status.SUSPENDED
-          : Status.ACTIVE;
-      //   await changeBlogStatus(activeChangeStatus.id, targetStatus);
-      setActiveChangeStatus({ id: undefined, status: undefined });
-      await invokeGetAllProducts();
+    try {
+      if (typeof activeField === "number") {
+        await deleteProduct(API_ROUTES.product.deleteOne(activeField));
+        await invokeGetAllProducts();
+        setActiveField(undefined);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -352,27 +319,14 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
 
   const handleDeleteMultipleBlog = async () => {
     const productIds = Object.keys(rowSelection).map((item) => Number(item));
-    await deleteMultipleProducts(productIds);
+    await deleteProduct(API_ROUTES.product.deleteMany, {
+      products_ids: productIds,
+    });
     await invokeGetAllProducts();
-  };
-
-  const handleChangeMultipleStatus = (status: any) => {
-    // const blogIds = Object.keys(rowSelection).map((item) => Number(item));
-    // changeMultipleBlogStatus(blogIds, status.key);
-    // invokeGetAllProducts();
   };
 
   return (
     <div className="admin-page-wrapper ">
-      <ConfirmDialog
-        onOk={handleChangeStatus}
-        title="Đổi trạng thái của bài viết"
-        open={showInfoDialog}
-        content="Bạn có chắc muốn đổi trạng thái của bài viết này không?"
-        onClose={() => setShowInfoDialog(false)}
-        type="information"
-      />
-
       <ConfirmDialog
         onOk={handleDelete}
         title="Xóa bài viết"
@@ -399,12 +353,10 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
             options={statusOptions}
             onChange={(item) => handleFilterProduct("status", item.key)}
             className="admin"
-            // value={globalFilter.status}
             placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
-            // value={globalFilter.category}
             onChange={(item) => handleFilterProduct("type", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"
@@ -437,12 +389,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
               Đã chọn: {Object.keys(rowSelection).length}
             </span>
           </div>
-          <NoneFormSelectCustom
-            options={statusOptions}
-            onChange={(item) => handleChangeMultipleStatus(item)}
-            className="admin purple-version"
-            placeholder="Thay đổi trạng thái"
-          />
+
           <div
             className="button-delete-row-selection "
             onClick={handleDeleteMultipleBlog}

@@ -20,7 +20,14 @@ const API_ROUTES = {
     upload: "/images/upload",
     uploadMany: "/images/upload-many",
   },
-  product: {},
+  product: {
+    getAll: (url: string) => `products${url}`,
+    addProduct: "/products",
+    editProduct: (id: number) => `/products/${id.toString()}`,
+    deleteOne: (id: number) => `/products/${id.toString()}`,
+    deleteMany: "/products",
+    changeStatus: (id: number) => `/blogs/${id.toString()}/status`,
+  },
   review: {
     getAllApprove: "/review",
     getAllPending: "/review?withPending=true",

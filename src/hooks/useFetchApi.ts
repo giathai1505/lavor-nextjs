@@ -45,7 +45,7 @@ const useFetchApi = (): UseFetchApi => {
         if (method === "POST" && isUpload) {
           const formData = new FormData();
 
-          if (Array.isArray(data) && data.length > 1) {
+          if (Array.isArray(data)) {
             data.forEach((file) => {
               formData.append("files", file);
             });

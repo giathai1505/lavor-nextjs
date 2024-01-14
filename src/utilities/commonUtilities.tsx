@@ -1,4 +1,3 @@
-import { upLoadImages } from "@/api/imageAPI";
 import { IAgencyTable, IRegion } from "@/types/type";
 import { getSession, signOut } from "next-auth/react";
 
@@ -29,11 +28,8 @@ export function formatCurrencyWithDots(number: number): string {
   return formattedNumber;
 }
 
-export const checkAndUploadMultipleImage = async (
-  files: Array<string | File>
-): Promise<string[]> => {
+export const getListImageUpload = (files: Array<string | File>) => {
   let needToUploadArr: File[] = [];
-  let newListImages: string[] = [];
 
   files.forEach((item) => {
     if (typeof item !== "string") {
@@ -41,24 +37,24 @@ export const checkAndUploadMultipleImage = async (
     }
   });
 
-  if (needToUploadArr.length > 0) {
-    const uploadImage = await upLoadImages(needToUploadArr);
+  return needToUploadArr;
+};
 
-    if (uploadImage.urls.length > 0) {
-      let startIndex = 0;
+export const mapImageList = (
+  original: Array<string | File>,
+  newImages: string[]
+) => {
+  let newListImages: string[] = [];
+  let startIndex = 0;
 
-      files.forEach((item) => {
-        if (typeof item === "string") {
-          newListImages.push(item);
-        } else {
-          newListImages.push(uploadImage.urls[startIndex]);
-          startIndex++;
-        }
-      });
+  original.forEach((item) => {
+    if (typeof item === "string") {
+      newListImages.push(item);
+    } else {
+      newListImages.push(newImages[startIndex]);
+      startIndex++;
     }
-  } else {
-    return files as string[];
-  }
+  });
 
   return newListImages;
 };
@@ -104,7 +100,6 @@ export function getWindowDimensions() {
   };
 }
 
-
-export const indexArray = (length: number, gap: number = 1) : number[] => {
-  return new Array(length).fill(null).map((_, index) => (index + 1)*gap);
-}
+export const indexArray = (length: number, gap: number = 1): number[] => {
+  return new Array(length).fill(null).map((_, index) => (index + 1) * gap);
+};

@@ -4,14 +4,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import Link from "next/link";
 import { Empty } from "antd";
-import { getAllProducts } from "@/api/productAPI";
 import { IProduct, ProductTypeToText } from "@/types/type";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
-
 import useDebounce from "@/hooks/useDebounce";
 import "./header.css";
 import Each from "@/lib/Each";
-
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 const renderSearchItem = (product: IProduct) => {
   return (
@@ -39,7 +38,6 @@ const renderSearchItem = (product: IProduct) => {
   );
 };
 
-
 type TSearchBoxProps = {
   show: boolean;
   close: () => void;
@@ -51,6 +49,7 @@ const SearchBox: React.FC<TSearchBoxProps> = ({ close, show }) => {
   const searchBoxRef = useRef<HTMLDivElement | null>(null);
   const debounceSearchValue = useDebounce(searchContent, 500);
   useClickOutside(searchBoxRef, close);
+  const { get } = useFetchApi();
 
   useEffect(() => {
     const invokeSearch = async (key: string) => {
@@ -59,13 +58,17 @@ const SearchBox: React.FC<TSearchBoxProps> = ({ close, show }) => {
       } else {
         const url = "?page=1&limit=10" + "&search=" + key;
 
-        getAllProducts(url)
-          .then((result) => {
-            setsearchResult(result.products);
-          })
-          .catch((error) => {
+        try {
+          const res: any = await get(API_ROUTES.product.getAll(url));
+
+          if (res && res.products) {
+            setsearchResult(res.products);
+          } else {
             setsearchResult([]);
-          });
+          }
+        } catch (error) {
+          setsearchResult([]);
+        }
       }
     };
 

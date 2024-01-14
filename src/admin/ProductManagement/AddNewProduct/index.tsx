@@ -8,17 +8,23 @@ import {
 } from "react-icons/bs";
 import { BiCategory, BiPlus, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { IProductColor, IProductDetail, PStatus, ProductType } from "@/types/type";
+import {
+  IProductColor,
+  IProductDetail,
+  IProductVariant,
+  PStatus,
+  ProductType,
+} from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
 import FormError from "@/components/Common/FormError";
 import { useRouter } from "next/navigation";
 import { GrFormClose } from "react-icons/gr";
 import dynamic from "next/dynamic.js";
-import { upLoadImages } from "@/api/imageAPI";
-import { addProductAPI, editProductAPI } from "@/api/productAPI";
-import { checkAndUploadMultipleImage } from "@/utilities/commonUtilities";
+import { getListImageUpload, mapImageList } from "@/utilities/commonUtilities";
 import { FaArrowLeft } from "react-icons/fa";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 export interface IProductFormValue {
   product_name: string;
@@ -61,6 +67,7 @@ const ProductForm: React.FC<IProductForm> = ({
 
   const router = useRouter();
   const [albumImage, setAlbumImage] = useState<any[]>([]);
+  const { create, edit } = useFetchApi();
 
   const form = useForm<IProductFormValue>({
     defaultValues: defaultValue,
@@ -71,7 +78,6 @@ const ProductForm: React.FC<IProductForm> = ({
     control,
     handleSubmit,
     formState: { errors },
-    setValue,
     reset,
   } = form;
 
@@ -114,42 +120,72 @@ const ProductForm: React.FC<IProductForm> = ({
 
   const onSubmit = async (data: IProductFormValue) => {
     if (isEdit) {
+      if (!productID) return;
       const newData = {
         ...data,
       };
 
-      const newAlbumImages = await checkAndUploadMultipleImage(albumImage);
-      newData.product_images = newAlbumImages;
+      //check and upload album image if change
+      let newAlbumImage: string[] = [...albumImage];
+      const imagesNeedToUpload = getListImageUpload(albumImage);
+      if (imagesNeedToUpload.length > 0) {
+        try {
+          const res: any = await create(
+            API_ROUTES.image.uploadMany,
+            imagesNeedToUpload,
+            true
+          );
 
-      //image + thông số kĩ thuật
-      const variantImagesNeedToUpload: Array<string | File> = [];
-
-      data.variants.forEach((element) => {
-        if (typeof element.image_url === "string") {
-          variantImagesNeedToUpload.push(element.image_url);
-        } else {
-          variantImagesNeedToUpload.push(element.image_url[0]);
+          if (res && res.urls) {
+            newAlbumImage = mapImageList(albumImage, res.urls);
+          }
+        } catch (error) {
+          console.log(error);
         }
-      });
+      }
+      newData.product_images = newAlbumImage;
 
-      const newVariantImages = await checkAndUploadMultipleImage(
-        variantImagesNeedToUpload
-      );
-
-      const newVariant = data.variants.map((item, index) => {
-        if (typeof item.image_url === "string") {
-          return item;
-        } else {
-          return {
-            ...item,
-            image_url: newVariantImages[index],
-          };
+      //check and upload variant image if change
+      const variantImages = data.variants.map((item) => {
+        console.log(item.image_url?.length);
+        if (typeof item.image_url === "object" && item.image_url.length > 0) {
+          return item.image_url[0];
         }
+        return item.image_url;
       });
+      const variantImagesNeedToUpload: Array<string | File> =
+        getListImageUpload(variantImages);
+      let newVariant: IProductVariant[] = structuredClone(data.variants);
+
+      if (variantImagesNeedToUpload.length > 0) {
+        try {
+          const res: any = await create(
+            API_ROUTES.image.uploadMany,
+            variantImagesNeedToUpload,
+            true
+          );
+
+          if (res && res.urls) {
+            const newVariantImages = mapImageList(variantImages, res.urls);
+            newVariant = data.variants.map((item, index) => {
+              if (typeof item.image_url === "string") {
+                return item;
+              } else {
+                return {
+                  ...item,
+                  image_url: newVariantImages[index],
+                };
+              }
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
       newData.variants = newVariant;
 
-      editProductAPI(newData, productID ?? "");
+      await edit(API_ROUTES.product.editProduct(Number(productID)), newData);
     } else {
       let colorImages: File[] = [];
       if (Array.isArray(data.variants) && data.variants.length > 0) {
@@ -158,10 +194,14 @@ const ProductForm: React.FC<IProductForm> = ({
         });
       }
 
-      Promise.all([upLoadImages(albumImage), upLoadImages(colorImages)])
-        .then((results) => {
+      //check how many file if more than 1 using uploadMany, if 1 use upload
+      Promise.all([
+        create(API_ROUTES.image.uploadMany, albumImage, true),
+        create(API_ROUTES.image.uploadMany, colorImages, true),
+      ])
+        .then((results: any) => {
           const newColorVariant = data.variants.map((item, index) => {
-            return { ...item, image_url: results[1].urls[index] };
+            return { ...item, image_url: results[1]?.urls[index] };
           });
           const newData = {
             ...data,
@@ -170,7 +210,7 @@ const ProductForm: React.FC<IProductForm> = ({
             variants: newColorVariant,
           };
 
-          return addProductAPI(newData);
+          return create(API_ROUTES.product.addProduct, newData, false);
         })
         .then((result) => {})
         .catch((error) => {
@@ -191,7 +231,6 @@ const ProductForm: React.FC<IProductForm> = ({
   const removeAlbumImageItem = (image: string) => {
     if (image) {
       const items = albumImage.filter((item) => item !== image);
-
       setAlbumImage(items);
     }
   };
@@ -244,11 +283,6 @@ const ProductForm: React.FC<IProductForm> = ({
                   <input
                     {...field}
                     type="text"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
                     placeholder="Nhập tiêu đề bài viết"
                     className="admin-input"
                     id="text"
@@ -276,11 +310,6 @@ const ProductForm: React.FC<IProductForm> = ({
                   <input
                     {...field}
                     type="number"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
                     placeholder="Nhập giá sản phẩm"
                     className="admin-input"
                     id="text"

@@ -28,7 +28,6 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-#ENV NEXT_SHARP_PATH /app/node_modules/sharp
 ENV NODE_ENV production
 
 ENV NEXT_TELEMETRY_DISABLED 1

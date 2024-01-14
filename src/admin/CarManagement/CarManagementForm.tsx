@@ -18,10 +18,11 @@ import {
   getCar,
   updateCar,
 } from "@/api/carAPI";
-import { upLoadImage } from "@/api/imageAPI";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import Each from "@/lib/Each";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 export interface ICarFormValue {
   year: number;
@@ -50,6 +51,9 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     version: false,
   });
   const [isEdit, setIsEdit] = useState<boolean>(false);
+
+  const { create } = useFetchApi();
+
   const handleResize = () => {
     if (imgContainerRef.current) {
       const width = imgContainerRef.current.clientWidth;
@@ -186,60 +190,25 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     }
   }, [brands, years]);
 
-  const onSubmit = (data: ICarFormValue) => {
+  const onSubmit = async (data: ICarFormValue) => {
     if (typeof image === "string") return;
-    if (isEdit) {
-      const loadingToastId = toast.info("Đang chỉnh sửa...", {
-        position: "top-center",
-        autoClose: false,
-      });
-      Promise.resolve(upLoadImage(image))
-        .then((results) => {
-          const newData = {
-            ...data,
-            image_url: results.url,
-          };
-          return updateCar(newData);
-        })
-        .then((result) => {
-          toast.dismiss(loadingToastId);
-          toast.success("Sửa thành công!!!", {
-            position: "top-center",
-          });
-        })
-        .catch((error) => {
-          toast.dismiss(loadingToastId);
-          toast.error("Sửa thất bại!!!", {
-            position: "top-center",
-          });
-          console.error("Error:", error);
-        });
-    } else {
-      const loadingToastId = toast.info("Đang thêm  xe...", {
-        position: "top-center",
-        autoClose: false,
-      });
-      Promise.resolve(upLoadImage(image))
-        .then((results) => {
-          const newData = {
-            ...data,
-            image_url: results.url,
-          };
+
+    try {
+      const res: any = await create(API_ROUTES.image.upload, image, true);
+      if (res && res.url) {
+        const newData = {
+          ...data,
+          image_url: res.url,
+        };
+
+        if (isEdit) {
+          await updateCar(newData);
+        } else {
           return addCar(newData);
-        })
-        .then((result) => {
-          toast.dismiss(loadingToastId);
-          toast.success("Thêm xe thành công!!!", {
-            position: "top-center",
-          });
-        })
-        .catch((error) => {
-          toast.dismiss(loadingToastId);
-          toast.error("Thêm xe thất bại!!!", {
-            position: "top-center",
-          });
-          console.error("Error:", error);
-        });
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

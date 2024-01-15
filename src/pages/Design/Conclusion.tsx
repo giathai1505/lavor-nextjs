@@ -72,9 +72,9 @@ const Conclusion: React.FC<IConclusion> = ({
             <p>- Phiên bản: {designData?.car?.version?.value}</p>
           </div>
           <img
-            src={"http://" + designData?.car?.image}
+            src={designData?.car?.image}
             alt="xe của bạn"
-            className="h-[300px] rounded-lg"
+            className="h-[200px] md:h-[300px] rounded-lg object-cover"
           ></img>
         </div>
         <p className="design-conclusion-title">Thiết kế của bạn</p>
@@ -98,7 +98,7 @@ const Conclusion: React.FC<IConclusion> = ({
               <img
                 src={`/design/leather-type/${designData?.design?.materialID}/${designData?.design?.colorID}.png`}
                 alt="Hình ảnh màu sắc của da"
-                className="w-[200px] h-[200px] object-cover rounded-lg mb-5"
+                className="w-[200px] h-[100px] md:h-[200px] object-cover rounded-lg mb-5"
               />
               <p className="text-[#595d6e]">
                 Màu da: {designData?.design?.colorID}
@@ -108,7 +108,7 @@ const Conclusion: React.FC<IConclusion> = ({
               <img
                 src={`/design/hole-pattern/${designData?.design?.holeID}.png`}
                 alt="Hình ảnh màu sắc của da"
-                className="w-[200px] h-[200px] object-cover rounded-lg mb-5"
+                className="w-[200px] h-[100px] md:h-[200px] object-cover rounded-lg mb-5"
               />
 
               <p className="text-[#595d6e]">

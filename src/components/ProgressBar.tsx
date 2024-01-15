@@ -14,7 +14,7 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
   const activeWith = (100 * active) / TOTAL_PHASE;
 
   return (
-    <div className="w-[300px] md:w-[500px] py-4 relative">
+    <div className="w-[250px] md:w-[500px] py-4 relative">
       <div className="h-2 rounded-full bg-white"></div>
       <div
         className={`absolute  h-2 rounded-full bg-primary top-1/2 -translate-y-1/2 `}
@@ -37,21 +37,21 @@ const ProgressBar: React.FC<IProgressBar> = ({ active }) => {
       </div>
 
       <span
-        className={`progress-title left-[28%] md:left-[30%] ${
+        className={`progress-title text-[10px] md:text-sm left-[28%] md:left-[30%] ${
           EDesignPhase.CHOOSE_CAR <= active ? "show" : ""
         }`}
       >
         Chọn xe
       </span>
       <span
-        className={`progress-title left-[53%] md:left-[58%] ${
+        className={`progress-title text-[10px] md:text-sm  left-[53%] md:left-[58%] ${
           EDesignPhase.CHOOSE_DESIGN <= active ? "show" : ""
         }`}
       >
         Chọn thiết kế
       </span>
       <span
-        className={`progress-title right-[-24px] translate-x-[-20px] ${
+        className={`progress-title text-[10px] md:text-sm  right-[-24px] translate-x-[-20px] ${
           EDesignPhase.CONCLUSION <= active ? "show" : ""
         }`}
       >

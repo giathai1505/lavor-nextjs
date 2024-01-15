@@ -138,7 +138,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({
   };
 
   return (
-    <div className="max-w-[1200px] mx-10">
+    <div className="max-w-[1200px] mx-5 md:px-10 xl:mx-0">
       <div className="border border-solid border-[#ffffff2b] rounded-md p-2 relative mb-10">
         <p className="design-title">Chọn chất liệu da</p>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10">

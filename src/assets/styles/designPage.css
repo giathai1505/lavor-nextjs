@@ -37,6 +37,7 @@
   color: #f47a20;
   font-size: 18px;
   line-height: 26px;
+  border-radius: 10px;
   text-transform: uppercase;
   padding: 20px 0;
 }
@@ -47,18 +48,22 @@
 }
 
 .color-pick-item {
+  width: 80px;
+  height: 80px;
   cursor: pointer;
-  border: 1px solid white;
-  border-radius: 50%;
+  overflow: hidden;
   box-sizing: content-box;
-  color: #595d6e;
   position: relative;
-  display: flex;
-  gap: 10px;
+  border-radius: 10px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+
+.color-pick-item img {
+  position: absolute;
+  inset: 0;
 }
 
 .color-pick-item:hover {

@@ -32,7 +32,7 @@ export type TCar = {
 
 export type TDesign = {
   materialID: string | undefined;
-  colorID: string | undefined;
+  colorID: number | undefined;
   holeID: string | undefined;
   note: string;
 };
@@ -127,7 +127,7 @@ const Design: React.FC<IPageProps> = ({ years }) => {
       case EDesignPhase.CONCLUSION:
         phaseComponent = (
           <Conclusion
-            onPrevious={() => setPhase(EDesignPhase.CHOOSE_CAR)}
+            onPrevious={() => setPhase(EDesignPhase.CHOOSE_DESIGN)}
             onComplete={(data: any) =>
               handleDesignDataChange(EDesignPhase.CONCLUSION, data)
             }

@@ -93,16 +93,38 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
 
   const invokeGetCarByYear = async (year: number) => {
     const result = await getCarByYear(year);
-    if (result?.cars) {
-      setBrands(result?.cars);
+
+    if (result && result.cars) {
+      setBrands(result.cars);
       const brands = initListBrands(result?.cars);
       setListBrands(brands);
+      return result.cars;
     }
+
+    return [];
   };
 
   useEffect(() => {
     setListYears(initListYear(years));
-    //check if has brand and model the will init the list models and version too
+
+    if (carDetail?.year?.id) {
+      Promise.resolve(invokeGetCarByYear(carDetail.year.id)).then((item) => {
+        if (carDetail.brand) {
+          setListModels(
+            updateListModelWhenChangeBrand(carDetail?.brand.id, item)
+          );
+          if (carDetail.model)
+            setListVersions(
+              updateListVersionWhenModelChange(
+                Number(carDetail?.brand?.id),
+                carDetail?.model.id,
+                item
+              )
+            );
+        }
+      });
+    }
+
     if (carDetail.brand) {
       setListModels(updateListModelWhenChangeBrand(carDetail.brand.id, brands));
 

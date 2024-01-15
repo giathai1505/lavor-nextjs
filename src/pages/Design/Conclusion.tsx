@@ -96,7 +96,7 @@ const Conclusion: React.FC<IConclusion> = ({
           <div className="flex items-center gap-10">
             <div className="flex flex-col items-center">
               <img
-                src={`/design/leather-type/${designData?.design?.materialID}/${designData?.design?.colorID}.png`}
+                src={`/design/leather-type/${designData?.design?.materialID}/${designData?.design?.colorID}.webp`}
                 alt="Hình ảnh màu sắc của da"
                 className="w-[200px] h-[100px] md:h-[200px] object-cover rounded-lg mb-5"
               />
@@ -106,7 +106,7 @@ const Conclusion: React.FC<IConclusion> = ({
             </div>
             <div className="flex flex-col items-center">
               <img
-                src={`/design/hole-pattern/${designData?.design?.holeID}.png`}
+                src={`/design/hole-pattern/${designData?.design?.holeID}.webp`}
                 alt="Hình ảnh màu sắc của da"
                 className="w-[200px] h-[100px] md:h-[200px] object-cover rounded-lg mb-5"
               />

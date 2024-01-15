@@ -53,7 +53,7 @@ const ColorItem = ({ selectedMaterial, item, onChange }: ColorItemProps) => {
       key={item.id}
     >
       <img
-        src={`/design/leather-type/${selectedMaterial.materialID}/${item.id}.png`}
+        src={`/design/leather-type/${selectedMaterial.materialID}/${item.id}.webp`}
         alt="Hình ảnh màu sắc của da"
       />
 
@@ -82,7 +82,7 @@ const HolePatternItem = ({
       key={item.id}
     >
       <img
-        src={`/design/hole-pattern/${item.id}.png`}
+        src={`/design/hole-pattern/${item.id}.webp`}
         alt="Hình ảnh màu sắc của da"
       />
 

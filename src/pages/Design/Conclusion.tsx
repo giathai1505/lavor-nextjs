@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { listMaterials } from "./ChooseDesign";
 
 interface IConclusion {
   onComplete: (data: any) => void;
@@ -8,7 +7,7 @@ interface IConclusion {
 }
 
 const getMaterialName = (id: number) => {
-  const result = listMaterials.find((item) => item.id === id);
+  const result = {name: "Thai"}
 
   return result?.name;
 };

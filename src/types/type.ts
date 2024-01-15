@@ -186,3 +186,12 @@ export enum EDesignPhase {
   CHOOSE_DESIGN = 2,
   CONCLUSION = 3,
 }
+
+export type TMaterialDesign = {
+  id: string;
+  name: string;
+  colors: Array<{
+    id: number;
+    name: string;
+  }>;
+};

@@ -31,7 +31,7 @@ export type TCar = {
 };
 
 export type TDesign = {
-  materialID: number | undefined;
+  materialID: string | undefined;
   colorID: string | undefined;
   holeID: string | undefined;
   note: string;

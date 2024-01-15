@@ -1,4 +1,7 @@
+import { sendDesign } from "@/api/ratingAPI";
+import useToast from "@/hooks/useToast";
 import React, { useState } from "react";
+import { CircleLoader } from "react-spinners";
 
 interface IConclusion {
   onComplete: (data: any) => void;
@@ -18,8 +21,32 @@ const Conclusion: React.FC<IConclusion> = ({
   onPrevious,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const {contextHolder, showNotification} = useToast()
+
+  const handleSenDesign = async () => {
+    try {
+      setIsLoading(true);
+      const result = await sendDesign(designData);
+      setIsLoading(false);
+      showNotification(
+        "success",
+        "Gửi liên hệ thành công!",
+        "Ý kiến của bạn sẽ được Admin xem xét và phản hồi cho bạn sớm nhất có thể. Cảm ơn bạn đã quan tâm tới Lavor!"
+      );
+    } catch (error) {
+      setIsLoading(false);
+      showNotification(
+        "error",
+        "Gửi đánh giá thất bại!",
+        "Lỗi hệ thống! Vui lòng thử lại sau."
+      );
+    }
+  }
 
   return (
+    <>
+{contextHolder}
     <div className="border border-solid border-[#595d6e] text-[#595d6e] p-5 m-5 md:p-10 md:m-0 xl:p-20">
       <h3 className="text-center font-bold">
         Cùng nhìn lại lựa chọn thiết kế của bạn ngay bây giờ nhé !
@@ -84,15 +111,28 @@ const Conclusion: React.FC<IConclusion> = ({
           <button className="primary-button" onClick={() => onPrevious()}>
             Trở lại
           </button>
+
           <button
-            className={`primary-button ${phoneNumber !== "" ? "" : "disabled"}`}
-            onClick={() => onComplete(phoneNumber)}
+            className={`primary-button flex justify-center gap-5 w-fit ${
+              isLoading && "opacity-50 disabled"
+            }  ${phoneNumber !== "" ? "" : "disabled"}`}
+            onClick={() => handleSenDesign()}
           >
-            Hoàn thành
+            {isLoading && (
+              <CircleLoader
+                color={"#ffffff"}
+                loading={isLoading}
+                size={20}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            )}
+            Gửi liên hệ
           </button>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

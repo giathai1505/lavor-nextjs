@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import oldCar from "@/assets/images/comparison-slider/old.webp";
 import newCar from "@/assets/images/comparison-slider/new.webp";
 
@@ -35,13 +35,12 @@ const ComparisonSlider: React.FC = () => {
     <div className=" bg-black">
       <div className="w-full mx-auto p-5 md:p-10">
         <h2 className="mb-5 text-xl leading-8 md:text-2xl md:leading-10 md:mb-10 xl:text-3xl xl:leading-[48px]">
-          <span className="font-light">HƠN CẢ MỘT CHIẾC GHẾ DA</span> <br/>
+          <span className="font-light">HƠN CẢ MỘT CHIẾC GHẾ DA</span> <br />
           <span className="font-bold">
             HÃY CHIÊM NGƯỠNG SỰ ĐẲNG CẤP CỦA LAVOR
           </span>
         </h2>
-        <div
-          className="mx-auto bg-black relative h-[360px] w-[330px] md:h-[570px] md:w-[700px] xl:w-[900px] xl:h-[750px]">
+        <div className="mx-auto bg-black relative h-[360px] w-[330px] md:h-[570px] md:w-[700px] xl:w-[900px] xl:h-[750px] overflow-hidden">
           <div className="w-full h-full flex">
             <img
               src={oldCar.src}

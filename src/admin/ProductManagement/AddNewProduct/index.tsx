@@ -8,7 +8,12 @@ import {
 } from "react-icons/bs";
 import { BiCategory, BiPlus, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { IProductColor, IProductDetail, PStatus, ProductType } from "@/types/type";
+import {
+  IProductColor,
+  IProductDetail,
+  PStatus,
+  ProductType,
+} from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { VscLayersActive } from "react-icons/vsc";
 import FormError from "@/components/Common/FormError";
@@ -477,7 +482,7 @@ const ProductForm: React.FC<IProductForm> = ({
                           <>
                             <input
                               type="file"
-                              accept="image/*"
+                              accept="image/webp"
                               id={"file" + index}
                               onChange={(e) => {
                                 return field.onChange(e.target.files);
@@ -548,7 +553,7 @@ const ProductForm: React.FC<IProductForm> = ({
           <div className="form-content">
             <div className="form-control flex-1">
               <div className="form-control-title">
-                <span>Album ảnh</span>
+                <span>Album ảnh (webp)</span>
               </div>
 
               <Controller
@@ -561,7 +566,7 @@ const ProductForm: React.FC<IProductForm> = ({
                   <>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/webp"
                       id="albumImg"
                       multiple={true}
                       onChange={(e) => {

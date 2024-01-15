@@ -546,7 +546,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
               <div className="form-content">
                 <div className="form-control">
                   <div className="form-control-title">
-                    <span>Ảnh chính</span>
+                    <span>Ảnh chính (webp)</span>
                     <div>*</div>
                   </div>
 
@@ -562,7 +562,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
                         <>
                           <input
                             type="file"
-                            accept="image/*"
+                            accept="image/webp"
                             id="file"
                             onChange={(e) => {
                               loadFile(e);

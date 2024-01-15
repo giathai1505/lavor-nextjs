@@ -1,4 +1,4 @@
-import { sendDesign } from "@/api/ratingAPI";
+import { sendDesign } from "@/api/carAPI";
 import { designData, holdPattern } from "@/assets/designData";
 import useToast from "@/hooks/useToast";
 import React, { useState } from "react";
@@ -36,11 +36,27 @@ const Conclusion: React.FC<IConclusion> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contextHolder, showNotification } = useToast();
 
-  const handleSenDesign = async () => {
+  const handleSendDesign = async () => {
+    const requestData = {
+      year: designData?.car?.year?.value,
+      brand: designData?.car?.brand?.value,
+      model: designData?.car?.model?.value,
+      version: designData?.car?.version?.value,
+      materialID: getMaterialName(designData?.design?.materialID),
+      colorID: getColorName(
+        designData?.design?.materialID,
+        designData?.design?.colorID
+      ),
+      holeID: getHolePatternName(designData?.design?.holeID),
+      note: designData?.design?.note,
+      phoneNumber: phoneNumber,
+    };
     try {
       setIsLoading(true);
-      const result = await sendDesign(designData);
+      await sendDesign(requestData);
+
       setIsLoading(false);
+
       showNotification(
         "success",
         "Gửi liên hệ thành công!",
@@ -141,7 +157,7 @@ const Conclusion: React.FC<IConclusion> = ({
               className={`primary-button flex justify-center gap-5 w-fit ${
                 isLoading && "opacity-50 disabled"
               }  ${phoneNumber !== "" ? "" : "disabled"}`}
-              onClick={() => handleSenDesign()}
+              onClick={() => handleSendDesign()}
             >
               {isLoading && (
                 <CircleLoader

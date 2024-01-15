@@ -48,26 +48,7 @@ export async function addRating(data: any) {
 
 export async function sendContact(data: any) {
   try {
-    const response = await fetch(CLIENT_API_ENPOINT + `review`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
-export async function sendDesign(data: any) {
-  try {
-    const response = await fetch(CLIENT_API_ENPOINT + `review`, {
+    const response = await fetch(CLIENT_API_ENPOINT + `design/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

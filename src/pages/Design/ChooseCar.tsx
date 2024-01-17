@@ -3,7 +3,7 @@ import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
 import { IBrand, IYear } from "@/types/type";
 import React, { useEffect, useState } from "react";
 import { CircleLoader } from "react-spinners";
-import { TCar } from ".";
+import { TCar } from "./DesignPart";
 
 interface IChooseCar {
   onNext: (data: any) => void;

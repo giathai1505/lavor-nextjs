@@ -1,5 +1,5 @@
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
-import Design from "@/pages/Design";
+import Design from "@/pages/Design/DesignPage";
 import { Metadata } from "next";
 import React from "react";
 

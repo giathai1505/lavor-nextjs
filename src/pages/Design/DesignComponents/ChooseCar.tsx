@@ -1,14 +1,12 @@
 import { getCar, getCarByYear } from "@/api/carAPI";
 import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
-import { IBrand, IYear } from "@/types/type";
+import { EDesignPhase, IBrand, IYear, TCar, TDesignData } from "@/types/type";
 import React, { useEffect, useState } from "react";
 import { CircleLoader } from "react-spinners";
-import { TCar } from "./DesignPart";
+import { useDesignContext } from "../DesignPart";
 
 interface IChooseCar {
-  onNext: (data: any) => void;
   years: IYear[];
-  data: TCar;
 }
 
 const initListBrands = (brands: IBrand[]) => {
@@ -64,9 +62,10 @@ const updateListVersionWhenModelChange = (
   });
 };
 
-const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
-  const [carDetail, setCarDetail] = useState<TCar>(data);
+const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
+  const { data, setPhase, setData } = useDesignContext();
 
+  const [carDetail, setCarDetail] = useState<TCar>(data.car);
   const [listYears, setListYears] = useState<IDropdownOption[]>([]);
   const [listBrands, setListBrands] = useState<IDropdownOption[]>([]);
   const [brands, setBrands] = useState<IBrand[]>([]);
@@ -140,7 +139,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
   }, []);
 
   useEffect(() => {
-    setCarDetail(data);
+    setCarDetail(data.car);
   }, [data]);
 
   const handleChangeCarDetail = async (
@@ -197,6 +196,16 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
     setCarDetail(newState);
   };
 
+  const handleMoveNext = () => {
+    setPhase(EDesignPhase.CHOOSE_DESIGN);
+    const newData: TDesignData = {
+      ...data,
+      car: structuredClone(carDetail),
+    };
+
+    setData(newData);
+  };
+
   return (
     <div>
       <div className="max-w-[1200px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mx-10">
@@ -207,7 +216,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
           value={carDetail?.year}
           onChange={(year) => handleChangeCarDetail(year, "year")}
         />
-        {carDetail?.year !== undefined ? (
+        {carDetail.year.id ? (
           <Dropdown
             name="brand"
             options={listBrands}
@@ -217,7 +226,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
           />
         ) : null}
 
-        {carDetail?.brand !== undefined ? (
+        {carDetail.brand.id ? (
           <Dropdown
             options={listModels}
             name="model"
@@ -227,7 +236,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
           />
         ) : null}
 
-        {carDetail?.model !== undefined ? (
+        {carDetail.model.id ? (
           <Dropdown
             options={listVersions}
             name="version"
@@ -239,8 +248,8 @@ const ChooseCar: React.FC<IChooseCar> = ({ onNext, years, data }) => {
       </div>
 
       <div className="m-10">
-        {carDetail?.version !== undefined ? (
-          <button className="primary-button" onClick={() => onNext(carDetail)}>
+        {carDetail.version.id ? (
+          <button className="primary-button" onClick={handleMoveNext}>
             Tiếp theo
           </button>
         ) : null}

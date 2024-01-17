@@ -9,7 +9,7 @@ interface IPageProps {
   years: IYear[];
 }
 
-const Design: React.FC<IPageProps> = ({ years }) => {
+const DesignPage: React.FC<IPageProps> = ({ years }) => {
   return (
     <div className="design-wrapper">
       <PartHeader
@@ -17,13 +17,11 @@ const Design: React.FC<IPageProps> = ({ years }) => {
         title="NỘI THẤT THIẾT KẾ RIÊNG CỦA BẠN"
         backgroundImage={titleBackgroundImage}
       />
-
       <DesignPart years={years} />
-
       <DesignStaticPart2 />
       <DesignStaticPart3 />
     </div>
   );
 };
 
-export default Design;
+export default DesignPage;

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import { TDesign } from ".";
 import { designData, holdPattern } from "@/assets/designData";
-import { TMaterialDesign } from "@/types/type";
+import {
+  EDesignPhase,
+  TDesign,
+  TDesignData,
+  TMaterialDesign,
+} from "@/types/type";
 import Each from "@/lib/Each";
+import { useDesignContext } from "../DesignPart";
 
 type TLeatherTypeItemProps = {
   selectedItem: TMaterialDesign | undefined;
@@ -93,25 +98,20 @@ const HolePatternItem = ({
   );
 };
 
-interface IChooseDesign {
-  onNext: (data: any) => void;
-  onPrevious: () => void;
-  data: TDesign;
-}
-
-const ChooseDesign: React.FC<IChooseDesign> = ({
-  onNext,
-  onPrevious,
-  data,
-}) => {
-  const [selectedMaterial, setSelectedMaterial] = useState<TDesign>(data);
+const ChooseDesign = () => {
+  const { data, setData, setPhase } = useDesignContext();
+  const [selectedMaterial, setSelectedMaterial] = useState<TDesign>(
+    data.design
+  );
   const [selectedLeather, setSelectedLeather] = useState<TMaterialDesign>();
   const [note, setNote] = useState<string>("");
 
   useEffect(() => {
-    setSelectedMaterial(data);
-    const leather = designData.find((item) => item.id === data.materialID);
-    setNote(data.note);
+    setSelectedMaterial(data.design);
+    const leather = designData.find(
+      (item) => item.id === data.design.materialID
+    );
+    setNote(data.design.note);
     setSelectedLeather(leather);
   }, [data]);
 
@@ -135,6 +135,15 @@ const ChooseDesign: React.FC<IChooseDesign> = ({
     const newMaterial = { ...selectedMaterial, note: value };
     setNote(value);
     setSelectedMaterial(newMaterial);
+  };
+
+  const handleMoveNext = () => {
+    setPhase(EDesignPhase.CONCLUSION);
+    const newData: TDesignData = {
+      ...data,
+      design: structuredClone(selectedMaterial),
+    };
+    setData(newData);
   };
 
   return (
@@ -210,7 +219,10 @@ const ChooseDesign: React.FC<IChooseDesign> = ({
       </div>
 
       <div className="flex justify-end gap-5 mt-10">
-        <button className="primary-button" onClick={() => onPrevious()}>
+        <button
+          className="primary-button"
+          onClick={() => setPhase(EDesignPhase.CHOOSE_CAR)}
+        >
           Trở lại
         </button>
         <button
@@ -220,7 +232,7 @@ const ChooseDesign: React.FC<IChooseDesign> = ({
               !selectedMaterial?.materialID) &&
             "disabled"
           }`}
-          onClick={() => onNext(selectedMaterial)}
+          onClick={handleMoveNext}
         >
           Tiếp theo
         </button>

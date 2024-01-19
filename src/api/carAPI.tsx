@@ -3,58 +3,35 @@ import { ICarFormValue } from "@/admin/CarManagement/CarManagementForm";
 import { getTokenFromLocalStorage } from "@/utilities/commonUtilities";
 import { signOut } from "next-auth/react";
 
-export async function addYear(year: number) {
-  try {
-    const token: any = await getTokenFromLocalStorage();
-    if (token !== "") {
-      const response = await fetch(CLIENT_API_ENPOINT + "design/years", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ year: year }),
-      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-    } else {
-      signOut();
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
+
+export async function getAllYears() {
+  const res = await fetch(CLIENT_API_ENPOINT + "design/years", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    return [];
   }
+
+  return res.json();
 }
 
-export async function addBrand(brand_name: string) {
-  try {
-    const token: any = await getTokenFromLocalStorage();
-    if (token !== "") {
-      const response = await fetch(CLIENT_API_ENPOINT + "design/brands", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ brand_name: brand_name }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      return responseData;
-    } else {
-      signOut();
+export async function getCar(year: number, version: number) {
+  const res = await fetch(
+    CLIENT_API_ENPOINT + `design/years/${year}/versions/${version}/cars`,
+    {
+      cache: "no-store",
     }
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
+  );
+
+  if (!res.ok) {
+    return [];
   }
+
+  return res.json();
 }
+
 
 export async function getAllCarTable() {
   try {
@@ -106,6 +83,30 @@ export async function getAllModels() {
         "Content-Type": "application/json",
       },
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function getCarByYear(year: number) {
+  try {
+    const response = await fetch(
+      CLIENT_API_ENPOINT + "design/years/" + year.toString() + "/cars",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -214,32 +215,6 @@ export async function addCar(data: ICarFormValue) {
   }
 }
 
-export async function getAllYears() {
-  const res = await fetch(CLIENT_API_ENPOINT + "design/years", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    return [];
-  }
-
-  return res.json();
-}
-
-export async function getCar(year: number, version: number) {
-  const res = await fetch(
-    CLIENT_API_ENPOINT + `design/years/${year}/versions/${version}/cars`,
-    {
-      cache: "no-store",
-    }
-  );
-
-  if (!res.ok) {
-    return [];
-  }
-
-  return res.json();
-}
 
 export async function updateCar(data: ICarFormValue) {
   try {
@@ -299,42 +274,25 @@ export async function delelteCar(year: number, versionID: number) {
   }
 }
 
-export async function getCarByYear(year: number) {
+
+export async function addYear(year: number) {
   try {
-    const response = await fetch(
-      CLIENT_API_ENPOINT + "design/years/" + year.toString() + "/cars",
-      {
-        method: "GET",
+    const token: any = await getTokenFromLocalStorage();
+    if (token !== "") {
+      const response = await fetch(CLIENT_API_ENPOINT + "design/years", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({ year: year }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const responseData = await response.json();
-    return responseData;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
-export async function sendDesign(data: any) {
-  try {
-    const response = await fetch(CLIENT_API_ENPOINT + `design/order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    } else {
+      signOut();
     }
   } catch (error) {
     console.error("Error:", error);
@@ -342,38 +300,27 @@ export async function sendDesign(data: any) {
   }
 }
 
-
-export async function sendOrder(data: any) {
+export async function addBrand(brand_name: string) {
   try {
-    const response = await fetch(CLIENT_API_ENPOINT + `products/order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const token: any = await getTokenFromLocalStorage();
+    if (token !== "") {
+      const response = await fetch(CLIENT_API_ENPOINT + "design/brands", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ brand_name: brand_name }),
+      });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    throw error;
-  }
-}
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-export async function sendContact(data: any) {
-  try {
-    const response = await fetch(CLIENT_API_ENPOINT + `design/contact`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const responseData = await response.json();
+      return responseData;
+    } else {
+      signOut();
     }
   } catch (error) {
     console.error("Error:", error);

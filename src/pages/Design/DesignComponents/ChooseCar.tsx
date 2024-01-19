@@ -66,8 +66,6 @@ const updateListVersionWhenModelChange = (
 const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
   const { data, setPhase, setData } = useDesignContext();
 
-  console.log(data)
-
   const [carDetail, setCarDetail] = useState<TCar>(data.car);
   const [listYears, setListYears] = useState<IDropdownOption[]>([]);
   const [listBrands, setListBrands] = useState<IDropdownOption[]>([]);

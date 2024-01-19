@@ -36,6 +36,11 @@ const API_ROUTES = {
     addReview: "/review",
   },
   auth: {},
+  email: {
+    sendContact: "/design/contact",
+    sendOrder: "/products/order",
+    sendDesign: "/design/order",
+  },
 };
 
 export default API_ROUTES;

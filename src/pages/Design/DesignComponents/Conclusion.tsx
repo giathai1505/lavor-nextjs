@@ -1,10 +1,12 @@
-import { sendDesign } from "@/api/carAPI";
+
 import { designData, holdPattern } from "@/assets/designData";
 import useToast from "@/hooks/useToast";
 import React, { useState } from "react";
 import { CircleLoader } from "react-spinners";
 import { EDesignPhase } from "@/types/type";
 import { useDesignContext } from "@/context/DesignContext";
+import API_ROUTES from "@/constants/apiRoutes";
+import axios from "@/lib/axios";
 
 const getMaterialName = (id: string) => {
   const result = designData.find((item) => item.id === id);
@@ -43,10 +45,8 @@ const Conclusion = () => {
     };
     try {
       setIsLoading(true);
-      await sendDesign(requestData);
-
+      await axios.post(API_ROUTES.email.sendDesign, requestData)
       setIsLoading(false);
-
       showNotification(
         "success",
         "Gửi liên hệ thành công!",

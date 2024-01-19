@@ -8,7 +8,8 @@ import {
   TMaterialDesign,
 } from "@/types/type";
 import Each from "@/lib/Each";
-import { useDesignContext } from "../DesignPart";
+import { useDesignContext } from "@/context/DesignContext";
+
 
 type TLeatherTypeItemProps = {
   selectedItem: TMaterialDesign | undefined;

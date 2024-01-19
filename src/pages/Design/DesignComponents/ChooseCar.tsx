@@ -1,9 +1,10 @@
 import { getCar, getCarByYear } from "@/api/carAPI";
 import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
+import { useDesignContext } from "@/context/DesignContext";
 import { EDesignPhase, IBrand, IYear, TCar, TDesignData } from "@/types/type";
 import React, { useEffect, useState } from "react";
 import { CircleLoader } from "react-spinners";
-import { useDesignContext } from "../DesignPart";
+
 
 interface IChooseCar {
   years: IYear[];
@@ -64,6 +65,8 @@ const updateListVersionWhenModelChange = (
 
 const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
   const { data, setPhase, setData } = useDesignContext();
+
+  console.log(data)
 
   const [carDetail, setCarDetail] = useState<TCar>(data.car);
   const [listYears, setListYears] = useState<IDropdownOption[]>([]);
@@ -216,7 +219,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
           value={carDetail?.year}
           onChange={(year) => handleChangeCarDetail(year, "year")}
         />
-        {carDetail.year.id ? (
+        {carDetail?.year?.id ? (
           <Dropdown
             name="brand"
             options={listBrands}
@@ -226,7 +229,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
           />
         ) : null}
 
-        {carDetail.brand.id ? (
+        {carDetail?.brand?.id ? (
           <Dropdown
             options={listModels}
             name="model"
@@ -236,7 +239,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
           />
         ) : null}
 
-        {carDetail.model.id ? (
+        {carDetail?.model?.id ? (
           <Dropdown
             options={listVersions}
             name="version"
@@ -248,7 +251,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
       </div>
 
       <div className="m-10">
-        {carDetail.version.id ? (
+        {carDetail?.version?.id ? (
           <button className="primary-button" onClick={handleMoveNext}>
             Tiếp theo
           </button>

@@ -3,8 +3,8 @@ import { designData, holdPattern } from "@/assets/designData";
 import useToast from "@/hooks/useToast";
 import React, { useState } from "react";
 import { CircleLoader } from "react-spinners";
-import { useDesignContext } from "../DesignPart";
 import { EDesignPhase } from "@/types/type";
+import { useDesignContext } from "@/context/DesignContext";
 
 const getMaterialName = (id: string) => {
   const result = designData.find((item) => item.id === id);

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
-import { addYear } from "@/api/carAPI";
-import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
-import { constants } from "buffer";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 interface IDialog {
   open: boolean;
@@ -19,6 +18,7 @@ interface IAddYearDialog {
 
 const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { create } = useFetchApi();
   const form = useForm<IAddYearDialog>({
     mode: "all",
   });
@@ -31,29 +31,14 @@ const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
   } = form;
 
   const invokeAddYear = async (year: number) => {
-    const loadingToastId = toast.info("Đang thêm năm...", {
-      position: "top-center",
-      autoClose: false,
-    });
-    addYear(year)
-      .then((result) => {
-        toast.dismiss(loadingToastId);
-
-        toast.success("Tạo bài viết thành công!!!", {
-          position: "top-center",
-        });
-
-        onSuccess(year);
-        setValue("year", NaN);
-        setIsOpen(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.dismiss(loadingToastId);
-        toast.error("Tạo bài viết thất bại!!!", {
-          position: "top-center",
-        });
-      });
+    try {
+      await create(API_ROUTES.car.addYear, { year: year }, false);
+      onSuccess(year);
+      setValue("year", NaN);
+      setIsOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

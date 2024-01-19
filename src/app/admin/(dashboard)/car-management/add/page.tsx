@@ -4,7 +4,7 @@ import { IBrand, IYear } from "@/types/type";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-async function getAllYears() {
+async function getListYears() {
   const res = await fetch(SERVER_API_ENPOINT + "design/years", {
     cache: "no-store",
   });
@@ -36,7 +36,7 @@ const page = async () => {
     redirect("/admin/login");
   }
 
-  const yearRes = await getAllYears();
+  const yearRes = await getListYears();
 
   const years: IYear[] = yearRes ? yearRes : [];
   const brandRes = await getAllBrands();

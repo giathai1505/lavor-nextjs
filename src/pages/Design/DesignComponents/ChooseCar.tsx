@@ -1,10 +1,10 @@
-import { getCar, getCarByYear } from "@/api/carAPI";
 import Dropdown, { IDropdownOption } from "@/components/Common/Dropdown";
+import API_ROUTES from "@/constants/apiRoutes";
 import { useDesignContext } from "@/context/DesignContext";
+import axios from "@/lib/axios";
 import { EDesignPhase, IBrand, IYear, TCar, TDesignData } from "@/types/type";
 import React, { useEffect, useState } from "react";
 import { CircleLoader } from "react-spinners";
-
 
 interface IChooseCar {
   years: IYear[];
@@ -76,32 +76,41 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
 
   const invokeGetCar = async (year: number, version: number, value: any) => {
     setIsLoading(true);
-    getCar(year, version)
-      .then((result) => {
+
+    try {
+      const res: any = await axios.get(API_ROUTES.car.getCar(year, version));
+
+      if (res && res.image_url) {
         const newCarDetail: TCar = {
           ...carDetail,
           ...value,
-          image: result?.image_url,
+          image: res?.image_url,
         };
         setCarDetail(newCarDetail);
         setIsLoading(false);
-      })
-      .catch((error) => {
+      } else {
         setIsLoading(false);
-      });
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const invokeGetCarByYear = async (year: number) => {
-    const result = await getCarByYear(year);
+    try {
+      const res: any = await axios.get(API_ROUTES.car.getCarsByYear(year));
 
-    if (result && result.cars) {
-      setBrands(result.cars);
-      const brands = initListBrands(result?.cars);
-      setListBrands(brands);
-      return result.cars;
+      if (res && res.cars) {
+        setBrands(res.cars);
+        const brands = initListBrands(res.cars);
+        setListBrands(brands);
+        return res.cars;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      return [];
     }
-
-    return [];
   };
 
   useEffect(() => {

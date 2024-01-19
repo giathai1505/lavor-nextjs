@@ -4,20 +4,13 @@ import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
 import { IBrand, IModel, IVersion, IYear } from "@/types/type";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import FormError from "@/components/Common/FormError";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddYearDialog from "./Dialogs/AddYearDialog";
 import AddBrandDialog from "./Dialogs/AddBrandDialog";
 import AddModelDialog from "./Dialogs/AddModelDialog";
 import AddVersionDialog from "./Dialogs/AddVersionDialog";
-import {
-  addCar,
-  getAllBrands,
-  getAllYears,
-  getCar,
-  updateCar,
-} from "@/api/carAPI";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import Each from "@/lib/Each";
@@ -51,8 +44,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     version: false,
   });
   const [isEdit, setIsEdit] = useState<boolean>(false);
-
-  const { create } = useFetchApi();
+  const { create, edit, get, delete: deleteCar  } = useFetchApi();
 
   const handleResize = () => {
     if (imgContainerRef.current) {
@@ -92,31 +84,32 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   const versionID = watch("version_id");
 
   const invokeGetAllBrand = async (type?: string, id?: number) => {
-    getAllBrands()
-      .then((result) => {
-        setListBrands(result);
-      })
 
-      .catch((error) => {
-        setListBrands([]);
-      });
+    try {
+      const brands : IBrand[] = await get(API_ROUTES.car.getAllBrands)
+      setListBrands(brands);
+
+    } catch (error) {
+      setListBrands([]);
+    }
+
   };
 
   const invokeCarByVersion = async (year: number, versionID: number) => {
-    getCar(year, versionID)
-      .then((result) => {
-        if (result.image_url) {
-          setImage(result.image_url);
-          setIsEdit(true);
-        } else {
-          setImage(undefined);
-          setIsEdit(false);
-        }
-      })
-      .catch((err) => {
+
+    try {
+      const car : any = get(API_ROUTES.car.getCar(year, versionID))
+      if (car?.image_url) {
+        setImage(car?.image_url);
+        setIsEdit(true);
+      } else {
         setImage(undefined);
         setIsEdit(false);
-      });
+      }
+    } catch (error) {
+      setImage(undefined);
+      setIsEdit(false);
+    }
   };
 
   useEffect(() => {
@@ -202,9 +195,18 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
         };
 
         if (isEdit) {
-          await updateCar(newData);
+    
+          await create(API_ROUTES.car.addCar(newData.year, newData.version_id), {
+            image_url: newData.image_url,
+          }, false)
+
         } else {
-          return addCar(newData);
+          const newRequestData = {
+            year: newData.year,
+            version_id: newData.version_id,
+            image_url: newData.image_url}
+
+          await create(API_ROUTES.car.addCar(newData.year, newData.version_id), newRequestData, false)
         }
       }
     } catch (error) {
@@ -228,7 +230,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   };
 
   const handleAddYearSuccess = async (year: number) => {
-    const years = await getAllYears();
+    const years : IYear[] = await get(API_ROUTES.car.getAllYears)
     setListYears(years);
     setValue("year", year);
     closeAllDialog();

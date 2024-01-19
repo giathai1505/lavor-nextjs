@@ -11,17 +11,6 @@ export const metadata: Metadata = {
   description: "Quản lý xe",
 };
 
-async function getAllYears() {
-  const res = await fetch(SERVER_API_ENPOINT + "design/years", {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    return [];
-  }
-
-  return res.json();
-}
 
 async function getAllCars() {
   const res = await fetch(SERVER_API_ENPOINT + "design/cars", {

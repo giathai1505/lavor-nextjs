@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
-import { addBrand } from "@/api/carAPI";
-import { toast } from "react-toastify";
 import { AiOutlineClose } from "react-icons/ai";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
 
 interface IDialog {
   open: boolean;
@@ -18,6 +18,7 @@ interface IAddBrandDialog {
 
 const AddBrandDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
   let [isOpen, setIsOpen] = useState(false);
+  const { create } = useFetchApi();
   const form = useForm<IAddBrandDialog>({
     mode: "all",
   });
@@ -30,29 +31,20 @@ const AddBrandDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
   } = form;
 
   const invokeAddBrand = async (brand_name: string) => {
-    const loadingToastId = toast.info("Đang thêm hãng xe...", {
-      position: "top-center",
-      autoClose: false,
-    });
-    addBrand(brand_name)
-      .then((result) => {
-        if (result) {
-          toast.dismiss(loadingToastId);
-          toast.success("Thêm hãng xe!!!", {
-            position: "top-center",
-          });
-          setValue("brand_name", "");
-          onSuccess(result.brand_id);
-          setIsOpen(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.dismiss(loadingToastId);
-        toast.error("Thêm hãng xe thất bại!!!", {
-          position: "top-center",
-        });
-      });
+    try {
+      const res: any = await create(
+        API_ROUTES.car.addBrand,
+        { brand_name: brand_name },
+        false
+      );
+      if (res && res.brand_id) {
+        setValue("brand_name", "");
+        onSuccess(res.brand_id);
+        setIsOpen(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

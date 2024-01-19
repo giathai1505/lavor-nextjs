@@ -15,7 +15,21 @@ const API_ROUTES = {
     changeStatus: (id: number) => `/blogs/${id.toString()}/status`,
     changeManyStatus: `/blogs/status`,
   },
-  car: {},
+  car: {
+    getAllYears: "/design/years",
+    getAllBrands: "/design/brands",
+    getCarTable: "design/cars",
+    getCarsByYear: (year: number) => `design/years/${year.toString()}/cars`,
+    getCar: (year: number, version: number) =>
+      `design/years/${year.toString()}/versions/${version.toString()}/cars`,
+    addYear: "design/years",
+    addBrand: "design/brands",
+    addVersion: (modelID: number) =>
+      `design/models/${modelID.toString()}/versions`,
+    addModel: (brandID: number) => `design/brands/${brandID.toString()}/models`,
+    addCar: (year: number, versionID: number) =>
+      `design/years/${year.toString()}/versions/${versionID.toString()}/cars`,
+  },
   image: {
     upload: "/images/upload",
     uploadMany: "/images/upload-many",

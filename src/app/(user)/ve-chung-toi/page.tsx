@@ -1,5 +1,5 @@
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
-import AboutUs from "@/pages/AboutUs";
+import AboutUs from "@/pages/AboutUs/AboutUsPage";
 import { TRating } from "@/types/type";
 import { Metadata } from "next";
 import React from "react";

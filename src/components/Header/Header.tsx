@@ -1,7 +1,6 @@
 "use client";
 import React, { useLayoutEffect, useState } from "react";
 import logo from "@/assets/images/logo/logo-white.webp";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { userNavbarData } from "@/assets/staticData";
@@ -66,13 +65,17 @@ const Header: React.FC = () => {
         <div className="justify-between h-full flex mx-auto">
           <div className="logo mt-[16px] ml-[10%] z-20">
             <Link href="/">
-              <Image
-                src={logo}
+              <img
+                src={logo.src}
                 alt="Logo"
                 className={`${
                   showFullHeader ? "w-[210px]" : "w-[120px]"
                 } logo-img`}
-                priority={true}
+                fetchPriority="high"
+                width="210"
+                height="93"
+                decoding="async"
+                data-nimg="1"
               />
             </Link>
           </div>
@@ -120,11 +123,16 @@ const Header: React.FC = () => {
             </div>
             <div className="flex gap-5 ml-5 mt-2">
               <div className="relative">
-                <Image
-                  src={searchIcon}
+                <img
+                  src={searchIcon.src}
                   alt="Tìm kiếm sản phẩm"
                   className="w-8 h-8 object-cover cursor-pointer"
                   loading="eager"
+                  fetchPriority="high"
+                  width="32"
+                  height="32"
+                  decoding="async"
+                  data-nimg="1"
                   onClick={() => setIsShowSearch(true)}
                 />
                 {isShowSearch && (

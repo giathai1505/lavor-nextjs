@@ -1,5 +1,5 @@
 "use client";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import logo from "@/assets/images/logo/logo-black.webp";
 import { BsYoutube } from "react-icons/bs";
@@ -46,20 +46,30 @@ const YoutubeThumbnail: React.FC<IYoutubeThumbnail> = ({
 
       <div className="youtubeThumbnail-wrapper" onClick={() => setplay(true)}>
         <div className="flex relative items-center gap-4 z-20 m-3">
-          <Image
+          <img
             alt={imgAlt}
-            src={logo}
+            src={logo.src}
             className="w-10 h-10 rounded-full bg-white round-full object-contain"
             placeholder="blur"
+            loading="lazy"
+            width="887"
+            height="419"
+            decoding="async"
+            data-nimg="1"
           />
           <p className="youtubeThumbnail-title">{title}</p>
         </div>
         <div className="youtubeThumbnail-overlay"></div>
-        <BsYoutube className="youtubeThumbnail-icon" />
-        <Image
+        <BsYoutube className="youtubeThumbnail-icon"/>
+        <img
           alt={imgAlt}
-          src={imgSrc}
+          src={imgSrc.src}
           className="absolute top-0 left-0 w-full h-full object-cover z-10"
+          loading="lazy"
+          width="336"
+          height="188"
+          decoding="async"
+          data-nimg="1"
         />
       </div>
     </>

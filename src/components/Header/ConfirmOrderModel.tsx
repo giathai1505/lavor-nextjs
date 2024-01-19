@@ -1,10 +1,12 @@
 import React from "react";
-import { Button, Modal, notification } from "antd";
+import { Button, Modal } from "antd";
 import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import { RenderCartItem, getTotalBill } from "./Cart";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "../Common/FormError";
 import { IProduct } from "@/types/type";
+import { sendOrder } from "@/api/productAPI";
+import useToast from "@/hooks/useToast";
 
 type IOrderContact = {
   contact_name: string;
@@ -25,15 +27,7 @@ const ConfirmOrderModel: React.FC<TProps> = ({
   setCarts,
   setShow,
 }) => {
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotificationWithIcon = () => {
-    api["success"]({
-      message: "Đơn hàng thành công!",
-      description:
-        "Đơn hàng đã được gửi đến bộ phận quản lý. Sẽ có nhân viên liên hệ và hỗ trợ quý khách. Cảm ơn quý khách đã tin tưởng và ủng hộ Lavor!",
-    });
-  };
+  const { contextHolder, showNotification } = useToast();
 
   const form = useForm<IOrderContact>({
     defaultValues: {
@@ -48,23 +42,53 @@ const ConfirmOrderModel: React.FC<TProps> = ({
     control,
     formState: { errors, isDirty, isValid },
     reset,
+    getValues,
   } = form;
 
-  const handleOrderSuccess = () => {
-    setShow(false);
-    // setOpen(false);
-    openNotificationWithIcon();
+  const handleOrderSuccess = async () => {
+    try {
+      const contactInformation = getValues();
 
-    //reset form value
-    reset({
-      contact_email: "",
-      contact_name: "",
-      contact_phone: "",
-    });
+      const orderInfo = carts.map((item) => {
+        return {
+          product_id: item.product_id,
+          product_name: item.product_name,
+          product_quantity: 1,
+          product_price: item.product_price,
+          product_sum: item.product_price,
+          variants: item.variants[0].variant_color,
+        };
+      });
 
-    //clear cart
-    localStorage.setItem("carts", JSON.stringify([]));
-    setCarts([]);
+      const requestData = {
+        products: [...orderInfo],
+        ...contactInformation,
+      };
+
+      const result: any = await sendOrder(requestData);
+
+      setShow(false);
+      reset({
+        contact_email: "",
+        contact_name: "",
+        contact_phone: "",
+      });
+
+      localStorage.setItem("carts", JSON.stringify([]));
+      setCarts([]);
+
+      showNotification(
+        "success",
+        "Đơn hàng thành công!",
+        "Đơn hàng đã được gửi đến bộ phận quản lý. Sẽ có nhân viên liên hệ và hỗ trợ quý khách. Cảm ơn quý khách đã tin tưởng và ủng hộ Lavor!"
+      );
+    } catch (error) {
+      showNotification(
+        "error",
+        "Đơn hàng thất bại!",
+        "Lỗi hệ thống! Vui lòng thử lại sau."
+      );
+    }
   };
   return (
     <>

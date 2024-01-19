@@ -1,5 +1,4 @@
 import { Badge, Drawer, Empty } from "antd";
-import Image from "next/image";
 import React, { useState } from "react";
 import cartIcon from "@/assets/images/common/cart-icon.webp";
 import { IProduct, ProductTypeToText } from "@/types/type";
@@ -104,11 +103,15 @@ const Cart: React.FC<TProps> = ({ showConfirmModal, carts, setCarts }) => {
     <>
       <div onClick={() => setOpen(true)}>
         <Badge count={carts.length}>
-          <Image
-            src={cartIcon}
+          <img
+            src={cartIcon.src}
             alt={STATIC_TEXT.cartName}
             className="w-8 h-8 object-cover cursor-pointer"
             loading="eager"
+            width="32"
+            height="32"
+            decoding="async"
+            data-nimg="1"
           />
         </Badge>
       </div>

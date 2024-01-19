@@ -59,7 +59,7 @@ const Dropdown: React.FC<IDropdown> = ({
         className={`select ${isShowDropdown ? "selected-clicked" : ""}`}
         onClick={() => setIsShowDropdown((pre) => !pre)}
       >
-        {selectedOption !== undefined ? (
+        {selectedOption && selectedOption.id ? (
           <span className="selected">{selectedOption?.value}</span>
         ) : (
           <span className="select-none text-[#9fa5b5]">{placeHolder}</span>

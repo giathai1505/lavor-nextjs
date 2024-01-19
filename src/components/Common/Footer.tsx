@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import logo from "@/assets/images/logo/logo-white.webp";
 import certificate from "@/assets/images/common/footer-certificate.webp";
@@ -13,19 +12,32 @@ const Footer = () => {
       <div className="max-w-[1200px] mx-auto py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 p-5">
           <div className="col-span-1">
-            <Image alt="logo" src={logo} className="w-52 mb-10" />
+            <img alt="logo"
+                 src={logo.src}
+                 className="w-52 mb-10"
+                 loading="lazy"
+                 width="886"
+                 height="395"
+                 decoding="async"
+                 data-nimg="1"
+            />
             <div className="mb-5">
               <p className="common-text">
-                Công ty TNHH Thương mại Dịch vụ và Sản xuất Minh Tâm <br />
+                Công ty TNHH Thương mại Dịch vụ và Sản xuất Minh Tâm <br/>
                 GPKD số 0105409819 do Sở KH và ĐT TP Hà Nội cấp ngày 09/01/2020{" "}
-                <br />
+                <br/>
                 Địa Chỉ: Lô A1, Cụm Công nghiệp Dương Liễu, X. Dương Liễu, H.
                 Hoài Đức, TP. Hà Nội
               </p>
             </div>
-            <Image
+            <img
               alt="Chứng nhận bộ công thương"
-              src={certificate}
+              src={certificate.src}
+              loading="lazy"
+              width="150"
+              height="57"
+              decoding="async"
+              data-nimg="1"
               className="w-40"
             />
           </div>

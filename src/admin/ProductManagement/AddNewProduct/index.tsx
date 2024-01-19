@@ -506,7 +506,7 @@ const ProductForm: React.FC<IProductForm> = ({
                           <>
                             <input
                               type="file"
-                              accept="image/*"
+                              accept="image/webp"
                               id={"file" + index}
                               onChange={(e) => {
                                 return field.onChange(e.target.files);
@@ -577,7 +577,7 @@ const ProductForm: React.FC<IProductForm> = ({
           <div className="form-content">
             <div className="form-control flex-1">
               <div className="form-control-title">
-                <span>Album ảnh</span>
+                <span>Album ảnh (webp)</span>
               </div>
 
               <Controller
@@ -590,7 +590,7 @@ const ProductForm: React.FC<IProductForm> = ({
                   <>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/webp"
                       id="albumImg"
                       multiple={true}
                       onChange={(e) => {

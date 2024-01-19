@@ -181,8 +181,44 @@ export type ICarTable = {
   deleted_at: any;
 };
 
+//custom type for user page
+
 export enum EDesignPhase {
   CHOOSE_CAR = 1,
   CHOOSE_DESIGN = 2,
   CONCLUSION = 3,
 }
+
+export type TMaterialDesign = {
+  id: string;
+  name: string;
+  colors: Array<{
+    id: number;
+    name: string;
+  }>;
+};
+
+type TOption = {
+  id: number;
+  value: string;
+};
+
+export type TDesignData = {
+  car: TCar;
+  design: TDesign;
+};
+
+export type TCar = {
+  year: TOption;
+  brand: TOption;
+  model: TOption;
+  version: TOption;
+  image: string;
+};
+
+export type TDesign = {
+  materialID: string;
+  colorID: number;
+  holeID: string;
+  note: string;
+};

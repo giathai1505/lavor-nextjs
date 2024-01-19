@@ -322,3 +322,61 @@ export async function getCarByYear(year: number) {
     throw error;
   }
 }
+
+export async function sendDesign(data: any) {
+  try {
+    const response = await fetch(CLIENT_API_ENPOINT + `design/order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+
+export async function sendOrder(data: any) {
+  try {
+    const response = await fetch(CLIENT_API_ENPOINT + `products/order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function sendContact(data: any) {
+  try {
+    const response = await fetch(CLIENT_API_ENPOINT + `design/contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}

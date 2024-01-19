@@ -1,6 +1,6 @@
 import React from "react";
 import Breadcrumb from "./Breadcrumb";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 
 interface IPartHeader {
   title: string;
@@ -15,12 +15,14 @@ const PartHeader: React.FC<IPartHeader> = ({
 }) => {
   return (
     <div className="relative h-[180px] md:h-[250px]">
-      <Image
+      <img
         alt="Ảnh nền header"
-        src={backgroundImage}
-        fill
+        src={backgroundImage.src}
         className="absolute object-cover"
-        priority={true}
+        fetchPriority="high"
+        decoding="async"
+        data-nimg="fill"
+        style={{position: "absolute", height: "100%", width: "100%", inset: "0px", color: "transparent"}}
       />
 
       <div className="header-bg"></div>
@@ -29,7 +31,7 @@ const PartHeader: React.FC<IPartHeader> = ({
         <h2 className="mb-2 text-xl whitespace-nowrap leading-8 md:text-2xl xl:leading-[48px]">
           <span> {title}</span>
         </h2>
-        <Breadcrumb text={breadcrumb} />
+        <Breadcrumb text={breadcrumb}/>
       </div>
     </div>
   );

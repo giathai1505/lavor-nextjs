@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { useRef, useState } from "react";
 import oldCar from "@/assets/images/comparison-slider/old.webp";
 import newCar from "@/assets/images/comparison-slider/new.webp";
@@ -41,23 +40,31 @@ const ComparisonSlider: React.FC = () => {
             HÃY CHIÊM NGƯỠNG SỰ ĐẲNG CẤP CỦA LAVOR
           </span>
         </h2>
-        <div className="mx-auto bg-black relative h-[360px] w-[330px] md:h-[570px] md:w-[700px] xl:w-[900px] xl:h-[750px]">
+        <div className="mx-auto bg-black relative h-[360px] w-[330px] md:h-[570px] md:w-[700px] xl:w-[900px] xl:h-[750px] overflow-hidden">
           <div className="w-full h-full flex">
-            <Image
-              src={oldCar}
+            <img
+              src={oldCar.src}
               alt="Hình ảnh xe trước khi được Lavor lột xác"
               className="w-full h-full absolute object-cover"
               loading="eager"
-              priority={true}
+              fetchPriority="high"
+              data-nimg="1"
+              width="2000"
+              height="1500"
+              decoding="async"
             />
-            <Image
-              src={newCar}
+            <img
+              src={newCar.src}
               alt="Hình ảnh xe sau khi được Lavor lột xác"
               className="w-full h-full absolute object-cover"
               id="old-car-img"
               ref={imgRef}
               loading="eager"
-              priority={true}
+              fetchPriority="high"
+              data-nimg="1"
+              width="2000"
+              height="1500"
+              decoding="async"
             />
           </div>
 

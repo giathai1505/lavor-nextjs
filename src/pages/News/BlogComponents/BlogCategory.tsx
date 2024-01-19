@@ -32,7 +32,7 @@ const BlogCategory: React.FC<IBlogCategoryProps> = ({ blogs }) => {
             return (
               <li key={item}>
                 <Link
-                  className="flex justify-between hover:text-primary"
+                  className="flex justify-between hover:text-primary "
                   href={`/tin-tuc?category=${item}&page=1`}
                 >
                   <span>{CategoryConvertText[item]}</span>

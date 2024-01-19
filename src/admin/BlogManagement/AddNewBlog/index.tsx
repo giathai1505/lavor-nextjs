@@ -269,7 +269,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
           <div className="form-content">
             <div className="form-control">
               <div className="form-control-title">
-                <span>Ảnh chính</span>
+                <span>Ảnh chính (webp)</span>
                 <div>*</div>
               </div>
 
@@ -284,7 +284,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                   <>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/webp"
                       id="file"
                       onChange={(e) => {
                         loadFile(e);

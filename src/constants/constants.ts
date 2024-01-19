@@ -1,3 +1,5 @@
+import { EDesignPhase, TDesignData } from "@/types/type";
+
 export const localStorageKeys = {
   CARTS: "carts",
 };
@@ -36,4 +38,24 @@ export const codeMessage: Record<number, string> = {
   502: "Gateway error. ",
   503: "The service is unavailable, the server is temporarily overloaded or maintained. ",
   504: "The gateway has timed out. ",
+};
+
+export const REGEX = {
+  phone: /^(?:\+84|0)(3[2-9]|5[689]|7[06-9]|8[1-9]|9[0-9])[0-9]{7}$/,
+};
+
+export const DEFAULT_DESIGN_DATA: TDesignData = {
+  car: {
+    brand: { id: NaN, value: "" },
+    model: { id: NaN, value: "" },
+    version: { id: NaN, value: "" },
+    year: { id: NaN, value: "" },
+    image: "",
+  },
+  design: {
+    colorID: NaN,
+    holeID: "",
+    materialID: "",
+    note: "",
+  },
 };

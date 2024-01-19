@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import RatingItem from "./RatingItem";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import Each from "@/lib/Each";
-import index from "@/app/(user)/dai-ly/page";
 
 const MIN_REVIEW_SHOW: number = 4;
 

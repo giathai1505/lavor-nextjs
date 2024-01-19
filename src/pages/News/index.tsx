@@ -42,7 +42,7 @@ interface INews {
 const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
   if (!Array.isArray(filterBlogs)) return null;
   const { deleteQueryParam, getQueryParam, setQueryParam } = useQueryParams();
-  const [data, setData] = useState<IBlog[]>([]);
+
   const [selectedCategory, setSelectedCategory] = useState<any>();
   const typeView : TBLogViewType = getQueryParam("view") as TBLogViewType ?? "grid";
   const currentPage = getQueryParam("page") ?? 1;
@@ -50,16 +50,14 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
 
   useEffect(() => {
     setSelectedCategory(category as Category);
-    setData(filterBlogs);
+  
   }, []);
 
   useEffect(() => {
     setSelectedCategory(category as Category);
   }, [category]);
 
-  useEffect(() => {
-    setData(filterBlogs);
-  }, [filterBlogs]);
+
 
   const handleChangeCategory = (a: any) => {
     setQueryParam({ category: a.key, page: "1" });

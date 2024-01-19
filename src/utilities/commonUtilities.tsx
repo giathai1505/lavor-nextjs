@@ -103,3 +103,23 @@ export function getWindowDimensions() {
 export const indexArray = (length: number, gap: number = 1): number[] => {
   return new Array(length).fill(null).map((_, index) => (index + 1) * gap);
 };
+
+
+export const getNestedHeadings = (headingElements: any) => {
+  const nestedHeadings: any = [];
+
+  headingElements.forEach((heading: any, index: any) => {
+    const { innerText: title, id } = heading;
+
+    if (heading.nodeName === "H2") {
+      nestedHeadings.push({ id, title, items: [] });
+    } else if (heading.nodeName === "H3" && nestedHeadings.length > 0) {
+      nestedHeadings[nestedHeadings.length - 1].items.push({
+        id,
+        title,
+      });
+    }
+  });
+
+  return nestedHeadings;
+};

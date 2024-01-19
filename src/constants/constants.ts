@@ -1,4 +1,4 @@
-import { EDesignPhase, TDesignData } from "@/types/type";
+import { Category, EDesignPhase, TDesignData } from "@/types/type";
 
 export const localStorageKeys = {
   CARTS: "carts",
@@ -58,4 +58,10 @@ export const DEFAULT_DESIGN_DATA: TDesignData = {
     materialID: "",
     note: "",
   },
+};
+
+export const BLOG_CATEGORY_COLOR = {
+  [Category.TIPS]: "#ff3385",
+  [Category.RECRUITMENT]: "#ffae25",
+  [Category.ABOUT]: "#1559c2",
 };

@@ -24,13 +24,13 @@ import { BiRefresh } from "react-icons/bi";
 import { Category, IBlog, Status } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
-import { renderCategory } from "@/pages/News";
 import "moment/locale/vi";
 import { fromNow } from "@/lib/time";
 import { indexArray } from "@/utilities/commonUtilities";
 import Each from "@/lib/Each";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import CategoryOfBlog from "@/pages/News/BlogComponents/CategoryOfBlog";
 
 const statusOptions = [
   {
@@ -252,7 +252,7 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         id: "category",
         cell: ({ row }) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            {renderCategory(row.original.blog_category)}
+            <CategoryOfBlog CategoryId={row.original.blog_category}/>
           </div>
         ),
         header: () => <span>Danh mục</span>,

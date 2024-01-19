@@ -4,7 +4,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 import moment from "moment";
-import { renderCategory } from "..";
+import CategoryOfBlog from "../BlogComponents/CategoryOfBlog";
 
 interface INewBlogItem {
   blog: IBlog;
@@ -22,7 +22,9 @@ const NewListViewItem: React.FC<INewBlogItem> = ({ blog }) => {
       </div>
       <div className="flex-2 flex flex-col gap-3 mx-5 my-auto col-span-2">
         <div className="flex item-center gap-5">
-          {renderCategory(blog.blog_category)}
+          
+          <CategoryOfBlog CategoryId={blog.blog_category}/>
+
           <div className="flex items-center text-[13px] gap-2 text-[#a5a6aa]">
             <AiOutlineCalendar />
             <p>{moment(blog.blog_upload_date).format("DD/MM/YYYY")}</p>

@@ -1,5 +1,5 @@
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
-import DetailNews from "@/pages/News/DetailNews";
+import DetailNewPage from "@/pages/News/DetailNewPage";
 import { Metadata, ResolvingMetadata } from "next";
 import React from "react";
 
@@ -84,7 +84,7 @@ const index: React.FC<IPageProps> = async ({ params }) => {
   if (Array.isArray(blogs) && blogs.length > 0) {
     blogs = blogs.filter((item) => item.blog_id.toString() !== id);
   }
-  return <DetailNews blog={blog} allBlogs={allBlogs} relatedBlogs={blogs} />;
+  return <DetailNewPage blog={blog} allBlogs={allBlogs} relatedBlogs={blogs} />;
 };
 
 export default index;

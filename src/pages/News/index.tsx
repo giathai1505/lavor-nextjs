@@ -7,11 +7,12 @@ import { BiGridAlt } from "react-icons/bi";
 import { BsList } from "react-icons/bs";
 import NewListViewItem from "./NewItems/NewListViewItem";
 import BlogSidebar from "./BlogSidebar";
-import { Category, IBlog, IPagination } from "@/types/type";
+import { Category, IBlog, IPagination, TBLogViewType } from "@/types/type";
 import Pagination from "@/components/Common/Pagination";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import useQueryParams from "@/hooks/useQueryParam";
 import { Empty } from "antd";
+import Each from "@/lib/Each";
 
 const listDanhMuc = [
   {
@@ -38,37 +39,12 @@ interface INews {
   pagination: IPagination;
 }
 
-export const renderCategory = (id: Category) => {
-  let component = null;
-  const className = "py-[6px] px-2 rounded-sm text-white w-fit text-xs";
-  switch (id) {
-    case Category.TIPS:
-      component = (
-        <div className={`${className} bg-[#ff3385]`}>Kiến thức & mẹo</div>
-      );
-      break;
-    case Category.ABOUT:
-      component = <div className={`${className} bg-[#0073ff]`}>Về Lavor</div>;
-      break;
-    case Category.RECRUITMENT:
-      component = <div className={`${className} bg-[#ffae25]`}>Tuyền dụng</div>;
-      break;
-
-    default:
-      component = (
-        <div className={`${className} bg-[#ff3385]`}>Kiến thức & mẹo</div>
-      );
-      break;
-  }
-  return component;
-};
-
 const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
   if (!Array.isArray(filterBlogs)) return null;
   const { deleteQueryParam, getQueryParam, setQueryParam } = useQueryParams();
   const [data, setData] = useState<IBlog[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<any>();
-  const typeView = getQueryParam("view") ?? "grid";
+  const typeView : TBLogViewType = getQueryParam("view") as TBLogViewType ?? "grid";
   const currentPage = getQueryParam("page") ?? 1;
   const category = getQueryParam("category");
 
@@ -107,8 +83,8 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
     Number(pagination?.total) - 1
   );
 
-  const renderListBlog = (blogs: IBlog[], typeOfView: any) => {
-    if (blogs.length === 0)
+  const renderListBlog = (blogs: IBlog[], typeOfView: TBLogViewType) => {
+    if (blogs.length === 0) {
       return (
         <div className="flex justify-center mt-40 flex-col items-center">
           <Empty
@@ -118,23 +94,22 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
           />
         </div>
       );
+    }
+
+    const ViewComponent =
+      typeOfView === "grid" ? NewGridViewItem : NewListViewItem;
 
     return (
-      <>
-        {typeOfView === "grid" ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {data.map((item) => {
-              return <NewGridViewItem blog={item} key={item.blog_id} />;
-            })}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-10">
-            {data.map((item) => {
-              return <NewListViewItem blog={item} key={item.blog_id} />;
-            })}
-          </div>
-        )}
-      </>
+      <div
+        className={`grid grid-cols-1 ${
+          typeOfView === "grid" ? "md:grid-cols-2" : ""
+        } gap-10`}
+      >
+        <Each
+          of={blogs}
+          render={(item) => <ViewComponent blog={item} key={item.blog_id} />}
+        />
+      </div>
     );
   };
 

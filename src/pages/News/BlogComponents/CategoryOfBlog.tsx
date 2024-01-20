@@ -6,8 +6,15 @@ type TBlogCategoryBlog = {
 };
 
 const CategoryOfBlog = ({ CategoryId }: TBlogCategoryBlog) => {
-  const className = `py-[6px] px-2 rounded-sm text-white w-fit text-xs bg-${BLOG_CATEGORY_COLOR[CategoryId]}`;
-  return <div className={className}>{CategoryConvertText[CategoryId]}</div>;
+  const className = "py-[6px] px-2 rounded-sm text-white w-fit text-xs";
+  return (
+    <div
+      className={className}
+      style={{ backgroundColor: `${BLOG_CATEGORY_COLOR[CategoryId]}` }}
+    >
+      {CategoryConvertText[CategoryId]}
+    </div>
+  );
 };
 
 export default CategoryOfBlog;

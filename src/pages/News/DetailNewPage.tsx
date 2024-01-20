@@ -12,7 +12,6 @@ type TPageProps = {
 };
 
 const DetailNewPage = ({ blog, relatedBlogs, allBlogs }: TPageProps) => {
-
   return (
     <div>
       <PartHeader
@@ -22,7 +21,7 @@ const DetailNewPage = ({ blog, relatedBlogs, allBlogs }: TPageProps) => {
       />
       <div className="bg-black p-5 md:p-10">
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-10 wrapper">
-          <div className="col-span-1 xl:col-span-3 flex flex-col gap-5">
+          <div className="col-span-1 xl:col-span-3">
             <DetailNewContent blog={blog} />
           </div>
           <div>

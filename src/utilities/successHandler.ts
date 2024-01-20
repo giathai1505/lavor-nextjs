@@ -9,7 +9,7 @@ import { codeMessage } from "../constants/constants";
 //   };
 // };
 
-const successStatus = [204];
+const successStatus = [204, 201];
 
 const successHandler = (
   response: any,

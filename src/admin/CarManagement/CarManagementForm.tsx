@@ -16,6 +16,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import Each from "@/lib/Each";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import axios from "@/lib/axios";
 
 export interface ICarFormValue {
   year: number;
@@ -44,7 +45,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     version: false,
   });
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const { create, edit, get, delete: deleteCar  } = useFetchApi();
+  const { create, get, edit } = useFetchApi();
 
   const handleResize = () => {
     if (imgContainerRef.current) {
@@ -84,23 +85,19 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   const versionID = watch("version_id");
 
   const invokeGetAllBrand = async (type?: string, id?: number) => {
-
     try {
-      const brands : IBrand[] = await get(API_ROUTES.car.getAllBrands)
+      const brands: IBrand[] = await get(API_ROUTES.car.getAllBrands);
       setListBrands(brands);
-
     } catch (error) {
       setListBrands([]);
     }
-
   };
 
   const invokeCarByVersion = async (year: number, versionID: number) => {
-
     try {
-      const car : any = get(API_ROUTES.car.getCar(year, versionID))
-      if (car?.image_url) {
-        setImage(car?.image_url);
+      const car: any = await axios.get(API_ROUTES.car.getCar(year, versionID));
+      if (car && car.data && car.data.image_url) {
+        setImage(car.data.image_url);
         setIsEdit(true);
       } else {
         setImage(undefined);
@@ -150,7 +147,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
 
   useEffect(() => {
     invokeCarByVersion(year, versionID);
-  }, [versionID, year]);
+  }, [versionID]);
 
   useEffect(() => {
     const models: IModel[] = (listBrands.find(
@@ -195,18 +192,21 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
         };
 
         if (isEdit) {
-    
-          await create(API_ROUTES.car.addCar(newData.year, newData.version_id), {
+          await edit(API_ROUTES.car.addCar(newData.year, newData.version_id), {
             image_url: newData.image_url,
-          }, false)
-
+          });
         } else {
           const newRequestData = {
             year: newData.year,
             version_id: newData.version_id,
-            image_url: newData.image_url}
+            image_url: newData.image_url,
+          };
 
-          await create(API_ROUTES.car.addCar(newData.year, newData.version_id), newRequestData, false)
+          await create(
+            API_ROUTES.car.addCar(newData.year, newData.version_id),
+            newRequestData,
+            false
+          );
         }
       }
     } catch (error) {
@@ -230,8 +230,9 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   };
 
   const handleAddYearSuccess = async (year: number) => {
-    const years : IYear[] = await get(API_ROUTES.car.getAllYears)
+    const years: IYear[] = await get(API_ROUTES.car.getAllYears);
     setListYears(years);
+    setImage(undefined);
     setValue("year", year);
     closeAllDialog();
   };
@@ -239,6 +240,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   const handleAddBrandSuccess = (brand_id: number) => {
     invokeGetAllBrand("brand", brand_id);
     setValue("brand_id", brand_id);
+    setImage(undefined);
     closeAllDialog();
   };
 
@@ -246,6 +248,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     invokeGetAllBrand("model", model_id);
     setValue("brand_id", brand_id);
     setValue("model_id", model_id);
+    setImage(undefined);
     closeAllDialog();
   };
 

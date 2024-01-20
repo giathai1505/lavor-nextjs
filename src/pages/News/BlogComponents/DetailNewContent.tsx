@@ -11,8 +11,6 @@ import { IBlog } from "@/types/type";
 import { getNestedHeadings } from "@/utilities/commonUtilities";
 import CategoryOfBlog from "./CategoryOfBlog";
 
-
-
 const SocialMediaGroup = () => {
   return (
     <div className="flex items-center gap-2">
@@ -100,18 +98,17 @@ const DetailNewContent = ({ blog }: { blog: IBlog }) => {
     }
   };
 
+  if (!blog) return null;
 
-  if(!blog) return <></>
-  
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <p className="text-2xl text-white">{blog.blog_title}</p>
       <div className="flex items-center gap-5">
         <span className="text-[#a5a6aa]">
           By <span className="text-white">ADMIN</span>
         </span>
 
-        <CategoryOfBlog CategoryId={blog.blog_category}/>
+        <CategoryOfBlog CategoryId={blog.blog_category} />
 
         <div className="flex items-center gap-2 text-[#a5a6aa]">
           <AiOutlineCalendar />

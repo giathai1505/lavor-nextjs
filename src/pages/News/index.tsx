@@ -44,20 +44,18 @@ const News: React.FC<INews> = ({ filterBlogs, allBlogs, pagination }) => {
   const { deleteQueryParam, getQueryParam, setQueryParam } = useQueryParams();
 
   const [selectedCategory, setSelectedCategory] = useState<any>();
-  const typeView : TBLogViewType = getQueryParam("view") as TBLogViewType ?? "grid";
+  const typeView: TBLogViewType =
+    (getQueryParam("view") as TBLogViewType) ?? "grid";
   const currentPage = getQueryParam("page") ?? 1;
   const category = getQueryParam("category");
 
   useEffect(() => {
     setSelectedCategory(category as Category);
-  
   }, []);
 
   useEffect(() => {
     setSelectedCategory(category as Category);
   }, [category]);
-
-
 
   const handleChangeCategory = (a: any) => {
     setQueryParam({ category: a.key, page: "1" });

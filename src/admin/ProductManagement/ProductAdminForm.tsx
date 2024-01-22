@@ -335,7 +335,8 @@ const ProductAdminForm: React.FC<IProductForm> = ({
                       <option value={ProductType.STEERING_WHEEL}>
                         Bọc vô lăng
                       </option>
-                      <option value={ProductType.PILLOW}>Gối cổ</option>
+                      <option value={ProductType.NECK_PILLOW}>Gối cổ</option>
+                      <option value={ProductType.PILLOW}>Gối lưng</option>
                       <option value={ProductType.FLOOR}>Thảm lót sàn</option>
                       <option value={ProductType.OTHER}>Sản phẩm khác</option>
                     </select>

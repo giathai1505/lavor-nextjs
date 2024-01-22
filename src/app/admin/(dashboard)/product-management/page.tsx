@@ -1,4 +1,4 @@
-import ProductManagement from "@/admin/ProductManagement";
+import ProductAdminTable from "@/admin/ProductManagement/ProductAdminTable";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { IProduct } from "@/types/type";
 import { Metadata } from "next";
@@ -32,7 +32,7 @@ const page = async () => {
 
   const products: IProduct[] = res?.products ? res?.products : [];
 
-  return <ProductManagement products={products} />;
+  return <ProductAdminTable products={products} />;
 };
 
 export default page;

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Với Lavor, nội thất xe của bạn sẽ trở nên đẳng cấp hơn",
 };
 
-async function getAllYears() {
+async function getListYears() {
   try {
     const res = await fetch(SERVER_API_ENPOINT + "design/years", {
       cache: "no-store",
@@ -42,7 +42,7 @@ async function getAllBrands() {
 }
 
 const page = async () => {
-  const years = await getAllYears();
+  const years = await getListYears();
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
+import BlogAdminForm from "@/admin/BlogManagement/BlogAdminForm";
 import { Category, Status } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -23,7 +23,7 @@ const page = async () => {
     blog_category: Category.ABOUT,
     blog_status: Status.ACTIVE,
   };
-  return <AddNewBlog isEdit={false} defaultValue={defaultBlogsValue} />;
+  return <BlogAdminForm isEdit={false} defaultValue={defaultBlogsValue} />;
 };
 
 export default page;

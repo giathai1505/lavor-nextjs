@@ -5,7 +5,8 @@ import { BsArrowRightShort } from "react-icons/bs";
 import Link from "next/link";
 import { IBlog } from "@/types/type";
 import moment from "moment";
-import { renderCategory } from "..";
+import CategoryOfBlog from "../BlogComponents/CategoryOfBlog";
+
 
 interface INewBlogItem {
   blog: IBlog;
@@ -24,7 +25,9 @@ const NewGridViewItem: React.FC<INewBlogItem> = ({ blog }) => {
       </div>
       <div className="flex flex-col gap-5 p-5">
         <div className="flex item-center gap-5">
-          {renderCategory(blog.blog_category)}
+          
+          <CategoryOfBlog CategoryId={blog.blog_category}/>
+
           <div className="flex items-center text-[13px] gap-2 text-[#a5a6aa]">
             <AiOutlineCalendar />
             <p>{moment(blog.blog_upload_date).format("DD/MM/YYYY")}</p>

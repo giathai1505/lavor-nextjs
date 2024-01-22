@@ -5,8 +5,8 @@ import { formatCurrencyWithDots } from "@/utilities/commonUtilities";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { TImageItem } from ".";
 import EventEmitter from "events";
-import { notification } from "antd";
 import { eventKeys } from "@/constants/constants";
+import useToast from "@/hooks/useToast";
 
 export const ee = new EventEmitter();
 ee.setMaxListeners(100);
@@ -24,24 +24,7 @@ const DetailContent: React.FC<IDetailContent> = ({
   onChangeColor,
 }) => {
   if (!product) return null;
-  const [api, contextHolder] = notification.useNotification();
-
-  const openNotificationAddCartFail = () => {
-    api["error"]({
-      message: "Sản phẩm đã tồn tại trong giỏ hàng!",
-      description:
-        "Quý khách không thể thêm hai sản phẩm giống nhau vào trong giỏ hàng! Vui lòng nhấn vào icon giỏ hàng để kiểm tra thông tin.",
-    });
-  };
-
-  const openNotificationAddCartSuccess = () => {
-    api["success"]({
-      message: "Thêm vào giở hàng thành công!",
-      description:
-        "Sản phẩm đã được thêm vào giỏ hàng thành công! Vui lòng nhấn vào icon giỏ hàng để xem chi tiết.",
-    });
-  };
-
+  const { contextHolder, showNotification } = useToast();
   const handleAddToCart = () => {
     let newCarts: IProduct[] = [];
     const oldCarts = localStorage.getItem("carts");
@@ -52,7 +35,12 @@ const DetailContent: React.FC<IDetailContent> = ({
         (item) => item.product_id === product.product_id
       );
       if (isExist !== -1) {
-        openNotificationAddCartFail();
+        showNotification(
+          "error",
+          "Sản phẩm đã tồn tại trong giỏ hàng!",
+          "Quý khách không thể thêm hai sản phẩm giống nhau vào trong giỏ hàng! Vui lòng nhấn vào icon giỏ hàng để kiểm tra thông tin."
+        );
+
         return;
       } else {
         newCarts = [...oldCartsParsed];
@@ -61,7 +49,11 @@ const DetailContent: React.FC<IDetailContent> = ({
     }
     newCarts.push(product);
     localStorage.setItem("carts", JSON.stringify(newCarts));
-    openNotificationAddCartSuccess();
+    showNotification(
+      "success",
+      "Thêm vào giở hàng thành công!",
+      "Sản phẩm đã được thêm vào giỏ hàng thành công! Vui lòng nhấn vào icon giỏ hàng để xem chi tiết."
+    );
   };
 
   return (

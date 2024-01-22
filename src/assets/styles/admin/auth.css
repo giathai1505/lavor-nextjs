@@ -13,9 +13,7 @@
   border-radius: 40px;
   margin-top: 20px;
   display: flex;
-  align-items: center;
-  gap: 20px;
-  padding-left: 30%;
+  justify-content: center;
 }
 
 .auth-form-button.disabled {

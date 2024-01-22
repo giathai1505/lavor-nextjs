@@ -1,4 +1,4 @@
-import BlogManagement from "@/admin/BlogManagement";
+import BlogAdminTable from "@/admin/BlogManagement/BlogAdminTable";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { IBlog } from "@/types/type";
 import { Metadata } from "next";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function getAllBlog() {
-  const res = await fetch(SERVER_API_ENPOINT + "blogs?page=1&limit=10", {
+  const res = await fetch(SERVER_API_ENPOINT + "blogs", {
     cache: "no-store",
   });
 
@@ -33,7 +33,7 @@ const BlogAdmin = async () => {
 
   const blogs: IBlog[] = res?.blogs ? res?.blogs : [];
 
-  return <BlogManagement blogs={blogs} />;
+  return <BlogAdminTable blogs={blogs} />;
 };
 
 export default BlogAdmin;

@@ -1,29 +1,10 @@
 import "../globals.css";
 import type { Metadata } from "next";
-import { Assistant, Jost } from "next/font/google";
-import "@/assets/styles/common.css";
-import "@/assets/styles/components.css";
-import "@/assets/styles/designPage.css";
-import "@/assets/styles/homepage.css";
-import "@/assets/styles/carousel.css";
-import "@/assets/styles/aboutUsPage.css";
-import "@/assets/styles/productPage.css";
-import "@/assets/styles/admin/auth.css";
-import "@/assets/styles/admin/dashboard.css";
-import "@/assets/styles/admin/table.css";
-import "@/assets/styles/admin/dialog.css";
-import "@/assets/styles/admin/blog.css";
-import "@/pages/News/blog.css";
-import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/Header/Header";
 import PhoneHeader from "@/components/Header/PhoneHeader";
 import Footer from "@/components/Common/Footer";
 import LiveChatIcon from "@/components/Common/LiveChatIcon";
 
-const jost = Jost({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",

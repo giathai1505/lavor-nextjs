@@ -1,5 +1,5 @@
 "use client";
-import AdminSidebar from "@/admin/Components/AdminSidebar";
+import AdminSidebar from "@/components/AdminSidebar";
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa6";
 

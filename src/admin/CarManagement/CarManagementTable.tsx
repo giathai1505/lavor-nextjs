@@ -4,11 +4,13 @@ import { Table, Image } from "antd";
 import { ICarTable } from "@/types/type";
 import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
-import { delelteCar, getAllCarTable } from "@/api/carAPI";
 import { ColumnsType } from "antd/es/table";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import ConfirmDialog from "@/components/Common/Dialog";
 import { BsTrash } from "react-icons/bs";
+import API_ROUTES from "@/constants/apiRoutes";
+import useFetchApi from "@/hooks/useFetchApi";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IBlogManagement {
   cars: ICarTable[];
@@ -16,6 +18,7 @@ interface IBlogManagement {
 
 const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
   const [data, setData] = useState(cars);
+  const { delete: deleteCar, get, loading } = useFetchApi();
   const [isShowDeleteConfirmDialog, setIsShowDeleteConfirmDialog] =
     useState<boolean>(false);
 
@@ -26,36 +29,30 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
   }, [cars]);
 
   const invokeGetAllCar = async () => {
-    const result = await getAllCarTable();
-    if (result.cars) {
-      setData(result.cars);
+    try {
+      const res: any = await get(API_ROUTES.car.getCarTable);
+      if (res && res.cars) {
+        setData(res.cars);
+      } else {
+        setData([]);
+      }
+    } catch (error) {
+      setData([]);
     }
   };
 
   const handleDelelteCar = async () => {
     if (activeRecord) {
-      const loadingToastId = toast.info("Đang xóa  xe...", {
-        position: "top-center",
-        autoClose: false,
-      });
-      Promise.resolve(delelteCar(activeRecord.year, activeRecord.version_id))
-        .then((results) => {
-          toast.dismiss(loadingToastId);
-          toast.success("Xóa xe thành công!!!", {
-            position: "top-center",
-          });
-          setActiveRecord(null);
-          setIsShowDeleteConfirmDialog(false);
-          invokeGetAllCar();
-        })
-
-        .catch((error) => {
-          toast.dismiss(loadingToastId);
-          toast.error("Xóa xe thất bại!!!", {
-            position: "top-center",
-          });
-          console.error("Error:", error);
-        });
+      try {
+        await deleteCar(
+          API_ROUTES.car.addCar(activeRecord.year, activeRecord.version_id)
+        );
+        setActiveRecord(null);
+        setIsShowDeleteConfirmDialog(false);
+        invokeGetAllCar();
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -122,6 +119,7 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
 
   return (
     <>
+      <ApiLoading loading={loading} />
       <ConfirmDialog
         onOk={handleDelelteCar}
         title="Xóa bài viết"

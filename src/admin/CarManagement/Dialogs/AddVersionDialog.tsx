@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
-import { addVersion, getAllModels } from "@/api/carAPI";
-import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IModel } from "@/types/type";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IDialog {
   open: boolean;
@@ -29,6 +30,7 @@ const AddVersionDialog: React.FC<IDialog> = ({
   activeModel,
 }) => {
   let [isOpen, setIsOpen] = useState(false);
+  const { create, loading } = useFetchApi();
   const form = useForm<IAddVersionDialog>({
     defaultValues: {
       model_id: activeModel,
@@ -55,31 +57,21 @@ const AddVersionDialog: React.FC<IDialog> = ({
   }, [activeModel]);
 
   const invokeAddVersion = async (data: IAddVersionDialog) => {
-    const loadingToastId = toast.info("Đang thêm version xe...", {
-      position: "top-center",
-      autoClose: false,
-    });
-    addVersion(data.model_id.toString(), data.version_name)
-      .then((result) => {
-        if (result) {
-          toast.dismiss(loadingToastId);
+    try {
+      const res: any = await create(
+        API_ROUTES.car.addVersion(data.model_id),
+        { version_name: data.version_name },
+        false
+      );
 
-          toast.success("Thêm version xe!!!", {
-            position: "top-center",
-          });
-
-          onSuccess(result.version_id, activeModel);
-          setValue("version_name", "");
-          setIsOpen(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.dismiss(loadingToastId);
-        toast.error("Thêm version thất bại!!!", {
-          position: "top-center",
-        });
-      });
+      if (res && res.version_id) {
+        onSuccess(res.version_id, activeModel);
+        setValue("version_name", "");
+        setIsOpen(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -100,6 +92,7 @@ const AddVersionDialog: React.FC<IDialog> = ({
       onClose={handleOnClose}
       className="fixed z-50 inset-0 overflow-y-auto"
     >
+      <ApiLoading loading={loading} />
       <Dialog.Overlay className="headless-ui-dialog-overlay" />
       <Dialog.Panel className="headless-ui-dialog-content-wrapper">
         <form action="" onSubmit={handleSubmit(handleOnSuccess)}>

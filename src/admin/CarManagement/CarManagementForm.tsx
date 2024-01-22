@@ -4,24 +4,20 @@ import { BsCamera, BsFillImageFill } from "react-icons/bs";
 import { BiCategory, BiSolidSave } from "react-icons/bi";
 import { useForm, Controller } from "react-hook-form";
 import { IBrand, IModel, IVersion, IYear } from "@/types/type";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import FormError from "@/components/Common/FormError";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddYearDialog from "./Dialogs/AddYearDialog";
 import AddBrandDialog from "./Dialogs/AddBrandDialog";
 import AddModelDialog from "./Dialogs/AddModelDialog";
 import AddVersionDialog from "./Dialogs/AddVersionDialog";
-import {
-  addCar,
-  getAllBrands,
-  getAllYears,
-  getCar,
-  updateCar,
-} from "@/api/carAPI";
-import { upLoadImage } from "@/api/imageAPI";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import Each from "@/lib/Each";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
+import axios from "@/lib/axios";
+import ApiLoading from "@/components/ApiLoading";
 
 export interface ICarFormValue {
   year: number;
@@ -50,6 +46,8 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     version: false,
   });
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const { create, get, edit, loading } = useFetchApi();
+
   const handleResize = () => {
     if (imgContainerRef.current) {
       const width = imgContainerRef.current.clientWidth;
@@ -88,31 +86,28 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   const versionID = watch("version_id");
 
   const invokeGetAllBrand = async (type?: string, id?: number) => {
-    getAllBrands()
-      .then((result) => {
-        setListBrands(result);
-      })
-
-      .catch((error) => {
-        setListBrands([]);
-      });
+    try {
+      const brands: IBrand[] = await get(API_ROUTES.car.getAllBrands);
+      setListBrands(brands);
+    } catch (error) {
+      setListBrands([]);
+    }
   };
 
   const invokeCarByVersion = async (year: number, versionID: number) => {
-    getCar(year, versionID)
-      .then((result) => {
-        if (result.image_url) {
-          setImage(result.image_url);
-          setIsEdit(true);
-        } else {
-          setImage(undefined);
-          setIsEdit(false);
-        }
-      })
-      .catch((err) => {
+    try {
+      const car: any = await axios.get(API_ROUTES.car.getCar(year, versionID));
+      if (car && car.data && car.data.image_url) {
+        setImage(car.data.image_url);
+        setIsEdit(true);
+      } else {
         setImage(undefined);
         setIsEdit(false);
-      });
+      }
+    } catch (error) {
+      setImage(undefined);
+      setIsEdit(false);
+    }
   };
 
   useEffect(() => {
@@ -153,7 +148,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
 
   useEffect(() => {
     invokeCarByVersion(year, versionID);
-  }, [versionID, year]);
+  }, [versionID]);
 
   useEffect(() => {
     const models: IModel[] = (listBrands.find(
@@ -186,60 +181,37 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     }
   }, [brands, years]);
 
-  const onSubmit = (data: ICarFormValue) => {
+  const onSubmit = async (data: ICarFormValue) => {
     if (typeof image === "string") return;
-    if (isEdit) {
-      const loadingToastId = toast.info("Đang chỉnh sửa...", {
-        position: "top-center",
-        autoClose: false,
-      });
-      Promise.resolve(upLoadImage(image))
-        .then((results) => {
-          const newData = {
-            ...data,
-            image_url: results.url,
+
+    try {
+      const res: any = await create(API_ROUTES.image.upload, image, true);
+      if (res && res.url) {
+        const newData = {
+          ...data,
+          image_url: res.url,
+        };
+
+        if (isEdit) {
+          await edit(API_ROUTES.car.addCar(newData.year, newData.version_id), {
+            image_url: newData.image_url,
+          });
+        } else {
+          const newRequestData = {
+            year: newData.year,
+            version_id: newData.version_id,
+            image_url: newData.image_url,
           };
-          return updateCar(newData);
-        })
-        .then((result) => {
-          toast.dismiss(loadingToastId);
-          toast.success("Sửa thành công!!!", {
-            position: "top-center",
-          });
-        })
-        .catch((error) => {
-          toast.dismiss(loadingToastId);
-          toast.error("Sửa thất bại!!!", {
-            position: "top-center",
-          });
-          console.error("Error:", error);
-        });
-    } else {
-      const loadingToastId = toast.info("Đang thêm  xe...", {
-        position: "top-center",
-        autoClose: false,
-      });
-      Promise.resolve(upLoadImage(image))
-        .then((results) => {
-          const newData = {
-            ...data,
-            image_url: results.url,
-          };
-          return addCar(newData);
-        })
-        .then((result) => {
-          toast.dismiss(loadingToastId);
-          toast.success("Thêm xe thành công!!!", {
-            position: "top-center",
-          });
-        })
-        .catch((error) => {
-          toast.dismiss(loadingToastId);
-          toast.error("Thêm xe thất bại!!!", {
-            position: "top-center",
-          });
-          console.error("Error:", error);
-        });
+
+          await create(
+            API_ROUTES.car.addCar(newData.year, newData.version_id),
+            newRequestData,
+            false
+          );
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -259,8 +231,9 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   };
 
   const handleAddYearSuccess = async (year: number) => {
-    const years = await getAllYears();
+    const years: IYear[] = await get(API_ROUTES.car.getAllYears);
     setListYears(years);
+    setImage(undefined);
     setValue("year", year);
     closeAllDialog();
   };
@@ -268,6 +241,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
   const handleAddBrandSuccess = (brand_id: number) => {
     invokeGetAllBrand("brand", brand_id);
     setValue("brand_id", brand_id);
+    setImage(undefined);
     closeAllDialog();
   };
 
@@ -275,6 +249,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     invokeGetAllBrand("model", model_id);
     setValue("brand_id", brand_id);
     setValue("model_id", model_id);
+    setImage(undefined);
     closeAllDialog();
   };
 
@@ -286,6 +261,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
 
   return (
     <>
+      <ApiLoading loading={loading} />
       <AddYearDialog
         open={showDialog.year}
         onClose={closeAllDialog}

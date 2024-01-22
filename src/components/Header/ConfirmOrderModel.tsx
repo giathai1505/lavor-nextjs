@@ -5,8 +5,10 @@ import { RenderCartItem, getTotalBill } from "./Cart";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "../Common/FormError";
 import { IProduct } from "@/types/type";
-import { sendOrder } from "@/api/productAPI";
 import useToast from "@/hooks/useToast";
+import API_ROUTES from "@/constants/apiRoutes";
+import axios from "@/lib/axios";
+
 
 type IOrderContact = {
   contact_name: string;
@@ -65,7 +67,8 @@ const ConfirmOrderModel: React.FC<TProps> = ({
         ...contactInformation,
       };
 
-      const result: any = await sendOrder(requestData);
+      await axios.post(API_ROUTES.email.sendOrder, requestData)
+
 
       setShow(false);
       reset({

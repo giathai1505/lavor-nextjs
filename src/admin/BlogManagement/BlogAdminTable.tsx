@@ -21,16 +21,17 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { IProduct, ProductType, ProductTypeToText, Status } from "@/types/type";
-import { changeBlogStatus } from "@/api/blogAPI";
+import { Category, IBlog, Status } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
-import {
-  deleteMultipleProducts,
-  deleteProduct,
-  getAllProducts,
-} from "@/api/productAPI";
-import { formatCurrencyWithDots, indexArray } from "@/utilities/commonUtilities";
+import "moment/locale/vi";
+import { fromNow } from "@/lib/time";
+import { indexArray } from "@/utilities/commonUtilities";
+import Each from "@/lib/Each";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
+import CategoryOfBlog from "@/pages/News/BlogComponents/CategoryOfBlog";
+import ApiLoading from "@/components/ApiLoading";
 
 const statusOptions = [
   {
@@ -43,36 +44,39 @@ const statusOptions = [
   },
 ];
 
-const categoryOptions = [
+const statusAPIOoptions = [
   {
-    key: ProductType.CHAIR,
-    value: "Bọc ghế da",
+    key: Status.ACTIVE,
+    value: "Hoạt động",
   },
   {
-    key: ProductType.FLOOR,
-    value: "Thảm lót sàn",
-  },
-  {
-    key: ProductType.PILLOW,
-    value: "Gối cổ",
-  },
-  {
-    key: ProductType.STEERING_WHEEL,
-    value: "Bọc tay lái",
-  },
-  {
-    key: ProductType.OTHER,
-    value: "sản phẩm khác",
+    key: Status.SUSPENDED,
+    value: "Ngưng hoạt động",
   },
 ];
 
-interface IProductManagement {
-  products: IProduct[];
+const categoryOptions = [
+  {
+    key: Category.ABOUT,
+    value: "Về Lavor",
+  },
+  {
+    key: Category.TIPS,
+    value: "Kiến thức & Mẹo",
+  },
+  {
+    key: Category.RECRUITMENT,
+    value: "Tuyển dụng",
+  },
+];
+
+interface IBlogManagement {
+  blogs: IBlog[];
 }
 
 interface IFilterBlog {
   search: string;
-  type: ProductType | undefined;
+  category: Category | undefined;
   status: Status | undefined;
 }
 
@@ -84,50 +88,55 @@ const renderStatus = (status: Status) => {
   );
 };
 
-const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
+const BlogAdminTable: React.FC<IBlogManagement> = ({ blogs }) => {
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
     search: "",
-    type: undefined,
+    category: undefined,
     status: undefined,
   });
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState(false);
   const [showInfoDialog, setShowInfoDialog] = useState(false);
-  const [data, setData] = useState(products);
+  const [data, setData] = useState(blogs);
   const [itemHovered, setItemHovered] = useState<string | undefined>(undefined);
   const [activeField, setActiveField] = useState<number | undefined>(undefined);
+  const { edit, get, delete: deleteBlog, loading } = useFetchApi();
   const [activeChangeStatus, setActiveChangeStatus] = useState<{
     id: number | undefined;
     status: Status | undefined;
   }>({ id: undefined, status: undefined });
 
-  const invokeGetAllProducts = async () => {
-    let url = "?page=1&limit=10";
+  const invokeGetAllBlogs = async () => {
+    let url = "";
     if (globalFilter.search !== "") {
       url += "&search=" + globalFilter.search;
     }
     if (globalFilter.status !== undefined) {
       url += "&status=" + globalFilter.status;
     }
-    if (globalFilter.type !== undefined) {
-      url += "&type=" + globalFilter.type;
+    if (globalFilter.category !== undefined) {
+      url += "&category=" + globalFilter.category;
     }
 
-    getAllProducts(url)
-      .then((result) => {
-        setData(result.products);
-      })
-      .catch((error) => {
+    try {
+      const res: any = await get(API_ROUTES.blogs.getAll(url));
+
+      if (res && res.blogs) {
+        setData(res.blogs);
+      } else {
         setData([]);
-      });
+      }
+    } catch (error) {
+      setData([]);
+    }
   };
 
   useEffect(() => {
-    invokeGetAllProducts();
-  }, [globalFilter.type, globalFilter.search, globalFilter.status]);
+    invokeGetAllBlogs();
+  }, [globalFilter.category, globalFilter.search, globalFilter.status]);
 
-  const columns = React.useMemo<ColumnDef<IProduct>[]>(
+  const columns = React.useMemo<ColumnDef<IBlog>[]>(
     () => [
       {
         id: "select",
@@ -154,11 +163,11 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
         ),
       },
       {
-        accessorFn: (row) => row.product_name,
-        id: "product_name",
+        accessorFn: (row) => row.blog_title,
+        id: "blog_title",
         cell: ({ row }) => (
           <div>
-            <span>{row.original.product_name?.toString()}</span>
+            <span>{row.original.blog_title.toString()}</span>
             <div
               className={`admin-row-action-wrapper gap-2 ${
                 itemHovered === row.id ? "show" : ""
@@ -166,8 +175,8 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
             >
               <Link
                 className="admin-row-action edit"
-                href={`/admin/product-management/${row.original.product_id?.toString()}`}
-                onClick={() => handleEdit(row.original.product_id)}
+                href={`/admin/blog-management/${row.original.blog_id.toString()}`}
+                onClick={() => handleEdit(row.original.blog_id)}
               >
                 Sửa
               </Link>
@@ -176,7 +185,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
                 className="admin-row-action delete"
                 onClick={() => {
                   setIsOpenDeleteConfirmDialog(true);
-                  setActiveField(row.original.product_id);
+                  setActiveField(row.original.blog_id);
                 }}
               >
                 Xóa
@@ -187,12 +196,13 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
                 onClick={() => {
                   setShowInfoDialog(true);
                   setActiveChangeStatus({
-                    id: row.original.product_id,
-                    status: row.original.product_status,
+                    id: row.original.blog_id,
+                    status: row.original.blog_status,
                   });
                 }}
               >
-                {row.original.product_status === Status.SUSPENDED ? (
+                {row.original.blog_status === Status.SUSPENDED ||
+                row.original.blog_status === Status.DELETED ? (
                   <span> Hoạt động</span>
                 ) : (
                   <span className="stop-active  whitespace-nowrap">
@@ -205,15 +215,24 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
         ),
         header: () => <span>Tiêu đề</span>,
       },
-
       {
-        accessorFn: (row) => row.product_images,
-        id: "product_images",
+        accessorFn: (row) => row.blog_description,
+        id: "blog_description",
+        cell: ({ row }) => (
+          <div className="ellipsis-text-3-lines ">
+            {row.original.blog_description}
+          </div>
+        ),
+        header: () => <span>Mô tả</span>,
+      },
+      {
+        accessorFn: (row) => row.blog_image_url,
+        id: "blog_cover_image_url",
         cell: ({ row }) => (
           <div className="w-20 h-20">
             <img
-              src={row.original.product_images[0]}
-              alt="Hình ảnh sản phẩm"
+              src={row.original.blog_image_url}
+              alt="Hình ảnh bài viết"
               className="w-20 h-20 rounded-full object-cover"
             />
           </div>
@@ -222,71 +241,28 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
       },
 
       {
-        accessorFn: (row) => row.product_detail,
-        id: "product_detail",
+        accessorFn: (row) => row.blog_upload_date,
+        id: "blog_upload_date",
         cell: ({ row }) => (
-          <div className="ellipsis-text-3-lines ">
-            {Array.isArray(row.original.product_detail)
-              ? row.original.product_detail.map((item) => {
-                  return (
-                    <div className="mb-1">
-                      <span> {item.name}:</span>
-                      &emsp;
-                      <span> {item.value}</span>
-                    </div>
-                  );
-                })
-              : "Không có"}
-          </div>
+          <p className="time">{fromNow(row.original.blog_upload_date)}</p>
         ),
-        header: () => <span>Thông số</span>,
-      },
-
-      {
-        accessorFn: (row) => row.product_price,
-        id: "product_price",
-        cell: ({ row }) => (
-          <p className="time">
-            {row.original.product_price !== 0
-              ? formatCurrencyWithDots(row.original.product_price) + " đ"
-              : "Không có giá"}
-          </p>
-        ),
-        header: () => <span className="time">Giá</span>,
-      },
-
-      {
-        accessorFn: (row) => row.variants,
-        id: "variants",
-        cell: ({ row }) => (
-          <div className="flex items-center gap-2">
-            {row.original.variants.map((item) => {
-              return (
-                <div
-                  style={{ backgroundColor: item.variant_color }}
-                  className="w-6 h-6 rounded-full"
-                ></div>
-              );
-            })}
-          </div>
-        ),
-        header: () => <span className="time">Màu sắc</span>,
+        header: () => <span className="time">Ngày đăng</span>,
       },
       {
-        accessorFn: (row) => row.product_type,
+        accessorFn: (row) => row.blog_category,
         id: "category",
         cell: ({ row }) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            {ProductTypeToText[row.original.product_type]}
+            <CategoryOfBlog CategoryId={row.original.blog_category} />
           </div>
         ),
         header: () => <span>Danh mục</span>,
       },
 
       {
-        accessorFn: (row) => row.product_status,
+        accessorFn: (row) => row.blog_status,
         id: "status",
-        cell: ({ row }) => renderStatus(row.original.product_status),
+        cell: ({ row }) => renderStatus(row.original.blog_status),
         header: () => <span>Trạng thái</span>,
       },
     ],
@@ -294,7 +270,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
   );
 
   const getRowId = (row: any, relativeIndex: any, parent: any) => {
-    return parent ? [parent.id, row.product_id].join(".") : row.product_id;
+    return parent ? [parent.id, row.blog_id].join(".") : row.blog_id;
   };
 
   const table = useReactTable({
@@ -313,18 +289,22 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
   });
 
   const handleEdit = (id: number) => {
-    redirect(`/admin/product-management/${id.toString()}`);
+    redirect(`/admin/blog-management/${id.toString()}`);
   };
 
   const handleDelete = async () => {
     setIsOpenDeleteConfirmDialog(false);
 
     if (typeof activeField === "number") {
-      await deleteProduct(activeField);
-      setActiveField(undefined);
+      try {
+        await deleteBlog(API_ROUTES.blogs.deleteOne(activeField));
+        setActiveField(undefined);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
-    await invokeGetAllProducts();
+    window.location.reload();
   };
 
   const handleChangeStatus = async () => {
@@ -337,31 +317,49 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
         activeChangeStatus.status === Status.ACTIVE
           ? Status.SUSPENDED
           : Status.ACTIVE;
-      await changeBlogStatus(activeChangeStatus.id, targetStatus);
+
+      await edit(API_ROUTES.blogs.changeStatus(activeChangeStatus.id), {
+        blog_status: targetStatus,
+      });
+
       setActiveChangeStatus({ id: undefined, status: undefined });
-      await invokeGetAllProducts();
+      window.location.reload();
     }
   };
 
-  const handleFilterProduct = (name: string, item: any) => {
+  const handleFilterBlog = (name: string, item: any) => {
     const newFilterObject = { ...globalFilter, [name]: item };
     setGlobalFilter(newFilterObject);
   };
 
   const handleDeleteMultipleBlog = async () => {
-    const productIds = Object.keys(rowSelection).map((item) => Number(item));
-    await deleteMultipleProducts(productIds);
-    await invokeGetAllProducts();
+    const blogIds = Object.keys(rowSelection).map((item) => Number(item));
+
+    try {
+      await deleteBlog(API_ROUTES.blogs.deleteMany, { blog_ids: blogIds });
+      await invokeGetAllBlogs();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleChangeMultipleStatus = (status: any) => {
-    // const blogIds = Object.keys(rowSelection).map((item) => Number(item));
-    // changeMultipleBlogStatus(blogIds, status.key);
-    // invokeGetAllProducts();
+  const handleChangeMultipleStatus = async (status: any) => {
+    try {
+      const blogIds = Object.keys(rowSelection).map((item) => Number(item));
+      await edit(API_ROUTES.blogs.changeManyStatus, {
+        blog_ids: blogIds,
+        blog_status: status,
+      });
+
+      await invokeGetAllBlogs();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="admin-page-wrapper ">
+      <ApiLoading loading={loading} />
       <ConfirmDialog
         onOk={handleChangeStatus}
         title="Đổi trạng thái của bài viết"
@@ -381,29 +379,27 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
       />
       <div className="p-2">
         <div className="flex items-center justify-between mb-10">
-          <p className="admin-title">Danh sách sản phẩm</p>
-          <Link href="/admin/product-management/add" className="add-new-button">
-            <AiOutlinePlus /> <span>Thêm sản phẩm mới</span>
+          <p className="admin-title">Danh sách bài viết</p>
+          <Link href="/admin/blog-management/add" className="add-new-button">
+            <AiOutlinePlus /> <span>Thêm mới</span>
           </Link>
         </div>
         <div className="flex items-center gap-5">
           <input
             value={globalFilter.search}
-            onChange={(e) => handleFilterProduct("search", e.target.value)}
+            onChange={(e) => handleFilterBlog("search", e.target.value)}
             className="p-2 font-lg shadow border border-block w-[500px] text-[13px]"
             placeholder="Tìm kiếm bài viết..."
           />
           <NoneFormSelectCustom
             options={statusOptions}
-            onChange={(item) => handleFilterProduct("status", item.key)}
+            onChange={(item) => handleFilterBlog("status", item.key)}
             className="admin"
-            // value={globalFilter.status}
             placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
-            // value={globalFilter.category}
-            onChange={(item) => handleFilterProduct("type", item.key)}
+            onChange={(item) => handleFilterBlog("category", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"
           />
@@ -414,12 +410,12 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
                   setGlobalFilter({
                     search: "",
                     status: undefined,
-                    type: undefined,
+                    category: undefined,
                   });
                 }}
                 className="add-new-button"
               >
-                <BiRefresh /> <span>Load lại tất cả sản phẩm</span>
+                <BiRefresh /> <span>Load tất cả bài viết</span>
               </button>
             </div>
           </div>
@@ -436,7 +432,7 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
             </span>
           </div>
           <NoneFormSelectCustom
-            options={statusOptions}
+            options={statusAPIOoptions}
             onChange={(item) => handleChangeMultipleStatus(item)}
             className="admin purple-version"
             placeholder="Thay đổi trạng thái"
@@ -577,11 +573,14 @@ const ProductManagement: React.FC<IProductManagement> = ({ products }) => {
             }}
             className="pagination-select "
           >
-            {indexArray(5,10).map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                {pageSize}
-              </option>
-            ))}
+            <Each
+              of={indexArray(5, 10)}
+              render={(item, _) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              )}
+            />
           </select>
         </div>
         <br />
@@ -616,4 +615,4 @@ function IndeterminateCheckbox({
   );
 }
 
-export default ProductManagement;
+export default BlogAdminTable;

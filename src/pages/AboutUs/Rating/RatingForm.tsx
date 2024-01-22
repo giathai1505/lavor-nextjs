@@ -1,13 +1,15 @@
 "use client";
-import { addRating } from "@/api/ratingAPI";
+
+import API_ROUTES from "@/constants/apiRoutes";
 import useToast from "@/hooks/useToast";
+import axios from "@/lib/axios";
 import { indexArray } from "@/utilities/commonUtilities";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { BiMessageSquare, BiUser } from "react-icons/bi";
 import { BsFillStarFill } from "react-icons/bs";
 import { MdOutlineWorkOutline } from "react-icons/md";
-import  CircleLoader  from "react-spinners/CircleLoader";
+import CircleLoader from "react-spinners/CircleLoader";
 
 export type TRatingForm = {
   review_phone: string;
@@ -40,7 +42,7 @@ const RatingForm: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const result = await addRating(apiData);
+      await axios.post(API_ROUTES.review.addReview, apiData);
       setIsLoading(false);
       showNotification(
         "success",

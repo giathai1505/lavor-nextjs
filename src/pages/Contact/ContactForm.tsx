@@ -5,7 +5,8 @@ import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import { Controller, useForm } from "react-hook-form";
 import { CircleLoader } from "react-spinners";
 import useToast from "@/hooks/useToast";
-import { sendContact } from "@/api/ratingAPI";
+import axios from "@/lib/axios";
+import API_ROUTES from "@/constants/apiRoutes";
 
 export type TContactForm = {
   contact_name: string;
@@ -34,7 +35,7 @@ const ContactForm = () => {
   const handleSubmitRating = async (data: TContactForm) => {
     try {
       setIsLoading(true);
-      const result = await sendContact(data);
+      await axios.post(API_ROUTES.email.sendContact, data)
       setIsLoading(false);
       showNotification(
         "success",
@@ -53,8 +54,7 @@ const ContactForm = () => {
 
   return (
     <>
-      {" "}
-      {contextHolder}{" "}
+      {contextHolder}
       <div>
         <form onSubmit={handleSubmit(handleSubmitRating)}>
           <div className="flex flex-col gap-5">

@@ -222,3 +222,5 @@ export type TDesign = {
   holeID: string;
   note: string;
 };
+
+export type TBLogViewType = "grid" | "list";

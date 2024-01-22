@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Controller, useForm } from "react-hook-form";
 import FormError from "@/components/Common/FormError";
-import { addBrand, addModel, getAllBrands } from "@/api/carAPI";
-import { toast } from "react-toastify";
 import { BiCategory } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IBrand } from "@/types/type";
+import useFetchApi from "@/hooks/useFetchApi";
+import API_ROUTES from "@/constants/apiRoutes";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IDialog {
   open: boolean;
@@ -29,6 +30,7 @@ const AddModelDialog: React.FC<IDialog> = ({
   activeBrand,
 }) => {
   let [isOpen, setIsOpen] = useState(false);
+  const { create, loading } = useFetchApi();
   const form = useForm<IAddModelDialog>({
     defaultValues: {
       brand_id: activeBrand,
@@ -55,31 +57,20 @@ const AddModelDialog: React.FC<IDialog> = ({
   }, [activeBrand]);
 
   const invokeAddBrand = async (data: IAddModelDialog) => {
-    const loadingToastId = toast.info("Đang thêm model xe...", {
-      position: "top-center",
-      autoClose: false,
-    });
-
-    addModel(data.brand_id.toString(), data.model_name)
-      .then((result) => {
-        if (result) {
-          toast.dismiss(loadingToastId);
-
-          toast.success("Thêm model xe!!!", {
-            position: "top-center",
-          });
-          setValue("model_name", "");
-          onSuccess(result.model_id, activeBrand);
-          setIsOpen(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.dismiss(loadingToastId);
-        toast.error("Thêm model thất bại!!!", {
-          position: "top-center",
-        });
-      });
+    try {
+      const res: any = await create(
+        API_ROUTES.car.addModel(data.brand_id),
+        { model_name: data.model_name },
+        false
+      );
+      if (res && res.model_id) {
+        setValue("model_name", "");
+        onSuccess(res.model_id, activeBrand);
+        setIsOpen(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -100,6 +91,7 @@ const AddModelDialog: React.FC<IDialog> = ({
       onClose={handleOnClose}
       className="fixed z-50 inset-0 overflow-y-auto"
     >
+      <ApiLoading loading={loading} />
       <Dialog.Overlay className="headless-ui-dialog-overlay" />
       <Dialog.Panel className="headless-ui-dialog-content-wrapper">
         <form action="" onSubmit={handleSubmit(handleOnSuccess)}>

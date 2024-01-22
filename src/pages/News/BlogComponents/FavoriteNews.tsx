@@ -17,7 +17,7 @@ const renderFavoriteNewsItem = (blog: IBlog) => {
           <p>{moment(blog.blog_upload_date).format("DD/MM/YYYY")}</p>
         </div>
         <Link
-          href={blog.blog_url ?? ""}
+          href={blog.blog_url ?? "#"}
           className="text-base text-white my-3 ellipsis-text-2-lines hover:text-primary"
         >
           {blog.blog_title}
@@ -33,9 +33,9 @@ interface IFavoriteNews {
 }
 
 const FavoriteNews: React.FC<IFavoriteNews> = ({ blogs }) => {
-  const favoritesNews = Array.isArray(blogs) ? blogs.filter(
-    (item) => item.blog_category === Category.RECRUITMENT
-  ) : []
+  const favoritesNews = Array.isArray(blogs)
+    ? blogs.filter((item) => item.blog_category === Category.RECRUITMENT)
+    : [];
   return (
     <div className="bg-[#171818] p-5">
       <p className="font-bold text-lg mb-4 text-white">Tuyển dụng</p>

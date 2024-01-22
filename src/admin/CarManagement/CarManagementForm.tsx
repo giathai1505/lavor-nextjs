@@ -17,6 +17,7 @@ import Each from "@/lib/Each";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
 import axios from "@/lib/axios";
+import ApiLoading from "@/components/ApiLoading";
 
 export interface ICarFormValue {
   year: number;
@@ -45,7 +46,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
     version: false,
   });
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const { create, get, edit } = useFetchApi();
+  const { create, get, edit, loading } = useFetchApi();
 
   const handleResize = () => {
     if (imgContainerRef.current) {
@@ -260,6 +261,7 @@ const CarManagementForm: React.FC<IAddCarForm> = ({ brands, years }) => {
 
   return (
     <>
+      <ApiLoading loading={loading} />
       <AddYearDialog
         open={showDialog.year}
         onClose={closeAllDialog}

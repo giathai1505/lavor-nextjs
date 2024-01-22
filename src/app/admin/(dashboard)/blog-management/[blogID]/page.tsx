@@ -1,4 +1,4 @@
-import AddNewBlog from "@/admin/BlogManagement/AddNewBlog";
+import BlogAdminForm from "@/admin/BlogManagement/BlogAdminForm";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { Category, Status } from "@/types/type";
 import { Metadata } from "next";
@@ -55,7 +55,7 @@ const page: React.FC<IPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <AddNewBlog
+      <BlogAdminForm
         isEdit={true}
         defaultValue={defaultValue}
         blogID={params.blogID}

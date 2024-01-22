@@ -45,14 +45,11 @@ interface IProductForm {
   productID?: string;
 }
 
-const NoSSREditor = dynamic(
-  () => import("../../BlogManagement/Editor/index.jsx"),
-  {
-    ssr: false,
-  }
-);
+const NoSSREditor = dynamic(() => import("../../design/Editor/index.jsx"), {
+  ssr: false,
+});
 
-const ProductForm: React.FC<IProductForm> = ({
+const ProductAdminForm: React.FC<IProductForm> = ({
   defaultValue,
   isEdit,
   productID,
@@ -664,4 +661,4 @@ const ProductForm: React.FC<IProductForm> = ({
   );
 };
 
-export default ProductForm;
+export default ProductAdminForm;

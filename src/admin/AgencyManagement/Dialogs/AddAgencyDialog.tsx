@@ -8,6 +8,7 @@ import { IAgency, ICity } from "@/types/type";
 import Each from "@/lib/Each";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IDialog {
   open: boolean;
@@ -40,7 +41,7 @@ const AddAgencyDialog: React.FC<IDialog> = ({
 
   const [listCity, setListCity] = useState<ICity[]>([]);
 
-  const { create } = useFetchApi();
+  const { create, loading } = useFetchApi();
 
   const {
     control,
@@ -101,6 +102,7 @@ const AddAgencyDialog: React.FC<IDialog> = ({
       onClose={handleOnClose}
       className="fixed z-50 inset-0 overflow-y-auto"
     >
+      <ApiLoading loading={loading} />
       <Dialog.Overlay className="headless-ui-dialog-overlay" />
       <Dialog.Panel className="headless-ui-dialog-content-wrapper">
         <form onSubmit={handleSubmit(handleOnSuccess)}>

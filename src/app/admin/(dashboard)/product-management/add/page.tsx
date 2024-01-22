@@ -1,4 +1,4 @@
-import ProductForm from "@/admin/ProductManagement/AddNewProduct";
+import ProductAdminForm from "@/admin/ProductManagement/ProductAdminForm";
 import { PStatus, ProductType } from "@/types/type";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -27,7 +27,7 @@ const page = async () => {
   if (!data?.user) {
     redirect("/admin/login");
   }
-  return <ProductForm isEdit={false} defaultValue={defaultProductValue} />;
+  return <ProductAdminForm isEdit={false} defaultValue={defaultProductValue} />;
 };
 
 export default page;

@@ -12,6 +12,7 @@ import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
 import ConfirmDialog from "@/components/Common/Dialog";
 import { convertToAgencyArray } from "@/utilities/commonUtilities";
+import ApiLoading from "@/components/ApiLoading";
 
 type TSelectOption = {
   value: number;
@@ -62,7 +63,7 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
     city: false,
   });
 
-  const { get, delete: deleteAgency } = useFetchApi();
+  const { get, delete: deleteAgency, loading } = useFetchApi();
 
   const invokeGetAllAgency = async () => {
     setGlobalFilter({
@@ -194,6 +195,7 @@ const AgencyManagementTable: React.FC<IAgencyManagement> = ({ agencies }) => {
 
   return (
     <>
+      <ApiLoading loading={loading} />
       <AddAgencyDialog
         open={showDialog.agency}
         onClose={closeAllDialog}

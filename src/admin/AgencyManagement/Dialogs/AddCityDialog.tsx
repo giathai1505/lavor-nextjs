@@ -7,6 +7,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { IRegion } from "@/types/type";
 import API_ROUTES from "@/constants/apiRoutes";
 import useFetchApi from "@/hooks/useFetchApi";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IDialog {
   open: boolean;
@@ -88,6 +89,7 @@ const AddCityDialog: React.FC<IDialog> = ({
       onClose={handleOnClose}
       className="fixed z-50 inset-0 overflow-y-auto"
     >
+      <ApiLoading loading={loading} />
       <Dialog.Overlay className="headless-ui-dialog-overlay" />
       <Dialog.Panel className="headless-ui-dialog-content-wrapper">
         <form onSubmit={handleSubmit(handleOnSuccess)}>

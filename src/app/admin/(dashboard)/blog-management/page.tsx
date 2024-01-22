@@ -1,4 +1,4 @@
-import BlogManagement from "@/admin/BlogManagement";
+import BlogAdminTable from "@/admin/BlogManagement/BlogAdminTable";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { IBlog } from "@/types/type";
 import { Metadata } from "next";
@@ -33,7 +33,7 @@ const BlogAdmin = async () => {
 
   const blogs: IBlog[] = res?.blogs ? res?.blogs : [];
 
-  return <BlogManagement blogs={blogs} />;
+  return <BlogAdminTable blogs={blogs} />;
 };
 
 export default BlogAdmin;

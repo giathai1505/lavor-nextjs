@@ -21,16 +21,16 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import NoneFormSelectCustom from "@/components/Common/NoneFormSelectCustom";
 import { BiRefresh } from "react-icons/bi";
-import { Category, IBlog, Status } from "@/types/type";
+import { IProduct, ProductType, ProductTypeToText, Status } from "@/types/type";
 import { ToastContainer } from "react-toastify";
 import { redirect } from "next/navigation";
-import "moment/locale/vi";
-import { fromNow } from "@/lib/time";
-import { indexArray } from "@/utilities/commonUtilities";
-import Each from "@/lib/Each";
+import {
+  formatCurrencyWithDots,
+  indexArray,
+} from "@/utilities/commonUtilities";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
-import CategoryOfBlog from "@/pages/News/BlogComponents/CategoryOfBlog";
+import ApiLoading from "@/components/ApiLoading";
 
 const statusOptions = [
   {
@@ -43,39 +43,36 @@ const statusOptions = [
   },
 ];
 
-const statusAPIOoptions = [
-  {
-    key: Status.ACTIVE,
-    value: "Hoạt động",
-  },
-  {
-    key: Status.SUSPENDED,
-    value: "Ngưng hoạt động",
-  },
-];
-
 const categoryOptions = [
   {
-    key: Category.ABOUT,
-    value: "Về Lavor",
+    key: ProductType.CHAIR,
+    value: "Bọc ghế da",
   },
   {
-    key: Category.TIPS,
-    value: "Kiến thức & Mẹo",
+    key: ProductType.FLOOR,
+    value: "Thảm lót sàn",
   },
   {
-    key: Category.RECRUITMENT,
-    value: "Tuyển dụng",
+    key: ProductType.PILLOW,
+    value: "Gối cổ",
+  },
+  {
+    key: ProductType.STEERING_WHEEL,
+    value: "Bọc tay lái",
+  },
+  {
+    key: ProductType.OTHER,
+    value: "sản phẩm khác",
   },
 ];
 
-interface IBlogManagement {
-  blogs: IBlog[];
+interface IProductManagement {
+  products: IProduct[];
 }
 
 interface IFilterBlog {
   search: string;
-  category: Category | undefined;
+  type: ProductType | undefined;
   status: Status | undefined;
 }
 
@@ -87,26 +84,22 @@ const renderStatus = (status: Status) => {
   );
 };
 
-const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
+const ProductAdminTable: React.FC<IProductManagement> = ({ products }) => {
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState<IFilterBlog>({
     search: "",
-    category: undefined,
+    type: undefined,
     status: undefined,
   });
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
     useState(false);
-  const [showInfoDialog, setShowInfoDialog] = useState(false);
-  const [data, setData] = useState(blogs);
+
+  const [data, setData] = useState(products);
   const [itemHovered, setItemHovered] = useState<string | undefined>(undefined);
   const [activeField, setActiveField] = useState<number | undefined>(undefined);
-  const { edit, get, delete: deleteBlog } = useFetchApi();
-  const [activeChangeStatus, setActiveChangeStatus] = useState<{
-    id: number | undefined;
-    status: Status | undefined;
-  }>({ id: undefined, status: undefined });
+  const { get, delete: deleteProduct, loading } = useFetchApi();
 
-  const invokeGetAllBlogs = async () => {
+  const invokeGetAllProducts = async () => {
     let url = "";
     if (globalFilter.search !== "") {
       url += "&search=" + globalFilter.search;
@@ -114,15 +107,15 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
     if (globalFilter.status !== undefined) {
       url += "&status=" + globalFilter.status;
     }
-    if (globalFilter.category !== undefined) {
-      url += "&category=" + globalFilter.category;
+    if (globalFilter.type !== undefined) {
+      url += "&type=" + globalFilter.type;
     }
 
     try {
-      const res: any = await get(API_ROUTES.blogs.getAll(url));
+      const res: any = await get(API_ROUTES.product.getAll(url));
 
-      if (res && res.blogs) {
-        setData(res.blogs);
+      if (res && res.products) {
+        setData(res.products);
       } else {
         setData([]);
       }
@@ -132,10 +125,10 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
   };
 
   useEffect(() => {
-    invokeGetAllBlogs();
-  }, [globalFilter.category, globalFilter.search, globalFilter.status]);
+    invokeGetAllProducts();
+  }, [globalFilter.type, globalFilter.search, globalFilter.status]);
 
-  const columns = React.useMemo<ColumnDef<IBlog>[]>(
+  const columns = React.useMemo<ColumnDef<IProduct>[]>(
     () => [
       {
         id: "select",
@@ -162,11 +155,11 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
         ),
       },
       {
-        accessorFn: (row) => row.blog_title,
-        id: "blog_title",
+        accessorFn: (row) => row.product_name,
+        id: "product_name",
         cell: ({ row }) => (
           <div>
-            <span>{row.original.blog_title.toString()}</span>
+            <span>{row.original.product_name?.toString()}</span>
             <div
               className={`admin-row-action-wrapper gap-2 ${
                 itemHovered === row.id ? "show" : ""
@@ -174,8 +167,8 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
             >
               <Link
                 className="admin-row-action edit"
-                href={`/admin/blog-management/${row.original.blog_id.toString()}`}
-                onClick={() => handleEdit(row.original.blog_id)}
+                href={`/admin/product-management/${row.original.product_id?.toString()}`}
+                onClick={() => handleEdit(row.original.product_id)}
               >
                 Sửa
               </Link>
@@ -184,54 +177,25 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
                 className="admin-row-action delete"
                 onClick={() => {
                   setIsOpenDeleteConfirmDialog(true);
-                  setActiveField(row.original.blog_id);
+                  setActiveField(row.original.product_id);
                 }}
               >
                 Xóa
-              </button>
-              |
-              <button
-                className="admin-row-action active"
-                onClick={() => {
-                  setShowInfoDialog(true);
-                  setActiveChangeStatus({
-                    id: row.original.blog_id,
-                    status: row.original.blog_status,
-                  });
-                }}
-              >
-                {row.original.blog_status === Status.SUSPENDED ||
-                row.original.blog_status === Status.DELETED ? (
-                  <span> Hoạt động</span>
-                ) : (
-                  <span className="stop-active  whitespace-nowrap">
-                    Ngưng hoạt động
-                  </span>
-                )}
               </button>
             </div>
           </div>
         ),
         header: () => <span>Tiêu đề</span>,
       },
+
       {
-        accessorFn: (row) => row.blog_description,
-        id: "blog_description",
-        cell: ({ row }) => (
-          <div className="ellipsis-text-3-lines ">
-            {row.original.blog_description}
-          </div>
-        ),
-        header: () => <span>Mô tả</span>,
-      },
-      {
-        accessorFn: (row) => row.blog_image_url,
-        id: "blog_cover_image_url",
+        accessorFn: (row) => row.product_images,
+        id: "product_images",
         cell: ({ row }) => (
           <div className="w-20 h-20">
             <img
-              src={row.original.blog_image_url}
-              alt="Hình ảnh bài viết"
+              src={row.original.product_images[0]}
+              alt="Hình ảnh sản phẩm"
               className="w-20 h-20 rounded-full object-cover"
             />
           </div>
@@ -240,28 +204,71 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
       },
 
       {
-        accessorFn: (row) => row.blog_upload_date,
-        id: "blog_upload_date",
+        accessorFn: (row) => row.product_detail,
+        id: "product_detail",
         cell: ({ row }) => (
-          <p className="time">{fromNow(row.original.blog_upload_date)}</p>
+          <div className="ellipsis-text-3-lines ">
+            {Array.isArray(row.original.product_detail)
+              ? row.original.product_detail.map((item) => {
+                  return (
+                    <div className="mb-1">
+                      <span> {item.name}:</span>
+                      &emsp;
+                      <span> {item.value}</span>
+                    </div>
+                  );
+                })
+              : "Không có"}
+          </div>
         ),
-        header: () => <span className="time">Ngày đăng</span>,
+        header: () => <span>Thông số</span>,
+      },
+
+      {
+        accessorFn: (row) => row.product_price,
+        id: "product_price",
+        cell: ({ row }) => (
+          <p className="time">
+            {row.original.product_price !== 0
+              ? formatCurrencyWithDots(row.original.product_price) + " đ"
+              : "Không có giá"}
+          </p>
+        ),
+        header: () => <span className="time">Giá</span>,
+      },
+
+      {
+        accessorFn: (row) => row.variants,
+        id: "variants",
+        cell: ({ row }) => (
+          <div className="flex items-center gap-2">
+            {row.original.variants.map((item) => {
+              return (
+                <div
+                  style={{ backgroundColor: item.variant_color }}
+                  className="w-6 h-6 rounded-full"
+                ></div>
+              );
+            })}
+          </div>
+        ),
+        header: () => <span className="time">Màu sắc</span>,
       },
       {
-        accessorFn: (row) => row.blog_category,
+        accessorFn: (row) => row.product_type,
         id: "category",
         cell: ({ row }) => (
           <div style={{ whiteSpace: "nowrap" }}>
-            <CategoryOfBlog CategoryId={row.original.blog_category}/>
+            {ProductTypeToText[row.original.product_type]}
           </div>
         ),
         header: () => <span>Danh mục</span>,
       },
 
       {
-        accessorFn: (row) => row.blog_status,
+        accessorFn: (row) => row.product_status,
         id: "status",
-        cell: ({ row }) => renderStatus(row.original.blog_status),
+        cell: ({ row }) => renderStatus(row.original.product_status),
         header: () => <span>Trạng thái</span>,
       },
     ],
@@ -269,7 +276,7 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
   );
 
   const getRowId = (row: any, relativeIndex: any, parent: any) => {
-    return parent ? [parent.id, row.blog_id].join(".") : row.blog_id;
+    return parent ? [parent.id, row.product_id].join(".") : row.product_id;
   };
 
   const table = useReactTable({
@@ -288,85 +295,39 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
   });
 
   const handleEdit = (id: number) => {
-    redirect(`/admin/blog-management/${id.toString()}`);
+    redirect(`/admin/product-management/${id.toString()}`);
   };
 
   const handleDelete = async () => {
     setIsOpenDeleteConfirmDialog(false);
 
-    if (typeof activeField === "number") {
-      try {
-        await deleteBlog(API_ROUTES.blogs.deleteOne(activeField));
+    try {
+      if (typeof activeField === "number") {
+        await deleteProduct(API_ROUTES.product.deleteOne(activeField));
+        await invokeGetAllProducts();
         setActiveField(undefined);
-      } catch (error) {
-        console.log(error);
       }
-    }
-
-    window.location.reload();
-  };
-
-  const handleChangeStatus = async () => {
-    setShowInfoDialog(false);
-    if (
-      typeof activeChangeStatus.id === "number" &&
-      activeChangeStatus.status !== undefined
-    ) {
-      const targetStatus =
-        activeChangeStatus.status === Status.ACTIVE
-          ? Status.SUSPENDED
-          : Status.ACTIVE;
-
-      await edit(API_ROUTES.blogs.changeStatus(activeChangeStatus.id), {
-        blog_status: targetStatus,
-      });
-
-      setActiveChangeStatus({ id: undefined, status: undefined });
-      window.location.reload();
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleFilterBlog = (name: string, item: any) => {
+  const handleFilterProduct = (name: string, item: any) => {
     const newFilterObject = { ...globalFilter, [name]: item };
     setGlobalFilter(newFilterObject);
   };
 
   const handleDeleteMultipleBlog = async () => {
-    const blogIds = Object.keys(rowSelection).map((item) => Number(item));
-
-    try {
-      await deleteBlog(API_ROUTES.blogs.deleteMany, { blog_ids: blogIds });
-      await invokeGetAllBlogs();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChangeMultipleStatus = async (status: any) => {
-    try {
-      const blogIds = Object.keys(rowSelection).map((item) => Number(item));
-      await edit(API_ROUTES.blogs.changeManyStatus, {
-        blog_ids: blogIds,
-        blog_status: status,
-      });
-
-      await invokeGetAllBlogs();
-    } catch (error) {
-      console.log(error);
-    }
+    const productIds = Object.keys(rowSelection).map((item) => Number(item));
+    await deleteProduct(API_ROUTES.product.deleteMany, {
+      products_ids: productIds,
+    });
+    await invokeGetAllProducts();
   };
 
   return (
     <div className="admin-page-wrapper ">
-      <ConfirmDialog
-        onOk={handleChangeStatus}
-        title="Đổi trạng thái của bài viết"
-        open={showInfoDialog}
-        content="Bạn có chắc muốn đổi trạng thái của bài viết này không?"
-        onClose={() => setShowInfoDialog(false)}
-        type="information"
-      />
-
+      <ApiLoading loading={loading} />
       <ConfirmDialog
         onOk={handleDelete}
         title="Xóa bài viết"
@@ -377,27 +338,27 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
       />
       <div className="p-2">
         <div className="flex items-center justify-between mb-10">
-          <p className="admin-title">Danh sách bài viết</p>
-          <Link href="/admin/blog-management/add" className="add-new-button">
-            <AiOutlinePlus /> <span>Thêm mới</span>
+          <p className="admin-title">Danh sách sản phẩm</p>
+          <Link href="/admin/product-management/add" className="add-new-button">
+            <AiOutlinePlus /> <span>Thêm sản phẩm mới</span>
           </Link>
         </div>
         <div className="flex items-center gap-5">
           <input
             value={globalFilter.search}
-            onChange={(e) => handleFilterBlog("search", e.target.value)}
+            onChange={(e) => handleFilterProduct("search", e.target.value)}
             className="p-2 font-lg shadow border border-block w-[500px] text-[13px]"
             placeholder="Tìm kiếm bài viết..."
           />
           <NoneFormSelectCustom
             options={statusOptions}
-            onChange={(item) => handleFilterBlog("status", item.key)}
+            onChange={(item) => handleFilterProduct("status", item.key)}
             className="admin"
             placeholder="Lọc theo trạng thái"
           />
           <NoneFormSelectCustom
             options={categoryOptions}
-            onChange={(item) => handleFilterBlog("category", item.key)}
+            onChange={(item) => handleFilterProduct("type", item.key)}
             className="admin"
             placeholder="Lọc theo danh mục"
           />
@@ -408,12 +369,12 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
                   setGlobalFilter({
                     search: "",
                     status: undefined,
-                    category: undefined,
+                    type: undefined,
                   });
                 }}
                 className="add-new-button"
               >
-                <BiRefresh /> <span>Load tất cả bài viết</span>
+                <BiRefresh /> <span>Load lại tất cả sản phẩm</span>
               </button>
             </div>
           </div>
@@ -429,12 +390,7 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
               Đã chọn: {Object.keys(rowSelection).length}
             </span>
           </div>
-          <NoneFormSelectCustom
-            options={statusAPIOoptions}
-            onChange={(item) => handleChangeMultipleStatus(item)}
-            className="admin purple-version"
-            placeholder="Thay đổi trạng thái"
-          />
+
           <div
             className="button-delete-row-selection "
             onClick={handleDeleteMultipleBlog}
@@ -571,14 +527,11 @@ const BlogManagement: React.FC<IBlogManagement> = ({ blogs }) => {
             }}
             className="pagination-select "
           >
-            <Each
-              of={indexArray(5, 10)}
-              render={(item, _) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              )}
-            />
+            {indexArray(5, 10).map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                {pageSize}
+              </option>
+            ))}
           </select>
         </div>
         <br />
@@ -613,4 +566,4 @@ function IndeterminateCheckbox({
   );
 }
 
-export default BlogManagement;
+export default ProductAdminTable;

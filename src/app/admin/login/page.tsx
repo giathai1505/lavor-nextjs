@@ -81,11 +81,6 @@ const Login = () => {
                   <input
                     {...field}
                     type="text"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
                     placeholder="Nhập email"
                     className="auth-input"
                   />
@@ -112,11 +107,6 @@ const Login = () => {
                   <input
                     {...field}
                     type="password"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
                     placeholder="Nhập mật khẩu"
                     className="auth-input"
                   />
@@ -129,16 +119,18 @@ const Login = () => {
           </div>
 
           <button className={`auth-form-button ${isLoading && "disabled"}`}>
-            {isLoading && (
-              <CircleLoader
-                color={"#ffffff"}
-                loading={isLoading}
-                size={20}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            )}
-            Đăng nhập
+            <span className="flex items-center gap-5">
+              {isLoading && (
+                <CircleLoader
+                  color={"#ffffff"}
+                  loading={isLoading}
+                  size={20}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              )}
+              Đăng nhập
+            </span>
           </button>
         </form>
       </div>

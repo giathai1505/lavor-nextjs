@@ -10,6 +10,7 @@ import ConfirmDialog from "@/components/Common/Dialog";
 import { BsTrash } from "react-icons/bs";
 import API_ROUTES from "@/constants/apiRoutes";
 import useFetchApi from "@/hooks/useFetchApi";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IBlogManagement {
   cars: ICarTable[];
@@ -17,7 +18,7 @@ interface IBlogManagement {
 
 const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
   const [data, setData] = useState(cars);
-  const { delete: deleteCar, get } = useFetchApi();
+  const { delete: deleteCar, get, loading } = useFetchApi();
   const [isShowDeleteConfirmDialog, setIsShowDeleteConfirmDialog] =
     useState<boolean>(false);
 
@@ -29,15 +30,14 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
 
   const invokeGetAllCar = async () => {
     try {
-      const res : any = await get(API_ROUTES.car.getCarTable)
-      if(res && res.cars) {
+      const res: any = await get(API_ROUTES.car.getCarTable);
+      if (res && res.cars) {
         setData(res.cars);
-      }
-      else {
+      } else {
         setData([]);
       }
     } catch (error) {
-        setData([]);
+      setData([]);
     }
   };
 
@@ -119,6 +119,7 @@ const CarManagementTable: React.FC<IBlogManagement> = ({ cars }) => {
 
   return (
     <>
+      <ApiLoading loading={loading} />
       <ConfirmDialog
         onOk={handleDelelteCar}
         title="Xóa bài viết"

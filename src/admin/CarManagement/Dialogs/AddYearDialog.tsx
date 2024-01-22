@@ -5,6 +5,7 @@ import FormError from "@/components/Common/FormError";
 import { AiOutlineClose } from "react-icons/ai";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IDialog {
   open: boolean;
@@ -18,7 +19,7 @@ interface IAddYearDialog {
 
 const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { create } = useFetchApi();
+  const { create, loading } = useFetchApi();
   const form = useForm<IAddYearDialog>({
     mode: "all",
   });
@@ -59,6 +60,7 @@ const AddYearDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
       onClose={handleOnClose}
       className="fixed z-50 inset-0 overflow-y-auto"
     >
+      <ApiLoading loading={loading} />
       <Dialog.Overlay className="headless-ui-dialog-overlay" />
       <Dialog.Panel className="headless-ui-dialog-content-wrapper">
         <form action="" onSubmit={handleSubmit(handleOnSuccess)}>

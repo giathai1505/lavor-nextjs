@@ -13,8 +13,9 @@ import dynamic from "next/dynamic.js";
 import { FaArrowLeft } from "react-icons/fa";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import ApiLoading from "@/components/ApiLoading";
 
-const NoSSREditor = dynamic(() => import("../Editor/index.jsx"), {
+const NoSSREditor = dynamic(() => import("../../design/Editor/index.jsx"), {
   ssr: false,
 });
 
@@ -33,7 +34,7 @@ interface IAddNewBlog {
   blogID?: string;
 }
 
-const AddNewBlog: React.FC<IAddNewBlog> = ({
+const BlogAdminForm: React.FC<IAddNewBlog> = ({
   defaultValue,
   isEdit,
   blogID,
@@ -48,7 +49,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
 
   const router = useRouter();
   const [image, setImage] = useState<any>("");
-  const { create, edit } = useFetchApi();
+  const { create, edit, loading } = useFetchApi();
 
   const form = useForm<IFormValue>({
     defaultValues: defaultValue,
@@ -132,6 +133,7 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <ApiLoading loading={loading} />
       <div>
         <div className="flex justify-between items-center bg-white mb-5 p-5">
           <p className="admin-title">
@@ -174,11 +176,6 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
                   <input
                     {...field}
                     type="text"
-                    onBlur={() => {
-                      if (!field.value) {
-                        field.onChange("");
-                      }
-                    }}
                     placeholder="Nhập tiêu đề bài viết"
                     className="admin-input"
                     id="text"
@@ -345,4 +342,4 @@ const AddNewBlog: React.FC<IAddNewBlog> = ({
   );
 };
 
-export default AddNewBlog;
+export default BlogAdminForm;

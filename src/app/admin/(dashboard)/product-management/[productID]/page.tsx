@@ -1,4 +1,4 @@
-import ProductForm from "@/admin/ProductManagement/AddNewProduct";
+import ProductAdminForm from "@/admin/ProductManagement/ProductAdminForm";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
 import { PStatus, ProductType } from "@/types/type";
 import { Metadata } from "next";
@@ -67,7 +67,7 @@ const page: React.FC<IPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <ProductForm
+      <ProductAdminForm
         isEdit={true}
         productID={params.productID}
         defaultValue={defaultValue ? defaultValue : defaultProductValue}

@@ -5,6 +5,7 @@ import FormError from "@/components/Common/FormError";
 import { AiOutlineClose } from "react-icons/ai";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IDialog {
   open: boolean;
@@ -18,7 +19,7 @@ interface IAddBrandDialog {
 
 const AddBrandDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
   let [isOpen, setIsOpen] = useState(false);
-  const { create } = useFetchApi();
+  const { create, loading } = useFetchApi();
   const form = useForm<IAddBrandDialog>({
     mode: "all",
   });
@@ -65,14 +66,15 @@ const AddBrandDialog: React.FC<IDialog> = ({ open, onClose, onSuccess }) => {
       onClose={handleOnClose}
       className="fixed z-50 inset-0 overflow-y-auto"
     >
+      <ApiLoading loading={loading} />
       <Dialog.Overlay className="headless-ui-dialog-overlay" />
       <Dialog.Panel className="headless-ui-dialog-content-wrapper">
-        <form action="" onSubmit={handleSubmit(handleOnSuccess)}>
+        <form onSubmit={handleSubmit(handleOnSuccess)}>
           <div className="headless-ui-dialog-header-wrapper">
             <p className="dialog-title">Thêm hãng xe</p>
             <AiOutlineClose className="close-icon" onClick={handleOnClose} />
           </div>
-          <input type="" hidden autoFocus={true} />
+          <input hidden autoFocus={true} />
           <div className="headless-ui-dialog-body-wrapper ">
             <div className="form-control">
               <div className="form-control-title">

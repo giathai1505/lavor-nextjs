@@ -68,4 +68,5 @@ export const BLOG_CATEGORY_COLOR = {
 
 export const COMMON_COLOR = {
   star: "#ffce3d",
+  primary: "#f47a20",
 };

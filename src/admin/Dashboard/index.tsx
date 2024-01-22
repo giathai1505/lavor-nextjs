@@ -5,7 +5,6 @@ import ProductIcon from "@/assets/icons/adminDashboard/ProductIcon";
 import React from "react";
 
 const AdminDashboard = () => {
-
   return (
     <div>
       <div className="grid grid-cols-4 gap-10">

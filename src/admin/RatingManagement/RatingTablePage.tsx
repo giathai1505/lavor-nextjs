@@ -8,6 +8,8 @@ import { Table } from "antd";
 import { indexArray } from "@/utilities/commonUtilities";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
+import { ColumnsType } from "antd/es/table";
+import ApiLoading from "@/components/ApiLoading";
 
 interface IRatingTable {
   ratings: TRating[];
@@ -37,7 +39,7 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
     useState<boolean>(false);
   const [data, setData] = useState<TRating[]>(ratings);
   const [activeId, setActiveId] = useState<number>(NaN);
-  const { edit, get, delete: deleteReview } = useFetchApi();
+  const { edit, get, delete: deleteReview, loading } = useFetchApi();
 
   const invokeGetAllRatings = async () => {
     try {
@@ -66,7 +68,7 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
     await invokeApproveReview(id);
   };
 
-  const columns: any = [
+  const columns: ColumnsType<TRating> = [
     {
       title: "Tên",
       dataIndex: "review_name",
@@ -167,6 +169,7 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
 
   return (
     <>
+      <ApiLoading loading={loading} />
       <div className="admin-page-wrapper ">
         <ConfirmDialog
           onOk={handleDelete}

@@ -3,7 +3,7 @@ import titleBackgroundImage from "@/assets/images/headerPart/6.webp";
 import { IBlog } from "@/types/type";
 import BlogSidebar from "./BlogSidebar";
 import RelatedNews from "./RelatedNews";
-import DetailNewContent from "./BlogComponents/DetailNewContent";
+import DetailNewContent from "./BlogComponents/DetailBlog";
 
 type TPageProps = {
   blog: IBlog;

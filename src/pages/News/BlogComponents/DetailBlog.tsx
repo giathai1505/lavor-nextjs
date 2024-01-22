@@ -65,7 +65,7 @@ const TableOfContent = ({ nestedHeadings, onChange }: TTableOfContentProps) => {
   );
 };
 
-const DetailNewContent = ({ blog }: { blog: IBlog }) => {
+const DetailBlog = ({ blog }: { blog: IBlog }) => {
   const [nestedHeadings, setNestedHeadings] = useState<any>([]);
   const blogContentRef = useRef<null | HTMLDivElement>(null);
 
@@ -140,4 +140,4 @@ const DetailNewContent = ({ blog }: { blog: IBlog }) => {
   );
 };
 
-export default DetailNewContent;
+export default DetailBlog;

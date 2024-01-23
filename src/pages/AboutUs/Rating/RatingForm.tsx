@@ -11,6 +11,32 @@ import { BsFillStarFill } from "react-icons/bs";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import CircleLoader from "react-spinners/CircleLoader";
 
+type TRatingFormStarProps = {
+  star: number;
+  setStar: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const RatingFormStar = ({ setStar, star }: TRatingFormStarProps) => {
+  const [hoverIndex, setHoverIndex] = useState<number>(-1);
+  return (
+    <div className="flex gap-1 rating-stars">
+      {indexArray(5).map((item) => {
+        return (
+          <BsFillStarFill
+            className={`rating-form-star ${
+              (item <= hoverIndex || item <= star) && "active-star"
+            }`}
+            onMouseOver={() => setHoverIndex(item)}
+            onMouseLeave={() => setHoverIndex(-1)}
+            onClick={() => setStar(item)}
+            key={item}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
 export type TRatingForm = {
   review_phone: string;
   review_name: string;
@@ -18,11 +44,9 @@ export type TRatingForm = {
 };
 
 const RatingForm: React.FC = () => {
-  const [hoverIndex, setHoverIndex] = useState<number>(-1);
   const [ratingStar, setRatingStar] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contextHolder, showNotification } = useToast();
-
   const { control, handleSubmit, watch } = useForm<TRatingForm>({
     defaultValues: {
       review_content: "",
@@ -103,30 +127,18 @@ const RatingForm: React.FC = () => {
                 <BiMessageSquare className="text-white" />
                 <textarea
                   placeholder="Nội dung đánh giá (bắt buộc)"
+                  className="rating-textarea"
                   {...field}
                 />
               </div>
             )}
           />
         </div>
+        
         <div className="flex justify-center items-center flex-col gap-10 my-10">
-          <div className="flex gap-1 rating-stars">
-            {indexArray(5).map((item) => {
-              return (
-                <BsFillStarFill
-                  className={`w-10 h-10 cursor-pointer relative ${
-                    item <= hoverIndex || item <= ratingStar
-                      ? "text-[#FED127]"
-                      : ""
-                  }`}
-                  onMouseOver={() => setHoverIndex(item)}
-                  onMouseLeave={() => setHoverIndex(-1)}
-                  onClick={() => setRatingStar(item)}
-                  key={item}
-                />
-              );
-            })}
-          </div>
+
+          <RatingFormStar star={ratingStar} setStar={setRatingStar} />
+
           <div className="flex flex-col justify-center items-center gap-5">
             <button
               className={`primary-button flex justify-center gap-5 ${

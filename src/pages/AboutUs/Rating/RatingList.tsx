@@ -47,9 +47,7 @@ const RatingList: React.FC<TRatingListProps> = ({ ratings }) => {
 
   const listRatingShow = isShowMore
     ? ratings
-    : ratings.length > MIN_REVIEW_SHOW
-    ? [...ratings].splice(0, MIN_REVIEW_SHOW)
-    : ratings;
+    : [...ratings].splice(0, Math.min(ratings.length, MIN_REVIEW_SHOW))
 
   return (
     <div>

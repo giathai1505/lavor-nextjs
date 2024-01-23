@@ -3,36 +3,16 @@ import React, { useEffect, useState } from "react";
 import ConfirmDialog from "@/components/Common/Dialog";
 import { BsTrash } from "react-icons/bs";
 import { TRating } from "@/types/type";
-import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { Table } from "antd";
-import { indexArray } from "@/utilities/commonUtilities";
 import useFetchApi from "@/hooks/useFetchApi";
 import API_ROUTES from "@/constants/apiRoutes";
 import { ColumnsType } from "antd/es/table";
 import ApiLoading from "@/components/ApiLoading";
+import { RenderStar } from "@/pages/AboutUs/Rating/RatingItem";
 
 interface IRatingTable {
   ratings: TRating[];
 }
-
-const renderStar = (star: number) => {
-  return (
-    <div className="flex item-center gap-1">
-      {indexArray(5).map((item) => {
-        return (
-          <div className="flex items-center" key={item}>
-            {item <= star ? (
-              <IoIosStar className="w-3 h-3 cursor-pointer relative rating-color" />
-            ) : (
-              <IoIosStarOutline className="w-3 h-3 cursor-pointer relative rating-color" />
-            )}
-          </div>
-        );
-      })}
-      <span>{star}</span>
-    </div>
-  );
-};
 
 const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
   const [isOpenDeleteConfirmDialog, setIsOpenDeleteConfirmDialog] =
@@ -105,7 +85,9 @@ const RatingTablePage: React.FC<IRatingTable> = ({ ratings }) => {
       title: "Số sao",
       key: "star",
       render: (_: any, record: any) => {
-        return <div>{renderStar(Number(record.review_rating))}</div>;
+        return <div>
+          <RenderStar star={record.review_rating}/>
+       </div>;
       },
     },
     {

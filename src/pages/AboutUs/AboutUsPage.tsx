@@ -25,9 +25,11 @@ const AboutUs: React.FC<TPageProps> = ({ ratings }) => {
       <AboutUsStaticContentPart1 />
       <AboutUsStaticContentPart2 />
       <AboutUsStaticContentPart3 />
+
       <div className="p-5 md:p-10 xl:p-16 bg-[#000000e8] ">
         <LazyRatingPart ratings={ratings} />
       </div>
+      
     </div>
   );
 };

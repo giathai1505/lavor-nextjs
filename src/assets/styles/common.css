@@ -727,3 +727,21 @@ textarea {
     left: 0;
   }
 }
+
+
+.rating-form-star {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+}
+
+.rating-form-star.active-star {
+  color: #ffce3d;
+}
+
+textarea.rating-textarea {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}

@@ -6,43 +6,13 @@ import ProvinceList from "./ProvinceList";
 import PartHeader from "@/components/Common/PartHeader";
 import titleBackgroundImage from "@/assets/images/headerPart/5.webp";
 import { ICity, IRegion } from "@/types/type";
-
-type TListAgency = {
-  agencies: IRegion[];
-  activeRegion: IRegion | undefined;
-  setActiveRegion: (region: IRegion | undefined) => void;
-};
-
-const ListAgency = ({
-  agencies,
-  activeRegion,
-  setActiveRegion,
-}: TListAgency) => {
-  return (
-    <div className="col-span-1 border-r-0 border-solid border-[#80808038] pr-5 h-fit  md:border-r md:col-span-1">
-      {Array.isArray(agencies) &&
-        agencies.map((item) => {
-          return (
-            <p
-              className={`text-white px-5 py-2  mb-2 cursor-pointer rounded ${
-                item.region_id === activeRegion?.region_id ? "bg-primary" : ""
-              }`}
-              onClick={() => setActiveRegion(item)}
-              key={item.region_id}
-            >
-              {item.region_name}
-            </p>
-          );
-        })}
-    </div>
-  );
-};
+import ListRegion from "./RegionList";
 
 interface IAgencyProps {
   agencies: IRegion[];
 }
 
-const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
+const AgencyPage: React.FC<IAgencyProps> = ({ agencies }) => {
   const [activeRegion, setActiveRegion] = useState<IRegion | undefined>(
     undefined
   );
@@ -71,7 +41,7 @@ const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
       />
       <div className="wrapper grid grid-cols-1 gap-5 pt-10 p-5 md:p-10 xl:p-16 xl:grid-cols-2 xl:gap-20">
         <div className="col-span-1 grid grid-cols-1 gap-8 md:grid-cols-3">
-          <ListAgency
+          <ListRegion
             activeRegion={activeRegion}
             agencies={agencies}
             setActiveRegion={setActiveRegion}
@@ -93,4 +63,4 @@ const Agency: React.FC<IAgencyProps> = ({ agencies }) => {
   );
 };
 
-export default Agency;
+export default AgencyPage;

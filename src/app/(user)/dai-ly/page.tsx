@@ -1,7 +1,7 @@
 import React from "react";
-import Agency from "@/pages/Agency";
 import { Metadata } from "next";
 import { SERVER_API_ENPOINT } from "@/constants/server.env";
+import AgencyPage from "@/pages/Agency/AgencyPage";
 
 export const metadata: Metadata = {
   title: "Đại lý toàn quốc",
@@ -33,7 +33,7 @@ const index = async () => {
   }
   return (
     <div className="bg-[#000000e8]">
-      <Agency agencies={agencies} />
+      <AgencyPage agencies={agencies} />
     </div>
   );
 };

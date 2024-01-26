@@ -100,9 +100,9 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
     try {
       const res: any = await axios.get(API_ROUTES.car.getCarsByYear(year));
 
-      if (res && res.cars) {
-        setBrands(res.cars);
-        const brands = initListBrands(res.cars);
+      if (res && res.data && res.data.cars) {
+        setBrands(res.data.cars);
+        const brands = initListBrands(res.data.cars);
         setListBrands(brands);
         return res.cars;
       } else {
@@ -151,6 +151,8 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
   useEffect(() => {
     setCarDetail(data.car);
   }, [data]);
+
+
 
   const handleChangeCarDetail = async (
     value: any,

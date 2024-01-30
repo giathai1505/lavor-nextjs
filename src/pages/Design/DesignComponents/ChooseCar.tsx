@@ -195,7 +195,8 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
         );
         break;
       case "version":
-        const image = await invokeGetCar(carDetail?.year?.id, carDetail?.version?.id, value);
+
+        const image = await invokeGetCar(carDetail?.year?.id, value?.version?.id, value);
 
         newState = { ...carDetail, ...value, image: image};
 

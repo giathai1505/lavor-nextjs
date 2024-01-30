@@ -77,22 +77,21 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
   const invokeGetCar = async (year: number, version: number, value: any) => {
     setIsLoading(true);
 
+    let image = ""
+
     try {
       const res: any = await axios.get(API_ROUTES.car.getCar(year, version));
 
-      if (res && res.image_url) {
-        const newCarDetail: TCar = {
-          ...carDetail,
-          ...value,
-          image: res?.image_url,
-        };
-        setCarDetail(newCarDetail);
+      if (res && res.data && res.data.image_url) {
+        image =  res.data.image_url
         setIsLoading(false);
       } else {
         setIsLoading(false);
       }
+      return image
     } catch (error) {
       setIsLoading(false);
+      return image
     }
   };
 
@@ -161,7 +160,7 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
     let newState;
     switch (type) {
       case "year":
-        invokeGetCarByYear(value.year.id);
+        await invokeGetCarByYear(value.year.id);
 
         newState = {
           ...value,
@@ -196,9 +195,9 @@ const ChooseCar: React.FC<IChooseCar> = ({ years }) => {
         );
         break;
       case "version":
-        newState = { ...carDetail, ...value, image: "" };
+        const image = await invokeGetCar(carDetail?.year?.id, carDetail?.version?.id, value);
 
-        await invokeGetCar(newState?.year?.id, newState?.version?.id, value);
+        newState = { ...carDetail, ...value, image: image};
 
         break;
       default:
